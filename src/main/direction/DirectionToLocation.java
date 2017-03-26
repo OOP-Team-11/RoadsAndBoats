@@ -1,5 +1,6 @@
 package direction;
 
+import tile.InvalidLocationException;
 import tile.Location;
 
 public class DirectionToLocation {
@@ -8,7 +9,7 @@ public class DirectionToLocation {
         return angle.getDegrees() > lowerDegrees && angle.getDegrees() < higherDegrees;
     }
 
-    public static Location getLocation(Location startingLocation, TileEdgeDirection direction) {
+    public static Location getLocation(Location startingLocation, TileEdgeDirection direction) throws InvalidLocationException {
 
         if (angleIsInRange(direction.getAngle(), 0, 60)) {
             return new Location(startingLocation.getX() + 1, startingLocation.getY(), startingLocation.getZ() - 1);

@@ -6,7 +6,8 @@ public class Location {
     private int y;
     private int z;
 
-    public Location(int x, int y, int z) {
+    public Location(int x, int y, int z) throws InvalidLocationException {
+        if (x + y + z != 0) throw new InvalidLocationException("Coordinates must sum to 0.");
         this.x = x;
         this.y = y;
         this.z = z;

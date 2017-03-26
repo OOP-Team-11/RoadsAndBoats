@@ -1,7 +1,9 @@
 package direction;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import tile.InvalidLocationException;
 import tile.Location;
 
 import static junit.framework.TestCase.assertTrue;
@@ -18,7 +20,7 @@ public class DirectionToLocationTest {
 
 
     @Before
-    public void setUp() {
+    public void setUp() throws InvalidLocationException {
         this.startingLocation = new Location(0,0, 0);
         this.northEast = TileEdgeDirection.getNorthEast();
         this.north = TileEdgeDirection.getNorth();
@@ -30,38 +32,62 @@ public class DirectionToLocationTest {
 
     @Test
     public void northEastTest() {
-        Location destination = DirectionToLocation.getLocation(this.startingLocation, this.northEast);
-        assertTrue(destination.equals(new Location(1, 0, -1)));
+        try {
+            Location destination = DirectionToLocation.getLocation(this.startingLocation, this.northEast);
+            assertTrue(destination.equals(new Location(1, 0, -1)));
+        } catch (InvalidLocationException e) {
+            Assert.fail();
+        }
     }
 
     @Test
     public void northTest() {
-        Location destination = DirectionToLocation.getLocation(this.startingLocation, this.north);
-        assertTrue(destination.equals(new Location(0, 1, -1)));
+        try {
+            Location destination = DirectionToLocation.getLocation(this.startingLocation, this.north);
+            assertTrue(destination.equals(new Location(0, 1, -1)));
+        } catch (InvalidLocationException e) {
+            Assert.fail();
+        }
     }
 
     @Test
     public void northWest() {
-        Location destination = DirectionToLocation.getLocation(this.startingLocation, this.northWest);
-        assertTrue(destination.equals(new Location(-1, 1, 0)));
+        try {
+            Location destination = DirectionToLocation.getLocation(this.startingLocation, this.northWest);
+            assertTrue(destination.equals(new Location(-1, 1, 0)));
+        } catch (InvalidLocationException e) {
+            Assert.fail();
+        }
     }
 
     @Test
     public void southWest() {
-        Location destination = DirectionToLocation.getLocation(this.startingLocation, this.southWest);
-        assertTrue(destination.equals(new Location(-1, 0, 1)));
+        try {
+            Location destination = DirectionToLocation.getLocation(this.startingLocation, this.southWest);
+            assertTrue(destination.equals(new Location(-1, 0, 1)));
+        } catch (InvalidLocationException e) {
+            Assert.fail();
+        }
     }
 
     @Test
     public void south() {
-        Location destination = DirectionToLocation.getLocation(this.startingLocation, this.south);
-        assertTrue(destination.equals(new Location(0, -1, 1)));
+        try {
+            Location destination = DirectionToLocation.getLocation(this.startingLocation, this.south);
+            assertTrue(destination.equals(new Location(0, -1, 1)));
+        } catch (InvalidLocationException e) {
+            Assert.fail();
+        }
     }
 
     @Test
     public void southEast() {
-        Location destination = DirectionToLocation.getLocation(this.startingLocation, this.southEast);
-        assertTrue(destination.equals(new Location(1, -1, 0)));
+        try {
+            Location destination = DirectionToLocation.getLocation(this.startingLocation, this.southEast);
+            assertTrue(destination.equals(new Location(1, -1, 0)));
+        } catch (InvalidLocationException e) {
+            Assert.fail();
+        }
     }
 
 }
