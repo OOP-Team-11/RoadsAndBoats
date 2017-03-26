@@ -6,12 +6,28 @@ import static org.junit.Assert.assertTrue;
 public class TileEdgeTest {
     //    Test construction of a TileEdge that may and may not connect a river
     @Test
-    public void constructorTest() {
-        TileEdge tileEdge1 = new TileEdge(true);
-        assertTrue(tileEdge1.canConnectRiver());
-        // Set it to false and check for opposite response
-        tileEdge1.setCanConnectRiver(false);
-        assertFalse(tileEdge1.canConnectRiver());
+    public void constructorTestCanConnectRiver() {
+        TileEdge tileEdge = new TileEdge(true);
+        assertTrue(tileEdge.canConnectRiver());
+    }
 
+    @Test
+    public void constructorTestCannotConnectRiver() {
+        TileEdge tileEdge = new TileEdge(false);
+        assertFalse(tileEdge.canConnectRiver());
+    }
+
+    @Test
+    public void setCantConnectRiver() {
+        TileEdge tileEdge = new TileEdge(true);
+        tileEdge.setCanConnectRiver(false);
+        assertFalse(tileEdge.canConnectRiver());
+    }
+
+    @Test
+    public void setCanConnectRiver() {
+        TileEdge tileEdge = new TileEdge(false);
+        tileEdge.setCanConnectRiver(true);
+        assertTrue(tileEdge.canConnectRiver());
     }
 }
