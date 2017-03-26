@@ -1,4 +1,6 @@
 import org.junit.Test;
+
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TileCompartmentTest {
@@ -7,7 +9,7 @@ public class TileCompartmentTest {
     @Test
     public void constructorTest() {
         TileCompartment tileComp1 = new TileCompartment(false);
-        assertTrue(!tileComp1.hasWater());
+        assertFalse(tileComp1.hasWater());
         TileCompartment tileComp2 = new TileCompartment(true);
         assertTrue(tileComp2.hasWater());
 
