@@ -1,3 +1,5 @@
+package Model;
+
 public class TileEdge {
     private boolean canConnectRiver;
     public TileEdge(boolean canConnectRiver) {

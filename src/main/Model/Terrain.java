@@ -1,3 +1,5 @@
+package Model;
+
 public enum Terrain
 {
     Sea(true),
