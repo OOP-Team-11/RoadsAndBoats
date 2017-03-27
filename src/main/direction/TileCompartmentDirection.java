@@ -60,4 +60,15 @@ public class TileCompartmentDirection {
         return new TileCompartmentDirection(CompassAngles.SOUTH_SOUTHEAST.getAngle());
     }
 
+    @Override
+    public int hashCode() {
+        return this.angle.getDegrees();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        return (object instanceof TileCompartmentDirection) &&
+                ((TileCompartmentDirection) object).getAngle() == this.angle;
+    }
+
 }
