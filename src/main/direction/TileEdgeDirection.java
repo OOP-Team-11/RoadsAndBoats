@@ -34,4 +34,15 @@ public class TileEdgeDirection {
     public static TileEdgeDirection getSouthEast() {
         return new TileEdgeDirection(CompassAngles.SOUTHEAST.getAngle());
     }
+
+    @Override
+    public int hashCode() {
+        return this.angle.getDegrees();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        return (object instanceof TileEdgeDirection) &&
+                ((TileEdgeDirection) object).getAngle() == this.angle;
+    }
 }
