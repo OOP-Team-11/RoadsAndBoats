@@ -1,11 +1,6 @@
-<<<<<<< HEAD:src/test/tile/TerrainTest.java
-package tile;
+package model.tile;
 
-=======
-import model.Terrain;
->>>>>>> acba2a77101109b9b698070ca79838000f53ddfe:src/test/TerrainTest.java
 import org.junit.Test;
-import tile.Terrain;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
