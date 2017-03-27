@@ -3,11 +3,14 @@ package controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import direction.Angle;
+import direction.AngleValueOutOfRangeException;
 import direction.TileEdgeDirection;
 
 import model.Map;
 import model.tile.InvalidLocationException;
 import model.tile.Location;
+import model.tile.Terrain;
 import model.tile.Tile;
 
 import util.Observer.CursorObserver.CursorObserver;
@@ -42,31 +45,98 @@ class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject
 
         registerCursorObserver(mapMakerView);
         registerTileSelectObserver(tileSelectorView);
-
-        protoTile = new Tile();
+        protoTile = new Tile(Terrain.PASTURE);                  //Initialized to "pasture" by default
         protoTileLocation = new Location(0,0,0);    //Initialized to center spot initially.
         riverDirections = new ArrayList<>();
 
     }
 
+    //TODO: This method
+    public boolean isValidPlacement(){
+        return false;
+    }
+
+    //TODO: This method
+    public boolean tryPlaceTile(){
+        return false;
+    }
+
+    //TODO: This method
+    public void clearTile(){
+
+    }
+
+    //TODO: This method
+    public void moveCursor(TileEdgeDirection dir){
+        //... move the cursor
+        observerUpdateFlags.replace(cursorObservers,true);  //Mark the cursorObservers for notification
+        notifyObservers();
+    }
+
+    public Location getCursorLocation(){
+        return protoTileLocation;
+    }
+
+    //TODO: Figure out what it means to rotate a tile. Probably rotate the ArrayList of TileEdgeDirections.
+    public void rotateTileClockwise() throws AngleValueOutOfRangeException {
+        protoTile.rotate(new Angle(60));
+    }
+
+    //TODO: Figure out what it means to rotate a tile. Probably rotate the ArrayList of TileEdgeDirections.
+    public void rotateTileCounterClockwise() throws AngleValueOutOfRangeException {
+        protoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
+    }
+
+    public void setSeaTerrain(){
+        protoTile.setTerrain(Terrain.SEA);
+    }
+    public void setPastureTerrain(){
+        protoTile.setTerrain(Terrain.PASTURE);
+    }
+    public void setWoodsTerrain(){
+        protoTile.setTerrain(Terrain.WOODS);
+    }
+    public void setRockyTerrain(){
+        protoTile.setTerrain(Terrain.ROCK);
+    }
+    public void setMountainTerrain(){
+        protoTile.setTerrain(Terrain.MOUNTAIN);
+    }
+    public void setDesertTerrain(){
+        protoTile.setTerrain(Terrain.DESERT);
+    }
+
+
+
+
+
+
+
+
+
+
+     /* Observer stuff below  */
+
      @Override
      public void notifyObservers() {
         /* Notifies both sets of Observers depending on whether or not they're flagged for updating*/
-        if(observerUpdateFlags.get(cursorObservers)){
-            notifyCursorObservers();
-        }
+         if(observerUpdateFlags.get(cursorObservers)){
+             notifyCursorObservers();
+         }
 
-        if(observerUpdateFlags.get(tileSelectObservers)){
-            notifyTileSelectObservers();
-        }
+         if(observerUpdateFlags.get(tileSelectObservers)){
+             notifyTileSelectObservers();
+         }
      }
 
+    //TODO: Figure out what will happen to each Observer
      public void notifyCursorObservers(){
         for(int i = 0; i < cursorObservers.size(); i++){
             //Notify cursorObservers.get(i) of changes
         }
      }
 
+    //TODO: Figure out what will happen to each Observer
      public void notifyTileSelectObservers(){
          for(int i = 0; i < tileSelectObservers.size(); i++){
              //Notify tileSelectObservers.get(i) of changes

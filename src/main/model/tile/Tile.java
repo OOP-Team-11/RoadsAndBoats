@@ -63,5 +63,13 @@ public class Tile {
         return terrain;
     }
 
+    public void setTerrain(Terrain t){
+        this.terrain = t;
+    }
+
+    //TODO: Make the tile rotate by the given number of degrees...somehow
+    public void rotate(Angle degrees){
+        //should probaly check that it's a multiple of 60. And do degrees %= 360
+    }
 
 }
