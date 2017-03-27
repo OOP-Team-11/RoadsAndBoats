@@ -1,13 +1,13 @@
-package model;
+package model.tile;
 
 public enum Terrain
 {
-    Sea(true),
-    Pasture(false),
-    Woods(false),
-    Rock(false),
-    Desert(false),
-    Mountain(false);
+    SEA(true),
+    PASTURE(false),
+    WOODS(false),
+    ROCK(false),
+    DESERT(false),
+    MOUNTAIN(false);
 
     private final boolean canConnectRiver;
 

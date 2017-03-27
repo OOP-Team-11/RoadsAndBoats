@@ -9,9 +9,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
-/**
- * Created by Konrad on 3/26/2017.
- */
 public class MapMakerController {
 
     private Stage primaryStage;
