@@ -1,15 +1,16 @@
 package controller;
 
 import model.Map;
+import model.tile.Location;
+import model.tile.Tile;
 import view.MapMakerView;
 import view.TileSelectorView;
 
-/**
- * Created by Konrad on 3/26/2017.
- */
-public class ControlHandler {
+ class ControlHandler implements CursorObserverSubject,TileSelectObserverSubject{
 
     private Map gameMap;
+    private Tile protoTile;
+    private Location protoTileLocation;
 
     // mapMakerView is given as an observer that the map will use to notify
     // tileSelectorView is given as an observer that ControlHandler will notify
