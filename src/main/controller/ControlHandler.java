@@ -3,7 +3,10 @@ package controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import direction.TileEdgeDirection;
+
 import model.Map;
+import model.tile.InvalidLocationException;
 import model.tile.Location;
 import model.tile.Tile;
 
@@ -22,23 +25,33 @@ class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject
     HashMap<ArrayList,Boolean> observerUpdateFlags;  //Will flag a need to update one or both sets of observers when notifyObservers() is called
 
     private Map gameMap;
+
     private Tile protoTile;
     private Location protoTileLocation;
 
+    ArrayList<TileEdgeDirection> riverDirections;
+
     // mapMakerView is given as an observer that the map will use to notify
     // tileSelectorView is given as an observer that ControlHandler will notify
-    public ControlHandler(Map gameMap, MapMakerView mapMakerView, TileSelectorView tileSelectorView){
+    public ControlHandler(Map gameMap, MapMakerView mapMakerView, TileSelectorView tileSelectorView) throws InvalidLocationException {
+        this.gameMap = gameMap;
+
         cursorObservers = new ArrayList<>();
         tileSelectObservers = new ArrayList<>();
         observerUpdateFlags = new HashMap<>();
 
-        this.gameMap = gameMap;
         registerCursorObserver(mapMakerView);
         registerTileSelectObserver(tileSelectorView);
+
+        protoTile = new Tile();
+        protoTileLocation = new Location(0,0,0);    //Initialized to center spot initially.
+        riverDirections = new ArrayList<>();
+
     }
 
      @Override
      public void notifyObservers() {
+        /* Notifies both sets of Observers depending on whether or not they're flagged for updating*/
         if(observerUpdateFlags.get(cursorObservers)){
             notifyCursorObservers();
         }
