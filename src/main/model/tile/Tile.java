@@ -8,9 +8,6 @@ import java.util.Map;
 
 public class Tile {
 
-    public static final int MAX_EDGES = 6;
-    public static final int MAX_COMPARTMENTS = 12;
-
     private Map<TileEdgeDirection, TileEdge> edges;
     private Map<TileCompartmentDirection, TileCompartment> compartments;
     private Terrain terrain;
@@ -18,33 +15,50 @@ public class Tile {
     public Tile(Terrain terrain) {
         edges = new HashMap<TileEdgeDirection, TileEdge>();
         compartments = new HashMap<TileCompartmentDirection, TileCompartment>();
+
+        edges.put(TileEdgeDirection.getNorth(), new TileEdge(false));
+        edges.put(TileEdgeDirection.getNorthEast(), new TileEdge(false));
+        edges.put(TileEdgeDirection.getNorthWest(), new TileEdge(false));
+        edges.put(TileEdgeDirection.getSouth(), new TileEdge(false));
+        edges.put(TileEdgeDirection.getSouthEast(), new TileEdge(false));
+        edges.put(TileEdgeDirection.getSouthWest(), new TileEdge(false));
+
+        compartments.put(TileCompartmentDirection.getEast(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getNorthNorthEast(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getNorthEast(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getNorth(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getNorthNorthWest(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getNorthWest(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getWest(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getSouthWest(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getSouthSouthWest(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getSouth(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getSouthEast(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getSouthSouthEast(), new TileCompartment(false));
+
         this.terrain = terrain;
     }
 
-    public void putTileEdge(TileEdgeDirection edgeDirection, TileEdge edge) throws TileEdgeLimitException {
-        if (edges.size() == MAX_EDGES) {
-            throw new TileEdgeLimitException("Tile can only have 6 edges.");
-        }
-        edges.put(edgeDirection, edge);
-    }
-
-    public void putTileCompartment(TileCompartmentDirection compartmentDirection, TileCompartment compartment) throws TileCompartmentLimitException{
-        if (compartments.size() == MAX_COMPARTMENTS) {
-            throw new TileCompartmentLimitException("Tile can only have 12 compartments.");
-        }
-        compartments.put(compartmentDirection, compartment);
-    }
-
+    // TileEdge
     public TileEdge getTileEdge(TileEdgeDirection edgeDirection) {
         return edges.get(edgeDirection);
     }
 
-    public TileCompartment getTileCompartment(TileCompartmentDirection compartmentDirection) {
-        return compartments.get(compartmentDirection);
+    public void toggleCanConnectWater(TileEdgeDirection direction, boolean bool) {
+        getTileEdge(direction).setCanConnectRiver(bool);
     }
 
     public Map<TileEdgeDirection, TileEdge> getAllEdges() {
         return edges;
+    }
+
+    // TileCompartment
+    public TileCompartment getTileCompartment(TileCompartmentDirection compartmentDirection) {
+        return compartments.get(compartmentDirection);
+    }
+
+    public void toggleHasWater(TileCompartmentDirection direction, boolean bool) {
+        getTileCompartment(direction).setHasWater(bool);
     }
 
     public Map<TileCompartmentDirection, TileCompartment> getAllCompartments() {
@@ -54,5 +68,6 @@ public class Tile {
     public Terrain getTerrain() {
         return terrain;
     }
+
 
 }

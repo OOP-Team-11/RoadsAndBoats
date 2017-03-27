@@ -51,61 +51,12 @@ public class TileTest {
     // ----------------------------------------------------------------------------------------------------
 
 
-    // Putting more than 12 TileCompartment into Tile
-    @Test
-    public void putMaxTileCompartmentTest() {
-        Tile t = new Tile(Terrain.Sea);
-        try {
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //1
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //2
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //3
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //4
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //5
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //6
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //7
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //8
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //9
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //10
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //11
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //12
-            t.putTileCompartment(TileCompartmentDirection.getNorth(), new TileCompartment(false));  //13
-        } catch (TileCompartmentLimitException e) {
-            assertEquals(t.getAllCompartments().size(), Tile.MAX_COMPARTMENTS);
-        }
-    }
-    // ----------------------------------------------------------------------------------------------------
-
-    // Getting TileCompartment from Tile
+    // Toggle TileCompartment in Tile
     @Test
     public void getTileCompartmentTest() {
         Tile t = new Tile(Terrain.Sea);
-        TileCompartment compartment = new TileCompartment(false);
-        TileCompartmentDirection direction = TileCompartmentDirection.getNorth();
-        try {
-            t.putTileCompartment(direction, compartment);
-            assertEquals(t.getTileCompartment(direction), compartment);
-        } catch (TileCompartmentLimitException e) {
-            Assert.fail();
-        }
-    }
-    // ----------------------------------------------------------------------------------------------------
-
-
-    // Putting more than 6 TileEdges into Tile
-    @Test
-    public void putMaxTileEdgeTest() {
-        Tile t = new Tile(Terrain.Sea);
-        try {
-            t.putTileEdge(TileEdgeDirection.getNorth(), new TileEdge(false));  //1
-            t.putTileEdge(TileEdgeDirection.getNorth(), new TileEdge(false));  //2
-            t.putTileEdge(TileEdgeDirection.getNorth(), new TileEdge(false));  //3
-            t.putTileEdge(TileEdgeDirection.getNorth(), new TileEdge(false));  //4
-            t.putTileEdge(TileEdgeDirection.getNorth(), new TileEdge(false));  //5
-            t.putTileEdge(TileEdgeDirection.getNorth(), new TileEdge(false));  //6
-            t.putTileEdge(TileEdgeDirection.getNorth(), new TileEdge(false));  //7
-        } catch (TileEdgeLimitException e) {
-            assertEquals(t.getAllEdges().size(), Tile.MAX_EDGES);
-        }
+        t.toggleHasWater(TileCompartmentDirection.getNorth(), true);
+        assertEquals(t.getTileCompartment(TileCompartmentDirection.getNorth()), true);
     }
     // ----------------------------------------------------------------------------------------------------
 
@@ -114,14 +65,8 @@ public class TileTest {
     @Test
     public void getTileEdgeTest() {
         Tile t = new Tile(Terrain.Sea);
-        TileEdge edge = new TileEdge(false);
-        TileEdgeDirection direction = TileEdgeDirection.getNorth();
-        try {
-            t.putTileEdge(direction, edge);
-            assertEquals(t.getTileEdge(direction), edge);
-        } catch (TileEdgeLimitException e) {
-            Assert.fail();
-        }
+        t.toggleCanConnectWater(TileEdgeDirection.getNorth(), true);
+        assertEquals(t.getTileEdge(TileEdgeDirection.getNorth()), true);
     }
     // ----------------------------------------------------------------------------------------------------
 
