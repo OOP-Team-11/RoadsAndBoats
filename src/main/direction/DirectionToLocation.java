@@ -1,7 +1,7 @@
 package direction;
 
-import tile.InvalidLocationException;
-import tile.Location;
+import model.tile.InvalidLocationException;
+import model.tile.Location;
 
 public class DirectionToLocation {
 

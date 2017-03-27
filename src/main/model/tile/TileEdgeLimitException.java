@@ -1,4 +1,4 @@
-package tile;
+package model.tile;
 
 public class TileEdgeLimitException extends Exception {
 

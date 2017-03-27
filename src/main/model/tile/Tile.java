@@ -1,4 +1,4 @@
-package tile;
+package model.tile;
 
 import direction.TileCompartmentDirection;
 import direction.TileEdgeDirection;

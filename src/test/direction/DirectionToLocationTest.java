@@ -3,8 +3,8 @@ package direction;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tile.InvalidLocationException;
-import tile.Location;
+import model.tile.InvalidLocationException;
+import model.tile.Location;
 
 import static junit.framework.TestCase.assertTrue;
 

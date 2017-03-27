@@ -1,4 +1,4 @@
-package tile;
+package model.tile;
 
 import org.junit.Assert;
 import org.junit.Test;

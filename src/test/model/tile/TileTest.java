@@ -1,6 +1,5 @@
-package tile;
+package model.tile;
 
-import direction.Angle;
 import direction.TileCompartmentDirection;
 import direction.TileEdgeDirection;
 import org.junit.Assert;
