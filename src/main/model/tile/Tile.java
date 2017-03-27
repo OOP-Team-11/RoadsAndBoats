@@ -9,61 +9,53 @@ import java.util.Map;
 
 public class Tile {
 
-    private Map<Angle, TileEdge> edges;
-    private Map<Angle, TileCompartment> compartments;
+    private Map<TileEdgeDirection, TileEdge> edges;
+    private Map<TileCompartmentDirection, TileCompartment> compartments;
     private Terrain terrain;
 
     public Tile(Terrain terrain) {
-        edges = new HashMap<Angle, TileEdge>();
-        compartments = new HashMap<Angle, TileCompartment>();
+        edges = new HashMap<TileEdgeDirection, TileEdge>();
+        compartments = new HashMap<TileCompartmentDirection, TileCompartment>();
 
-        edges.put(TileEdgeDirection.getNorth().getAngle(), new TileEdge(false));
-        edges.put(TileEdgeDirection.getNorthEast().getAngle(), new TileEdge(false));
-        edges.put(TileEdgeDirection.getNorthWest().getAngle(), new TileEdge(false));
-        edges.put(TileEdgeDirection.getSouth().getAngle(), new TileEdge(false));
-        edges.put(TileEdgeDirection.getSouthEast().getAngle(), new TileEdge(false));
-        edges.put(TileEdgeDirection.getSouthWest().getAngle(), new TileEdge(false));
+        edges.put(TileEdgeDirection.getNorth(), new TileEdge(false));
+        edges.put(TileEdgeDirection.getNorthEast(), new TileEdge(false));
+        edges.put(TileEdgeDirection.getNorthWest(), new TileEdge(false));
+        edges.put(TileEdgeDirection.getSouth(), new TileEdge(false));
+        edges.put(TileEdgeDirection.getSouthEast(), new TileEdge(false));
+        edges.put(TileEdgeDirection.getSouthWest(), new TileEdge(false));
 
-        compartments.put(TileCompartmentDirection.getEast().getAngle(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getNorthNorthEast().getAngle(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getNorthEast().getAngle(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getNorth().getAngle(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getNorthNorthWest().getAngle(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getNorthWest().getAngle(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getWest().getAngle(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getSouthWest().getAngle(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getSouthSouthWest().getAngle(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getSouth().getAngle(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getSouthEast().getAngle(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getSouthSouthEast().getAngle(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getEast(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getNorthNorthEast(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getNorthEast(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getNorth(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getNorthNorthWest(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getNorthWest(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getWest(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getSouthWest(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getSouthSouthWest(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getSouth(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getSouthEast(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getSouthSouthEast(), new TileCompartment(false));
 
         this.terrain = terrain;
     }
 
     // TileEdge
     public TileEdge getTileEdge(TileEdgeDirection edgeDirection) {
-        return edges.get(edgeDirection.getAngle());
+        return edges.get(edgeDirection);
     }
 
-    public void toggleCanConnectWater(TileEdgeDirection direction, boolean bool) {
+    public void setCanConnectWater(TileEdgeDirection direction, boolean bool) {
         getTileEdge(direction).setCanConnectRiver(bool);
-    }
-
-    public Map<Angle, TileEdge> getAllEdges() {
-        return edges;
     }
 
     // TileCompartment
     public TileCompartment getTileCompartment(TileCompartmentDirection compartmentDirection) {
-        return compartments.get(compartmentDirection.getAngle());
+        return compartments.get(compartmentDirection);
     }
 
-    public void toggleHasWater(TileCompartmentDirection direction, boolean bool) {
+    public void setHasWater(TileCompartmentDirection direction, boolean bool) {
         getTileCompartment(direction).setHasWater(bool);
-    }
-
-    public Map<Angle, TileCompartment> getAllCompartments() {
-        return compartments;
     }
 
     public Terrain getTerrain() {

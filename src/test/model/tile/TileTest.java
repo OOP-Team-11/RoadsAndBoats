@@ -15,38 +15,38 @@ public class TileTest {
     // Creating Tiles using all the Terrain Types --------------------------------------------------
     @Test
     public void constructTestSeaTile() {
-        Tile t = new Tile(Terrain.Sea);
-        assertEquals(t.getTerrain(), Terrain.Sea);
+        Tile t = new Tile(Terrain.SEA);
+        assertEquals(t.getTerrain(), Terrain.SEA);
     }
 
     @Test
     public void constructTestPastureTile() {
-        Tile t = new Tile(Terrain.Pasture);
-        assertEquals(t.getTerrain(), Terrain.Pasture);
+        Tile t = new Tile(Terrain.PASTURE);
+        assertEquals(t.getTerrain(), Terrain.PASTURE);
     }
 
     @Test
     public void constructTestWoodsTile() {
-        Tile t = new Tile(Terrain.Woods);
-        assertEquals(t.getTerrain(), Terrain.Woods);
+        Tile t = new Tile(Terrain.WOODS);
+        assertEquals(t.getTerrain(), Terrain.WOODS);
     }
 
     @Test
     public void constructTestRockTile() {
-        Tile t = new Tile(Terrain.Rock);
-        assertEquals(t.getTerrain(), Terrain.Rock);
+        Tile t = new Tile(Terrain.ROCK);
+        assertEquals(t.getTerrain(), Terrain.ROCK);
     }
 
     @Test
     public void constructTestDesertTile() {
-        Tile t = new Tile(Terrain.Desert);
-        assertEquals(t.getTerrain(), Terrain.Desert);
+        Tile t = new Tile(Terrain.DESERT);
+        assertEquals(t.getTerrain(), Terrain.DESERT);
     }
 
     @Test
     public void constructTestMountainTile() {
-        Tile t = new Tile(Terrain.Mountain);
-        assertEquals(t.getTerrain(), Terrain.Mountain);
+        Tile t = new Tile(Terrain.MOUNTAIN);
+        assertEquals(t.getTerrain(), Terrain.MOUNTAIN);
     }
     // ----------------------------------------------------------------------------------------------------
 
@@ -54,8 +54,8 @@ public class TileTest {
     // Toggle TileCompartment in Tile
     @Test
     public void getTileCompartmentTest() {
-        Tile t = new Tile(Terrain.Sea);
-        t.toggleHasWater(TileCompartmentDirection.getNorth(), true);
+        Tile t = new Tile(Terrain.SEA);
+        t.setHasWater(TileCompartmentDirection.getNorth(), true);
         assertEquals(t.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater(), true);
     }
     // ----------------------------------------------------------------------------------------------------
@@ -64,8 +64,8 @@ public class TileTest {
     // Getting TileEdge from Tile
     @Test
     public void getTileEdgeTest() {
-        Tile t = new Tile(Terrain.Sea);
-        t.toggleCanConnectWater(TileEdgeDirection.getNorth(), true);
+        Tile t = new Tile(Terrain.SEA);
+        t.setCanConnectWater(TileEdgeDirection.getNorth(), true);
         assertEquals(t.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver(), true);
     }
     // ----------------------------------------------------------------------------------------------------

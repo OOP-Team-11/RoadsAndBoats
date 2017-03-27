@@ -18,12 +18,12 @@ public class Map {
     //    Completely ignore this, just for Anip to work with a small initial map on FileExporter.
     private void initialize() {
         try {
-            tiles.put(new Location(0, 0, 0), new Tile(Terrain.Sea));
-            tiles.put(new Location(0, -1, 1), new Tile(Terrain.Sea));
-            tiles.put(new Location(0, 1, -1), new Tile(Terrain.Sea));
-            tiles.put(new Location(1, 0, -1), new Tile(Terrain.Sea));
-            tiles.put(new Location(-1, 0, 1), new Tile(Terrain.Sea));
-            tiles.put(new Location(1, -1, 0), new Tile(Terrain.Sea));
+            tiles.put(new Location(0, 0, 0), new Tile(Terrain.SEA));
+            tiles.put(new Location(0, -1, 1), new Tile(Terrain.SEA));
+            tiles.put(new Location(0, 1, -1), new Tile(Terrain.SEA));
+            tiles.put(new Location(1, 0, -1), new Tile(Terrain.SEA));
+            tiles.put(new Location(-1, 0, 1), new Tile(Terrain.SEA));
+            tiles.put(new Location(1, -1, 0), new Tile(Terrain.SEA));
         } catch(InvalidLocationException e) {
             System.out.println(e.getMessage());
         }
