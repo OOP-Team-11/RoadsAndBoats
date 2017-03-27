@@ -10,42 +10,42 @@ public class TerrainTest
     @Test
     public void canConnectRiver_sea_true()
     {
-        boolean connectable = Terrain.Sea.canConnectRiver();
+        boolean connectable = Terrain.SEA.canConnectRiver();
         assertTrue(connectable);
     }
 
     @Test
     public void canConnectRiver_pasture_false()
     {
-        boolean connectable = Terrain.Pasture.canConnectRiver();
+        boolean connectable = Terrain.PASTURE.canConnectRiver();
         assertFalse(connectable);
     }
 
     @Test
     public void canConnectRiver_woods_false()
     {
-        boolean connectable = Terrain.Woods.canConnectRiver();
+        boolean connectable = Terrain.WOODS.canConnectRiver();
         assertFalse(connectable);
     }
 
     @Test
     public void canConnectRiver_rock_false()
     {
-        boolean connectable = Terrain.Rock.canConnectRiver();
+        boolean connectable = Terrain.ROCK.canConnectRiver();
         assertFalse(connectable);
     }
 
     @Test
     public void canConnectRiver_desert_false()
     {
-        boolean connectable = Terrain.Desert.canConnectRiver();
+        boolean connectable = Terrain.DESERT.canConnectRiver();
         assertFalse(connectable);
     }
 
     @Test
     public void canConnectRiver_mountain_false()
     {
-        boolean connectable = Terrain.Mountain.canConnectRiver();
+        boolean connectable = Terrain.MOUNTAIN.canConnectRiver();
         assertFalse(connectable);
     }
 }

@@ -21,6 +21,14 @@ public class LocationTest {
         }
     }
 
+    @Test(expected=InvalidLocationException.class)
+    public void invalidConstructorTest() throws InvalidLocationException {
+        Location l = new Location(1, 5, -3);
+        assertEquals(l.getX(), 1);
+        assertEquals(l.getY(), 2);
+        assertEquals(l.getZ(), -3);
+    }
+
     @Test
     public void locationEquals() {
         try {
