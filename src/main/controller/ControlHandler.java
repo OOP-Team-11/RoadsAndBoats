@@ -77,12 +77,10 @@ class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject
         return protoTileLocation;
     }
 
-    //TODO: Figure out what it means to rotate a tile. Probably rotate the ArrayList of TileEdgeDirections.
     public void rotateTileClockwise() throws AngleValueOutOfRangeException {
-        protoTile.rotate(new Angle(60));
+        protoTile.rotate(new Angle(60));    //Single-side rotation clockwise
     }
 
-    //TODO: Figure out what it means to rotate a tile. Probably rotate the ArrayList of TileEdgeDirections.
     public void rotateTileCounterClockwise() throws AngleValueOutOfRangeException {
         protoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
     }

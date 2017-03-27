@@ -1,6 +1,7 @@
 package controller;
 
 import model.Map;
+import model.tile.InvalidLocationException;
 import view.MapMakerView;
 import view.TileSelectorView;
 import javafx.scene.Scene;
@@ -17,7 +18,7 @@ public class MapMakerController {
     private TileSelectorView tileSelectorView;
     private GameLoop gameLoop;
 
-    public MapMakerController(Stage primaryStage, Map gameMap){
+    public MapMakerController(Stage primaryStage, Map gameMap) throws InvalidLocationException {
         // main javaFX window that keylisteners and mouselisteners will be added to
         this.primaryStage = primaryStage;
 
