@@ -13,6 +13,11 @@ public class Location {
         this.z = z;
     }
 
+    public Location(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.z = -(x+y);
+    }
 
     public int getX() {
         return x;
