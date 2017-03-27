@@ -56,7 +56,7 @@ public class TileTest {
     public void getTileCompartmentTest() {
         Tile t = new Tile(Terrain.Sea);
         t.toggleHasWater(TileCompartmentDirection.getNorth(), true);
-        assertEquals(t.getTileCompartment(TileCompartmentDirection.getNorth()), true);
+        assertEquals(t.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater(), true);
     }
     // ----------------------------------------------------------------------------------------------------
 
@@ -66,7 +66,7 @@ public class TileTest {
     public void getTileEdgeTest() {
         Tile t = new Tile(Terrain.Sea);
         t.toggleCanConnectWater(TileEdgeDirection.getNorth(), true);
-        assertEquals(t.getTileEdge(TileEdgeDirection.getNorth()), true);
+        assertEquals(t.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver(), true);
     }
     // ----------------------------------------------------------------------------------------------------
 
