@@ -1,4 +1,4 @@
-package model;
+package model.tile;
 
 public class TileCompartment {
     private boolean hasWater;

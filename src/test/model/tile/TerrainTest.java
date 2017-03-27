@@ -1,4 +1,5 @@
-import model.Terrain;
+package model.tile;
+
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
