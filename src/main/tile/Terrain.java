@@ -1,3 +1,5 @@
+package tile;
+
 public enum Terrain
 {
     Sea(true),

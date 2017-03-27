@@ -1,11 +1,14 @@
+package tile;
+
 import org.junit.Test;
+import tile.TileCompartment;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TileCompartmentTest {
 
-    //    Test construction of a TileCompartment with and without water
+    //    Test construction of a tile.TileCompartment with and without water
     @Test
     public void constructorTestNoWater() {
         TileCompartment tileComp1 = new TileCompartment(false);

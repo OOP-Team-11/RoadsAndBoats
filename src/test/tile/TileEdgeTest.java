@@ -1,10 +1,13 @@
+package tile;
+
 import org.junit.Test;
+import tile.TileEdge;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TileEdgeTest {
-    //    Test construction of a TileEdge that may and may not connect a river
+    //    Test construction of a tile.TileEdge that may and may not connect a river
     @Test
     public void constructorTestCanConnectRiver() {
         TileEdge tileEdge = new TileEdge(true);

@@ -1,4 +1,7 @@
+package tile;
+
 import org.junit.Test;
+import tile.Terrain;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
