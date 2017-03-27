@@ -5,12 +5,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-
-import static java.awt.event.PaintEvent.PAINT;
-
-/**
- * Created by Konrad on 3/26/2017.
- */
 public class MapMakerView {
 
     private Canvas canvas;
