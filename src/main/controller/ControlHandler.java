@@ -6,7 +6,7 @@ import model.tile.Tile;
 import view.MapMakerView;
 import view.TileSelectorView;
 
- class ControlHandler implements CursorObserverSubject,TileSelectObserverSubject{
+ class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject{
 
     private Map gameMap;
     private Tile protoTile;
