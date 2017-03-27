@@ -1,4 +1,4 @@
-package tile;
+package model.tile;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,6 +19,14 @@ public class LocationTest {
         } catch (InvalidLocationException e) {
             Assert.fail();
         }
+    }
+
+    @Test(expected=InvalidLocationException.class)
+    public void invalidConstructorTest() throws InvalidLocationException {
+        Location l = new Location(1, 5, -3);
+        assertEquals(l.getX(), 1);
+        assertEquals(l.getY(), 2);
+        assertEquals(l.getZ(), -3);
     }
 
     @Test
