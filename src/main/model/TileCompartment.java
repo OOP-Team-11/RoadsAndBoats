@@ -1,3 +1,5 @@
+package model;
+
 public class TileCompartment {
     private boolean hasWater;
     public TileCompartment(boolean hasWater) {
