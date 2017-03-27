@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.Map;
 import model.tile.Location;
 import model.tile.Tile;
@@ -12,7 +14,10 @@ import util.Observer.TileSelectObserver.TileSelectObserverSubject;
 import view.MapMakerView;
 import view.TileSelectorView;
 
- class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject {
+
+class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject {
+    private ArrayList<CursorObserver> cursorObservers;
+    private ArrayList<TileSelectObserver> tileSelectObservers;
 
     private Map gameMap;
     private Tile protoTile;
@@ -22,6 +27,8 @@ import view.TileSelectorView;
     // tileSelectorView is given as an observer that ControlHandler will notify
     public ControlHandler(Map gameMap, MapMakerView mapMakerView, TileSelectorView tileSelectorView){
         this.gameMap = gameMap;
+        registerCursorObserver(mapMakerView);
+        registerTileSelectObserver(tileSelectorView);
     }
 
      @Override
@@ -31,21 +38,21 @@ import view.TileSelectorView;
 
      @Override
      public void registerCursorObserver(CursorObserver o) {
-
+        this.cursorObservers.add(o);
      }
 
      @Override
      public void removeCursorObserver(CursorObserver o) {
-
+        this.cursorObservers.remove(o);
      }
 
      @Override
      public void registerTileSelectObserver(TileSelectObserver o) {
-
+        this.tileSelectObservers.add(o);
      }
 
      @Override
      public void removeTileSelectObserver(TileSelectObserver o) {
-
+        this.tileSelectObservers.remove(o);
      }
  }

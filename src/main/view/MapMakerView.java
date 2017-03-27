@@ -1,11 +1,9 @@
 package view;
 
 import javafx.scene.canvas.Canvas;
+import util.Observer.CursorObserver.CursorObserver;
 
-/**
- * Created by Konrad on 3/26/2017.
- */
-public class MapMakerView {
+public class MapMakerView implements CursorObserver{
 
     private Canvas canvas;
     public MapMakerView(Canvas canvas){

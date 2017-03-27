@@ -1,11 +1,9 @@
 package view;
 
 import javafx.scene.canvas.Canvas;
+import util.Observer.TileSelectObserver.TileSelectObserver;
 
-/**
- * Created by Konrad on 3/26/2017.
- */
-public class TileSelectorView {
+public class TileSelectorView implements TileSelectObserver{
 
     private Canvas canvas;
     public TileSelectorView(Canvas canvas){
