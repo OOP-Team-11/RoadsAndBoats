@@ -28,4 +28,7 @@ public class Map {
             System.out.println(e.getMessage());
         }
     }
+    public Tile getTile(Location tileLocation) {
+        return tiles.get(tileLocation);
+    }
 }
