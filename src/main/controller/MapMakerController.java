@@ -1,8 +1,8 @@
-package Controller;
+package controller;
 
-import Model.Map;
-import View.MapMakerView;
-import View.TileSelectorView;
+import model.Map;
+import view.MapMakerView;
+import view.TileSelectorView;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;

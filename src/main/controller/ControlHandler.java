@@ -1,8 +1,8 @@
-package Controller;
+package controller;
 
-import Model.Map;
-import View.MapMakerView;
-import View.TileSelectorView;
+import model.Map;
+import view.MapMakerView;
+import view.TileSelectorView;
 
 /**
  * Created by Konrad on 3/26/2017.

@@ -1,7 +1,7 @@
-package Controller;
+package controller;
 
-import View.MapMakerView;
-import View.TileSelectorView;
+import view.MapMakerView;
+import view.TileSelectorView;
 import javafx.animation.AnimationTimer;
 
 /**
