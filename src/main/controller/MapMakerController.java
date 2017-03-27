@@ -40,5 +40,4 @@ public class MapMakerController {
         // initialize controlHandler and pass in the 2 views that will be used as the observers for communication
         this.controlHandler = new ControlHandler(gameMap, mapMakerView, tileSelectorView);
     }
-
 }
