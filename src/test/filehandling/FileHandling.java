@@ -13,7 +13,8 @@ public class FileHandling {
     public void readFile() throws IOException {
         Map map = new Map();
         FileImporter fileImporter = new FileImporter();
-        System.out.println(fileImporter.readFile(map, "map.txt"));
+        fileImporter.readFile(map, "map.txt");
+        System.out.println(map.getTiles().size());
 
     }
     @Test

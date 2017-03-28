@@ -1,3 +1,4 @@
-Hellomkmkdmweksfmwks
-kwejfkwekfjkwejfkwejfkwej
-kejfkekfjwekjfew
+ "(" -1 0 1 ")" "WOOD "
+ "(" -2 0 2 ")" "PASTURE"
+ "(" -2 0 2 ")" "ROCK"
+ "(" -3 0 3 ")" "WOOD"

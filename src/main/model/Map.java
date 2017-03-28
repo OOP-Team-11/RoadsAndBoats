@@ -8,11 +8,15 @@ import model.tile.Tile;
 import java.util.HashMap;
 
 public class Map {
+    public java.util.Map<Location, Tile> getTiles() {
+        return tiles;
+    }
+
     private java.util.Map<Location, Tile> tiles;
 
     public Map() {
         tiles = new HashMap<Location, Tile>();
-        this.initialize();
+//        this.initialize();
     }
 
     //    Completely ignore this, just for Anip to work with a small initial map on FileExporter.
@@ -30,5 +34,8 @@ public class Map {
     }
     public Tile getTile(Location tileLocation) {
         return tiles.get(tileLocation);
+    }
+    public void setTile(Location tileLocation, Terrain terrain){
+        this.tiles.put(tileLocation, new Tile(terrain));
     }
 }
