@@ -16,6 +16,7 @@ public class FileHandling {
         FileImporter fileImporter = new FileImporter();
         Map map = fileImporter.readFile("map2.txt");
         assertTrue(map.hasTiles());
+
     }
     @Test
     public void writeFile() throws IOException {

@@ -18,9 +18,10 @@ import java.util.regex.Pattern;
 public class FileImporter {
     public Map readFile(String fileName) throws IOException {
         Map map = new Map();
-        //Get file from resources folder
+        //Get file from resources folder\
+        File directory = new File("./");
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(fileName).getFile());
+        File file = new File(directory.getAbsolutePath().replace(".","")+fileName);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -33,6 +34,7 @@ public class FileImporter {
             e.printStackTrace();
         } catch (InvalidLocationException e) {
             e.printStackTrace();
+            System.out.print("File Not Found");
         }
         return map;
     }
