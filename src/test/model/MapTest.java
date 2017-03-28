@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class MapTest
 {
@@ -18,7 +19,7 @@ public class MapTest
     }
 
     @Test
-    public void getTile() throws InvalidLocationException {
+    public void getTileTest() throws InvalidLocationException {
         Map map = new Map();
         map.placeTile(new Location(0,0,0), new Tile(Terrain.DESERT));
         Tile centerTile = map.getTile(new Location(0,0,0));
@@ -26,13 +27,7 @@ public class MapTest
     }
 
     @Test
-    public void addTile()
-    {
-
-    }
-
-    @Test
-    public void clusterRecenter() throws InvalidLocationException {
+    public void clusterRecenterTest() throws InvalidLocationException {
         Map map = new Map();
 //        Create circular cluster with the true center being (0,1,-1)
         map.placeTile(new Location(0,0,0), new Tile(Terrain.SEA));
@@ -48,7 +43,7 @@ public class MapTest
     }
 
     @Test
-    public void lineRecenter() throws InvalidLocationException {
+    public void lineRecenterTest() throws InvalidLocationException {
 //        Build line of tiles to the right starting at 0,0,0
         Map map = new Map();
         map.placeTile(new Location(0,0,0), new Tile(Terrain.SEA));
@@ -62,10 +57,17 @@ public class MapTest
     }
 
     @Test
-    public void emptyRecenter() throws InvalidLocationException {
-//        Map map = new Map();
-//        map.recenter();
-//        assertEquals(null, map.getTile(new Location(0,0,0)));
+    public void emptyRecenterTest() throws InvalidLocationException {
+        Map map = new Map();
+        map.recenter();
+        assertEquals(null, map.getTile(new Location(0,0,0)));
+    }
+
+    @Test
+    public void hasMatchingEdgesTest() throws InvalidLocationException {
+        Map map = new Map();
+        map.placeTile(new Location(0,0,0), new Tile(Terrain.SEA));
+        assertTrue(map.hasMatchingEdges(new Location(1,-1,0), new Tile(Terrain.SEA)));
     }
 
 }

@@ -13,14 +13,10 @@ public class TileEdgeDirection {
         return this.angle;
     }
 
-	public TileEdgeDirection reverse() {
-		try
-		{
-			return new TileEdgeDirection(new Angle(getAngle().getDegrees()+180 %360));
-		}
-		catch(AngleValueOutOfRangeException e){
-			return null; //Impossible to get here
-		}
+	public TileEdgeDirection reverse() throws AngleValueOutOfRangeException {
+        int newDegrees = (getAngle().getDegrees()+180) % 360;
+        return new TileEdgeDirection(new Angle(newDegrees));
+
 	}
 	
     public static TileEdgeDirection getNorthEast() {
@@ -66,6 +62,6 @@ public class TileEdgeDirection {
     @Override
     public boolean equals(Object object) {
         return (object instanceof TileEdgeDirection) &&
-                ((TileEdgeDirection) object).getAngle() == this.angle;
+                ((TileEdgeDirection) object).getAngle().equals(this.angle);
     }
 }

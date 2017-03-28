@@ -1,5 +1,6 @@
 package model;
 
+import direction.AngleValueOutOfRangeException;
 import direction.DirectionToLocation;
 import direction.TileEdgeDirection;
 import model.tile.InvalidLocationException;
@@ -61,11 +62,15 @@ public class Map
 			Tile t = tiles.get(loc);
 			
 			if(t != null)
-			{
-                if(t.getTileEdge(dir.reverse()).canConnectRiver() !=  t.getTileEdge(dir).canConnectRiver())
-				{
-					return false;
-				}
+            {
+                try{
+                    if(t.getTileEdge(dir.reverse()).canConnectRiver() !=  tile.getTileEdge(dir).canConnectRiver())
+                    {
+                        return false;
+                    }
+                } catch(AngleValueOutOfRangeException e) {
+                    System.out.println(e.getMessage());
+                }
 			}
 		}
 		
