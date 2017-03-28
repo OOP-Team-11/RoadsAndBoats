@@ -29,5 +29,8 @@ public class MapMakerKeyControlsMapper extends KeyControlsMapper {
         this.addControl(KeyCode.NUMPAD4, ()-> this.controlHandler.moveCursor(TileEdgeDirection.getNorthWest()));
         this.addControl(KeyCode.NUMPAD5, ()-> this.controlHandler.moveCursor(TileEdgeDirection.getNorth()));
         this.addControl(KeyCode.NUMPAD6, ()-> this.controlHandler.moveCursor(TileEdgeDirection.getNorthEast()));
+
+        this.addControl(KeyCode.ENTER, ()-> this.controlHandler.tryPlaceTile());
+        this.addControl(KeyCode.BACK_SPACE, ()-> this.controlHandler.clearTile());
     }
 }

@@ -50,19 +50,12 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
     }
 
-    //TODO: This method
-    public boolean isValidPlacement(){
-        return false;
-    }
-
-    //TODO: This method
     public boolean tryPlaceTile(){
-        return false;
+        return this.gameMap.placeTile(protoTileLocation, protoTile);
     }
 
-    //TODO: This method
     public void clearTile(){
-
+        this.gameMap.removeTileAtLocation(getCursorLocation());
     }
 
     //TODO: This method

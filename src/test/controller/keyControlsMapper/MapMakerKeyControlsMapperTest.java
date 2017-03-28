@@ -6,14 +6,12 @@ import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import view.ViewInitializer;
 
-//import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.*;
 
 public class MapMakerKeyControlsMapperTest extends ApplicationTest {
 
@@ -133,6 +131,20 @@ public class MapMakerKeyControlsMapperTest extends ApplicationTest {
         KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.NUMPAD6, false, false, false, false);
         Event.fireEvent(this.scene, keyEvent);
         verify(this.mockedControlHandler, times(1)).moveCursor(TileEdgeDirection.getNorthEast());
+    }
+
+    @Test
+    public void tryPlaceTileTest() {
+        KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.ENTER, false, false, false, false);
+        Event.fireEvent(this.scene, keyEvent);
+        verify(this.mockedControlHandler, times(1)).tryPlaceTile();
+    }
+
+    @Test
+    public void clearTile() {
+        KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.BACK_SPACE, false, false, false, false);
+        Event.fireEvent(this.scene, keyEvent);
+        verify(this.mockedControlHandler, times(1)).clearTile();
     }
 
 
