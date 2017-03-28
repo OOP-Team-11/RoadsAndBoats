@@ -68,6 +68,8 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     //TODO: This method
     public void moveCursor(TileEdgeDirection dir){
         //... move the cursor
+
+        //then
         observerUpdateFlags.replace(cursorObservers,true);  //Mark the cursorObservers for notification
         notifyObservers();
     }
