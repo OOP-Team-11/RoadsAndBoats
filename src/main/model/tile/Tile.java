@@ -1,5 +1,6 @@
 package model.tile;
 
+
 import direction.Angle;
 import direction.TileCompartmentDirection;
 import direction.TileEdgeDirection;
@@ -61,6 +62,11 @@ public class Tile {
     public Terrain getTerrain() {
         return terrain;
     }
+
+    public void setTerrain(Terrain t){
+        this.terrain = t;
+    }
+
 
     public void rotate(Angle angle) {
         int rotationDegrees = angle.getDegrees();

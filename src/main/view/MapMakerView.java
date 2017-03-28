@@ -1,5 +1,6 @@
 package view;
 
+import utilities.Observer.CursorObserver.CursorObserver;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -7,7 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import view.utilities.Assets;
 
-public class MapMakerView {
+public class MapMakerView implements CursorObserver{
 
     private Canvas canvas;
     private GraphicsContext gc;

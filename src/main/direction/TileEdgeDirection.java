@@ -13,7 +13,7 @@ public class TileEdgeDirection {
         return this.angle;
     }
 
-	public TileEdgeDirection reverse() throws AngleValueOutOfRangeException {
+	public TileEdgeDirection reverse() {
         int newDegrees = (getAngle().getDegrees()+180) % 360;
         return new TileEdgeDirection(new Angle(newDegrees));
 

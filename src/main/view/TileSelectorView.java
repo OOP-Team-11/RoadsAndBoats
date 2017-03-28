@@ -8,8 +8,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import view.utilities.Assets;
 
-public class TileSelectorView {
+import utilities.Observer.TileSelectObserver.TileSelectObserver;
 
+public class TileSelectorView implements TileSelectObserver{
     private Canvas canvas;
     private GraphicsContext gc;
 

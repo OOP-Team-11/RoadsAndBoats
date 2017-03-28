@@ -1,5 +1,6 @@
 package model.tile;
 
+
 import java.util.Arrays;
 
 public class Location {
@@ -43,6 +44,10 @@ public class Location {
 
     @Override
     public int hashCode() {
+
         return Arrays.hashCode(new int[]{this.x, this.y, this.z});
+    }
+    public String getLocationString() {
+        return String.valueOf(x) + " " + String.valueOf(y) + " " + String.valueOf(z);
     }
 }
