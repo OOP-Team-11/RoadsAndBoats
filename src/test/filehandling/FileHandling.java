@@ -14,8 +14,10 @@ public class FileHandling {
     @Test
     public void readFile() throws IOException {
         FileImporter fileImporter = new FileImporter();
-        Map map = fileImporter.readFile("map.txt");
+        Map map = fileImporter.readFile("map2.txt");
+        if(map!=null)
         assertTrue(map.hasTiles());
+
     }
     @Test
     public void writeFile() throws IOException {
