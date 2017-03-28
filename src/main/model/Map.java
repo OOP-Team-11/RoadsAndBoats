@@ -4,16 +4,17 @@ package model;
 import direction.DirectionToLocation;
 import direction.TileEdgeDirection;
 
-import model.tile.InvalidLocationException;
-import model.tile.Location;
-import model.tile.Tile;
-import model.tile.TileEdge;
+import model.tile.*;
 
 import java.util.HashMap;
 import java.util.Set;
 
-public class Map
-{
+
+public class Map {
+    public java.util.Map<Location, Tile> getTiles() {
+        return tiles;
+    }
+
     private java.util.Map<Location, Tile> tiles;
 
     public Map()
@@ -197,5 +198,8 @@ public class Map
         }
 
         return false;
+    }
+    public void setTile(Location tileLocation, Terrain terrain){
+        this.tiles.put(tileLocation, new Tile(terrain));
     }
 }
