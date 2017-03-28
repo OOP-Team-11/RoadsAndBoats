@@ -1,6 +1,7 @@
 package model.tile;
 
-import java.util.Objects;
+
+import java.util.Arrays;
 
 public class Location {
 
@@ -15,6 +16,11 @@ public class Location {
         this.z = z;
     }
 
+    public Location(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.z = -(x+y);
+    }
 
     public int getX() {
         return x;
@@ -38,6 +44,7 @@ public class Location {
 
     @Override
     public int hashCode() {
-        return Objects.hash(x,y,z);
+
+        return Arrays.hashCode(new int[]{this.x, this.y, this.z});
     }
 }
