@@ -33,7 +33,7 @@ public class Map
         tiles.put(tileLocation, tile);
     }
 
-	public boolean isValidplacement(Location tileLocation, Tile tile)
+	public boolean isValidPlacement(Location tileLocation, Tile tile)
 	{
             return hasAdjacentTile(tileLocation) && hasMatchingEdges(tileLocation, tile);
 	}
