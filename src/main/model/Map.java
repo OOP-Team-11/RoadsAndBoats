@@ -42,12 +42,7 @@ public class Map
 	{		
 		for(TileEdgeDirection dir: TileEdgeDirection.getAllDirections())
 		{
-            Location loc=null;
-                    try {
-                        loc = DirectionToLocation.getLocation(tileLocation, dir);
-                    } catch (InvalidLocationException ex) {
-                        //Not sure why I need this.
-                    }
+            Location loc = DirectionToLocation.getLocation(tileLocation, dir);
 			
 			if(tiles.get(loc) != null)
 			{
@@ -62,12 +57,7 @@ public class Map
 	{
 		for(TileEdgeDirection dir: TileEdgeDirection.getAllDirections())
 		{
-            Location loc=null;
-                    try {
-                        loc = DirectionToLocation.getLocation(tileLocation, dir);
-                    } catch (InvalidLocationException ex) {
-                        //Not sure why this is needed here
-                    }
+            Location loc = DirectionToLocation.getLocation(tileLocation, dir);
 			Tile t = tiles.get(loc);
 			
 			if(t != null)
