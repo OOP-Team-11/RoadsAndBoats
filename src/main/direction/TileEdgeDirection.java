@@ -1,5 +1,7 @@
 package direction;
 
+import java.util.ArrayList;
+
 public class TileEdgeDirection {
     private Angle angle;
 
@@ -11,6 +13,16 @@ public class TileEdgeDirection {
         return this.angle;
     }
 
+	public TileEdgeDirection reverse() {
+		try
+		{
+			return new TileEdgeDirection(new Angle(getAngle().getDegrees()+180 %360));
+		}
+		catch(AngleValueOutOfRangeException e){
+			return null; //Impossible to get here
+		}
+	}
+	
     public static TileEdgeDirection getNorthEast() {
         return new TileEdgeDirection(CompassAngles.NORTHEAST.getAngle());
     }
@@ -35,6 +47,16 @@ public class TileEdgeDirection {
         return new TileEdgeDirection(CompassAngles.SOUTHEAST.getAngle());
     }
 
+	public static ArrayList<TileEdgeDirection> getAllDirections() {
+        ArrayList<TileEdgeDirection> directions=new ArrayList<TileEdgeDirection>();
+		directions.add(getNorth());
+        directions.add(getNorthEast());
+		directions.add(getSouthEast());
+        directions.add(getSouth());
+		directions.add(getSouthWest());
+        directions.add(getNorthWest());
+	}
+	
     @Override
     public int hashCode() {
         return this.angle.getDegrees();
