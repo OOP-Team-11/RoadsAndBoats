@@ -3,16 +3,14 @@ package model;
 
 import direction.DirectionToLocation;
 import direction.TileEdgeDirection;
+
 import model.tile.InvalidLocationException;
 import model.tile.Location;
 import model.tile.Tile;
+import model.tile.TileEdge;
 
 import java.util.HashMap;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static java.lang.StrictMath.abs;
 
 public class Map
 {
@@ -28,49 +26,96 @@ public class Map
         return tiles.get(tileLocation);
     }
 
-    public boolean placeTile(Location tileLocation, Tile tile) {
-        if (!isValidPlacement(tileLocation, tile)) return false;
+    public boolean placeTile(Location tileLocation, Tile tile)
+    {
+        if (!isValidPlacement(tileLocation, tile))
+        {
+            return false;
+        }
 
+        updateTileEdges(tileLocation, tile);
         tiles.put(tileLocation, tile);
+
         return true;
     }
 
-	public boolean isValidPlacement(Location tileLocation, Tile tile)
-	{
-            return hasAdjacentTile(tileLocation) && hasMatchingEdges(tileLocation, tile) || this.tiles.size() == 0;
-	}
-	
-	private boolean hasAdjacentTile(Location tileLocation)
-	{		
-		for(TileEdgeDirection dir: TileEdgeDirection.getAllDirections())
-		{
-            Location loc = DirectionToLocation.getLocation(tileLocation, dir);
-			
-			if(tiles.get(loc) != null)
-			{
-                return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	public boolean hasMatchingEdges(Location tileLocation, Tile tile)
-	{
-		for(TileEdgeDirection dir: TileEdgeDirection.getAllDirections())
-		{
-            Location loc = DirectionToLocation.getLocation(tileLocation, dir);
-			Tile t = tiles.get(loc);
-			
-			if(t != null)
-            {
-                return (t.getTileEdge(dir.reverse()).canConnectRiver() !=  tile.getTileEdge(dir).canConnectRiver());
-			}
-		}
-		
-		return true;
-	}
+    /**
+     * Checks if a tile may be placed at a location on the map
+     *
+     * @param tileLocation The location you are trying to place a tile at.
+     * @param tile The tile you are trying to place.
+     * @return true if tile can be placed at the specified location, false otherwise.
+     */
+    public boolean isValidPlacement(Location tileLocation, Tile tile)
+    {
+        return isEmptyMap() ||
+                (hasAdjacentTile(tileLocation) && hasMatchingEdges(tileLocation, tile));
+    }
 
+    private boolean isEmptyMap()
+    {
+        return tiles.size() == 0;
+    }
+
+    private boolean hasAdjacentTile(Location tileLocation)
+    {
+        for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
+        {
+            Location loc = DirectionToLocation.getLocation(tileLocation, dir);
+
+            if (tiles.get(loc) != null)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean hasMatchingEdges(Location tileLocation, Tile tile)
+    {
+        for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
+        {
+            Location loc = DirectionToLocation.getLocation(tileLocation, dir);
+            Tile existingTile = tiles.get(loc);
+
+            if(existingTile == null)
+            {
+                continue;
+            }
+
+            TileEdge newTileEdge=tile.getTileEdge(dir);
+            TileEdge existingTileEdge=existingTile.getTileEdge(dir.reverse());
+
+            if(newTileEdge.hasRiver() && !existingTileEdge.canConnectRiver())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void updateTileEdges(Location tileLocation, Tile tile)
+    {
+        for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
+        {
+            Location loc = DirectionToLocation.getLocation(tileLocation, dir);
+            Tile existingTile = tiles.get(loc);
+
+            if(existingTile == null)
+            {
+                continue;
+            }
+
+            TileEdge existingTileEdge=existingTile.getTileEdge(dir.reverse());
+            tile.setTileEdge(dir, existingTileEdge);
+        }
+    }
+
+    /**
+     * Sets the center Tile as (0,0,0) and recalculates all the other locations around it.
+     */
     public void recenter()
     {
         Location center = calculateCenter();
@@ -113,8 +158,7 @@ public class Map
         try
         {
             return new Location(x, y, z);
-        }
-        catch (InvalidLocationException e)
+        } catch (InvalidLocationException e)
         {
             return new Location(x, y);
         }
@@ -127,8 +171,7 @@ public class Map
             return new Location(loc.getX() - center.getX(),
                     loc.getY() - center.getY(),
                     loc.getZ() - center.getZ());
-        }
-        catch (InvalidLocationException e)
+        } catch (InvalidLocationException e)
         {
             return null; //Impossible to reach
         }
@@ -139,14 +182,16 @@ public class Map
         return tiles.keySet();
     }
 
-
     /**
      * Removes a tile at a location in the map if it exists.
+     *
      * @param location
      * @return true if tile was removed. false otherwise.
      */
-    public boolean removeTileAtLocation(Location location) {
-        if (this.tiles.containsKey(location)) {
+    public boolean removeTileAtLocation(Location location)
+    {
+        if (this.tiles.containsKey(location))
+        {
             this.tiles.remove(location);
             return true;
         }
