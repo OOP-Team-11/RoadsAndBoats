@@ -41,7 +41,6 @@ public class Location {
                 ((Location) object).getZ() == this.z;
     }
 
-
     @Override
     public int hashCode() {
         return Arrays.hashCode(new int[]{this.x, this.y, this.z});

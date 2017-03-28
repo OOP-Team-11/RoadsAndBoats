@@ -8,8 +8,6 @@ import model.tile.Location;
 import model.tile.Terrain;
 import model.tile.Tile;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Level;
