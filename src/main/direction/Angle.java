@@ -14,4 +14,17 @@ public class Angle {
     public int getDegrees() {
         return this.degrees;
     }
+
+    @Override
+    public int hashCode() {
+        return this.getDegrees();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        return (object instanceof Angle) &&
+                ((Angle) object).getDegrees() == this.getDegrees();
+    }
+
+
 }

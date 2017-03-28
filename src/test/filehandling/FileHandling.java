@@ -14,7 +14,7 @@ public class FileHandling {
     @Test
     public void readFile() throws IOException {
         FileImporter fileImporter = new FileImporter();
-        Map map = fileImporter.readFile("map2.txt");
+        Map map = fileImporter.readFile("map.txt");
         assertTrue(map.hasTiles());
     }
     @Test
@@ -22,6 +22,7 @@ public class FileHandling {
         Map map = new Map();
         map.initialize();
         FileExporter fileExporter = new FileExporter();
-        fileExporter.writeToFile(map,"/Users/anip/Develop/RoadsAndBoats/src/map2.txt");
+        //Give File Name
+        fileExporter.writeToFile(map,"map2.txt");
     }
 }
