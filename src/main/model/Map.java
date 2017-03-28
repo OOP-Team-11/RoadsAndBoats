@@ -5,13 +5,11 @@ import model.tile.Location;
 import model.tile.Terrain;
 import model.tile.Tile;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Map {
-    public java.util.Map<Location, Tile> getTiles() {
-        return tiles;
-    }
-
     private java.util.Map<Location, Tile> tiles;
 
     public Map() {
@@ -20,7 +18,7 @@ public class Map {
     }
 
     //    Completely ignore this, just for Anip to work with a small initial map on FileExporter.
-    private void initialize() {
+    public void initialize() {
         try {
             tiles.put(new Location(0, 0, 0), new Tile(Terrain.SEA));
             tiles.put(new Location(0, -1, 1), new Tile(Terrain.SEA));
@@ -32,10 +30,13 @@ public class Map {
             System.out.println(e.getMessage());
         }
     }
+    public java.util.Map<Location, Tile> getTiles() {
+        return tiles;
+    }
     public Tile getTile(Location tileLocation) {
         return tiles.get(tileLocation);
     }
-    public void setTile(Location tileLocation, Terrain terrain){
-        this.tiles.put(tileLocation, new Tile(terrain));
-    }
+    public void setTile(Location tileLocation, Terrain terrain){this.tiles.put(tileLocation, new Tile(terrain));}
+    public boolean hasTiles(){return !(tiles.isEmpty());}
+    public Collection<Location> getLocations(){return tiles.keySet();}
 }

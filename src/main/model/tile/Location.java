@@ -32,4 +32,8 @@ public class Location {
                 ((Location) object).getY() == this.y &&
                 ((Location) object).getZ() == this.z;
     }
+
+    public String getlocationString() {
+        return String.valueOf(x) + " " + String.valueOf(y)+" "+ String.valueOf(z);
+    }
 }
