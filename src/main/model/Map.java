@@ -74,6 +74,7 @@ public class Map
 	
     public boolean isValidToAddTile(Location tileLocation, Tile tile)
     {
+//        TODO
         return true;
     }
 
@@ -112,9 +113,9 @@ public class Map
             maxZ = Math.max(maxZ, loc.getZ());
         }
 
-        int x = (maxX - abs(minX)) / 2;
-        int y = (maxY - abs(minY)) / 2;
-        int z = (maxZ - abs(minZ)) / 2;
+        int x = (maxX + minX) / 2;
+        int y = (maxY + minY) / 2;
+        int z = (maxZ + minZ) / 2;
 
         try
         {
