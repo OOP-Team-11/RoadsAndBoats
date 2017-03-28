@@ -22,6 +22,7 @@ public class TileSelectorView {
         drawViewDivider();
         drawCanvasBackGround();
         drawTileSelectBox();
+        drawTerrainOptions();
     }
     private void setGraphicsContentStroke(Paint p){
         this.gc.setStroke(p);
@@ -52,6 +53,25 @@ public class TileSelectorView {
     }
     private void drawTileSelectBox(){
         this.gc.setLineWidth(3);
-        this.gc.strokeRoundRect(40,20,300,600,20,20);
+        this.gc.strokeRoundRect(35,20,300,600,20,20);
     }
+    private void drawArrowKeys(){
+        // TODO
+    }
+
+    private void drawTerrainOptions(){
+        this.gc.strokeRoundRect(40,700,35,35,5,5);
+        this.gc.strokeRoundRect(90,700,35,35,5,5);
+        this.gc.strokeRoundRect(140,700,35,35,5,5);
+        this.gc.strokeRoundRect(190,700,35,35,5,5);
+        this.gc.strokeRoundRect(240,700,35,35,5,5);
+        this.gc.strokeRoundRect(290,700,35,35,5,5);
+        this.gc.strokeText("1",53,760);
+        this.gc.strokeText("2",103,760);
+        this.gc.strokeText("3",153,760);
+        this.gc.strokeText("4",203,760);
+        this.gc.strokeText("5",253,760);
+        this.gc.strokeText("6",303,760);
+    }
+
 }
