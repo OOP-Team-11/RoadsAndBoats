@@ -17,12 +17,12 @@ public class Tile {
         edges = new HashMap<TileEdgeDirection, TileEdge>();
         compartments = new HashMap<TileCompartmentDirection, TileCompartment>();
 
-        edges.put(TileEdgeDirection.getNorth(), new TileEdge(false));
-        edges.put(TileEdgeDirection.getNorthEast(), new TileEdge(false));
-        edges.put(TileEdgeDirection.getNorthWest(), new TileEdge(false));
-        edges.put(TileEdgeDirection.getSouth(), new TileEdge(false));
-        edges.put(TileEdgeDirection.getSouthEast(), new TileEdge(false));
-        edges.put(TileEdgeDirection.getSouthWest(), new TileEdge(false));
+        edges.put(TileEdgeDirection.getNorth(), new TileEdge(terrain==Terrain.SEA));
+        edges.put(TileEdgeDirection.getNorthEast(), new TileEdge(terrain==Terrain.SEA));
+        edges.put(TileEdgeDirection.getNorthWest(), new TileEdge(terrain==Terrain.SEA));
+        edges.put(TileEdgeDirection.getSouth(), new TileEdge(terrain==Terrain.SEA));
+        edges.put(TileEdgeDirection.getSouthEast(), new TileEdge(terrain==Terrain.SEA));
+        edges.put(TileEdgeDirection.getSouthWest(), new TileEdge(terrain==Terrain.SEA));
 
         compartments.put(TileCompartmentDirection.getEast(), new TileCompartment(false));
         compartments.put(TileCompartmentDirection.getNorthNorthEast(), new TileCompartment(false));
