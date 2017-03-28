@@ -5,10 +5,18 @@ public class Angle {
     private int degrees;
 
     public Angle(int degrees) throws AngleValueOutOfRangeException {
-        if (degrees < 0 || degrees > 360)
-            throw new AngleValueOutOfRangeException("Angle value must be between 0 and 360 degrees.");
+        this.degrees = toPositiveStandardizedDegrees(degrees);
+    }
 
-        this.degrees = degrees;
+    private int toPositiveStandardizedDegrees(int rawDegrees) {
+        int niceDegrees;
+        if (rawDegrees >= 0) {
+            niceDegrees = rawDegrees % 360;
+        } else {
+            niceDegrees = 360 - (Math.abs(rawDegrees) % 360);
+        }
+
+        return niceDegrees;
     }
 
     public int getDegrees() {
