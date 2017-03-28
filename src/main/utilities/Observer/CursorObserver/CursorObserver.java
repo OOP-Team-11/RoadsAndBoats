@@ -1,6 +1,6 @@
-package util.Observer.CursorObserver;
+package utilities.Observer.CursorObserver;
 
-import util.Observer.Observer;
+import utilities.Observer.Observer;
 
 public interface CursorObserver extends Observer{
     //things, presumably

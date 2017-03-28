@@ -12,10 +12,10 @@ import model.tile.Location;
 import model.tile.Terrain;
 import model.tile.Tile;
 
-import util.Observer.CursorObserver.CursorObserver;
-import util.Observer.CursorObserver.CursorObserverSubject;
-import util.Observer.TileSelectObserver.TileSelectObserver;
-import util.Observer.TileSelectObserver.TileSelectObserverSubject;
+import utilities.Observer.CursorObserver.CursorObserver;
+import utilities.Observer.CursorObserver.CursorObserverSubject;
+import utilities.Observer.TileSelectObserver.TileSelectObserver;
+import utilities.Observer.TileSelectObserver.TileSelectObserverSubject;
 
 import view.MapMakerView;
 import view.TileSelectorView;
