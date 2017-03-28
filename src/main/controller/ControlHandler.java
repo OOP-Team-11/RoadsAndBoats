@@ -21,7 +21,7 @@ import view.MapMakerView;
 import view.TileSelectorView;
 
 
-class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject {
+public class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject {
     private ArrayList<CursorObserver> cursorObservers;          //Hold CursorObservers who've registered for Cursor updates
     private ArrayList<TileSelectObserver> tileSelectObservers;  //Hold TileSelectObservers who've registered for TileSelect updates
     HashMap<ArrayList,Boolean> observerUpdateFlags;  //Will flag a need to update one or both sets of observers when notifyObservers() is called
@@ -102,15 +102,6 @@ class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject
     public void setDesertTerrain(){
         protoTile.setTerrain(Terrain.DESERT);
     }
-
-
-
-
-
-
-
-
-
 
      /* Observer stuff below  */
 

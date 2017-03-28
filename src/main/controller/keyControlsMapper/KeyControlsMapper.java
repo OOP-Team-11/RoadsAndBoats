@@ -1,4 +1,4 @@
-package controller.keyControlsMappers;
+package controller.keyControlsMapper;
 
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;

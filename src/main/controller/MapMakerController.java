@@ -1,5 +1,6 @@
 package controller;
 
+import controller.keyControlsMapper.MapMakerKeyControlsMapper;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import model.Map;
@@ -21,14 +22,16 @@ public class MapMakerController {
     public MapMakerController(Stage primaryStage, Map gameMap) throws InvalidLocationException{
         initializeViews(primaryStage);
         getReferences();
-        initializeControlHanlder(gameMap);
+        initializeControlHandler(gameMap);
 
         // after everything is setup, start the animation timer
         viewInitializer.startAnimationLoop();
     }
+
     private void initializeViews(Stage primaryStage){
         this.viewInitializer = new ViewInitializer(primaryStage);
     }
+
     private void getReferences(){
         this.mapMakerView = viewInitializer.getMapMakerViewReference();
         this.tileSelectorView = viewInitializer.getTileSelectorViewReference();
@@ -36,8 +39,13 @@ public class MapMakerController {
         this.scene = viewInitializer.getSceneReferense();
     }
 
-    private void initializeControlHanlder(Map gameMap) throws InvalidLocationException{
+    private void initializeControlHandler(Map gameMap) throws InvalidLocationException{
         // initialize controlHandler and pass in the 2 views that will be used as the observers for communication
         this.controlHandler = new ControlHandler(gameMap, mapMakerView, tileSelectorView);
+    }
+
+    private void attachControlsToScene(ControlHandler controlHandler) {
+        MapMakerKeyControlsMapper mapMakerKeyControlsMapper = new MapMakerKeyControlsMapper(controlHandler);
+        mapMakerKeyControlsMapper.attachToScene(this.scene);
     }
 }
