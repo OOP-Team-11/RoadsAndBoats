@@ -15,7 +15,7 @@ public class Angle {
         if (rawDegrees >= 0) {
             niceDegrees = rawDegrees % 360;
         } else {
-            niceDegrees = 360 - (Math.abs(rawDegrees) % 360);
+            niceDegrees = (360 - (Math.abs(rawDegrees) % 360))%360;
         }
 
         return niceDegrees;

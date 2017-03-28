@@ -27,6 +27,24 @@ public class AngleTest {
     }
 
     @Test
+    public void zeroAngleShouldHaveDegreeValueZeroTest(){
+        Angle a = new Angle(0);  //-720 (two full turns) and another 80 degrees anticlockwise = 280
+        assertEquals(0,a.getDegrees());
+    }
+
+    @Test
+    public void threeSixtyAngleShouldHaveDegreeValueZeroTest(){
+        Angle a = new Angle(360);  //-720 (two full turns) and another 80 degrees anticlockwise = 280
+        assertEquals(0,a.getDegrees());
+    }
+
+    @Test
+    public void negativeThreeSixtyAngleShouldHaveDegreeValueZeroTest(){
+        Angle a = new Angle(-360);  //-720 (two full turns) and another 80 degrees anticlockwise = 280
+        assertEquals(0,a.getDegrees());
+    }
+
+    @Test
     public void createNegativeAngleDegreeAndEquivalentPositiveAngleDegreeAndCheckEqualityTest(){
         Angle a = new Angle(-800);  //-720 (two full turns) and another 80 degrees anticlockwise = 280
         Angle b = new Angle(280);   //Simple 280 degree angle
