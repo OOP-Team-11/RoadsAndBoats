@@ -23,6 +23,7 @@ public class MapMakerController {
         initializeViews(primaryStage);
         getReferences();
         initializeControlHandler(gameMap);
+        attachControlsToScene(this.controlHandler);
 
         // after everything is setup, start the animation timer
         viewInitializer.startAnimationLoop();
