@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.lang.StrictMath.abs;
+
 public class Map
 {
     private java.util.Map<Location, Tile> tiles;
@@ -94,7 +96,8 @@ public class Map
         for (java.util.Map.Entry<Location, Tile> entry : tiles.entrySet())
         {
             Location loc = offsetLocation(entry.getKey(), center);
-
+            newMap.put(loc, entry.getValue());
+            this.tiles = newMap;
         }
     }
 
@@ -119,9 +122,9 @@ public class Map
             maxZ = Math.max(maxZ, loc.getZ());
         }
 
-        int x = (maxX - minX) / 2;
-        int y = (maxY - minY) / 2;
-        int z = (maxZ - minZ) / 2;
+        int x = (maxX - abs(minX)) / 2;
+        int y = (maxY - abs(minY)) / 2;
+        int z = (maxZ - abs(minZ)) / 2;
 
         try
         {

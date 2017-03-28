@@ -55,6 +55,7 @@ public class TileEdgeDirection {
         directions.add(getSouth());
 		directions.add(getSouthWest());
         directions.add(getNorthWest());
+        return directions;
 	}
 	
     @Override

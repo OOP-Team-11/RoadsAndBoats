@@ -1,5 +1,7 @@
 package model.tile;
 
+import java.util.Arrays;
+
 public class Location {
 
     private int x;
@@ -31,10 +33,16 @@ public class Location {
         return z;
     }
 
+    @Override
     public boolean equals(Object object) {
         return (object instanceof Location) &&
                 ((Location) object).getX() == this.x &&
                 ((Location) object).getY() == this.y &&
                 ((Location) object).getZ() == this.z;
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(new int[]{this.x, this.y, this.z});
     }
 }
