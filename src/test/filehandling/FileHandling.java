@@ -14,7 +14,7 @@ public class FileHandling {
     @Test
     public void readFile() throws IOException {
         FileImporter fileImporter = new FileImporter();
-        Map map = fileImporter.readFile("map2.txt");
+        Map map = fileImporter.readFile("map/map2.txt");
         if(map!=null)
         assertTrue(map.hasTiles());
 
@@ -25,6 +25,6 @@ public class FileHandling {
         map.initialize();
         FileExporter fileExporter = new FileExporter();
         //Give File Name
-        fileExporter.writeToFile(map,"map2.txt");
+        fileExporter.writeToFile(map,"map/map2.txt");
     }
 }
