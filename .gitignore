@@ -68,11 +68,12 @@ crashlytics-build.properties
 fabric.properties
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
-
+gradle/wrapper/gradle-wrapper.properties
 # *.iml
 # modules.xml
 # .idea/misc.xml
 # *.ipr
+src/.DS_Store
 
 # Sonarlint plugin
 .idea/sonarlint
