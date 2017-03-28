@@ -1,6 +1,6 @@
 package view;
 
-import util.Observer.CursorObserver.CursorObserver;
+import utilities.Observer.CursorObserver.CursorObserver;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

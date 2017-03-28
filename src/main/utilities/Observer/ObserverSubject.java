@@ -1,4 +1,4 @@
-package util.Observer;
+package utilities.Observer;
 
 public interface ObserverSubject {
     void notifyObservers();
