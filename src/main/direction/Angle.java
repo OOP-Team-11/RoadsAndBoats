@@ -1,5 +1,7 @@
 package direction;
 
+import java.util.Objects;
+
 public class Angle {
 
     private int degrees;
@@ -17,6 +19,14 @@ public class Angle {
         }
 
         return niceDegrees;
+    }
+
+    public boolean equals(Angle otherAngle){
+        return (this.getDegrees() == otherAngle.getDegrees());
+    }
+
+    public int hashCode(){
+        return Objects.hash(this.degrees);
     }
 
     public int getDegrees() {
