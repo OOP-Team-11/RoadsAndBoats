@@ -1,7 +1,6 @@
 package model.tile;
 
 import direction.Angle;
-import direction.AngleValueOutOfRangeException;
 import direction.TileCompartmentDirection;
 import direction.TileEdgeDirection;
 import org.junit.Assert;
@@ -77,11 +76,7 @@ public class TileTest {
     public void rotateTileEdgeTest() {
         Tile t = new Tile(Terrain.SEA);
         TileEdge northEdge = t.getTileEdge(TileEdgeDirection.getNorth());
-        try {
-            t.rotate(new Angle(60));
-        } catch(AngleValueOutOfRangeException e) {
-            System.out.print(e.getMessage());
-        }
+        t.rotate(new Angle(60));
 //        Make sure the north edge rotated ONCE to the right, making it the northEast edge now
         assertEquals(northEdge, t.getTileEdge(TileEdgeDirection.getNorthEast()));
     }
@@ -90,11 +85,7 @@ public class TileTest {
     public void rotateTileCompartmentTest() {
         Tile t = new Tile(Terrain.SEA);
         TileCompartment northCompartment = t.getTileCompartment(TileCompartmentDirection.getNorth());
-        try {
-            t.rotate(new Angle(120));
-        } catch(AngleValueOutOfRangeException e) {
-            System.out.print(e.getMessage());
-        }
+        t.rotate(new Angle(120));
 //        Make sure the north edge rotated TWICE to the right, making it the northEast edge now
         assertEquals(northCompartment, t.getTileCompartment(TileCompartmentDirection.getSouthEast()));
     }

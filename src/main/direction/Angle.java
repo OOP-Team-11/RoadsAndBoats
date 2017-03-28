@@ -25,10 +25,6 @@ public class Angle {
         return (this.getDegrees() == otherAngle.getDegrees());
     }
 
-    public int hashCode(){
-        return Objects.hash(this.degrees);
-    }
-
     public int getDegrees() {
         return this.degrees;
     }
