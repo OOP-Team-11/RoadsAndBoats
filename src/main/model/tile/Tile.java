@@ -62,5 +62,57 @@ public class Tile {
         return terrain;
     }
 
+    public void rotate(Angle angle) {
+        int rotationDegrees = angle.getDegrees();
+        for(int i = 0; i < (rotationDegrees/60); i++) {
+            rotateEdges();
+            rotateCompartments();
+        }
+    }
 
+    private void rotateEdges() {
+        TileEdge northEdge = edges.get(TileEdgeDirection.getNorth());
+        TileEdge northEastEdge = edges.get(TileEdgeDirection.getNorthEast());
+        TileEdge northWestEdge = edges.get(TileEdgeDirection.getNorthWest());
+        TileEdge southEdge = edges.get(TileEdgeDirection.getSouth());
+        TileEdge southEastEdge = edges.get(TileEdgeDirection.getSouthEast());
+        TileEdge southWestEdge = edges.get(TileEdgeDirection.getSouthWest());
+
+        edges.put(TileEdgeDirection.getNorth(), northWestEdge);
+        edges.put(TileEdgeDirection.getNorthEast(), northEdge);
+        edges.put(TileEdgeDirection.getSouthEast(), northEastEdge);
+        edges.put(TileEdgeDirection.getSouth(), southEastEdge);
+        edges.put(TileEdgeDirection.getSouthWest(), southEdge);
+        edges.put(TileEdgeDirection.getNorthWest(), southWestEdge);
+
+    }
+
+    private void rotateCompartments() {
+        TileCompartment northComp = compartments.get(TileCompartmentDirection.getNorth());
+        TileCompartment northNorthEastComp = compartments.get(TileCompartmentDirection.getNorthNorthEast());
+        TileCompartment northEastComp = compartments.get(TileCompartmentDirection.getNorthEast());
+        TileCompartment eastComp = compartments.get(TileCompartmentDirection.getEast());
+        TileCompartment southEastComp = compartments.get(TileCompartmentDirection.getSouthEast());
+        TileCompartment southSouthEastComp = compartments.get(TileCompartmentDirection.getSouthSouthEast());
+        TileCompartment southComp = compartments.get(TileCompartmentDirection.getSouth());
+        TileCompartment southSouthWestComp = compartments.get(TileCompartmentDirection.getSouthSouthWest());
+        TileCompartment southWestComp = compartments.get(TileCompartmentDirection.getSouthWest());
+        TileCompartment westComp = compartments.get(TileCompartmentDirection.getWest());
+        TileCompartment northWestComp = compartments.get(TileCompartmentDirection.getNorthWest());
+        TileCompartment northNorthWestComp = compartments.get(TileCompartmentDirection.getNorthNorthWest());
+
+        compartments.put(TileCompartmentDirection.getEast(), northNorthEastComp);
+        compartments.put(TileCompartmentDirection.getNorthNorthEast(), northNorthWestComp);
+        compartments.put(TileCompartmentDirection.getNorthEast(), northComp);
+        compartments.put(TileCompartmentDirection.getNorth(), northWestComp);
+        compartments.put(TileCompartmentDirection.getNorthNorthWest(), westComp);
+        compartments.put(TileCompartmentDirection.getNorthWest(), southWestComp);
+        compartments.put(TileCompartmentDirection.getWest(), southSouthWestComp);
+        compartments.put(TileCompartmentDirection.getSouthWest(), southComp);
+        compartments.put(TileCompartmentDirection.getSouthSouthWest(), southSouthEastComp);
+        compartments.put(TileCompartmentDirection.getSouth(), southEastComp);
+        compartments.put(TileCompartmentDirection.getSouthEast(), northEastComp);
+        compartments.put(TileCompartmentDirection.getSouthSouthEast(), eastComp);
+
+    }
 }
