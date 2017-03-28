@@ -8,18 +8,19 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.Assert.assertTrue;
+
 public class FileHandling {
     @Test
     public void readFile() throws IOException {
-        Map map = new Map();
         FileImporter fileImporter = new FileImporter();
-        fileImporter.readFile(map, "map.txt");
-        System.out.println(map.getTiles().size());
-
+        Map map = fileImporter.readFile("map2.txt");
+        assertTrue(map.hasTiles());
     }
     @Test
     public void writeFile() throws IOException {
         Map map = new Map();
+        map.initialize();
         FileExporter fileExporter = new FileExporter();
         fileExporter.writeToFile(map,"/Users/anip/Develop/RoadsAndBoats/src/map2.txt");
     }

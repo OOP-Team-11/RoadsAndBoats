@@ -6,15 +6,13 @@ import direction.TileEdgeDirection;
 
 import model.tile.*;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
 
 
 public class Map {
-    public java.util.Map<Location, Tile> getTiles() {
-        return tiles;
-    }
-
     private java.util.Map<Location, Tile> tiles;
 
     public Map()
@@ -199,7 +197,7 @@ public class Map {
 
         return false;
     }
-    public void setTile(Location tileLocation, Terrain terrain){
-        this.tiles.put(tileLocation, new Tile(terrain));
-    }
+    public void setTile(Location tileLocation, Terrain terrain){this.tiles.put(tileLocation, new Tile(terrain));}
+    public boolean hasTiles(){return !(tiles.isEmpty());}
+    public Collection<Location> getLocations(){return tiles.keySet();}
 }

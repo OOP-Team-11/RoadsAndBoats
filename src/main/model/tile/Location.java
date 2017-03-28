@@ -44,7 +44,6 @@ public class Location {
 
     @Override
     public int hashCode() {
-
         return Arrays.hashCode(new int[]{this.x, this.y, this.z});
     }
 }
