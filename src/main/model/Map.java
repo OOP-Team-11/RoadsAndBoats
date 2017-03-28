@@ -1,5 +1,7 @@
 package model;
 
+import direction.DirectionToLocation;
+import direction.TileEdgeDirection;
 import model.tile.InvalidLocationException;
 import model.tile.Location;
 import model.tile.Terrain;
@@ -7,6 +9,8 @@ import model.tile.Tile;
 
 import java.util.HashMap;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Map
 {
@@ -22,11 +26,60 @@ public class Map
         return tiles.get(tileLocation);
     }
 
-    public void addTile(Location tileLocation, Tile tile)
+    public void placeTile(Location tileLocation, Tile tile)
     {
         tiles.put(tileLocation, tile);
     }
 
+	public boolean isValidplacement(Location tileLocation, Tile tile)
+	{
+            return hasAdjacentTile(tileLocation) && hasMatchingEdges(tileLocation, tile);
+	}
+	
+	private boolean hasAdjacentTile(Location tileLocation)
+	{		
+		for(TileEdgeDirection dir: TileEdgeDirection.getAllDirections())
+		{
+            Location loc=null;
+                    try {
+                        loc = DirectionToLocation.getLocation(tileLocation, dir);
+                    } catch (InvalidLocationException ex) {
+                        //Not sure why I need this.
+                    }
+			
+			if(tiles.get(loc) != null)
+			{
+                return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean hasMatchingEdges(Location tileLocation, Tile tile)
+	{
+		for(TileEdgeDirection dir: TileEdgeDirection.getAllDirections())
+		{
+            Location loc=null;
+                    try {
+                        loc = DirectionToLocation.getLocation(tileLocation, dir);
+                    } catch (InvalidLocationException ex) {
+                        //Not sure why this is needed here
+                    }
+			Tile t = tiles.get(loc);
+			
+			if(t != null)
+			{
+                if(t.getTileEdge(dir.reverse()).canConnectRiver() !=  t.getTileEdge(dir).canConnectRiver())
+				{
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+	
     public boolean isValidToAddTile(Location tileLocation, Tile tile)
     {
         return true;
