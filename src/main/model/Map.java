@@ -1,6 +1,6 @@
 package model;
 
-import direction.AngleValueOutOfRangeException;
+
 import direction.DirectionToLocation;
 import direction.TileEdgeDirection;
 import model.tile.InvalidLocationException;
@@ -46,14 +46,16 @@ public class Map
     {
         return tiles.get(tileLocation);
     }
-    public void placeTile(Location tileLocation, Tile tile)
-    {
+
+    public boolean placeTile(Location tileLocation, Tile tile) {
+        if (!isValidPlacement(tileLocation, tile)) return false;
         tiles.put(tileLocation, tile);
+        return true;
     }
 
 	public boolean isValidPlacement(Location tileLocation, Tile tile)
 	{
-            return hasAdjacentTile(tileLocation) && hasMatchingEdges(tileLocation, tile);
+            return hasAdjacentTile(tileLocation) && hasMatchingEdges(tileLocation, tile) || this.tiles.size() == 0;
 	}
 	
 	private boolean hasAdjacentTile(Location tileLocation)
@@ -80,25 +82,12 @@ public class Map
 			
 			if(t != null)
             {
-                try{
-                    if(t.getTileEdge(dir.reverse()).canConnectRiver() !=  tile.getTileEdge(dir).canConnectRiver())
-                    {
-                        return false;
-                    }
-                } catch(AngleValueOutOfRangeException e) {
-                    System.out.println(e.getMessage());
-                }
+                return (t.getTileEdge(dir.reverse()).canConnectRiver() !=  tile.getTileEdge(dir).canConnectRiver());
 			}
 		}
 		
 		return true;
 	}
-	
-    public boolean isValidToAddTile(Location tileLocation, Tile tile)
-    {
-//        TODO
-        return true;
-    }
 
     public void recenter()
     {
@@ -167,5 +156,19 @@ public class Map
     {
         return tiles.keySet();
     }
+    /**
+     * Removes a tile at a location in the map if it exists.
+     * @param location
+     * @return true if tile was removed. false otherwise.
+     */
+    public boolean removeTileAtLocation(Location location) {
+        if (this.tiles.containsKey(location)) {
+            this.tiles.remove(location);
+            return true;
+        }
+
+        return false;
+    }
     public boolean hasTiles(){return !(tiles.isEmpty());}
+
 }

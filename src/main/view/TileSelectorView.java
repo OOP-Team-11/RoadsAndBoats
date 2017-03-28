@@ -6,8 +6,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
-public class TileSelectorView {
+import utilities.Observer.TileSelectObserver.TileSelectObserver;
 
+public class TileSelectorView implements TileSelectObserver{
     private Canvas canvas;
     private GraphicsContext gc;
 
