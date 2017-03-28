@@ -4,37 +4,38 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class AngleTest {
 
     @Test
-    public void constructorInRange() {
-        try {
-            new Angle(0);
-            new Angle(163);
-            new Angle(360);
-        } catch (AngleValueOutOfRangeException e) {
-            Assert.fail();
-        }
+    public void positiveDegreeCreationTest(){
+        Angle a = new Angle(123);
+        assertEquals(123,a.getDegrees());
     }
 
-    @Test(expected=AngleValueOutOfRangeException.class)
-    public void constructorOutOfUpperRange() throws AngleValueOutOfRangeException {
-        new Angle(361);
+    @Test
+    public void positiveDegreeOver360CreationTest(){
+        Angle a = new Angle(400);               //360 + 40
+        assertEquals(40,a.getDegrees());
     }
 
-    @Test(expected=AngleValueOutOfRangeException.class)
-    public void constructorOutOfLowerRange() throws AngleValueOutOfRangeException {
-        new Angle(-1);
+    @Test
+    public void negativeDegreeCreationTest(){
+        Angle a = new Angle(-800);  //-720 (two full turns) and another 80 degrees anticlockwise = 280
+        assertEquals(280,a.getDegrees());
+    }
+
+    @Test
+    public void createNegativeAngleDegreeAndEquivalentPositiveAngleDegreeAndCheckEqualityTest(){
+        Angle a = new Angle(-800);  //-720 (two full turns) and another 80 degrees anticlockwise = 280
+        Angle b = new Angle(280);   //Simple 280 degree angle
+        assertTrue(a.equals(b));
     }
 
     @Test
     public void getAngleTest() {
-        try {
-            Angle a = new Angle(50);
-            assertEquals(a.getDegrees(), 50);
-        } catch (AngleValueOutOfRangeException e) {
-            Assert.fail();
-        }
+        Angle a = new Angle(50);
+        assertEquals(a.getDegrees(), 50);
     }
 }
