@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import direction.Angle;
-import direction.AngleValueOutOfRangeException;
 import direction.TileEdgeDirection;
 
 import model.Map;
@@ -77,11 +76,11 @@ class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject
         return protoTileLocation;
     }
 
-    public void rotateTileClockwise() throws AngleValueOutOfRangeException {
+    public void rotateTileClockwise() {
         protoTile.rotate(new Angle(60));    //Single-side rotation clockwise
     }
 
-    public void rotateTileCounterClockwise() throws AngleValueOutOfRangeException {
+    public void rotateTileCounterClockwise() {
         protoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
     }
 
