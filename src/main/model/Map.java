@@ -5,6 +5,7 @@ import direction.DirectionToLocation;
 import direction.TileEdgeDirection;
 import model.tile.InvalidLocationException;
 import model.tile.Location;
+import model.tile.Terrain;
 import model.tile.Tile;
 
 import java.util.HashMap;
@@ -21,8 +22,26 @@ public class Map
     public Map()
     {
         tiles = new HashMap<Location, Tile>();
+//        this.initialize();
     }
 
+    //    Completely ignore this, just for Anip to work with a small initial map on FileExporter.
+    public void initialize() {
+        try {
+            tiles.put(new Location(0, 0, 0), new Tile(Terrain.SEA));
+            tiles.put(new Location(0, -1, 1), new Tile(Terrain.SEA));
+            tiles.put(new Location(0, 1, -1), new Tile(Terrain.SEA));
+            tiles.put(new Location(1, 0, -1), new Tile(Terrain.SEA));
+            tiles.put(new Location(-1, 0, 1), new Tile(Terrain.SEA));
+            tiles.put(new Location(1, -1, 0), new Tile(Terrain.SEA));
+        } catch(InvalidLocationException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public java.util.Map<Location, Tile> getTiles() {
+        return tiles;
+    }
+    public void setTile(Location tileLocation, Terrain terrain){this.tiles.put(tileLocation, new Tile(terrain));}
     public Tile getTile(Location tileLocation)
     {
         return tiles.get(tileLocation);
@@ -30,7 +49,6 @@ public class Map
 
     public boolean placeTile(Location tileLocation, Tile tile) {
         if (!isValidPlacement(tileLocation, tile)) return false;
-
         tiles.put(tileLocation, tile);
         return true;
     }
@@ -134,12 +152,10 @@ public class Map
         }
     }
 
-    private Set<Location> getAllLocations()
+    public Set<Location> getAllLocations()
     {
         return tiles.keySet();
     }
-
-
     /**
      * Removes a tile at a location in the map if it exists.
      * @param location
@@ -153,4 +169,6 @@ public class Map
 
         return false;
     }
+    public boolean hasTiles(){return !(tiles.isEmpty());}
+
 }
