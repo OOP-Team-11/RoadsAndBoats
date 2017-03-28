@@ -6,7 +6,7 @@ public class Angle {
 
     private int degrees;
 
-    public Angle(int degrees) throws AngleValueOutOfRangeException {
+    public Angle(int degrees){
         this.degrees = toPositiveStandardizedDegrees(degrees);
     }
 

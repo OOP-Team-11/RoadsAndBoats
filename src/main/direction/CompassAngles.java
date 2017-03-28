@@ -1,7 +1,6 @@
 package direction;
 
 import direction.Angle;
-import direction.AngleValueOutOfRangeException;
 
 /**
  * Pre-defined set of Angles that relate to directions on a compass.
@@ -22,11 +21,7 @@ public enum CompassAngles {
 
     private Angle angle;
     CompassAngles(int degrees) {
-        try {
-            this.angle = new Angle(degrees);
-        } catch (AngleValueOutOfRangeException e) {
-            throw new RuntimeException(e.getLocalizedMessage());
-        }
+        this.angle = new Angle(degrees);
     }
 
     public Angle getAngle() {
