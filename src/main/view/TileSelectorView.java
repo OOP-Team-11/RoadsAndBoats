@@ -76,12 +76,6 @@ public class TileSelectorView implements TileSelectObserver{
         drawLine(0,0,0,canvas.getHeight()); // vertical stroke line
         drawLine(0,0,canvas.getWidth(),0); // horizontal stroke line
     }
-    private void setImagesForTiles(){
-
-    }
-    private void drawMiddleImage(){
-
-    }
 
     private void drawCanvasBackGround(){
         this.gc.setFill(Color.TEAL);
@@ -119,15 +113,19 @@ public class TileSelectorView implements TileSelectObserver{
             this.gc.strokeRoundRect(290,700,35,35,5,5);
         }
     }
-    private void drawUpper(Image image){
-        this.gc.drawImage(image,130,55);
-    }
 
+    private void drawUpper(Image image) {
+        if (image != assets.SEA) {
+            this.gc.drawImage(image, 130, 55);
+        }
+    }
     private void drawMiddle(Image image){
         this.gc.drawImage(image,130,250);
     }
-    private void drawLower(Image image){
-        this.gc.drawImage(image,130,450);
+    private void drawLower(Image image) {
+        if (image != assets.SEA) {
+            this.gc.drawImage(image, 130, 450);
+        }
     }
 
     private void drawTerrainOptions(){
@@ -153,18 +151,17 @@ public class TileSelectorView implements TileSelectObserver{
 
     @Override
     public void updateTileSelect(TileSelectorRenderInfo tileSelectorRenderInfo) {
-
-        System.out.println(tileSelectorRenderInfo.getTerrainTypeSelection());
+        
         this.currentRenderInfo = tileSelectorRenderInfo;
-        if(tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.DESERT)){
+        if(tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.SEA)){
             terrainSelected = 1;
-        } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.MOUNTAIN)){
-            terrainSelected = 2;
         } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.PASTURE)){
+            terrainSelected = 2;
+        } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.WOODS)){
             terrainSelected = 3;
         } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.ROCK)){
             terrainSelected = 4;
-        } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.SEA)){
+        } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.DESERT)){
             terrainSelected = 5;
         } else {
             terrainSelected = 6;

@@ -13,12 +13,12 @@ public class MapMakerKeyControlsMapper extends KeyControlsMapper {
     }
 
     private void initializeControls() {
-        this.addControl(KeyCode.DIGIT1, ()-> this.controlHandler.setDesertTerrain());
-        this.addControl(KeyCode.DIGIT2, ()-> this.controlHandler.setMountainTerrain());
-        this.addControl(KeyCode.DIGIT3, ()-> this.controlHandler.setPastureTerrain());
+        this.addControl(KeyCode.DIGIT1, ()-> this.controlHandler.setSeaTerrain());
+        this.addControl(KeyCode.DIGIT2, ()-> this.controlHandler.setPastureTerrain());
+        this.addControl(KeyCode.DIGIT3, ()-> this.controlHandler.setWoodsTerrain());
         this.addControl(KeyCode.DIGIT4, ()-> this.controlHandler.setRockyTerrain());
-        this.addControl(KeyCode.DIGIT5, ()-> this.controlHandler.setSeaTerrain());
-        this.addControl(KeyCode.DIGIT6, ()-> this.controlHandler.setWoodsTerrain());
+        this.addControl(KeyCode.DIGIT5, ()-> this.controlHandler.setDesertTerrain());
+        this.addControl(KeyCode.DIGIT6, ()-> this.controlHandler.setMountainTerrain());
 
 
         this.addControl(KeyCode.UP, ()-> this.controlHandler.previousRiverConfiguration());
