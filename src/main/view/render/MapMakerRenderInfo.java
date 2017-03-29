@@ -7,7 +7,6 @@ public class MapMakerRenderInfo {
     private Collection<Tile> tileInformation;
 
     public MapMakerRenderInfo() {
-
     }
 
     public Collection<Tile> getTileInformation() {

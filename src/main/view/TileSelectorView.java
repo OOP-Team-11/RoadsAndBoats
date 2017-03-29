@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import view.render.TileSelectorRenderInfo;
 import view.utilities.Assets;
 
 import utilities.Observer.TileSelectObserver.TileSelectObserver;
@@ -13,6 +14,8 @@ import utilities.Observer.TileSelectObserver.TileSelectObserver;
 public class TileSelectorView implements TileSelectObserver{
     private Canvas canvas;
     private GraphicsContext gc;
+    private TileSelectorRenderInfo currentRenderInfo;
+    private boolean newDataFlag = false;
 
     private Assets assets;
     private Image terrain1 = assets.getInstance().SEA_TERRAIN;
@@ -96,4 +99,9 @@ public class TileSelectorView implements TileSelectObserver{
         gc.drawImage(terrain6, 290, 700, 35, 35);
     }
 
+    @Override
+    public void updateTileSelect(TileSelectorRenderInfo tileSelectorRenderInfo) {
+        this.currentRenderInfo = tileSelectorRenderInfo;
+        this.newDataFlag = true;
+    }
 }

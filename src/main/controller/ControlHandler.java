@@ -14,16 +14,22 @@ import model.tile.Tile;
 
 import utilities.Observer.CursorObserver.CursorObserver;
 import utilities.Observer.CursorObserver.CursorObserverSubject;
+import utilities.Observer.MapMakerObserver.MapMakerObserver;
+import utilities.Observer.MapMakerObserver.MapMakerObserverSubject;
 import utilities.Observer.TileSelectObserver.TileSelectObserver;
 import utilities.Observer.TileSelectObserver.TileSelectObserverSubject;
 
 import view.MapMakerView;
 import view.TileSelectorView;
+import view.render.MapMakerCursorInfo;
+import view.render.MapMakerRenderInfo;
+import view.render.TileSelectorRenderInfo;
 
 
-public class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject {
+public class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject, MapMakerObserverSubject {
     private ArrayList<CursorObserver> cursorObservers;          //Hold CursorObservers who've registered for Cursor updates
     private ArrayList<TileSelectObserver> tileSelectObservers;  //Hold TileSelectObservers who've registered for TileSelect updates
+    private ArrayList<MapMakerObserver> mapMakerObservers;
     private HashMap<ArrayList,Boolean> observerUpdateFlags;  //Will flag a need to update one or both sets of observers when notifyObservers() is called
 
     private Map gameMap;
@@ -40,10 +46,12 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
         cursorObservers = new ArrayList<>();
         tileSelectObservers = new ArrayList<>();
+        mapMakerObservers = new ArrayList<>();
         observerUpdateFlags = new HashMap<>();
 
         registerCursorObserver(mapMakerView);
         registerTileSelectObserver(tileSelectorView);
+        registeMapMakerObserver(mapMakerView);
         protoTile = new Tile(Terrain.PASTURE);                  //Initialized to "pasture" by default
         try {
             protoTileLocation = new Location(0, 0, 0);    //Initialized to center spot initially.
@@ -68,7 +76,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
         //then
         observerUpdateFlags.replace(cursorObservers,true);  //Mark the cursorObservers for notification
-        notifyObservers();
+
     }
 
     public Location getCursorLocation(){
@@ -102,51 +110,51 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         protoTile.setTerrain(Terrain.DESERT);
     }
 
-     /* Observer stuff below  */
 
-     @Override
-     public void notifyObservers() {
-        /* Notifies both sets of Observers depending on whether or not they're flagged for updating*/
-         if(observerUpdateFlags.get(cursorObservers)){
-             notifyCursorObservers();
-         }
 
-         if(observerUpdateFlags.get(tileSelectObservers)){
-             notifyTileSelectObservers();
-         }
-     }
-
-    //TODO: Figure out what will happen to each Observer
-     public void notifyCursorObservers(){
-        for(int i = 0; i < cursorObservers.size(); i++){
-            //Notify cursorObservers.get(i) of changes
-        }
-     }
-
-    //TODO: Figure out what will happen to each Observer
-     public void notifyTileSelectObservers(){
-         for(int i = 0; i < tileSelectObservers.size(); i++){
-             //Notify tileSelectObservers.get(i) of changes
-         }
-     }
-
-     @Override
-     public void registerCursorObserver(CursorObserver o) {
+    @Override
+    public void registerCursorObserver(CursorObserver o) {
         this.cursorObservers.add(o);
-     }
+    }
 
-     @Override
-     public void removeCursorObserver(CursorObserver o) {
+    @Override
+    public void removeCursorObserver(CursorObserver o) {
         this.cursorObservers.remove(o);
-     }
+    }
 
-     @Override
-     public void registerTileSelectObserver(TileSelectObserver o) {
+    @Override
+    public void notifyCursorObservers(MapMakerCursorInfo mapMakerCursorInfo) {
+        for(int i = 0; i < cursorObservers.size(); i++){
+            cursorObservers.get(i).updateCursorInfo(mapMakerCursorInfo);
+        }
+    }
+
+    @Override
+    public void registerTileSelectObserver(TileSelectObserver o) {
         this.tileSelectObservers.add(o);
-     }
+    }
 
-     @Override
-     public void removeTileSelectObserver(TileSelectObserver o) {
+    @Override
+    public void removeTileSelectObserver(TileSelectObserver o) {
         this.tileSelectObservers.remove(o);
-     }
- }
+    }
+
+    @Override
+    public void notifyTileSelectObservers(TileSelectorRenderInfo tileSelectorRenderInfo) {
+        for(int i = 0; i < tileSelectObservers.size(); i++){
+            tileSelectObservers.get(i).updateTileSelect(tileSelectorRenderInfo);
+        }
+    }
+
+    @Override
+    public void registeMapMakerObserver(MapMakerObserver o) { this.mapMakerObservers.add(o); }
+    @Override
+    public void removeMapMakerObserver(MapMakerObserver o) {this.mapMakerObservers.remove(o); }
+
+    @Override
+    public void notifyMapMakerObservers(MapMakerRenderInfo mapMakerRenderInfo) {
+        for(int i=0; i<mapMakerObservers.size(); i++){
+            mapMakerObservers.get(i).updateMapMaker(mapMakerRenderInfo);
+        }
+    }
+}
