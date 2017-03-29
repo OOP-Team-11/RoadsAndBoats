@@ -1,14 +1,21 @@
 package controller;
 
 import controller.keyControlsMapper.MapMakerKeyControlsMapper;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextInputDialog;
 import model.Map;
 import model.tile.InvalidLocationException;
 import view.MapMakerView;
 import view.TileSelectorView;
 import javafx.stage.Stage;
 import view.ViewInitializer;
+
+import java.util.Optional;
 
 public class MapMakerController {
 
@@ -25,6 +32,7 @@ public class MapMakerController {
         initializeControlHandler(gameMap);
         attachControlsToScene(this.controlHandler);
         attachScrollEventToScene();
+        importExportEvent();
         // after everything is setup, start the animation timer
         viewInitializer.startAnimationLoop();
     }
@@ -54,5 +62,35 @@ public class MapMakerController {
         this.scene.setOnScroll(event -> {
             this.mapMakerView.changeZoom((int) event.getDeltaY());
         });
+    }
+    private void importExportEvent(){
+        this.menuBar.getMenus().get(0).getItems().get(0).setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                TextInputDialog dialog = new TextInputDialog("walter");
+                dialog.setTitle("Import");
+                dialog.setHeaderText("Please specify the name of the file");
+                dialog.setContentText("Enter the file name in the directory");
+
+                // TODO get this hooked up
+                Optional<String> result = dialog.showAndWait();
+                if (result.isPresent()){
+                    System.out.println(": " + result.get());
+                }
+
+            }
+        });
+        this.menuBar.getMenus().get(0).getItems().get(1).setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                // TODO hook up with export
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Export");
+                alert.setHeaderText("Export is succsefull");
+                alert.setContentText("File saved to : TODO");
+
+                alert.showAndWait();
+            }
+        });
+
     }
 }
