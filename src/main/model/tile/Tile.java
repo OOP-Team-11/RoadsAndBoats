@@ -86,7 +86,7 @@ public class Tile {
                 tileEdgeDirection.equals(TileEdgeDirection.getSouthEast()) && riverConfiguration.canConnectSoutheast() ||
                 tileEdgeDirection.equals(TileEdgeDirection.getSouth()) && riverConfiguration.canConnectSouth() ||
                 tileEdgeDirection.equals(TileEdgeDirection.getSouthWest()) && riverConfiguration.canConnectSouthwest() ||
-                tileEdgeDirection.equals(TileEdgeDirection.getNorthWest()) && riverConfiguration.canConnectNorthwest()) &&
+                tileEdgeDirection.equals(TileEdgeDirection.getNorthWest()) && riverConfiguration.canConnectNorthwest()) ||
                 isSeaTerrain(terrain);
     }
 

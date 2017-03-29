@@ -22,13 +22,13 @@ public class FileHandlingTest {
     private RiverConfiguration riverConfiguration;
     @Before
     public void setUp() {
-        this.riverConfiguration = RiverConfiguration.getNoRivers();
+        this.riverConfiguration = RiverConfiguration.getSpringHead();
     }
 
     @Test
     public void readFile() throws IOException {
         FileImporter fileImporter = new FileImporter();
-        Map map = fileImporter.readFile("map/map2.txt");
+        Map map = fileImporter.readFile("map/map.txt");
         if(map!=null)
         assertTrue(map.hasTiles());
 
@@ -37,12 +37,12 @@ public class FileHandlingTest {
     public void writeFile() throws IOException {
         Map map = new Map();
         try {
-            map.placeTile(new Location(0, 0, 0), new Tile(Terrain.SEA, riverConfiguration));
-            map.placeTile(new Location(0, -1, 1), new Tile(Terrain.SEA, riverConfiguration));
-            map.placeTile(new Location(0, 1, -1), new Tile(Terrain.SEA, riverConfiguration));
-            map.placeTile(new Location(1, 0, -1), new Tile(Terrain.SEA, riverConfiguration));
-            map.placeTile(new Location(-1, 0, 1), new Tile(Terrain.SEA, riverConfiguration));
-            map.placeTile(new Location(1, -1, 0), new Tile(Terrain.SEA, riverConfiguration));
+            map.placeTile(new Location(0, 0, 0), new Tile(Terrain.ROCK, riverConfiguration));
+            map.placeTile(new Location(0, -1, 1), new Tile(Terrain.DESERT, riverConfiguration));
+            map.placeTile(new Location(0, 1, -1), new Tile(Terrain.WOODS, riverConfiguration));
+            map.placeTile(new Location(1, 0, -1), new Tile(Terrain.ROCK, riverConfiguration));
+            map.placeTile(new Location(-1, 0, 1), new Tile(Terrain.ROCK, riverConfiguration));
+            map.placeTile(new Location(1, -1, 0), new Tile(Terrain.ROCK, riverConfiguration));
         }
         catch(InvalidLocationException e)
         {
