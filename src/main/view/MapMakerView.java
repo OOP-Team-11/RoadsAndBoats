@@ -17,11 +17,11 @@ public class MapMakerView implements CursorObserver{
     private int cameraZoom;
     private Assets assets;
     private Image pasture = assets.getInstance().PASTURE;
-    private Image pastureR1 = assets.getInstance().PASTURE_RIVER1;
-    private Image pastureR2 = assets.getInstance().PASTURE_RIVER2;
-    private Image pastureR3 = assets.getInstance().PASTURE_RIVER3;
-    private Image pastureR4 = assets.getInstance().PASTURE_RIVER4;
-    private Image pastureR5 = assets.getInstance().PASTURE_RIVER5;
+    private Image pastureR1 = assets.getInstance().PASTURE_R1_SPRING;
+    private Image pastureR2 = assets.getInstance().PASTURE_R2_ADJACENT;
+    private Image pastureR3 = assets.getInstance().PASTURE_R3_SKIP;
+    private Image pastureR4 = assets.getInstance().PASTURE_R4_OPPOSITE;
+    private Image pastureR5 = assets.getInstance().PASTURE_R5_EVERYOTHER;
 
 
 
