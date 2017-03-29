@@ -177,14 +177,14 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
      }
 
     //TODO: Figure out what will happen to each Observer
-     public void notifyCursorObservers(){
+     private void notifyCursorObservers(){
         for(int i = 0; i < cursorObservers.size(); i++){
             //Notify cursorObservers.get(i) of changes
         }
      }
 
     //TODO: Figure out what will happen to each Observer
-     public void notifyTileSelectObservers(){
+     private void notifyTileSelectObservers(){
          for(int i = 0; i < tileSelectObservers.size(); i++){
              //Notify tileSelectObservers.get(i) of changes
          }

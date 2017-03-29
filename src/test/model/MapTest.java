@@ -4,6 +4,7 @@ import model.tile.InvalidLocationException;
 import model.tile.Location;
 import model.tile.Terrain;
 import model.tile.Tile;
+import model.tile.riverConfiguration.RiverConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +22,7 @@ public class MapTest
     @Test
     public void getTileTest() throws InvalidLocationException {
         Map map = new Map();
-        map.placeTile(new Location(0,0,0), new Tile(Terrain.DESERT));
+        map.placeTile(new Location(0,0,0), new Tile(Terrain.DESERT, RiverConfiguration.getNoRivers()));
         Tile centerTile = map.getTile(new Location(0,0,0));
         assertEquals(Terrain.DESERT, centerTile.getTerrain());
     }
