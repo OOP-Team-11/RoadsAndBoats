@@ -1,5 +1,6 @@
 package view;
 
+import direction.TileEdgeDirection;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -7,6 +8,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import model.tile.Terrain;
+import model.tile.Tile;
+import model.tile.riverConfiguration.RiverConfiguration;
+
 import view.render.TileSelectorRenderInfo;
 import view.utilities.Assets;
 
@@ -153,7 +157,102 @@ public class TileSelectorView implements TileSelectObserver{
             terrainSelected = 6;
         }
 
-
+        top = getTileImage(tileSelectorRenderInfo.getTopTile());
+        middle = getTileImage(tileSelectorRenderInfo.getMiddleTile());
+        bottom = getTileImage(tileSelectorRenderInfo.getLowerTile());
         this.newDataFlag = true;
+    }
+
+    private Image getTileImage(Tile tile) {
+        RiverConfiguration riverConfig = tile.getRiverConfiguration();
+        if(riverConfig.canConnectNorth()) {
+            if(riverConfig.canConnectNortheast()) {
+                switch(tile.getTerrain()) {
+                    case DESERT:
+                        return assets.DESERT_R2_ADJACENT;
+                    case ROCK:
+                        return assets.ROCK_R2_ADJACENT;
+                    case MOUNTAIN:
+                        return assets.MOUNTAIN_R2_ADJACENT;
+                    case PASTURE:
+                        return assets.PASTURE_R2_ADJACENT;
+                    case WOODS:
+                        return assets.WOODS_R2_ADJACENT;
+                }
+            }
+            else if(riverConfig.canConnectSoutheast()) {
+                if(riverConfig.canConnectSouthwest()) {
+                    switch(tile.getTerrain()) {
+                        case DESERT:
+                            return assets.DESERT_R5_EVERYOTHER;
+                        case ROCK:
+                            return assets.ROCK_R5_EVERYOTHER;
+                        case MOUNTAIN:
+                            return assets.MOUNTAIN_R5_EVERYOTHER;
+                        case PASTURE:
+                            return assets.PASTURE_R5_EVERYOTHER;
+                        case WOODS:
+                            return assets.WOODS_R5_EVERYOTHER;
+                    }
+                }
+                else {
+                    switch(tile.getTerrain()) {
+                        case DESERT:
+                            return assets.DESERT_R3_SKIP;
+                        case ROCK:
+                            return assets.ROCK_R3_SKIP;
+                        case MOUNTAIN:
+                            return assets.MOUNTAIN_R3_SKIP;
+                        case PASTURE:
+                            return assets.PASTURE_R3_SKIP;
+                        case WOODS:
+                            return assets.WOODS_R3_SKIP;
+                    }
+                }
+            }
+            else if(riverConfig.canConnectSouth()) {
+                switch(tile.getTerrain()) {
+                    case DESERT:
+                        return assets.DESERT_R4_OPPOSITE;
+                    case ROCK:
+                        return assets.ROCK_R4_OPPOSITE;
+                    case MOUNTAIN:
+                        return assets.MOUNTAIN_R4_OPPOSITE;
+                    case PASTURE:
+                        return assets.PASTURE_R4_OPPOSITE;
+                    case WOODS:
+                        return assets.WOODS_R4_OPPOSITE;
+                }
+            }
+            else {
+                switch(tile.getTerrain()) {
+                    case DESERT:
+                        return assets.DESERT_R1_SPRING;
+                    case ROCK:
+                        return assets.ROCK_R1_SPRING;
+                    case MOUNTAIN:
+                        return assets.MOUNTAIN_R1_SPRING;
+                    case PASTURE:
+                        return assets.PASTURE_R1_SPRING;
+                    case WOODS:
+                        return assets.WOODS_R1_SPRING;
+                }
+            }
+        }
+        else {
+            switch(tile.getTerrain()) {
+                case DESERT:
+                    return assets.DESERT;
+                case ROCK:
+                    return assets.ROCK;
+                case MOUNTAIN:
+                    return assets.MOUNTAIN;
+                case PASTURE:
+                    return assets.PASTURE;
+                case WOODS:
+                    return assets.WOODS;
+            }
+        }
+        return null;
     }
 }
