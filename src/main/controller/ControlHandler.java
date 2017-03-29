@@ -196,19 +196,19 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
      /* Observer stuff below  */
 
-     @Override
-     public void notifyObservers() {
-        /* Notifies both sets of Observers depending on whether or not they're flagged for updating*/
-         if(observerUpdateFlags.get(cursorObservers)){
-             notifyCursorObservers();
-             observerUpdateFlags.replace(cursorObservers,false);
-         }
-
-         if(observerUpdateFlags.get(tileSelectObservers)){
-             notifyTileSelectObservers();
-             observerUpdateFlags.replace(tileSelectObservers,false);
-         }
-     }
+//     @Override
+//     public void notifyObservers() {
+//        /* Notifies both sets of Observers depending on whether or not they're flagged for updating*/
+//         if(observerUpdateFlags.get(cursorObservers)){
+//             notifyCursorObservers();
+//             observerUpdateFlags.replace(cursorObservers,false);
+//         }
+//
+//         if(observerUpdateFlags.get(tileSelectObservers)){
+//             notifyTileSelectObservers();
+//             observerUpdateFlags.replace(tileSelectObservers,false);
+//         }
+//     }
 
 
 
