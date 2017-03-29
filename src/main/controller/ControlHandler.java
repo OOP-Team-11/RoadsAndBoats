@@ -61,7 +61,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         }
         riverDirections = new ArrayList<>();
         try {
-            notifyCursorObservers(new MapMakerCursorInfo((new Location(0,0,0), true);
+            notifyCursorObservers(new MapMakerCursorInfo(new Location(0,0,0), true));
         } catch(InvalidLocationException e) {
             System.out.println("Error : "+ e.getMessage());
         }
