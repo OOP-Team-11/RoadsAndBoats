@@ -9,7 +9,7 @@ import model.tile.riverConfiguration.RiverConfiguration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Tile {
+public class Tile implements Cloneable{
 
     private Map<TileEdgeDirection, TileEdge> edges;
     private Map<TileCompartmentDirection, TileCompartment> compartments;
@@ -90,9 +90,13 @@ public class Tile {
                 isSeaTerrain(terrain);
     }
 
-    /* Support making a clone of itself */
     public Tile makeClone(){
-        return new Tile(this.terrain, this.riverConfiguration);
+        try{
+            Tile tileClone = (Tile) super.clone();
+            return tileClone;
+        } catch(CloneNotSupportedException e){
+            throw new InternalError(e.toString());
+        }
     }
 
     // TileEdge
@@ -123,12 +127,15 @@ public class Tile {
 
     public void rotate(Angle angle) {
         int rotationDegrees = angle.getDegrees();
+
         if(rotationDegrees < 60)
             return;
         for(int i = 0; i < (rotationDegrees/60); i++) {
             rotateEdges();
             rotateCompartments();
         }
+
+
     }
 
     private void rotateEdges() {
