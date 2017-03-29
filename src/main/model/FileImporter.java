@@ -25,16 +25,18 @@ public class FileImporter {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 parseRiver(line);
-                map.setTile(parseTile(line), parseTerrain(line));
+                //TODO: anip is working on this
+//                map.setTile(parseTile(line), parseTerrain(line));
             }
             scanner.close();
 
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InvalidLocationException e) {
-            e.printStackTrace();
-            System.out.print("File Not Found");
         }
+//        } catch (InvalidLocationException e) {
+//            e.printStackTrace();
+//            System.out.print("File Not Found");
+//        }
         return map;
     }
 

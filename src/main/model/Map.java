@@ -196,7 +196,8 @@ public class Map {
 
         return false;
     }
-    public void setTile(Location tileLocation, Terrain terrain){this.tiles.put(tileLocation, new Tile(terrain));}
+
     public boolean hasTiles(){return !(tiles.isEmpty());}
+
     public Collection<Location> getLocations(){return tiles.keySet();}
 }

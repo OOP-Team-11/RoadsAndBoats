@@ -9,6 +9,7 @@ import direction.TileEdgeDirection;
 import model.Map;
 import model.tile.*;
 
+import model.tile.riverConfiguration.RiverConfiguration;
 import utilities.Observer.CursorObserver.CursorObserver;
 import utilities.Observer.CursorObserver.CursorObserverSubject;
 import utilities.Observer.TileSelectObserver.TileSelectObserver;

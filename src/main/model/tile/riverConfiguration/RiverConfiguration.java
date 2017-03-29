@@ -1,4 +1,4 @@
-package model.tile;
+package model.tile.riverConfiguration;
 
 import direction.TileEdgeDirection;
 

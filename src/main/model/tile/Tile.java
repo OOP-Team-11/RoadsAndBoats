@@ -4,6 +4,7 @@ package model.tile;
 import direction.Angle;
 import direction.TileCompartmentDirection;
 import direction.TileEdgeDirection;
+import model.tile.riverConfiguration.RiverConfiguration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,18 +14,36 @@ public class Tile {
     private Map<TileEdgeDirection, TileEdge> edges;
     private Map<TileCompartmentDirection, TileCompartment> compartments;
     private Terrain terrain;
+    private RiverConfiguration riverConfiguration;
 
     public Tile(Terrain terrain, RiverConfiguration riverConfiguration) {
         edges = new HashMap<TileEdgeDirection, TileEdge>();
         compartments = new HashMap<TileCompartmentDirection, TileCompartment>();
+        this.riverConfiguration = riverConfiguration;
 
-        edges.put(TileEdgeDirection.getNorth(), new TileEdge(
-                riverConfiguration.canConnectNorth() || isSeaTerrain(terrain), riverConfiguration.canConnectNorth()));
-        edges.put(TileEdgeDirection.getNorthEast(), new TileEdge());
-        edges.put(TileEdgeDirection.getNorthWest(), new TileEdge(terrain==Terrain.SEA));
-        edges.put(TileEdgeDirection.getSouth(), new TileEdge(terrain==Terrain.SEA));
-        edges.put(TileEdgeDirection.getSouthEast(), new TileEdge(terrain==Terrain.SEA));
-        edges.put(TileEdgeDirection.getSouthWest(), new TileEdge(terrain==Terrain.SEA));
+        edges.put(TileEdgeDirection.getNorth(),
+                new TileEdge(canConnectRiver(TileEdgeDirection.getNorth(), riverConfiguration, terrain),
+                        riverConfiguration.canConnectNorth()));
+
+        edges.put(TileEdgeDirection.getNorthEast(),
+                new TileEdge(canConnectRiver(TileEdgeDirection.getNorthEast(), riverConfiguration, terrain),
+                        riverConfiguration.canConnectNortheast()));
+
+        edges.put(TileEdgeDirection.getNorthWest(),
+                new TileEdge(canConnectRiver(TileEdgeDirection.getNorthWest(), riverConfiguration, terrain),
+                        riverConfiguration.canConnectNorthwest()));
+
+        edges.put(TileEdgeDirection.getSouth(),
+                new TileEdge(canConnectRiver(TileEdgeDirection.getSouth(), riverConfiguration, terrain),
+                        riverConfiguration.canConnectSouth()));
+
+        edges.put(TileEdgeDirection.getSouthEast(),
+                new TileEdge(canConnectRiver(TileEdgeDirection.getSouthEast(), riverConfiguration, terrain),
+                        riverConfiguration.canConnectSoutheast()));
+
+        edges.put(TileEdgeDirection.getSouthWest(),
+                new TileEdge(canConnectRiver(TileEdgeDirection.getSouthWest(), riverConfiguration, terrain),
+                        riverConfiguration.canConnectSouthwest()));
 
         compartments.put(TileCompartmentDirection.getEast(), new TileCompartment(false));
         compartments.put(TileCompartmentDirection.getNorthNorthEast(), new TileCompartment(false));
@@ -42,12 +61,23 @@ public class Tile {
         this.terrain = terrain;
     }
 
+    public RiverConfiguration getRiverConfiguration() {
+        return this.riverConfiguration;
+    }
+
     private boolean isSeaTerrain(Terrain terrain) {
         return terrain == Terrain.SEA;
     }
 
-    private void initializeEdges(Terrain terrain, RiverConfiguration riverConfiguration) {
+    private boolean canConnectRiver(TileEdgeDirection tileEdgeDirection, RiverConfiguration riverConfiguration, Terrain terrain) {
 
+        return (tileEdgeDirection.equals(TileEdgeDirection.getNorth()) && riverConfiguration.canConnectNorth() ||
+                tileEdgeDirection.equals(TileEdgeDirection.getNorthEast()) && riverConfiguration.canConnectNortheast() ||
+                tileEdgeDirection.equals(TileEdgeDirection.getSouthEast()) && riverConfiguration.canConnectSoutheast() ||
+                tileEdgeDirection.equals(TileEdgeDirection.getSouth()) && riverConfiguration.canConnectSouth() ||
+                tileEdgeDirection.equals(TileEdgeDirection.getSouthWest()) && riverConfiguration.canConnectSouthwest() ||
+                tileEdgeDirection.equals(TileEdgeDirection.getNorthWest()) && riverConfiguration.canConnectNorthwest()) &&
+                isSeaTerrain(terrain);
     }
 
     // TileEdge
@@ -76,19 +106,20 @@ public class Tile {
         return terrain;
     }
 
-    public void setTerrain(Terrain t)
-    {
-        this.terrain = t;
-
-        if(terrain.canConnectRiver())
-        {
-            for(TileEdge edge: edges.values())
-            {
-                edge.setCanConnectRiver(true);
-                edge.setHasRiver(false);
-            }
-        }
-    }
+    // removed this, instead we are going to reconstruct tiles if we need to change terrain
+//    public void setTerrain(Terrain t)
+//    {
+//        this.terrain = t;
+//
+//        if(terrain.canConnectRiver())
+//        {
+//            for(TileEdge edge: edges.values())
+//            {
+//                edge.setCanConnectRiver(true);
+//                edge.setHasRiver(false);
+//            }
+//        }
+//    }
 
     public void rotate(Angle angle) {
         int rotationDegrees = angle.getDegrees();
