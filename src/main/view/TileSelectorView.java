@@ -27,6 +27,10 @@ public class TileSelectorView implements TileSelectObserver{
     private Image middle;
     private Image bottom;
 
+    private Image topTerrain;
+    private Image middleTerrain;
+    private Image bottomTerain;
+
     private Assets assets;
     private Image terrain1 = assets.getInstance().SEA_TERRAIN;
     private Image terrain2 = assets.getInstance().PASTURE_TERRAIN;
@@ -53,6 +57,13 @@ public class TileSelectorView implements TileSelectObserver{
         drawArrowKeys();
         drawMiddleRectangle();
         drawTerrainSelectRectangle();
+
+        // first we draw the terrain
+        drawUpper(this.topTerrain);
+        drawMiddle(this.middleTerrain);
+        drawLower(this.bottomTerain);
+
+        // on top of that we draw the river configurations
         drawUpper(this.top);
         drawMiddle(this.middle);
         drawLower(this.bottom);
@@ -116,6 +127,7 @@ public class TileSelectorView implements TileSelectObserver{
 
     private void drawUpper(Image image) {
         if (image != assets.SEA) {
+
             this.gc.drawImage(image, 130, 55);
         }
     }
@@ -167,107 +179,107 @@ public class TileSelectorView implements TileSelectObserver{
             terrainSelected = 6;
         }
 
-        this.top = getTileImage(tileSelectorRenderInfo.getTopTile());
-        this.middle = getTileImage(tileSelectorRenderInfo.getMiddleTile());
-        this.bottom = getTileImage(tileSelectorRenderInfo.getLowerTile());
+        this.topTerrain = getTerrainImage(tileSelectorRenderInfo.getTopTile());
+        this.middleTerrain = getTerrainImage(tileSelectorRenderInfo.getMiddleTile());
+        this.bottomTerain = getTerrainImage(tileSelectorRenderInfo.getLowerTile());
+
+        this.top = getRiverImage(tileSelectorRenderInfo.getTopTile());
+        this.middle = getRiverImage(tileSelectorRenderInfo.getMiddleTile());
+        this.bottom = getRiverImage(tileSelectorRenderInfo.getLowerTile());
         this.newDataFlag = true;
     }
-
-    private Image getTileImage(Tile tile) {
-        RiverConfiguration riverConfig = tile.getRiverConfiguration();
-
+    private Image getTerrainImage(Tile tile){
         if(tile.getTerrain().equals(Terrain.SEA)){
             return assets.SEA;
+        } else if (tile.getTerrain().equals(Terrain.DESERT)){
+            return assets.DESERT;
+        } else if(tile.getTerrain().equals(Terrain.MOUNTAIN)){
+            return assets.MOUNTAIN;
+        } else if(tile.getTerrain().equals(Terrain.PASTURE)){
+            return assets.PASTURE;
+        } else if(tile.getTerrain().equals(Terrain.ROCK)){
+            return assets.ROCK;
+        } else {
+            return assets.WOODS;
+        }
+    }
+
+    private Image getRiverImage(Tile tile) {
+
+        int riverCount = 0;
+        if(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
+            riverCount++;
+        }
+        if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver()){
+            riverCount++; }
+        if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
+            riverCount++; }
+        if(tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
+            riverCount++; }
+        if(tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
+            riverCount++; }
+        if(tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
+            riverCount++;
         }
 
-        if(riverConfig.canConnectNorth()) {
-            if(riverConfig.canConnectNortheast()) {
-                switch(tile.getTerrain()) {
-                    case DESERT:
-                        return assets.DESERT_R2_ADJACENT;
-                    case ROCK:
-                        return assets.ROCK_R2_ADJACENT;
-                    case MOUNTAIN:
-                        return assets.MOUNTAIN_R2_ADJACENT;
-                    case PASTURE:
-                        return assets.PASTURE_R2_ADJACENT;
-                    case WOODS:
-                        return assets.WOODS_R2_ADJACENT;
-                }
+        if(riverCount == 1){
+            if(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
+                return assets.getInstance().RIVER_SPRING_R0;
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver()){
+                return assets.getInstance().RIVER_SPRING_R1;
+            } else if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
+                return assets.getInstance().RIVER_SPRING_R2;
+            } else if(tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
+                return assets.getInstance().RIVER_SPRING_R3;
+            } else if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
+                return assets.getInstance().RIVER_SPRING_R4;
+            } else if(tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
+                return assets.getInstance().RIVER_SPRING_R5;
+            } else {
+                return null;
             }
-            else if(riverConfig.canConnectSoutheast()) {
-                if(riverConfig.canConnectSouthwest()) {
-                    switch(tile.getTerrain()) {
-                        case DESERT:
-                            return assets.DESERT_R5_EVERYOTHER;
-                        case ROCK:
-                            return assets.ROCK_R5_EVERYOTHER;
-                        case MOUNTAIN:
-                            return assets.MOUNTAIN_R5_EVERYOTHER;
-                        case PASTURE:
-                            return assets.PASTURE_R5_EVERYOTHER;
-                        case WOODS:
-                            return assets.WOODS_R5_EVERYOTHER;
-                    }
-                }
-                else {
-                    switch(tile.getTerrain()) {
-                        case DESERT:
-                            return assets.DESERT_R3_SKIP;
-                        case ROCK:
-                            return assets.ROCK_R3_SKIP;
-                        case MOUNTAIN:
-                            return assets.MOUNTAIN_R3_SKIP;
-                        case PASTURE:
-                            return assets.PASTURE_R3_SKIP;
-                        case WOODS:
-                            return assets.WOODS_R3_SKIP;
-                    }
-                }
+        } else if (riverCount == 2){
+            if(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
+                return assets.getInstance().RIVER_OPPOSITE_R0;
+            } else if(tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
+                return assets.getInstance().RIVER_OPPOSITE_R1;
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
+                return assets.getInstance().RIVER_OPPOSITE_R2;
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
+                return assets.getInstance().RIVER_ADJACENT_R0;
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver()&& tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
+                return assets.getInstance().RIVER_ADJACENT_R1;
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
+                return assets.getInstance().RIVER_ADJACENT_R2;
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
+                return assets.getInstance().RIVER_ADJACENT_R3;
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
+                return assets.getInstance().RIVER_ADJACENT_R4;
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
+                return assets.getInstance().RIVER_ADJACENT_R5;
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
+                return assets.getInstance().RIVER_SKIP_R0;
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
+                return assets.getInstance().RIVER_SKIP_R1;
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
+                return assets.getInstance().RIVER_SKIP_R2;
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
+                return assets.getInstance().RIVER_SKIP_R3;
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
+                return assets.getInstance().RIVER_SKIP_R4;
+            } else {
+                return assets.getInstance().RIVER_SKIP_R5;
             }
-            else if(riverConfig.canConnectSouth()) {
-                switch(tile.getTerrain()) {
-                    case DESERT:
-                        return assets.DESERT_R4_OPPOSITE;
-                    case ROCK:
-                        return assets.ROCK_R4_OPPOSITE;
-                    case MOUNTAIN:
-                        return assets.MOUNTAIN_R4_OPPOSITE;
-                    case PASTURE:
-                        return assets.PASTURE_R4_OPPOSITE;
-                    case WOODS:
-                        return assets.WOODS_R4_OPPOSITE;
-                }
+        } else if(riverCount == 3){
+            // 3 sides
+            if(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
+                return assets.getInstance().RIVER_EVERYOTHER_R0;
+            } else {
+                return assets.getInstance().RIVER_EVERYOTHER_R1;
             }
-            else {
-                switch(tile.getTerrain()) {
-                    case DESERT:
-                        return assets.DESERT_R1_SPRING;
-                    case ROCK:
-                        return assets.ROCK_R1_SPRING;
-                    case MOUNTAIN:
-                        return assets.MOUNTAIN_R1_SPRING;
-                    case PASTURE:
-                        return assets.PASTURE_R1_SPRING;
-                    case WOODS:
-                        return assets.WOODS_R1_SPRING;
-                }
-            }
+        } else {
+            return null;
         }
-        else {
-            switch(tile.getTerrain()) {
-                case DESERT:
-                    return assets.DESERT;
-                case ROCK:
-                    return assets.ROCK;
-                case MOUNTAIN:
-                    return assets.MOUNTAIN;
-                case PASTURE:
-                    return assets.PASTURE;
-                case WOODS:
-                    return assets.WOODS;
-            }
-        }
-        return null;
+
     }
 }

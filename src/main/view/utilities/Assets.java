@@ -70,6 +70,35 @@ public class Assets {
 
     public Image ARROW_KEYS;
 
+
+    public Image RIVER_SPRING_R0;
+    public Image RIVER_SPRING_R1;
+    public Image RIVER_SPRING_R2;
+    public Image RIVER_SPRING_R3;
+    public Image RIVER_SPRING_R4;
+    public Image RIVER_SPRING_R5;
+
+    public Image RIVER_ADJACENT_R0;
+    public Image RIVER_ADJACENT_R1;
+    public Image RIVER_ADJACENT_R2;
+    public Image RIVER_ADJACENT_R3;
+    public Image RIVER_ADJACENT_R4;
+    public Image RIVER_ADJACENT_R5;
+
+    public Image RIVER_SKIP_R0;
+    public Image RIVER_SKIP_R1;
+    public Image RIVER_SKIP_R2;
+    public Image RIVER_SKIP_R3;
+    public Image RIVER_SKIP_R4;
+    public Image RIVER_SKIP_R5;
+
+    public Image RIVER_OPPOSITE_R0;
+    public Image RIVER_OPPOSITE_R1;
+    public Image RIVER_OPPOSITE_R2;
+
+    public Image RIVER_EVERYOTHER_R0;
+    public Image RIVER_EVERYOTHER_R1;
+
     public boolean loadAssets(){
         try{
 
@@ -124,6 +153,33 @@ public class Assets {
             DESERT_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/desertTerrain.png"));
             MOUNTAIN_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/mountainTerrain.png"));
 
+            RIVER_SPRING_R0 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR0.png"));
+            RIVER_SPRING_R1 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR1.png"));
+            RIVER_SPRING_R2 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR2.png"));
+            RIVER_SPRING_R3 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR3.png"));
+            RIVER_SPRING_R4 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR4.png"));
+            RIVER_SPRING_R5 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR5.png"));
+
+            RIVER_ADJACENT_R0 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river2_AdjacentR0.png"));
+            RIVER_ADJACENT_R1 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river2_AdjacentR1.png"));
+            RIVER_ADJACENT_R2 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river2_AdjacentR2.png"));
+            RIVER_ADJACENT_R3 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river2_AdjacentR3.png"));
+            RIVER_ADJACENT_R4 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river2_AdjacentR4.png"));
+            RIVER_ADJACENT_R5 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river2_AdjacentR5.png"));
+
+            RIVER_SKIP_R0 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river3_SkipR0.png"));
+            RIVER_SKIP_R1 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river3_SkipR1.png"));
+            RIVER_SKIP_R2 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river3_SkipR2.png"));
+            RIVER_SKIP_R3 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river3_SkipR3.png"));
+            RIVER_SKIP_R4 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river3_SkipR4.png"));
+            RIVER_SKIP_R5 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river3_SkipR5.png"));
+
+            RIVER_OPPOSITE_R0 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river4_OppositeR0.png"));
+            RIVER_OPPOSITE_R1 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river4_OppositeR1.png"));
+            RIVER_OPPOSITE_R2 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river4_OppositeR2.png"));
+
+            RIVER_EVERYOTHER_R0 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river5_EveryOtherR0.png"));
+            RIVER_EVERYOTHER_R1 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river5_EveryOtherR1.png"));
 
             GREEN_CURSOR = new Image(this.getClass().getResourceAsStream("/tiles/greenCursor.png"));
             RED_CURSOR = new Image(this.getClass().getResourceAsStream("/tiles/redCursor.png"));
