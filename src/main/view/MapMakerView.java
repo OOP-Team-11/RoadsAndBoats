@@ -54,7 +54,7 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
     public void render(){
         if(newDataFlag){
             checkClearCanvas();
-            drawDivider();
+           // drawDivider();
             drawMap();
             drawCursor();
             resetFlag();
@@ -70,16 +70,12 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
 
     // camera zoom function to move in/out of placement area
     public void changeZoom(int moveZ){
-        this.cameraZoom += moveZ;
-        if(moveZ > 0) {
-            for (int i = 0; i < moveZ; i++) {
-                zoomIN();
+        System.out.println(this.cameraZoom);
+            if(moveZ > 0) {
+                    zoomIN();
+            } else {
+                    zoomOUT();
             }
-        } else {
-            for(int i=0; i>moveZ; i--){
-                zoomOUT();
-            }
-        }
     }
     private void setGraphicsContentStroke(Paint p){
         this.gc.setStroke(p);
@@ -116,7 +112,6 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
             double offsetVertical = (image.getHeight())*((xx-1)/2);
             gc.drawImage(image,image.getWidth()*xx*0.75+cameraX,(image.getHeight()*((yy)) + offset +offsetVertical + cameraY)); // x, y
         }
-
     }
 
     private void checkClearCanvas(){
@@ -127,20 +122,45 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
             // nothing to clear
         }
     }
+
+
     private void drawMap(){
 
         if(renderInformation == null){
             // no information yet
         } else {
+            // first time around we just render the terrain
             for (Map.Entry<Location, Tile> entry : renderInformation.getTileInformation().entrySet())
             {
-                Image image = getTileImage(entry.getValue());
+                Image image = getTerrainImage(entry.getValue());
                 drawImage(image, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
             }
-            System.out.println(renderInformation.getTileInformation().size());
+            // second time around we draw the rivers
+            for (Map.Entry<Location, Tile> entry : renderInformation.getTileInformation().entrySet())
+            {
+                Image image = getRiverImage(entry.getValue());
+                if(image != null){
+                    drawImage(image, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
+                }
+            }
         }
     }
 
+    private Image getTerrainImage(Tile tile){
+        if(tile.getTerrain().equals(Terrain.SEA)){
+            return assets.SEA;
+        } else if (tile.getTerrain().equals(Terrain.DESERT)){
+            return assets.DESERT;
+        } else if(tile.getTerrain().equals(Terrain.MOUNTAIN)){
+            return assets.MOUNTAIN;
+        } else if(tile.getTerrain().equals(Terrain.PASTURE)){
+            return assets.PASTURE;
+        } else if(tile.getTerrain().equals(Terrain.ROCK)){
+            return assets.ROCK;
+        } else {
+            return assets.WOODS;
+        }
+    }
 
     private void drawDivider(){
         setGraphicsContentStroke(Color.BLACK);
@@ -150,14 +170,13 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
     }
 
     private void zoomIN(){
-        canvas.setScaleX(canvas.getScaleX()+0.05);
-        canvas.setScaleY(canvas.getScaleY()+0.05);
+        canvas.setScaleX(canvas.getScaleX()+0.01);
+        canvas.setScaleY(canvas.getScaleY()+0.01);
     }
     private void zoomOUT(){
-        canvas.setScaleX(canvas.getScaleX()-0.05);
-        canvas.setScaleY(canvas.getScaleY()-0.05);
+        canvas.setScaleX(canvas.getScaleX()-0.01);
+        canvas.setScaleY(canvas.getScaleY()-0.01);
     }
-
 
     @Override
     public void updateCursorInfo(MapMakerCursorInfo mapMakerCursorInfo) {
@@ -174,12 +193,34 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         this.renderInformation = mapMakerRenderInfo;
     }
 
-    private Image getTileImage(Tile tile) {
-        RiverConfiguration riverConfig = tile.getRiverConfiguration();
+    private Image getRiverImage(Tile tile) {
 
-        if(tile.getTerrain().equals(Terrain.SEA)){
-            return assets.SEA;
+        RiverConfiguration riverConfig = tile.getRiverConfiguration();
+        /*
+        System.out.println("NORTH: "+riverConfig.canConnectNorth());
+        System.out.println("NE: "+riverConfig.canConnectNortheast());
+        System.out.println("SE: "+riverConfig.canConnectSoutheast());
+        System.out.println("S: "+riverConfig.canConnectSouth());
+        System.out.println("SW: "+riverConfig.canConnectSouthwest());
+        System.out.println("MW: "+riverConfig.canConnectNorthwest());
+    */
+
+        if(riverConfig.canConnectNorth()){
+            return assets.getInstance().RIVER1_R0;
+        } else if (riverConfig.canConnectNortheast()){
+            return assets.getInstance().RIVER1_R1;
+        } else if(riverConfig.canConnectSoutheast()){
+            return assets.getInstance().RIVER1_R2;
+        } else if(riverConfig.canConnectSouth()){
+            return  assets.getInstance().RIVER1_R3;
+        } else if(riverConfig.canConnectSouthwest()){
+            return assets.getInstance().RIVER1_R4;
+        } else if(riverConfig.canConnectNorthwest()){
+            return assets.getInstance().RIVER1_R5;
+        } else {
+            return null;
         }
+        /*
 
         if(riverConfig.canConnectNorth()) {
             if(riverConfig.canConnectNortheast()) {
@@ -269,6 +310,8 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
                     return assets.WOODS;
             }
         }
-        return null;
+
+        */
+
     }
 }
