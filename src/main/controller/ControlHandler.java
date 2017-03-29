@@ -163,6 +163,12 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         currentProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
         nextProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
         notifyTileSelectObservers(makeRenderInfo());
+
+        /*
+        boolean temp =  gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
+        cursorInfo.setCursorLocation(protoTileLocation);
+        cursorInfo.setIsCursorValid(temp);
+        notifyCursorObservers(cursorInfo); */
     }
 
     public void rotateTileCounterClockwise() {
@@ -170,6 +176,12 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         currentProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
         nextProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
         notifyTileSelectObservers(makeRenderInfo());
+        /*
+        boolean temp =  gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
+        cursorInfo.setCursorLocation(protoTileLocation);
+        cursorInfo.setIsCursorValid(temp);
+        notifyCursorObservers(cursorInfo);
+        */
     }
     public void setSeaTerrain(){
         updateTerrain(Terrain.SEA);
