@@ -7,6 +7,10 @@ public class TileSelectorRenderInfo {
     private Terrain terrainTypeSelection;
     private Tile topTile, middleTile, lowerTile;
 
+    public TileSelectorRenderInfo() {
+        
+    }
+
     public Terrain getTerrainTypeSelection() {
         return terrainTypeSelection;
     }

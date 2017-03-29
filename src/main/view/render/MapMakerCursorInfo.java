@@ -6,6 +6,10 @@ public class MapMakerCursorInfo {
     private Location cursorLocation;
     private boolean isCursorValid;
 
+    public MapMakerCursorInfo() {
+
+    }
+
     public Location getCursorLocation() {
         return cursorLocation;
     }
