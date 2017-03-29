@@ -4,7 +4,7 @@ package model.tile;
 
 import java.util.Arrays;
 
-public class Location {
+public class Location implements  Cloneable{
 
     private int x;
     private int y;
@@ -21,6 +21,15 @@ public class Location {
         this.x = x;
         this.y = y;
         this.z = -(x+y);
+    }
+
+    public Location clone(){
+        try{
+            Location locationClone = (Location) super.clone();
+            return locationClone;
+        } catch(CloneNotSupportedException e){
+            throw new InternalError(e.toString());
+        }
     }
 
     public int getX() {
