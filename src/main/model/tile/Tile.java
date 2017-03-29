@@ -45,6 +45,8 @@ public class Tile {
                 new TileEdge(canConnectRiver(TileEdgeDirection.getSouthWest(), riverConfiguration, terrain),
                         riverConfiguration.canConnectSouthwest()));
 
+        this.rotateAccordingToRiverConfiguration();
+
         compartments.put(TileCompartmentDirection.getEast(), new TileCompartment(false));
         compartments.put(TileCompartmentDirection.getNorthNorthEast(), new TileCompartment(false));
         compartments.put(TileCompartmentDirection.getNorthEast(), new TileCompartment(false));
@@ -59,6 +61,14 @@ public class Tile {
         compartments.put(TileCompartmentDirection.getSouthSouthEast(), new TileCompartment(false));
 
         this.terrain = terrain;
+    }
+
+    private void rotateAccordingToRiverConfiguration() {
+        int rotationAmount = this.riverConfiguration.getRotationAmount();
+        while (rotationAmount > 0) {
+            this.rotate(new Angle(-60));
+            rotationAmount--;
+        }
     }
 
     public RiverConfiguration getRiverConfiguration() {
