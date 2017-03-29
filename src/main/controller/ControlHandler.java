@@ -140,6 +140,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
     public void moveCursor(TileEdgeDirection dir){
         Location newCursorLocation = DirectionToLocation.getLocation(cursorInfo.getCursorLocation(), dir);
+        protoTileLocation = newCursorLocation;
         boolean isValidPlacement = gameMap.isValidPlacement(newCursorLocation, currentProtoTile);
         cursorInfo.setCursorLocation(newCursorLocation);
         cursorInfo.setIsCursorValid(isValidPlacement);

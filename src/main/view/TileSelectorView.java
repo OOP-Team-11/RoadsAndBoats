@@ -53,6 +53,9 @@ public class TileSelectorView implements TileSelectObserver{
         drawArrowKeys();
         drawMiddleRectangle();
         drawTerrainSelectRectangle();
+        drawUpper(this.top);
+        drawMiddle(this.middle);
+        drawLower(this.bottom);
     }
     private void setGraphicsContentStroke(Paint p){
         this.gc.setStroke(p);
@@ -72,12 +75,6 @@ public class TileSelectorView implements TileSelectObserver{
         setLineWidth(5.0);
         drawLine(0,0,0,canvas.getHeight()); // vertical stroke line
         drawLine(0,0,canvas.getWidth(),0); // horizontal stroke line
-    }
-    private void setImagesForTiles(){
-
-    }
-    private void drawMiddleImage(){
-
     }
 
     private void drawCanvasBackGround(){
@@ -117,6 +114,20 @@ public class TileSelectorView implements TileSelectObserver{
         }
     }
 
+    private void drawUpper(Image image) {
+        if (image != assets.SEA) {
+            this.gc.drawImage(image, 130, 55);
+        }
+    }
+    private void drawMiddle(Image image){
+        this.gc.drawImage(image,130,250);
+    }
+    private void drawLower(Image image) {
+        if (image != assets.SEA) {
+            this.gc.drawImage(image, 130, 450);
+        }
+    }
+
     private void drawTerrainOptions(){
         this.gc.strokeRoundRect(40,700,35,35,5,5);
         this.gc.strokeRoundRect(90,700,35,35,5,5);
@@ -140,31 +151,35 @@ public class TileSelectorView implements TileSelectObserver{
 
     @Override
     public void updateTileSelect(TileSelectorRenderInfo tileSelectorRenderInfo) {
-
-        System.out.println(tileSelectorRenderInfo.getTerrainTypeSelection());
+        
         this.currentRenderInfo = tileSelectorRenderInfo;
-        if(tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.DESERT)){
+        if(tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.SEA)){
             terrainSelected = 1;
-        } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.MOUNTAIN)){
-            terrainSelected = 2;
         } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.PASTURE)){
+            terrainSelected = 2;
+        } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.WOODS)){
             terrainSelected = 3;
         } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.ROCK)){
             terrainSelected = 4;
-        } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.SEA)){
+        } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.DESERT)){
             terrainSelected = 5;
         } else {
             terrainSelected = 6;
         }
 
-        top = getTileImage(tileSelectorRenderInfo.getTopTile());
-        middle = getTileImage(tileSelectorRenderInfo.getMiddleTile());
-        bottom = getTileImage(tileSelectorRenderInfo.getLowerTile());
+        this.top = getTileImage(tileSelectorRenderInfo.getTopTile());
+        this.middle = getTileImage(tileSelectorRenderInfo.getMiddleTile());
+        this.bottom = getTileImage(tileSelectorRenderInfo.getLowerTile());
         this.newDataFlag = true;
     }
 
     private Image getTileImage(Tile tile) {
         RiverConfiguration riverConfig = tile.getRiverConfiguration();
+
+        if(tile.getTerrain().equals(Terrain.SEA)){
+            return assets.SEA;
+        }
+
         if(riverConfig.canConnectNorth()) {
             if(riverConfig.canConnectNortheast()) {
                 switch(tile.getTerrain()) {

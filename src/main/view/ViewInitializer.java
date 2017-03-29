@@ -30,7 +30,7 @@ public class ViewInitializer {
         VBox root2 = new VBox();
         createMenuBar();
         Canvas mapMakerCanvas = new Canvas(1000,800);
-        Canvas tileSelectorCanvas = new Canvas(500,800);
+        Canvas tileSelectorCanvas = new Canvas(400,800);
         this.mapMakerView = new MapMakerView(mapMakerCanvas);
         this.tileSelectorView = new TileSelectorView(tileSelectorCanvas);
         this.primaryStage.setTitle("Roads and Boats ");
@@ -38,7 +38,7 @@ public class ViewInitializer {
         root.getChildren().add(mapMakerCanvas);
         root.getChildren().add(tileSelectorCanvas);
         root2.getChildren().add(root);
-        this.scene = new Scene(root2,1500 , 800);
+        this.scene = new Scene(root2,1400 , 800);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
