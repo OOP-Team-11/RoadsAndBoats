@@ -18,6 +18,10 @@ public class TileSelectorView implements TileSelectObserver{
     private boolean newDataFlag = false;
     private int terrainSelected = 1;
 
+    private Image top;
+    private Image middle;
+    private Image bottom;
+
     private Assets assets;
     private Image terrain1 = assets.getInstance().SEA_TERRAIN;
     private Image terrain2 = assets.getInstance().PASTURE_TERRAIN;
@@ -25,6 +29,7 @@ public class TileSelectorView implements TileSelectObserver{
     private Image terrain4 = assets.getInstance().ROCK_TERRAIN;
     private Image terrain5 = assets.getInstance().DESERT_TERRAIN;
     private Image terrain6 = assets.getInstance().MOUNTAIN_TERRAIN;
+    private Image test = assets.getInstance().DESERT_R1_SPRING;
 
     public TileSelectorView(Canvas canvas){
         this.canvas = canvas;
@@ -62,6 +67,12 @@ public class TileSelectorView implements TileSelectObserver{
         setLineWidth(5.0);
         drawLine(0,0,0,canvas.getHeight()); // vertical stroke line
         drawLine(0,0,canvas.getWidth(),0); // horizontal stroke line
+    }
+    private void setImagesForTiles(){
+
+    }
+    private void drawMiddleImage(){
+
     }
 
     private void drawCanvasBackGround(){
