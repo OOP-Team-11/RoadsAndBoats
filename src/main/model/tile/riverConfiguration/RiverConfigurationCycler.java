@@ -12,7 +12,7 @@ public class RiverConfigurationCycler implements Iterator<RiverConfiguration> {
     private int index;
 
     public RiverConfigurationCycler(Terrain terrain) {
-        this.index = 0; //Only set up the terrain when the iterator is initialized.
+        this.index = 0;
         this.riverConfigurations = new ArrayList<>();
         setupRiverConfigurationsArrayList(terrain);
     }
@@ -52,7 +52,7 @@ public class RiverConfigurationCycler implements Iterator<RiverConfiguration> {
     private void setupRiverConfigurationsArrayList(Terrain terrain){
         if (terrain == Terrain.SEA) {
             this.riverConfigurations.add(RiverConfiguration.getNoRivers());
-            this.index = 0; //Have to reset the index, as there are no more valid indices
+            this.index = 0; //Have to reset the index, as there are no other valid indices
         } else {
             this.riverConfigurations.add(RiverConfiguration.getNoRivers());
             this.riverConfigurations.add(RiverConfiguration.getSpringHead());

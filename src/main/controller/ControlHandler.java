@@ -147,6 +147,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     private void updateTerrain(Terrain newTerrain){
+        updateRiverConfigList(newTerrain);  //Updates the iterator of possible river configurations to those possible for the new Terrain
         previousProtoTile = new Tile(newTerrain,riverConfigList.getPrevious());
         currentProtoTile = new Tile(newTerrain,riverConfigList.getCurrent());
         nextProtoTile = new Tile(newTerrain,riverConfigList.getNext());
