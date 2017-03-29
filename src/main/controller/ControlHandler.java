@@ -30,7 +30,6 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     private ArrayList<CursorObserver> cursorObservers;          //Hold CursorObservers who've registered for Cursor updates
     private ArrayList<TileSelectObserver> tileSelectObservers;  //Hold TileSelectObservers who've registered for TileSelect updates
     private ArrayList<MapMakerObserver> mapMakerObservers;
-    private HashMap<ArrayList,Boolean> observerUpdateFlags;  //Will flag a need to update one or both sets of observers when notifyObservers() is called
     private MapMakerCursorInfo cursorInfo;
     private Map gameMap;
 
@@ -50,8 +49,6 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         cursorObservers = new ArrayList<>();
         tileSelectObservers = new ArrayList<>();
         mapMakerObservers = new ArrayList<>();
-        observerUpdateFlags = new HashMap<>();
-
 
         registerCursorObserver(mapMakerView);
         registerTileSelectObserver(tileSelectorView);
@@ -95,6 +92,10 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         return this.nextProtoTile;
     }
 
+    private TileSelectorRenderInfo makeRenderInfo(){
+        return new TileSelectorRenderInfo(getPreviousProtoTile(),getCurrentProtoTile(),getNextProtoTile());
+    }
+
     public void nextRiverConfiguration(){
         this.previousProtoTile = this.currentProtoTile;     //Set the previous prototype to the current one
         this.currentProtoTile = this.nextProtoTile;         //Set the current prototype to the next one
@@ -103,6 +104,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
         //Set the nextProtoTile to a new Tile with the same terrain as the others and the new riverConfig
         this.nextProtoTile = new Tile(this.currentProtoTile.getTerrain() , this.riverConfigList.getCurrent());
+        notifyTileSelectObservers(makeRenderInfo());
     }
 
     public void previousRiverConfiguration(){
@@ -113,7 +115,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
         //Set the nextProtoTile to a new Tile with the same terrain as the others and the new riverConfig
         this.previousProtoTile = new Tile(this.currentProtoTile.getTerrain() , this.riverConfigList.getCurrent());
-
+        notifyTileSelectObservers(makeRenderInfo());
     }
 
     public boolean tryPlaceTile(){
@@ -140,7 +142,6 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         boolean isValidPlacement = gameMap.isValidPlacement(newCursorLocation, currentProtoTile);
         cursorInfo.setCursorLocation(newCursorLocation);
         cursorInfo.setIsCursorValid(isValidPlacement);
-        observerUpdateFlags.replace(cursorObservers,true);  //Mark the cursorObservers for notification
         notifyCursorObservers(cursorInfo);
     }
 
@@ -158,12 +159,14 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         previousProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
         currentProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
         nextProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
+        notifyTileSelectObservers(makeRenderInfo());
     }
 
     public void rotateTileCounterClockwise() {
         previousProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
         currentProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
         nextProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
+        notifyTileSelectObservers(makeRenderInfo());
     }
     public void setSeaTerrain(){
         updateTerrain(Terrain.SEA);
@@ -189,31 +192,13 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         previousProtoTile = new Tile(newTerrain,riverConfigList.getPrevious());
         currentProtoTile = new Tile(newTerrain,riverConfigList.getCurrent());
         nextProtoTile = new Tile(newTerrain,riverConfigList.getNext());
-
+        notifyTileSelectObservers(makeRenderInfo());
     }
 
     /* Update the iterator of RiverConfigurations */
     private void updateRiverConfigList(Terrain newTerrain){
         this.riverConfigList.updateTerrain(newTerrain);
     }
-
-
-     /* Observer stuff below  */
-
-//     @Override
-//     public void notifyObservers() {
-//        /* Notifies both sets of Observers depending on whether or not they're flagged for updating*/
-//         if(observerUpdateFlags.get(cursorObservers)){
-//             notifyCursorObservers();
-//             observerUpdateFlags.replace(cursorObservers,false);
-//         }
-//
-//         if(observerUpdateFlags.get(tileSelectObservers)){
-//             notifyTileSelectObservers();
-//             observerUpdateFlags.replace(tileSelectObservers,false);
-//         }
-//     }
-
 
 
     @Override
