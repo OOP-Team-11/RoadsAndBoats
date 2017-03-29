@@ -8,7 +8,7 @@ public class TileSelectorRenderInfo {
     private Tile topTile, middleTile, lowerTile;
 
     public TileSelectorRenderInfo() {
-        
+
     }
 
     public Terrain getTerrainTypeSelection() {

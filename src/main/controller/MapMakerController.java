@@ -10,6 +10,8 @@ import view.TileSelectorView;
 import javafx.stage.Stage;
 import view.ViewInitializer;
 
+import static oracle.jrockit.jfr.events.Bits.intValue;
+
 public class MapMakerController {
 
     private ControlHandler controlHandler;
@@ -24,7 +26,7 @@ public class MapMakerController {
         getReferences();
         initializeControlHandler(gameMap);
         attachControlsToScene(this.controlHandler);
-
+        attachScrollEventToScene();
         // after everything is setup, start the animation timer
         viewInitializer.startAnimationLoop();
     }
@@ -48,5 +50,11 @@ public class MapMakerController {
     private void attachControlsToScene(ControlHandler controlHandler) {
         MapMakerKeyControlsMapper mapMakerKeyControlsMapper = new MapMakerKeyControlsMapper(controlHandler);
         mapMakerKeyControlsMapper.attachToScene(this.scene);
+    }
+
+    private void attachScrollEventToScene() {
+        this.scene.setOnScroll(event -> {
+            this.mapMakerView.changeZoom(intValue(event.getDeltaY()));
+        });
     }
 }
