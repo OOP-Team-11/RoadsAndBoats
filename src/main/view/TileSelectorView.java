@@ -32,6 +32,7 @@ public class TileSelectorView implements TileSelectObserver{
         drawCanvasBackGround();
         drawTileSelectBox();
         drawTerrainOptions();
+        drawArrowKeys();
     }
     private void setGraphicsContentStroke(Paint p){
         this.gc.setStroke(p);
@@ -65,7 +66,8 @@ public class TileSelectorView implements TileSelectObserver{
         this.gc.strokeRoundRect(35,20,300,600,20,20);
     }
     private void drawArrowKeys(){
-        // TODO
+        Image arrowKeys = assets.getInstance().ARROW_KEYS;
+        gc.drawImage(arrowKeys, 135, 610, 100, 100);
     }
 
     private void drawTerrainOptions(){

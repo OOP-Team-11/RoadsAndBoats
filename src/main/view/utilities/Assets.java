@@ -24,39 +24,39 @@ public class Assets {
     public Image SEA;
 
     public Image PASTURE;
-    public Image PASTURE_RIVER1;
-    public Image PASTURE_RIVER2;
-    public Image PASTURE_RIVER3;
-    public Image PASTURE_RIVER4;
-    public Image PASTURE_RIVER5;
+    public Image PASTURE_R1_SPRING;
+    public Image PASTURE_R2_ADJACENT;
+    public Image PASTURE_R3_SKIP;
+    public Image PASTURE_R4_OPPOSITE;
+    public Image PASTURE_R5_EVERYOTHER;
 
     public Image WOODS;
-    public Image WOODS_RIVER1;
-    public Image WOODS_RIVER2;
-    public Image WOODS_RIVER3;
-    public Image WOODS_RIVER4;
-    public Image WOODS_RIVER5;
+    public Image WOODS_R1_SPRING;
+    public Image WOODS_R2_ADJACENT;
+    public Image WOODS_R3_SKIP;
+    public Image WOODS_R4_OPPOSITE;
+    public Image WOODS_R5_EVERYOTHER;
 
     public Image ROCK;
-    public Image ROCK_RIVER1;
-    public Image ROCK_RIVER2;
-    public Image ROCK_RIVER3;
-    public Image ROCK_RIVER4;
-    public Image ROCK_RIVER5;
+    public Image ROCK_R1_SPRING;
+    public Image ROCK_R2_ADJACENT;
+    public Image ROCK_R3_SKIP;
+    public Image ROCK_R4_OPPOSITE;
+    public Image ROCK_R5_EVERYOTHER;
 
     public Image DESERT;
-    public Image DESERT_RIVER1;
-    public Image DESERT_RIVER2;
-    public Image DESERT_RIVER3;
-    public Image DESERT_RIVER4;
-    public Image DESERT_RIVER5;
+    public Image DESERT_R1_SPRING;
+    public Image DESERT_R2_ADJACENT;
+    public Image DESERT_R3_SKIP;
+    public Image DESERT_R4_OPPOSITE;
+    public Image DESERT_R5_EVERYOTHER;
 
     public Image MOUNTAIN;
-    public Image MOUNTAIN_RIVER1;
-    public Image MOUNTAIN_RIVER2;
-    public Image MOUNTAIN_RIVER3;
-    public Image MOUNTAIN_RIVER4;
-    public Image MOUNTAIN_RIVER5;
+    public Image MOUNTAIN_R1_SPRING;
+    public Image MOUNTAIN_R2_ADJACENT;
+    public Image MOUNTAIN_R3_SKIP;
+    public Image MOUNTAIN_R4_OPPOSITE;
+    public Image MOUNTAIN_R5_EVERYOTHER;
 
     public Image SEA_TERRAIN;
     public Image PASTURE_TERRAIN;
@@ -65,6 +65,8 @@ public class Assets {
     public Image DESERT_TERRAIN;
     public Image MOUNTAIN_TERRAIN;
 
+    public Image ARROW_KEYS;
+
     public boolean loadAssets(){
         try{
             // TODO load in images here
@@ -72,54 +74,56 @@ public class Assets {
             // EXAMPLE = new Image("resources/image.png");
 
             // sea tile
-            SEA = new Image("tiles/sea/seaTile.png");
+            SEA = new Image(this.getClass().getResourceAsStream("/tiles/sea/seaTile.png"));
 
             // pasture tile
-            PASTURE = new Image("tiles/pasture/pastureTile.png");
-            PASTURE_RIVER1 = new Image("tiles/pasture/pastureTileRiver1.png");
-            PASTURE_RIVER2 = new Image("tiles/pasture/pastureTileRiver2.png");
-            PASTURE_RIVER3 = new Image("tiles/pasture/pastureTileRiver3.png");
-            PASTURE_RIVER4 = new Image("tiles/pasture/pastureTileRiver4.png");
-            PASTURE_RIVER5 = new Image("tiles/pasture/pastureTileRiver5.png");
+            PASTURE = new Image(this.getClass().getResourceAsStream("/tiles/pasture/pastureTile.png"));
+            PASTURE_R1_SPRING = new Image(this.getClass().getResourceAsStream("/tiles/pasture/pastureTileR1_Spring.png"));
+            PASTURE_R2_ADJACENT = new Image(this.getClass().getResourceAsStream("/tiles/pasture/pastureTileR2_Adjacent.png"));
+            PASTURE_R3_SKIP = new Image(this.getClass().getResourceAsStream("/tiles/pasture/pastureTileR3_Skip.png"));
+            PASTURE_R4_OPPOSITE = new Image(this.getClass().getResourceAsStream("/tiles/pasture/pastureTileR4_Opposite.png"));
+            PASTURE_R5_EVERYOTHER = new Image(this.getClass().getResourceAsStream("/tiles/pasture/pastureTileR5_EveryOther.png"));
 
             // woods tile
-            WOODS = new Image("tiles/woods/woodsTile.png");
-            WOODS_RIVER1 = new Image("tiles/woods/woodsTileRiver1.png");
-            WOODS_RIVER2 = new Image("tiles/woods/woodsTileRiver2.png");
-            WOODS_RIVER3 = new Image("tiles/woods/woodsTileRiver3.png");
-            WOODS_RIVER4 = new Image("tiles/woods/woodsTileRiver4.png");
-            WOODS_RIVER5 = new Image("tiles/woods/woodsTileRiver5.png");
+            WOODS = new Image(this.getClass().getResourceAsStream("/tiles/woods/woodsTile.png"));
+            WOODS_R1_SPRING = new Image(this.getClass().getResourceAsStream("/tiles/woods/woodsTileR1_Spring.png"));
+            WOODS_R2_ADJACENT = new Image(this.getClass().getResourceAsStream("/tiles/woods/woodsTileR2_Adjacent.png"));
+            WOODS_R3_SKIP = new Image(this.getClass().getResourceAsStream("/tiles/woods/woodsTileR3_Skip.png"));
+            WOODS_R4_OPPOSITE = new Image(this.getClass().getResourceAsStream("/tiles/woods/woodsTileR4_Opposite.png"));
+            WOODS_R5_EVERYOTHER = new Image(this.getClass().getResourceAsStream("/tiles/woods/woodsTileR5_EveryOther.png"));
 
             // rock tile
-            ROCK = new Image("tiles/rock/rockTile.png");
-            ROCK_RIVER1 = new Image("tiles/rock/rockTileRiver1.png");
-            ROCK_RIVER2 = new Image("tiles/rock/rockTileRiver2.png");
-            ROCK_RIVER3 = new Image("tiles/rock/rockTileRiver3.png");
-            ROCK_RIVER4 = new Image("tiles/rock/rockTileRiver4.png");
-            ROCK_RIVER5 = new Image("tiles/rock/rockTileRiver5.png");
+            ROCK = new Image(this.getClass().getResourceAsStream("/tiles/rock/rockTile.png"));
+            ROCK_R1_SPRING = new Image(this.getClass().getResourceAsStream("/tiles/rock/rockTileR1_Spring.png"));
+            ROCK_R2_ADJACENT = new Image(this.getClass().getResourceAsStream("/tiles/rock/rockTileR2_Adjacent.png"));
+            ROCK_R3_SKIP = new Image(this.getClass().getResourceAsStream("/tiles/rock/rockTileR3_Skip.png"));
+            ROCK_R4_OPPOSITE = new Image(this.getClass().getResourceAsStream("/tiles/rock/rockTileR4_Opposite.png"));
+            ROCK_R5_EVERYOTHER = new Image(this.getClass().getResourceAsStream("/tiles/rock/rockTileR5_EveryOther.png"));
 
             // desert tile
-            DESERT = new Image("tiles/desert/desertTile.png");
-            DESERT_RIVER1 = new Image("tiles/desert/desertTileRiver1.png");
-            DESERT_RIVER2 = new Image("tiles/desert/desertTileRiver2.png");
-            DESERT_RIVER3 = new Image("tiles/desert/desertTileRiver3.png");
-            DESERT_RIVER4 = new Image("tiles/desert/desertTileRiver4.png");
-            DESERT_RIVER5 = new Image("tiles/desert/desertTileRiver5.png");
+            DESERT = new Image(this.getClass().getResourceAsStream("/tiles/desert/desertTile.png"));
+            DESERT_R1_SPRING = new Image(this.getClass().getResourceAsStream("/tiles/desert/desertTileR1_Spring.png"));
+            DESERT_R2_ADJACENT = new Image(this.getClass().getResourceAsStream("/tiles/desert/desertTileR2_Adjacent.png"));
+            DESERT_R3_SKIP = new Image(this.getClass().getResourceAsStream("/tiles/desert/desertTileR3_Skip.png"));
+            DESERT_R4_OPPOSITE = new Image(this.getClass().getResourceAsStream("/tiles/desert/desertTileR4_Opposite.png"));
+            DESERT_R5_EVERYOTHER = new Image(this.getClass().getResourceAsStream("/tiles/desert/desertTileR5_EveryOther.png"));
 
             // mountain tile
-            MOUNTAIN = new Image("tiles/mountain/mountainTile.png");
-            MOUNTAIN_RIVER1 = new Image("tiles/mountain/mountainTileRiver1.png");
-            MOUNTAIN_RIVER2 = new Image("tiles/mountain/mountainTileRiver2.png");
-            MOUNTAIN_RIVER3 = new Image("tiles/mountain/mountainTileRiver3.png");
-            MOUNTAIN_RIVER4 = new Image("tiles/mountain/mountainTileRiver4.png");
-            MOUNTAIN_RIVER5 = new Image("tiles/mountain/mountainTileRiver5.png");
+            MOUNTAIN = new Image(this.getClass().getResourceAsStream("/tiles/mountain/mountainTile.png"));
+            MOUNTAIN_R1_SPRING = new Image(this.getClass().getResourceAsStream("/tiles/mountain/mountainTileR1_Spring.png"));
+            MOUNTAIN_R2_ADJACENT = new Image(this.getClass().getResourceAsStream("/tiles/mountain/mountainTileR2_Adjacent.png"));
+            MOUNTAIN_R3_SKIP = new Image(this.getClass().getResourceAsStream("/tiles/mountain/mountainTileR3_Skip.png"));
+            MOUNTAIN_R4_OPPOSITE = new Image(this.getClass().getResourceAsStream("/tiles/mountain/mountainTileR4_Opposite.png"));
+            MOUNTAIN_R5_EVERYOTHER = new Image(this.getClass().getResourceAsStream("/tiles/mountain/mountainTileR5_EveryOther.png"));
 
-            SEA_TERRAIN = new Image("terrain/seaTerrain.png");
-            PASTURE_TERRAIN = new Image("terrain/pastureTerrain.png");
-            WOODS_TERRAIN = new Image("terrain/woodsTerrain.png");
-            ROCK_TERRAIN = new Image("terrain/rockTerrain.png");
-            DESERT_TERRAIN = new Image("terrain/desertTerrain.png");
-            MOUNTAIN_TERRAIN = new Image("terrain/mountainTerrain.png");
+            SEA_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/seaTerrain.png"));
+            PASTURE_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/pastureTerrain.png"));
+            WOODS_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/woodsTerrain.png"));
+            ROCK_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/rockTerrain.png"));
+            DESERT_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/desertTerrain.png"));
+            MOUNTAIN_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/mountainTerrain.png"));
+
+            ARROW_KEYS = new Image(this.getClass().getResourceAsStream("/misc/arrowkeys.png"));
 
         } catch(Exception e){
             e.printStackTrace();
