@@ -8,7 +8,7 @@ public class RiverConfigurationTest {
 
     @Test
     public void noRivers() {
-        RiverConfiguration riverConfiguration = RiverConfiguration.getSpringHead();
+        RiverConfiguration riverConfiguration = RiverConfiguration.getNoRivers();
         assertFalse(riverConfiguration.canConnectNorth());
         assertFalse(riverConfiguration.canConnectNortheast());
         assertFalse(riverConfiguration.canConnectNorthwest());
@@ -44,10 +44,10 @@ public class RiverConfigurationTest {
         RiverConfiguration riverConfiguration = RiverConfiguration.getSkipAFace();
         assertTrue(riverConfiguration.canConnectNorth());
         assertFalse(riverConfiguration.canConnectNortheast());
-        assertTrue(riverConfiguration.canConnectNorthwest());
+        assertTrue(riverConfiguration.canConnectSoutheast());
         assertFalse(riverConfiguration.canConnectSouth());
-        assertFalse(riverConfiguration.canConnectSoutheast());
         assertFalse(riverConfiguration.canConnectSouthwest());
+        assertFalse(riverConfiguration.canConnectNorthwest());
     }
 
     @Test
@@ -66,9 +66,9 @@ public class RiverConfigurationTest {
         RiverConfiguration riverConfiguration = RiverConfiguration.getEveryOtherFace();
         assertTrue(riverConfiguration.canConnectNorth());
         assertFalse(riverConfiguration.canConnectNortheast());
-        assertTrue(riverConfiguration.canConnectNorthwest());
-        assertFalse(riverConfiguration.canConnectSouth());
         assertTrue(riverConfiguration.canConnectSoutheast());
-        assertFalse(riverConfiguration.canConnectSouthwest());
+        assertFalse(riverConfiguration.canConnectSouth());
+        assertTrue(riverConfiguration.canConnectSouthwest());
+        assertFalse(riverConfiguration.canConnectNorthwest());
     }
 }

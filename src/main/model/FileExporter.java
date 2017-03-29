@@ -14,9 +14,9 @@ public class FileExporter {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File(filename)))) {
             if(map.hasTiles())
             {
-                for(Location location : map.getLocations()){
+                for(Location location : map.getAllLocations()){
                     Tile tile = map.getTile(location);
-                    bw.write(" \""+"(\" "+ this.getLocationString(location) +" \")"+"\"");
+                    bw.write(" \""+"(\" "+ location.getLocationString() +" \")"+"\"");
                     bw.write(" \""+String.valueOf(tile.getTerrain())+"\" ");
                     bw.write("\n");
                 }

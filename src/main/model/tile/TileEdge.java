@@ -25,6 +25,11 @@ public class TileEdge {
 
     public void setHasRiver(boolean hasRiver) {
         this.hasRiver = hasRiver;
+        
+        if(hasRiver)
+        {
+            this.canConnectRiver = true;
+        }
     }
 
     @Override

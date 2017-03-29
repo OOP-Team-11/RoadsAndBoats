@@ -4,21 +4,37 @@ package model;
 import direction.DirectionToLocation;
 import direction.TileEdgeDirection;
 
-import model.tile.*;
+import model.tile.InvalidLocationException;
+import model.tile.Location;
+import model.tile.Terrain;
+import model.tile.Tile;
+import model.tile.TileEdge;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
+public class Map
+{
+    private final int MAX_DISTANCE = 21;
 
-public class Map {
     private java.util.Map<Location, Tile> tiles;
 
     public Map()
     {
         tiles = new HashMap<Location, Tile>();
+//        this.initialize();
     }
 
+    /**
+     * Gets a tile from the map
+     *
+     * @param tileLocation The location you are trying to find a tile at.
+     * @return returns the tile at the specified location or null if there isn't one there.
+     */
+    public java.util.Map<Location, Tile> getTiles() {
+        return tiles;
+    }
     public Tile getTile(Location tileLocation)
     {
         return tiles.get(tileLocation);
@@ -30,7 +46,6 @@ public class Map {
         {
             return false;
         }
-
         updateTileEdges(tileLocation, tile);
         tiles.put(tileLocation, tile);
 
@@ -47,7 +62,9 @@ public class Map {
     public boolean isValidPlacement(Location tileLocation, Tile tile)
     {
         return isEmptyMap() ||
-                (hasAdjacentTile(tileLocation) && hasMatchingEdges(tileLocation, tile));
+                (hasAdjacentTile(tileLocation)
+                        && hasMatchingEdges(tileLocation, tile)
+                        && isWithinMaxDistance(tileLocation));
     }
 
     private boolean isEmptyMap()
@@ -94,6 +111,46 @@ public class Map {
         return true;
     }
 
+    private boolean isWithinMaxDistance(Location tileLocation)
+    {
+        MapBoundary bounds = getMapBoundaries();
+
+        int x = tileLocation.getX();
+        int y = tileLocation.getY();
+        int z = tileLocation.getZ();
+
+        return x > bounds.maxX - MAX_DISTANCE
+                && x < bounds.minX + MAX_DISTANCE
+                && y > bounds.maxY - MAX_DISTANCE
+                && y < bounds.minY + MAX_DISTANCE
+                && z > bounds.maxZ - MAX_DISTANCE
+                && z < bounds.minZ + MAX_DISTANCE;
+    }
+
+    private MapBoundary getMapBoundaries()
+    {
+        int minX = Integer.MAX_VALUE;
+        int minY = Integer.MAX_VALUE;
+        int minZ = Integer.MAX_VALUE;
+
+        int maxX = Integer.MIN_VALUE;
+        int maxY = Integer.MIN_VALUE;
+        int maxZ = Integer.MIN_VALUE;
+
+        for (Location loc : getAllLocations())
+        {
+            minX = Math.min(minX, loc.getX());
+            minY = Math.min(minY, loc.getY());
+            minZ = Math.min(minZ, loc.getZ());
+
+            maxX = Math.max(maxX, loc.getX());
+            maxY = Math.max(maxY, loc.getY());
+            maxZ = Math.max(maxZ, loc.getZ());
+        }
+
+        return new MapBoundary(minX, minY, minZ, maxX, maxY, maxZ);
+    }
+
     private void updateTileEdges(Location tileLocation, Tile tile)
     {
         for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
@@ -130,28 +187,11 @@ public class Map {
 
     private Location calculateCenter()
     {
-        int minX = 0;
-        int minY = 0;
-        int minZ = 0;
+        MapBoundary bounds = getMapBoundaries();
 
-        int maxX = 0;
-        int maxY = 0;
-        int maxZ = 0;
-
-        for (Location loc : getAllLocations())
-        {
-            minX = Math.min(minX, loc.getX());
-            minY = Math.min(minY, loc.getY());
-            minZ = Math.min(minZ, loc.getZ());
-
-            maxX = Math.max(maxX, loc.getX());
-            maxY = Math.max(maxY, loc.getY());
-            maxZ = Math.max(maxZ, loc.getZ());
-        }
-
-        int x = (maxX + minX) / 2;
-        int y = (maxY + minY) / 2;
-        int z = (maxZ + minZ) / 2;
+        int x = (bounds.maxX + bounds.minX) / 2;
+        int y = (bounds.maxY + bounds.minY) / 2;
+        int z = (bounds.maxZ + bounds.minZ) / 2;
 
         try
         {
@@ -175,7 +215,7 @@ public class Map {
         }
     }
 
-    private Set<Location> getAllLocations()
+    public Set<Location> getAllLocations()
     {
         return tiles.keySet();
     }
@@ -198,6 +238,4 @@ public class Map {
     }
 
     public boolean hasTiles(){return !(tiles.isEmpty());}
-
-    public Collection<Location> getLocations(){return tiles.keySet();}
 }

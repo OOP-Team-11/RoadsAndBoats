@@ -105,7 +105,7 @@ public class RiverConfiguration {
         return new RiverConfiguration(getSpringHeadMap());
     }
 
-    public static Map<TileEdgeDirection, Boolean> getAdjacentFacesMap() {
+    private static Map<TileEdgeDirection, Boolean> getAdjacentFacesMap() {
         Map<TileEdgeDirection, Boolean> riverMap = getDefaultMap();
         riverMap.replace(TileEdgeDirection.getNorth(), true);
         riverMap.replace(TileEdgeDirection.getNorthEast(), true);
@@ -116,7 +116,7 @@ public class RiverConfiguration {
         return new RiverConfiguration(getAdjacentFacesMap());
     }
 
-    public static Map<TileEdgeDirection, Boolean> getSkipAFaceMap() {
+    private static Map<TileEdgeDirection, Boolean> getSkipAFaceMap() {
         Map<TileEdgeDirection, Boolean> riverMap = getDefaultMap();
         riverMap.replace(TileEdgeDirection.getNorth(), true);
         riverMap.replace(TileEdgeDirection.getSouthEast(), true);
@@ -127,7 +127,7 @@ public class RiverConfiguration {
         return new RiverConfiguration(getSkipAFaceMap());
     }
 
-    public static Map<TileEdgeDirection, Boolean> getOppositeFacesMap() {
+    private static Map<TileEdgeDirection, Boolean> getOppositeFacesMap() {
         Map<TileEdgeDirection, Boolean> riverMap = getDefaultMap();
         riverMap.replace(TileEdgeDirection.getNorth(), true);
         riverMap.replace(TileEdgeDirection.getSouth(), true);
@@ -138,7 +138,7 @@ public class RiverConfiguration {
         return new RiverConfiguration(getOppositeFacesMap());
     }
 
-    public static Map<TileEdgeDirection, Boolean> getEveryOtherFaceMap() {
+    private static Map<TileEdgeDirection, Boolean> getEveryOtherFaceMap() {
         Map<TileEdgeDirection, Boolean> riverMap = getDefaultMap();
         riverMap.replace(TileEdgeDirection.getNorth(), true);
         riverMap.replace(TileEdgeDirection.getSouthEast(), true);

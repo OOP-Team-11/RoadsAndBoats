@@ -17,7 +17,7 @@ public class TileTest {
 
     private RiverConfiguration springConfiguration;
     @Before
-    private void setUp() {
+    public void setUp() {
         this.springConfiguration = RiverConfiguration.getSpringHead();
     }
 

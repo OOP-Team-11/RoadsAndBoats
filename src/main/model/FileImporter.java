@@ -3,12 +3,15 @@ package model;
 import model.tile.InvalidLocationException;
 import model.tile.Location;
 import model.tile.Terrain;
+import model.tile.Tile;
+import model.tile.riverConfiguration.RiverConfiguration;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,25 +21,30 @@ import java.util.regex.Pattern;
 public class FileImporter {
     public Map readFile(String fileName) throws IOException {
         Map map = new Map();
-
         File directory = new File("./");
+
         File file = new File(directory.getAbsolutePath().replace(".","")+fileName);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                parseRiver(line);
-                //TODO: anip is working on this
-//                map.setTile(parseTile(line), parseTerrain(line));
+                if(isValidLine(line)){
+                    parseRiver(line);
+                    //TODO: fix river configuration
+                    map.placeTile(parseTile(line), new Tile(parseTerrain(line), RiverConfiguration.getNoRivers()));
+                }
+                else {
+                    System.err.println("Not the correct Tile Format");
+                    break;
+                }
             }
             scanner.close();
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InvalidLocationException e) {
+            e.printStackTrace();
+            System.out.print("File Not Found");
         }
-//        } catch (InvalidLocationException e) {
-//            e.printStackTrace();
-//            System.out.print("File Not Found");
-//        }
         return map;
     }
 
@@ -83,11 +91,9 @@ public class FileImporter {
         Matcher matcher = p.matcher(line);
         return matcher;
     }
-    private boolean isValidLine(Matcher matcher){
-        int count = 0;
-       while (matcher.find()){
-           count++;
-       }
-        return count==3;
+
+    private boolean isValidLine(String line){
+        StringTokenizer st = new StringTokenizer(line,"[\"][ ][][\"]");
+        return st.countTokens()==11 || st.countTokens()==6;
     }
 }
