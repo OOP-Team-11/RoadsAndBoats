@@ -21,7 +21,7 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
     private Assets assets;
     private MapMakerCursorInfo cursorInformation;
     private MapMakerRenderInfo renderInformation;
-    private boolean newDataFlag = false;
+    private boolean newDataFlag = true;
 
 
     private Image pasture = assets.getInstance().PASTURE;
@@ -30,6 +30,8 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
     private Image pastureR3 = assets.getInstance().PASTURE_R3_SKIP;
     private Image pastureR4 = assets.getInstance().PASTURE_R4_OPPOSITE;
     private Image pastureR5 = assets.getInstance().PASTURE_R5_EVERYOTHER;
+    private Image cursorGreen = assets.getInstance().GREEN_CURSOR;
+    private Image cursorRed = assets.getInstance().RED_CURSOR;
 
 
 
@@ -43,9 +45,19 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
 
     // public method called by GameLoop when refresh is necessary
     public void render(){
-        drawDivider();
-        testPastureDraw();
+        if(newDataFlag){
+            drawDivider();
 
+            testPastureDraw();
+            drawCursor();
+            resetFlag();
+        } else {
+            // nothing to redraw
+        }
+    }
+
+    private void resetFlag(){
+        this.newDataFlag = false;
     }
 
     // camera offset function to pan/scroll placement area
@@ -69,6 +81,14 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
     }
     private void drawLine(double x1, double y1, double x2, double y2){
         this.gc.strokeLine(x1,y1,x2,y2);
+    }
+    private void drawCursor(){
+
+        if(cursorInformation.getIsCursorValid()){
+           drawImage(cursorGreen,cursorInformation.getCursorLocation().getX(), cursorInformation.getCursorLocation().getY(), cursorInformation.getCursorLocation().getZ());
+        } else {
+           drawImage(cursorRed,cursorInformation.getCursorLocation().getX(), cursorInformation.getCursorLocation().getY(), cursorInformation.getCursorLocation().getZ());
+        }
     }
 
     private void testDraw(){
