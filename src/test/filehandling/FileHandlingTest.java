@@ -41,6 +41,6 @@ public class FileHandlingTest {
         }
         FileExporter fileExporter = new FileExporter();
         //Give File Name
-        fileExporter.writeToFile(map,"map/map2.txt");
+        fileExporter.writeToFile(map,"map/map.txt");
     }
 }
