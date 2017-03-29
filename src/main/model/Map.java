@@ -13,6 +13,7 @@ import view.render.MapMakerRenderInfo;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 public class Map
@@ -23,7 +24,7 @@ public class Map
 
     public Map()
     {
-        tiles = new HashMap<Location, Tile>();
+        tiles = new LinkedHashMap<Location, Tile>();
 //        this.initialize();
     }
 
@@ -176,7 +177,7 @@ public class Map
     {
         Location center = calculateCenter();
 
-        HashMap<Location, Tile> newMap = new HashMap<Location, Tile>();
+        HashMap<Location, Tile> newMap = new LinkedHashMap<Location, Tile>();
 
         for (java.util.Map.Entry<Location, Tile> entry : tiles.entrySet())
         {
