@@ -7,8 +7,10 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import model.tile.Terrain;
 import model.tile.Tile;
 import model.tile.riverConfiguration.RiverConfiguration;
+
 import view.render.TileSelectorRenderInfo;
 import view.utilities.Assets;
 
@@ -138,7 +140,23 @@ public class TileSelectorView implements TileSelectObserver{
 
     @Override
     public void updateTileSelect(TileSelectorRenderInfo tileSelectorRenderInfo) {
+
+        System.out.println(tileSelectorRenderInfo.getTerrainTypeSelection());
         this.currentRenderInfo = tileSelectorRenderInfo;
+        if(tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.DESERT)){
+            terrainSelected = 1;
+        } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.MOUNTAIN)){
+            terrainSelected = 2;
+        } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.PASTURE)){
+            terrainSelected = 3;
+        } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.ROCK)){
+            terrainSelected = 4;
+        } else if (tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.SEA)){
+            terrainSelected = 5;
+        } else {
+            terrainSelected = 6;
+        }
+
         top = getTileImage(tileSelectorRenderInfo.getTopTile());
         middle = getTileImage(tileSelectorRenderInfo.getMiddleTile());
         bottom = getTileImage(tileSelectorRenderInfo.getLowerTile());

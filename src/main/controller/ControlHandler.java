@@ -80,6 +80,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     /* Returns the "previous" prototype tile in terms of river configuration*/
     public Tile getPreviousProtoTile() {
         return this.previousProtoTile;
+
     }
 
     /* Returns the prototype tile that would actually be placed*/
