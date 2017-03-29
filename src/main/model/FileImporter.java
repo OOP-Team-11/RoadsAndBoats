@@ -3,6 +3,7 @@ package model;
 import model.tile.InvalidLocationException;
 import model.tile.Location;
 import model.tile.Terrain;
+import model.tile.Tile;
 
 import java.io.File;
 import java.io.FileReader;
@@ -26,7 +27,7 @@ public class FileImporter {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 parseRiver(line);
-                map.setTile(parseTile(line), parseTerrain(line));
+                map.placeTile(parseTile(line), new Tile(parseTerrain(line)));
             }
             scanner.close();
 
