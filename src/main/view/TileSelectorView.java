@@ -57,9 +57,13 @@ public class TileSelectorView implements TileSelectObserver{
         drawArrowKeys();
         drawMiddleRectangle();
         drawTerrainSelectRectangle();
+
+        // first we draw the terrain
         drawUpper(this.topTerrain);
         drawMiddle(this.middleTerrain);
         drawLower(this.bottomTerain);
+
+        // on top of that we draw the river configurations
         drawUpper(this.top);
         drawMiddle(this.middle);
         drawLower(this.bottom);
@@ -179,9 +183,9 @@ public class TileSelectorView implements TileSelectObserver{
         this.middleTerrain = getTerrainImage(tileSelectorRenderInfo.getMiddleTile());
         this.bottomTerain = getTerrainImage(tileSelectorRenderInfo.getLowerTile());
 
-        this.top = getTileImage(tileSelectorRenderInfo.getTopTile());
-        this.middle = getTileImage(tileSelectorRenderInfo.getMiddleTile());
-        this.bottom = getTileImage(tileSelectorRenderInfo.getLowerTile());
+        this.top = getRiverImage(tileSelectorRenderInfo.getTopTile());
+        this.middle = getRiverImage(tileSelectorRenderInfo.getMiddleTile());
+        this.bottom = getRiverImage(tileSelectorRenderInfo.getLowerTile());
         this.newDataFlag = true;
     }
     private Image getTerrainImage(Tile tile){
@@ -200,7 +204,7 @@ public class TileSelectorView implements TileSelectObserver{
         }
     }
 
-    private Image getTileImage(Tile tile) {
+    private Image getRiverImage(Tile tile) {
         RiverConfiguration riverConfig = tile.getRiverConfiguration();
 
         /* FOR DEBUGGING
@@ -230,34 +234,58 @@ public class TileSelectorView implements TileSelectObserver{
 
         if(riverCount == 1){
             if(riverConfig.canConnectNorth()){
-                return assets.getInstance().RIVER1_R0;
+                return assets.getInstance().RIVER_SPRING_R0;
             } else if (riverConfig.canConnectNortheast()){
-                return assets.getInstance().RIVER1_R1;
+                return assets.getInstance().RIVER_SPRING_R1;
             } else if(riverConfig.canConnectSoutheast()){
-                return assets.getInstance().RIVER1_R2;
+                return assets.getInstance().RIVER_SPRING_R2;
             } else if(riverConfig.canConnectSouth()){
-                return  assets.getInstance().RIVER1_R3;
+                return assets.getInstance().RIVER_SPRING_R3;
             } else if(riverConfig.canConnectSouthwest()){
-                return assets.getInstance().RIVER1_R4;
+                return assets.getInstance().RIVER_SPRING_R4;
             } else if(riverConfig.canConnectNorthwest()){
-                return assets.getInstance().RIVER1_R5;
+                return assets.getInstance().RIVER_SPRING_R5;
             } else {
                 return null;
             }
         } else if (riverCount == 2){
-            if(riverConfig.canConnectNorth()){
-                return assets.getInstance().RIVER2_R0;
-            } else if(riverConfig.canConnectNortheast()){
-                return assets.getInstance().RIVER2_R2;
+            if(riverConfig.canConnectNorth() && riverConfig.canConnectSouth()){
+                return assets.getInstance().RIVER_OPPOSITE_R0;
+            } else if(riverConfig.canConnectNortheast() && riverConfig.canConnectSouthwest()){
+                return assets.getInstance().RIVER_OPPOSITE_R1;
+            } else if (riverConfig.canConnectSoutheast() && riverConfig.canConnectNorthwest()){
+                return assets.getInstance().RIVER_OPPOSITE_R2;
+            } else if (riverConfig.canConnectNorth() && riverConfig.canConnectSoutheast()){
+                return assets.getInstance().RIVER_ADJACENT_R0;
+            } else if (riverConfig.canConnectNortheast() && riverConfig.canConnectSoutheast()){
+                return assets.getInstance().RIVER_ADJACENT_R1;
+            } else if (riverConfig.canConnectSoutheast() && riverConfig.canConnectSouth()){
+                return assets.getInstance().RIVER_ADJACENT_R2;
+            } else if (riverConfig.canConnectSouth() && riverConfig.canConnectSouthwest()){
+                return assets.getInstance().RIVER_ADJACENT_R3;
+            } else if (riverConfig.canConnectSouthwest() && riverConfig.canConnectNorthwest()){
+                return assets.getInstance().RIVER_ADJACENT_R4;
+            } else if (riverConfig.canConnectNorthwest() && riverConfig.canConnectNorth()){
+                return assets.getInstance().RIVER_ADJACENT_R5;
+            } else if (riverConfig.canConnectNorth() && riverConfig.canConnectSoutheast()){
+                return assets.getInstance().RIVER_SKIP_R0;
+            } else if (riverConfig.canConnectNortheast() && riverConfig.canConnectSouth()){
+                return assets.getInstance().RIVER_SKIP_R1;
+            } else if (riverConfig.canConnectSoutheast() && riverConfig.canConnectSouthwest()){
+                return assets.getInstance().RIVER_SKIP_R2;
+            } else if (riverConfig.canConnectSouth() && riverConfig.canConnectNorthwest()){
+                return assets.getInstance().RIVER_SKIP_R3;
+            } else if (riverConfig.canConnectSouthwest() && riverConfig.canConnectNorth()){
+                return assets.getInstance().RIVER_SKIP_R4;
             } else {
-                return assets.getInstance().RIVER2_R2;
-            }   
+                return assets.getInstance().RIVER_SKIP_R5;
+            }
         } else {
             // 3 sides
             if(riverConfig.canConnectNorth()){
-                return assets.getInstance().RIVER3_R0;
+                return assets.getInstance().RIVER_EVERYOTHER_R0;
             } else {
-                return assets.getInstance().RIVER3_R1;
+                return assets.getInstance().RIVER_EVERYOTHER_R1;
             }
         }
     }
