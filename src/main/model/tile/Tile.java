@@ -80,6 +80,11 @@ public class Tile {
                 isSeaTerrain(terrain);
     }
 
+    /* Support making a clone of itself */
+    public Tile makeClone(){
+        return new Tile(this.terrain, this.riverConfiguration);
+    }
+
     // TileEdge
     public TileEdge getTileEdge(TileEdgeDirection edgeDirection) {
         return edges.get(edgeDirection);
@@ -105,21 +110,6 @@ public class Tile {
     public Terrain getTerrain() {
         return terrain;
     }
-
-    // removed this, instead we are going to reconstruct tiles if we need to change terrain
-//    public void setTerrain(Terrain t)
-//    {
-//        this.terrain = t;
-//
-//        if(terrain.canConnectRiver())
-//        {
-//            for(TileEdge edge: edges.values())
-//            {
-//                edge.setCanConnectRiver(true);
-//                edge.setHasRiver(false);
-//            }
-//        }
-//    }
 
     public void rotate(Angle angle) {
         int rotationDegrees = angle.getDegrees();

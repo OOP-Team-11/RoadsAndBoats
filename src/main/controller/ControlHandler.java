@@ -10,6 +10,7 @@ import model.Map;
 import model.tile.*;
 
 import model.tile.riverConfiguration.RiverConfiguration;
+import model.tile.riverConfiguration.RiverConfigurationCycler;
 import utilities.Observer.CursorObserver.CursorObserver;
 import utilities.Observer.CursorObserver.CursorObserverSubject;
 import utilities.Observer.TileSelectObserver.TileSelectObserver;
@@ -20,6 +21,7 @@ import view.TileSelectorView;
 
 
 public class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject {
+    //TODO: Go through each and every method and figure out whether they should notify either observer
     private ArrayList<CursorObserver> cursorObservers;          //Hold CursorObservers who've registered for Cursor updates
     private ArrayList<TileSelectObserver> tileSelectObservers;  //Hold TileSelectObservers who've registered for TileSelect updates
     HashMap<ArrayList,Boolean> observerUpdateFlags;  //Will flag a need to update one or both sets of observers when notifyObservers() is called
@@ -32,9 +34,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
     private Location protoTileLocation;
 
-    //make class that encapsulates a list of possible river configurations for a given terrain type
-
-    RiverConfiguration protoRiverConfig;
+    private RiverConfigurationCycler riverConfigList;
 
     // mapMakerView is given as an observer that the map will use to notify
     // tileSelectorView is given as an observer that ControlHandler will notify
@@ -49,11 +49,13 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         registerTileSelectObserver(tileSelectorView);
 
         protoTileLocation = new Location(0,0,0);    //Initialized to center spot initially.
-        protoRiverConfig = RiverConfiguration.getNoRivers();
 
-        previousProtoTile = new Tile(Terrain.PASTURE, protoRiverConfig);
-        currentProtoTile = new Tile(Terrain.PASTURE,protoRiverConfig);                  //Initialized to "pasture" by default
-        nextProtoTile = new Tile(Terrain.PASTURE,protoRiverConfig);
+        Terrain initialTerrain = Terrain.PASTURE;                           //Initialized to "pasture" by default
+        riverConfigList = new RiverConfigurationCycler(initialTerrain);
+
+        previousProtoTile = new Tile(initialTerrain, riverConfigList.getPrevious());
+        currentProtoTile = new Tile(initialTerrain,riverConfigList.getCurrent());
+        nextProtoTile = new Tile(initialTerrain,riverConfigList.getNext());
 
     }
 
@@ -75,16 +77,25 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     public void nextRiverConfiguration(){
         this.previousProtoTile = this.currentProtoTile;     //Set the previous prototype to the current one
         this.currentProtoTile = this.nextProtoTile;         //Set the current prototype to the next one
-//        this.nextProtoTile
 
+        this.riverConfigList.next();                        //Iterate to the next riverConfig
+
+        //Set the nextProtoTile to a new Tile with the same terrain as the others and the new riverConfig
+        this.nextProtoTile = new Tile(this.currentProtoTile.getTerrain() , this.riverConfigList.getCurrent());
     }
 
     public void previousRiverConfiguration(){
+        this.nextProtoTile = this.currentProtoTile;         //Set the next prototype to the current one
+        this.currentProtoTile = this.previousProtoTile;     //set the current prototype to the previous one
 
+        this.riverConfigList.previous();                    //Iterate to the previous riverConfig
+
+        //Set the nextProtoTile to a new Tile with the same terrain as the others and the new riverConfig
+        this.previousProtoTile = new Tile(this.currentProtoTile.getTerrain() , this.riverConfigList.getCurrent());
     }
 
     public boolean tryPlaceTile(){
-        return this.gameMap.placeTile(protoTileLocation, currentProtoTile);
+        return this.gameMap.placeTile(protoTileLocation, currentProtoTile.makeClone());
     }
 
     public void clearTile(){
@@ -117,35 +128,36 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     public void setSeaTerrain(){
-        previousProtoTile.setTerrain(Terrain.SEA);
-        currentProtoTile.setTerrain(Terrain.SEA);
-        nextProtoTile.setTerrain(Terrain.SEA);
+        updateTerrain(Terrain.SEA);
     }
     public void setPastureTerrain(){
-        previousProtoTile.setTerrain(Terrain.PASTURE);
-        currentProtoTile.setTerrain(Terrain.PASTURE);
-        nextProtoTile.setTerrain(Terrain.PASTURE);
+        updateTerrain(Terrain.PASTURE);
     }
     public void setWoodsTerrain(){
-        previousProtoTile.setTerrain(Terrain.WOODS);
-        currentProtoTile.setTerrain(Terrain.WOODS);
-        nextProtoTile.setTerrain(Terrain.WOODS);
+        updateTerrain(Terrain.WOODS);
     }
     public void setRockyTerrain(){
-        previousProtoTile.setTerrain(Terrain.ROCK);
-        currentProtoTile.setTerrain(Terrain.ROCK);
-        nextProtoTile.setTerrain(Terrain.ROCK);
+        updateTerrain(Terrain.ROCK);
     }
     public void setMountainTerrain(){
-        previousProtoTile.setTerrain(Terrain.MOUNTAIN);
-        currentProtoTile.setTerrain(Terrain.MOUNTAIN);
-        nextProtoTile.setTerrain(Terrain.MOUNTAIN);
+        updateTerrain(Terrain.MOUNTAIN);
     }
     public void setDesertTerrain(){
-        previousProtoTile.setTerrain(Terrain.DESERT);
-        currentProtoTile.setTerrain(Terrain.DESERT);
-        nextProtoTile.setTerrain(Terrain.DESERT);
+        updateTerrain(Terrain.DESERT);
     }
+
+    private void updateTerrain(Terrain newTerrain){
+        previousProtoTile = new Tile(newTerrain,riverConfigList.getPrevious());
+        currentProtoTile = new Tile(newTerrain,riverConfigList.getCurrent());
+        nextProtoTile = new Tile(newTerrain,riverConfigList.getNext());
+
+    }
+
+    /* Update the iterator of RiverConfigurations */
+    private void updateRiverConfigList(Terrain newTerrain){
+        this.riverConfigList.updateTerrain(newTerrain);
+    }
+
 
      /* Observer stuff below  */
 
