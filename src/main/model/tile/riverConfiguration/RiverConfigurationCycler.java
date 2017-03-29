@@ -65,7 +65,6 @@ public class RiverConfigurationCycler implements Iterator<RiverConfiguration> {
         this.currentRiverConfiguration = this.riverConfigurations.get(this.index);
     }
 
-    //lol
     public void updateTerrain(Terrain terrain){
         setupRiverConfigurationsArrayList(terrain);
     }

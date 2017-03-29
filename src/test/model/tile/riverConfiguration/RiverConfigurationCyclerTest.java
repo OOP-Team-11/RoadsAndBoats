@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class RiverConfigurationCyclerTest {
 
@@ -49,5 +50,51 @@ public class RiverConfigurationCyclerTest {
         rc = riverConfigurationCycler.getCurrent();
         assertEquals(RiverConfiguration.getEveryOtherFace(), rc);
         riverConfigurationCycler.next();
+    }
+
+    @Test
+    public void getCurrent_6Previous_properConfigurations()
+    {
+        RiverConfiguration rc = riverConfigurationCycler.getCurrent();
+        assertEquals(RiverConfiguration.getNoRivers(), rc);
+        riverConfigurationCycler.previous();
+
+        rc = riverConfigurationCycler.getCurrent();
+        assertEquals(RiverConfiguration.getEveryOtherFace(), rc);
+        riverConfigurationCycler.previous();
+
+        rc = riverConfigurationCycler.getCurrent();
+        assertEquals(RiverConfiguration.getOppositeFaces(), rc);
+        riverConfigurationCycler.previous();
+
+        rc = riverConfigurationCycler.getCurrent();
+        assertEquals(RiverConfiguration.getSkipAFace(), rc);
+        riverConfigurationCycler.previous();
+
+        rc = riverConfigurationCycler.getCurrent();
+        assertEquals(RiverConfiguration.getAdjacentFaces(), rc);
+        riverConfigurationCycler.previous();
+
+        rc = riverConfigurationCycler.getCurrent();
+        assertEquals(RiverConfiguration.getSpringHead(), rc);
+        riverConfigurationCycler.previous();
+    }
+
+    @Test
+    public void next_calledOnce_differentConfiguration()
+    {
+        RiverConfiguration rc = riverConfigurationCycler.getCurrent();
+        riverConfigurationCycler.next();
+
+        assertNotEquals(rc, riverConfigurationCycler.getCurrent());
+    }
+
+    @Test
+    public void previous_calledOnce_differentConfiguration()
+    {
+        RiverConfiguration rc = riverConfigurationCycler.getCurrent();
+        riverConfigurationCycler.previous();
+
+        assertNotEquals(rc, riverConfigurationCycler.getCurrent());
     }
 }
