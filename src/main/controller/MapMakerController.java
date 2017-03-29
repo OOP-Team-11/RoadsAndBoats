@@ -52,7 +52,7 @@ public class MapMakerController {
 
     private void attachScrollEventToScene() {
         this.scene.setOnScroll(event -> {
-            this.mapMakerView.changeZoom((int) event.getDeltaY()));
+            this.mapMakerView.changeZoom((int) event.getDeltaY());
         });
     }
 }
