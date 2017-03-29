@@ -32,5 +32,9 @@ public class FileExporter {
 
     }
 
+    private String getLocationString(Location location) {
+        return location.getX() + " " + location.getY() + " " + location.getZ();
+    }
+
 }
 

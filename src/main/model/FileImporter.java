@@ -4,6 +4,7 @@ import model.tile.InvalidLocationException;
 import model.tile.Location;
 import model.tile.Terrain;
 import model.tile.Tile;
+import model.tile.riverConfiguration.RiverConfiguration;
 
 import java.io.File;
 import java.io.FileReader;
@@ -20,9 +21,8 @@ import java.util.regex.Pattern;
 public class FileImporter {
     public Map readFile(String fileName) throws IOException {
         Map map = new Map();
-        //Get file from resources folder\
         File directory = new File("./");
-        ClassLoader classLoader = getClass().getClassLoader();
+
         File file = new File(directory.getAbsolutePath().replace(".","")+fileName);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
@@ -61,6 +61,7 @@ public class FileImporter {
         Location location = new Location(x,y,z);
         return location;
     }
+
     public Terrain parseTerrain(String line) {
         Matcher matcher = findMatch(line, "[A-Z][A-Z||a-z]*[a-z]");
         String intString = null;
@@ -100,6 +101,7 @@ public class FileImporter {
         Matcher matcher = p.matcher(line);
         return matcher;
     }
+
     private boolean isValidLine(String line){
         StringTokenizer st = new StringTokenizer(line," ");
         return st.countTokens()==11 || st.countTokens()==6;
