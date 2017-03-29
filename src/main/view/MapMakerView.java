@@ -152,6 +152,15 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         drawLine(0,0,canvas.getWidth(),0);
     }
 
+    private void zoomIN(){
+        canvas.setScaleX(canvas.getScaleX()+0.05);
+        canvas.setScaleY(canvas.getScaleY()+0.05);
+    }
+    private void zoomOUT(){
+        canvas.setScaleX(canvas.getScaleX()-0.05);
+        canvas.setScaleY(canvas.getScaleY()-0.05);
+    }
+
 
     @Override
     public void updateCursorInfo(MapMakerCursorInfo mapMakerCursorInfo) {
@@ -159,6 +168,7 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         this.cursorInformation = mapMakerCursorInfo;
         this.cameraX = mapMakerCursorInfo.getCameraX()*10;
         this.cameraY = mapMakerCursorInfo.getCameraY()*10;
+
     }
 
     @Override
