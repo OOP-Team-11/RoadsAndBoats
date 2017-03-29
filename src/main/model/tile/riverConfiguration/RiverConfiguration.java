@@ -4,6 +4,7 @@ import direction.TileEdgeDirection;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class RiverConfiguration {
 
@@ -153,5 +154,24 @@ public class RiverConfiguration {
 
     public static RiverConfiguration getEveryOtherFace() {
         return new RiverConfiguration(getEveryOtherFaceMap());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(riverMap, rotationAmount);
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if(!(o instanceof RiverConfiguration))
+        {
+            return false;
+        }
+
+        RiverConfiguration rc = (RiverConfiguration)o;
+
+        return rc.riverMap.equals(riverMap) && rotationAmount == rc.rotationAmount;
     }
 }
