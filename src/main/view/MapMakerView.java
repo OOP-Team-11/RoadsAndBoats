@@ -70,6 +70,15 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
     // camera zoom function to move in/out of placement area
     public void changeZoom(int moveZ){
         this.cameraZoom += moveZ;
+        if(moveZ > 0) {
+            for (int i = 0; i < moveZ; i++) {
+                zoomIN();
+            }
+        } else {
+            for(int i=0; i>moveZ; i--){
+                zoomOUT();
+            }
+        }
     }
     private void setGraphicsContentStroke(Paint p){
         this.gc.setStroke(p);
@@ -147,6 +156,15 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         drawLine(0,0,canvas.getWidth(),0);
     }
 
+    private void zoomIN(){
+        canvas.setScaleX(canvas.getScaleX()+0.05);
+        canvas.setScaleY(canvas.getScaleY()+0.05);
+    }
+    private void zoomOUT(){
+        canvas.setScaleX(canvas.getScaleX()-0.05);
+        canvas.setScaleY(canvas.getScaleY()-0.05);
+    }
+
 
     @Override
     public void updateCursorInfo(MapMakerCursorInfo mapMakerCursorInfo) {
@@ -154,6 +172,7 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         this.cursorInformation = mapMakerCursorInfo;
         this.cameraX = mapMakerCursorInfo.getCameraX()*10;
         this.cameraY = mapMakerCursorInfo.getCameraY()*10;
+
     }
 
     @Override

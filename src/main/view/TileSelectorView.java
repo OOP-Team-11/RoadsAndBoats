@@ -16,6 +16,11 @@ public class TileSelectorView implements TileSelectObserver{
     private GraphicsContext gc;
     private TileSelectorRenderInfo currentRenderInfo;
     private boolean newDataFlag = false;
+    private int terrainSelected = 1;
+
+    private Image top;
+    private Image middle;
+    private Image bottom;
 
     private Assets assets;
     private Image terrain1 = assets.getInstance().SEA_TERRAIN;
@@ -24,6 +29,7 @@ public class TileSelectorView implements TileSelectObserver{
     private Image terrain4 = assets.getInstance().ROCK_TERRAIN;
     private Image terrain5 = assets.getInstance().DESERT_TERRAIN;
     private Image terrain6 = assets.getInstance().MOUNTAIN_TERRAIN;
+    private Image test = assets.getInstance().DESERT_R1_SPRING;
 
     public TileSelectorView(Canvas canvas){
         this.canvas = canvas;
@@ -41,6 +47,7 @@ public class TileSelectorView implements TileSelectObserver{
         drawTerrainOptions();
         drawArrowKeys();
         drawMiddleRectangle();
+        drawTerrainSelectRectangle();
     }
     private void setGraphicsContentStroke(Paint p){
         this.gc.setStroke(p);
@@ -61,6 +68,12 @@ public class TileSelectorView implements TileSelectObserver{
         drawLine(0,0,0,canvas.getHeight()); // vertical stroke line
         drawLine(0,0,canvas.getWidth(),0); // horizontal stroke line
     }
+    private void setImagesForTiles(){
+
+    }
+    private void drawMiddleImage(){
+
+    }
 
     private void drawCanvasBackGround(){
         this.gc.setFill(Color.TEAL);
@@ -80,6 +93,23 @@ public class TileSelectorView implements TileSelectObserver{
     }
     private void drawMiddleRectangle(){
         this.gc.strokeRoundRect(35,210,300,200,20,20);
+    }
+
+    private void drawTerrainSelectRectangle(){
+        this.gc.setLineWidth(7);
+        if(terrainSelected == 1){
+            this.gc.strokeRoundRect(40,700,35,35,5,5);
+        } else if(terrainSelected == 2){
+            this.gc.strokeRoundRect(90,700,35,35,5,5);
+        } else if(terrainSelected == 3){
+            this.gc.strokeRoundRect(140,700,35,35,5,5);
+        } else if(terrainSelected == 4){
+            this.gc.strokeRoundRect(190,700,35,35,5,5);
+        } else if(terrainSelected == 5){
+            this.gc.strokeRoundRect(240,700,35,35,5,5);
+        } else {
+            this.gc.strokeRoundRect(290,700,35,35,5,5);
+        }
     }
 
     private void drawTerrainOptions(){
