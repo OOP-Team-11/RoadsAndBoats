@@ -140,6 +140,8 @@ public class TileSelectorView implements TileSelectObserver{
     public void updateTileSelect(TileSelectorRenderInfo tileSelectorRenderInfo) {
         this.currentRenderInfo = tileSelectorRenderInfo;
         top = getTileImage(tileSelectorRenderInfo.getTopTile());
+        middle = getTileImage(tileSelectorRenderInfo.getMiddleTile());
+        bottom = getTileImage(tileSelectorRenderInfo.getLowerTile());
         this.newDataFlag = true;
     }
 
