@@ -74,6 +74,8 @@ gradle/wrapper/gradle-wrapper.properties
 # .idea/misc.xml
 # *.ipr
 src/.DS_Store
+src/map.txt
+classes
 
 # Sonarlint plugin
 .idea/sonarlint
