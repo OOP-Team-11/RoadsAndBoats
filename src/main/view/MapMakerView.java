@@ -15,8 +15,15 @@ public class MapMakerView implements CursorObserver{
     private int cameraX;
     private int cameraY;
     private int cameraZoom;
-
     private Assets assets;
+    private Image pasture = assets.getInstance().PASTURE;
+    private Image pastureR1 = assets.getInstance().PASTURE_R1_SPRING;
+    private Image pastureR2 = assets.getInstance().PASTURE_R2_ADJACENT;
+    private Image pastureR3 = assets.getInstance().PASTURE_R3_SKIP;
+    private Image pastureR4 = assets.getInstance().PASTURE_R4_OPPOSITE;
+    private Image pastureR5 = assets.getInstance().PASTURE_R5_EVERYOTHER;
+
+
 
     public MapMakerView(Canvas canvas){
 
@@ -30,7 +37,9 @@ public class MapMakerView implements CursorObserver{
     public void render(){
         drawDivider();
         testPastureDraw();
+
     }
+
 
     // camera offset function to pan/scroll placement area
     public void moveCamera(int moveX, int moveY){
@@ -55,20 +64,49 @@ public class MapMakerView implements CursorObserver{
         this.gc.strokeLine(x1,y1,x2,y2);
     }
 
-    private void testPastureDraw(){
-        Image t = assets.getInstance().PASTURE;
-        Image t1 = assets.getInstance().PASTURE_R1_SPRING;
-        Image t2 = assets.getInstance().PASTURE_R2_ADJACENT;
-        Image t3 = assets.getInstance().PASTURE_R3_SKIP;
-        Image t4 = assets.getInstance().PASTURE_R4_OPPOSITE;
-        Image t5 = assets.getInstance().PASTURE_R5_EVERYOTHER;
+    private void testDraw(){
+        Image sea = assets.getInstance().SEA;
 
-        gc.drawImage(t, 0, 0);
-        gc.drawImage(t1,0,114);
-        gc.drawImage(t2, 192, 228);
-        gc.drawImage(t3,192,-227);
-        gc.drawImage(t4, 192, 681);
-        gc.drawImage(t5,768,0);
+        gc.drawImage(sea, 250, 250);
+    }
+    private void drawImage(Image image, int x, int y, int z){
+        // first thing we want to do is get the axial coordinates
+        int xx = x;
+        int yy = z;
+        if(xx%2 == 0){ // even
+            double offsetHorizontal = image.getWidth()*xx*0.25;
+            double offsetVertical = (image.getHeight())*(xx/2);
+            gc.drawImage(image,image.getWidth()*xx-offsetHorizontal,image.getHeight()*yy+offsetVertical); // x, y
+        } else {
+
+            double offset = image.getHeight()*0.50;
+            double offsetVertical = (image.getHeight())*((xx-1)/2);
+            gc.drawImage(image,image.getWidth()*xx*0.75,(image.getHeight()*((yy)) + offset +offsetVertical)); // x, y
+        }
+
+    }
+
+    private void testPastureDraw(){
+
+
+        drawImage(pastureR4,-1,0,1);
+        drawImage(pastureR4,-1,-1,2);
+        drawImage(pastureR2,-1,1,0);
+
+        drawImage(pasture,0,0,0);
+        drawImage(pastureR1,0,-1,1);
+        //drawImage(pastureR1,0,-2,2);
+
+        drawImage(pastureR1,1,-1,0);
+        drawImage(pastureR1,1,-2,1);
+        // drawImage(pastureR1,1,0,-1);
+
+        drawImage(pasture,2,-2,0);
+        drawImage(pastureR1,2,-3,1);
+        // drawImage(pastureR1,2,-1,-1);
+
+        drawImage(pastureR1,3,-2,-1);
+        drawImage(pastureR1,3,-3,0);
     }
 
     private void drawDivider(){
