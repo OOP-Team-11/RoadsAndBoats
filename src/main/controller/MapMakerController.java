@@ -24,7 +24,7 @@ public class MapMakerController {
         getReferences();
         initializeControlHandler(gameMap);
         attachControlsToScene(this.controlHandler);
-
+        attachScrollEventToScene();
         // after everything is setup, start the animation timer
         viewInitializer.startAnimationLoop();
     }
@@ -48,5 +48,11 @@ public class MapMakerController {
     private void attachControlsToScene(ControlHandler controlHandler) {
         MapMakerKeyControlsMapper mapMakerKeyControlsMapper = new MapMakerKeyControlsMapper(controlHandler);
         mapMakerKeyControlsMapper.attachToScene(this.scene);
+    }
+
+    private void attachScrollEventToScene() {
+        this.scene.setOnScroll(event -> {
+            this.mapMakerView.changeZoom((int) event.getDeltaY());
+        });
     }
 }
