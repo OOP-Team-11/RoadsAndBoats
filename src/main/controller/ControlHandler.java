@@ -8,10 +8,9 @@ import direction.DirectionToLocation;
 import direction.TileEdgeDirection;
 
 import model.Map;
-import model.tile.InvalidLocationException;
-import model.tile.Location;
-import model.tile.Terrain;
-import model.tile.Tile;
+import model.tile.*;
+
+import model.tile.riverConfiguration.RiverConfigurationCycler;
 
 import utilities.Observer.CursorObserver.CursorObserver;
 import utilities.Observer.CursorObserver.CursorObserverSubject;
@@ -35,10 +34,13 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     private MapMakerCursorInfo cursorInfo;
     private Map gameMap;
 
-    private Tile protoTile;
+    private Tile previousProtoTile;
+    private Tile currentProtoTile;
+    private Tile nextProtoTile;
+
     private Location protoTileLocation;
 
-    private ArrayList<TileEdgeDirection> riverDirections;
+    private RiverConfigurationCycler riverConfigList;
 
     // mapMakerView is given as an observer that the map will use to notify
     // tileSelectorView is given as an observer that ControlHandler will notify
@@ -54,19 +56,64 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         registerCursorObserver(mapMakerView);
         registerTileSelectObserver(tileSelectorView);
         registeMapMakerObserver(mapMakerView);
-        protoTile = new Tile(Terrain.PASTURE);                  //Initialized to "pasture" by default
+
         try {
             protoTileLocation = new Location(0, 0, 0);    //Initialized to center spot initially.
         } catch (InvalidLocationException e) {
-            throw new RuntimeException("Could not initialize protoTileLocation. Got: " + e.getLocalizedMessage());
+            throw new RuntimeException("Cannot initialize prototype tile location: " + e.getLocalizedMessage());
         }
-        riverDirections = new ArrayList<>();
+
         try {
             notifyCursorObservers(new MapMakerCursorInfo(new Location(0,0,0), true));
         } catch(InvalidLocationException e) {
             System.out.println("Error : "+ e.getMessage());
         }
+
         cursorInfo = new MapMakerCursorInfo(protoTileLocation, true);
+
+        Terrain initialTerrain = Terrain.PASTURE;                           //Initialized to "pasture" by default
+        riverConfigList = new RiverConfigurationCycler(initialTerrain);
+
+        previousProtoTile = new Tile(initialTerrain, riverConfigList.getPrevious());
+        currentProtoTile = new Tile(initialTerrain,riverConfigList.getCurrent());
+        nextProtoTile = new Tile(initialTerrain,riverConfigList.getNext());
+
+    }
+
+    /* Returns the "previous" prototype tile in terms of river configuration*/
+    public Tile getPreviousProtoTile() {
+        return this.previousProtoTile;
+    }
+
+    /* Returns the prototype tile that would actually be placed*/
+    public Tile getCurrentProtoTile() {
+        return this.currentProtoTile;
+    }
+
+    /* Returns the "next" prototype tile in terms of river configuration*/
+    public Tile getNextProtoTile() {
+        return this.nextProtoTile;
+    }
+
+    public void nextRiverConfiguration(){
+        this.previousProtoTile = this.currentProtoTile;     //Set the previous prototype to the current one
+        this.currentProtoTile = this.nextProtoTile;         //Set the current prototype to the next one
+
+        this.riverConfigList.next();                        //Iterate to the next riverConfig
+
+        //Set the nextProtoTile to a new Tile with the same terrain as the others and the new riverConfig
+        this.nextProtoTile = new Tile(this.currentProtoTile.getTerrain() , this.riverConfigList.getCurrent());
+    }
+
+    public void previousRiverConfiguration(){
+        this.nextProtoTile = this.currentProtoTile;         //Set the next prototype to the current one
+        this.currentProtoTile = this.previousProtoTile;     //set the current prototype to the previous one
+
+        this.riverConfigList.previous();                    //Iterate to the previous riverConfig
+
+        //Set the nextProtoTile to a new Tile with the same terrain as the others and the new riverConfig
+        this.previousProtoTile = new Tile(this.currentProtoTile.getTerrain() , this.riverConfigList.getCurrent());
+
     }
 
     public boolean tryPlaceTile(){
@@ -76,7 +123,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     private boolean placeTileOnMap() {
-        return this.gameMap.placeTile(protoTileLocation, protoTile);
+        return this.gameMap.placeTile(protoTileLocation, currentProtoTile.makeClone());
     }
 
     public void clearTile() {
@@ -90,7 +137,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
     public void moveCursor(TileEdgeDirection dir){
         Location newCursorLocation = DirectionToLocation.getLocation(protoTileLocation, dir);
-        boolean isValidPlacement = gameMap.isValidPlacement(newCursorLocation, protoTile);
+        boolean isValidPlacement = gameMap.isValidPlacement(newCursorLocation, currentProtoTile);
         cursorInfo.setCursorLocation(newCursorLocation);
         cursorInfo.setIsCursorValid(isValidPlacement);
         observerUpdateFlags.replace(cursorObservers,true);  //Mark the cursorObservers for notification
@@ -108,31 +155,64 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     public void rotateTileClockwise() {
-        protoTile.rotate(new Angle(60));    //Single-side rotation clockwise
+        previousProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
+        currentProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
+        nextProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
     }
 
     public void rotateTileCounterClockwise() {
-        protoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
+        previousProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
+        currentProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
+        nextProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
     }
-
     public void setSeaTerrain(){
-        protoTile.setTerrain(Terrain.SEA);
+        updateTerrain(Terrain.SEA);
     }
     public void setPastureTerrain(){
-        protoTile.setTerrain(Terrain.PASTURE);
+        updateTerrain(Terrain.PASTURE);
     }
     public void setWoodsTerrain(){
-        protoTile.setTerrain(Terrain.WOODS);
+        updateTerrain(Terrain.WOODS);
     }
     public void setRockyTerrain(){
-        protoTile.setTerrain(Terrain.ROCK);
+        updateTerrain(Terrain.ROCK);
     }
     public void setMountainTerrain(){
-        protoTile.setTerrain(Terrain.MOUNTAIN);
+        updateTerrain(Terrain.MOUNTAIN);
     }
     public void setDesertTerrain(){
-        protoTile.setTerrain(Terrain.DESERT);
+        updateTerrain(Terrain.DESERT);
     }
+
+    private void updateTerrain(Terrain newTerrain){
+        updateRiverConfigList(newTerrain);  //Updates the iterator of possible river configurations to those possible for the new Terrain
+        previousProtoTile = new Tile(newTerrain,riverConfigList.getPrevious());
+        currentProtoTile = new Tile(newTerrain,riverConfigList.getCurrent());
+        nextProtoTile = new Tile(newTerrain,riverConfigList.getNext());
+
+    }
+
+    /* Update the iterator of RiverConfigurations */
+    private void updateRiverConfigList(Terrain newTerrain){
+        this.riverConfigList.updateTerrain(newTerrain);
+    }
+
+
+     /* Observer stuff below  */
+
+//     @Override
+//     public void notifyObservers() {
+//        /* Notifies both sets of Observers depending on whether or not they're flagged for updating*/
+//         if(observerUpdateFlags.get(cursorObservers)){
+//             notifyCursorObservers();
+//             observerUpdateFlags.replace(cursorObservers,false);
+//         }
+//
+//         if(observerUpdateFlags.get(tileSelectObservers)){
+//             notifyTileSelectObservers();
+//             observerUpdateFlags.replace(tileSelectObservers,false);
+//         }
+//     }
 
 
 

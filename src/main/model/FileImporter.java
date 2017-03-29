@@ -4,6 +4,7 @@ import model.tile.InvalidLocationException;
 import model.tile.Location;
 import model.tile.Terrain;
 import model.tile.Tile;
+import model.tile.riverConfiguration.RiverConfiguration;
 
 import java.io.File;
 import java.io.FileReader;
@@ -20,16 +21,16 @@ import java.util.regex.Pattern;
 public class FileImporter {
     public Map readFile(String fileName) throws IOException {
         Map map = new Map();
-        //Get file from resources folder\
         File directory = new File("./");
-        ClassLoader classLoader = getClass().getClassLoader();
+
         File file = new File(directory.getAbsolutePath().replace(".","")+fileName);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if(isValidLine(line)){
                     parseRiver(line);
-                    map.placeTile(parseTile(line), new Tile(parseTerrain(line)));
+                    //TODO: fix river configuration
+                    map.placeTile(parseTile(line), new Tile(parseTerrain(line), RiverConfiguration.getNoRivers()));
                 }
                 else {
                     System.err.println("Not the correct Tile Format");
@@ -55,9 +56,9 @@ public class FileImporter {
         int x = Integer.parseInt(locationString[0]);
         int y = Integer.parseInt(locationString[1]);
         int z= Integer.parseInt(locationString[2]);
-        Location location = new Location(x,y,z);
-        return location;
+        return new Location(x,y,z);
     }
+
     public Terrain parseTerrain(String line) {
         Matcher matcher = findMatch(line, "[\"][a-z || A-Z][\"]");
         String intString = null;
@@ -84,13 +85,13 @@ public class FileImporter {
     }
 
     public void parseRiver(String group) {
-
     }
     private Matcher findMatch(String line, String pattern){
         Pattern p = Pattern.compile(pattern);
         Matcher matcher = p.matcher(line);
         return matcher;
     }
+
     private boolean isValidLine(String line){
         StringTokenizer st = new StringTokenizer(line,"[\"][ ][][\"]");
         return st.countTokens()==11 || st.countTokens()==6;
