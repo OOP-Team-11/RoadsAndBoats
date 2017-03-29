@@ -1,6 +1,6 @@
-package util.Observer.TileSelectObserver;
+package utilities.Observer.TileSelectObserver;
 
-import util.Observer.ObserverSubject;
+import utilities.Observer.ObserverSubject;
 
 public interface TileSelectObserverSubject extends ObserverSubject {
     void registerTileSelectObserver(TileSelectObserver o);

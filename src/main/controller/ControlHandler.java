@@ -12,10 +12,10 @@ import model.tile.Location;
 import model.tile.Terrain;
 import model.tile.Tile;
 
-import util.Observer.CursorObserver.CursorObserver;
-import util.Observer.CursorObserver.CursorObserverSubject;
-import util.Observer.TileSelectObserver.TileSelectObserver;
-import util.Observer.TileSelectObserver.TileSelectObserverSubject;
+import utilities.Observer.CursorObserver.CursorObserver;
+import utilities.Observer.CursorObserver.CursorObserverSubject;
+import utilities.Observer.TileSelectObserver.TileSelectObserver;
+import utilities.Observer.TileSelectObserver.TileSelectObserverSubject;
 
 import view.MapMakerView;
 import view.TileSelectorView;
@@ -24,18 +24,18 @@ import view.TileSelectorView;
 public class ControlHandler implements CursorObserverSubject, TileSelectObserverSubject {
     private ArrayList<CursorObserver> cursorObservers;          //Hold CursorObservers who've registered for Cursor updates
     private ArrayList<TileSelectObserver> tileSelectObservers;  //Hold TileSelectObservers who've registered for TileSelect updates
-    HashMap<ArrayList,Boolean> observerUpdateFlags;  //Will flag a need to update one or both sets of observers when notifyObservers() is called
+    private HashMap<ArrayList,Boolean> observerUpdateFlags;  //Will flag a need to update one or both sets of observers when notifyObservers() is called
 
     private Map gameMap;
 
     private Tile protoTile;
     private Location protoTileLocation;
 
-    ArrayList<TileEdgeDirection> riverDirections;
+    private ArrayList<TileEdgeDirection> riverDirections;
 
     // mapMakerView is given as an observer that the map will use to notify
     // tileSelectorView is given as an observer that ControlHandler will notify
-    public ControlHandler(Map gameMap, MapMakerView mapMakerView, TileSelectorView tileSelectorView) throws InvalidLocationException {
+    public ControlHandler(Map gameMap, MapMakerView mapMakerView, TileSelectorView tileSelectorView) {
         this.gameMap = gameMap;
 
         cursorObservers = new ArrayList<>();
@@ -45,7 +45,11 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         registerCursorObserver(mapMakerView);
         registerTileSelectObserver(tileSelectorView);
         protoTile = new Tile(Terrain.PASTURE);                  //Initialized to "pasture" by default
-        protoTileLocation = new Location(0,0,0);    //Initialized to center spot initially.
+        try {
+            protoTileLocation = new Location(0, 0, 0);    //Initialized to center spot initially.
+        } catch (InvalidLocationException e) {
+            throw new RuntimeException("Could not initialize protoTileLocation. Got: " + e.getLocalizedMessage());
+        }
         riverDirections = new ArrayList<>();
 
     }

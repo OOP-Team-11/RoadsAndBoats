@@ -6,6 +6,7 @@ import direction.TileEdgeDirection;
 
 import model.tile.InvalidLocationException;
 import model.tile.Location;
+import model.tile.Terrain;
 import model.tile.Tile;
 import model.tile.TileEdge;
 
@@ -21,6 +22,7 @@ public class Map
     public Map()
     {
         tiles = new HashMap<Location, Tile>();
+//        this.initialize();
     }
 
     /**
@@ -29,6 +31,9 @@ public class Map
      * @param tileLocation The location you are trying to find a tile at.
      * @return returns the tile at the specified location or null if there isn't one there.
      */
+    public java.util.Map<Location, Tile> getTiles() {
+        return tiles;
+    }
     public Tile getTile(Location tileLocation)
     {
         return tiles.get(tileLocation);
@@ -40,7 +45,6 @@ public class Map
         {
             return false;
         }
-
         updateTileEdges(tileLocation, tile);
         tiles.put(tileLocation, tile);
 
@@ -210,7 +214,7 @@ public class Map
         }
     }
 
-    private Set<Location> getAllLocations()
+    public Set<Location> getAllLocations()
     {
         return tiles.keySet();
     }
@@ -231,4 +235,6 @@ public class Map
 
         return false;
     }
+    public boolean hasTiles(){return !(tiles.isEmpty());}
+
 }

@@ -2,20 +2,28 @@ package view;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import view.utilities.Assets;
 
-import util.Observer.TileSelectObserver.TileSelectObserver;
+import utilities.Observer.TileSelectObserver.TileSelectObserver;
 
 public class TileSelectorView implements TileSelectObserver{
     private Canvas canvas;
     private GraphicsContext gc;
 
+    private Assets assets;
+
     public TileSelectorView(Canvas canvas){
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.setFontSize();
+
+        //TODO needs to be checked by Konrad
+        assets = Assets.getInstance();
+        assets.loadAssets();
     }
 
     // public method called by GameLoop when refresh is necessary
@@ -24,6 +32,7 @@ public class TileSelectorView implements TileSelectObserver{
         drawCanvasBackGround();
         drawTileSelectBox();
         drawTerrainOptions();
+        drawArrowKeys();
     }
     private void setGraphicsContentStroke(Paint p){
         this.gc.setStroke(p);
@@ -57,7 +66,8 @@ public class TileSelectorView implements TileSelectObserver{
         this.gc.strokeRoundRect(35,20,300,600,20,20);
     }
     private void drawArrowKeys(){
-        // TODO
+        Image arrowKeys = assets.getInstance().ARROW_KEYS;
+        gc.drawImage(arrowKeys, 135, 610, 100, 100);
     }
 
     private void drawTerrainOptions(){
@@ -73,6 +83,21 @@ public class TileSelectorView implements TileSelectObserver{
         this.gc.strokeText("4",203,760);
         this.gc.strokeText("5",253,760);
         this.gc.strokeText("6",303,760);
+
+        //TODO needs to be checked by Konrad
+        Image terrain1 = assets.getInstance().SEA_TERRAIN;
+        Image terrain2 = assets.getInstance().PASTURE_TERRAIN;
+        Image terrain3 = assets.getInstance().WOODS_TERRAIN;
+        Image terrain4 = assets.getInstance().ROCK_TERRAIN;
+        Image terrain5 = assets.getInstance().DESERT_TERRAIN;
+        Image terrain6 = assets.getInstance().MOUNTAIN_TERRAIN;
+
+        gc.drawImage(terrain1, 40, 700, 35, 35);
+        gc.drawImage(terrain2, 90, 700, 35, 35);
+        gc.drawImage(terrain3, 140, 700, 35, 35);
+        gc.drawImage(terrain4, 190, 700, 35, 35);
+        gc.drawImage(terrain5, 240, 700, 35, 35);
+        gc.drawImage(terrain6, 290, 700, 35, 35);
     }
 
 }

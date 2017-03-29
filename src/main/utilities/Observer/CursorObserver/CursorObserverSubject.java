@@ -1,6 +1,6 @@
-package util.Observer.CursorObserver;
+package utilities.Observer.CursorObserver;
 
-import util.Observer.ObserverSubject;
+import utilities.Observer.ObserverSubject;
 
 public interface CursorObserverSubject extends ObserverSubject {
     void registerCursorObserver(CursorObserver o);
