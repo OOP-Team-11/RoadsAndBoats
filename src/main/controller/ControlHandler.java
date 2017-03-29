@@ -200,11 +200,13 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         nextProtoTile = new Tile(newTerrain,riverConfigList.getNext());
         notifyTileSelectObservers(makeRenderInfo());
     }
-//
-//    public void importMap(String filename) throws IOException {
-//        FileImporter fileImporter = new FileImporter();
-//        this.gameMap = fileImporter.readFile(filename);
-//    }
+
+    public void importMap(String filename) throws IOException {
+        FileImporter fileImporter = new FileImporter();
+        this.gameMap = fileImporter.readFile(filename);
+        MapMakerRenderInfo mapMakerRenderInfo = new MapMakerRenderInfo(this.gameMap.getTiles());
+        this.notifyMapMakerObservers(mapMakerRenderInfo);
+    }
 
     public void exportMap(String filename) {
         FileExporter fileExporter = new FileExporter();

@@ -78,8 +78,7 @@ public class MapMakerController {
                 if (result.isPresent()){
                     System.out.println(": " + result.get());
                     try {
-                        FileImporter fileImporter = new FileImporter();
-                        controlHandler = new ControlHandler(fileImporter.readFile(result.get()), mapMakerView, tileSelectorView);
+                        controlHandler.importMap(result.get());
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
