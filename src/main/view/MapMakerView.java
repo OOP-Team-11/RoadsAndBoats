@@ -46,8 +46,8 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
     // public method called by GameLoop when refresh is necessary
     public void render(){
         if(newDataFlag){
+            checkClearCanvas();
             drawDivider();
-
             testPastureDraw();
             drawCursor();
             resetFlag();
@@ -103,14 +103,23 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         if(xx%2 == 0){ // even
             double offsetHorizontal = image.getWidth()*xx*0.25;
             double offsetVertical = (image.getHeight())*(xx/2);
-            gc.drawImage(image,image.getWidth()*xx-offsetHorizontal,image.getHeight()*yy+offsetVertical); // x, y
+            gc.drawImage(image,image.getWidth()*xx-offsetHorizontal+cameraX,image.getHeight()*yy+offsetVertical+cameraY); // x, y
         } else {
 
             double offset = image.getHeight()*0.50;
             double offsetVertical = (image.getHeight())*((xx-1)/2);
-            gc.drawImage(image,image.getWidth()*xx*0.75,(image.getHeight()*((yy)) + offset +offsetVertical)); // x, y
+            gc.drawImage(image,image.getWidth()*xx*0.75+cameraX,(image.getHeight()*((yy)) + offset +offsetVertical + cameraY)); // x, y
         }
 
+    }
+
+    private void checkClearCanvas(){
+        if(newDataFlag){
+            // clear all old information
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        } else {
+            // nothing to clear
+        }
     }
 
     private void testPastureDraw(){
@@ -147,6 +156,8 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
     public void updateCursorInfo(MapMakerCursorInfo mapMakerCursorInfo) {
         this.newDataFlag = true;
         this.cursorInformation = mapMakerCursorInfo;
+        this.cameraX = mapMakerCursorInfo.getCameraX()*10;
+        this.cameraY = mapMakerCursorInfo.getCameraY()*10;
     }
 
     @Override

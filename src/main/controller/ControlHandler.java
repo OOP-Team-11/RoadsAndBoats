@@ -50,6 +50,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         mapMakerObservers = new ArrayList<>();
         observerUpdateFlags = new HashMap<>();
 
+
         registerCursorObserver(mapMakerView);
         registerTileSelectObserver(tileSelectorView);
         registeMapMakerObserver(mapMakerView);
@@ -65,7 +66,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         } catch(InvalidLocationException e) {
             System.out.println("Error : "+ e.getMessage());
         }
-
+        cursorInfo = new MapMakerCursorInfo(protoTileLocation, true);
     }
 
     public boolean tryPlaceTile(){
