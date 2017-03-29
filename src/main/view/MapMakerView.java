@@ -49,7 +49,7 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         if(newDataFlag){
             checkClearCanvas();
             drawDivider();
-//            testPastureDraw();
+            testPastureDraw();
             drawCursor();
             resetFlag();
         } else {
