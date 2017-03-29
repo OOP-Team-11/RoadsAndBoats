@@ -30,7 +30,7 @@ public class Map
     /**
      * Gets a tile from the map
      *
-     * @param tileLocation The location you are trying to find a tile at.
+//     * @param tileLocation The location you are trying to find a tile at.
      * @return returns the tile at the specified location or null if there isn't one there.
      */
     public java.util.Map<Location, Tile> getTiles() {

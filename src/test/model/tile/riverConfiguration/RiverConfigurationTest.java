@@ -1,6 +1,5 @@
 package model.tile.riverConfiguration;
 
-import net.bytebuddy.asm.Advice;
 import org.junit.Assert;
 import org.junit.Test;
 
