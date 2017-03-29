@@ -23,6 +23,12 @@ public class Map
         tiles = new HashMap<Location, Tile>();
     }
 
+    /**
+     * Gets a tile from the map
+     *
+     * @param tileLocation The location you are trying to find a tile at.
+     * @return returns the tile at the specified location or null if there isn't one there.
+     */
     public Tile getTile(Location tileLocation)
     {
         return tiles.get(tileLocation);
@@ -118,13 +124,13 @@ public class Map
 
     private MapBoundary getMapBoundaries()
     {
-        int minX = 0;
-        int minY = 0;
-        int minZ = 0;
+        int minX = Integer.MAX_VALUE;
+        int minY = Integer.MAX_VALUE;
+        int minZ = Integer.MAX_VALUE;
 
-        int maxX = 0;
-        int maxY = 0;
-        int maxZ = 0;
+        int maxX = Integer.MIN_VALUE;
+        int maxY = Integer.MIN_VALUE;
+        int maxZ = Integer.MIN_VALUE;
 
         for (Location loc : getAllLocations())
         {
