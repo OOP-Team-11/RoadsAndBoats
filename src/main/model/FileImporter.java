@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,8 +27,14 @@ public class FileImporter {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                parseRiver(line);
-                map.placeTile(parseTile(line), new Tile(parseTerrain(line)));
+                if(isValidLine(line)){
+                    parseRiver(line);
+                    map.placeTile(parseTile(line), new Tile(parseTerrain(line)));
+                }
+                else {
+                    System.err.println("Not the correct Tile Format");
+                    break;
+                }
             }
             scanner.close();
 
@@ -77,17 +84,15 @@ public class FileImporter {
     }
 
     public void parseRiver(String group) {
+
     }
     private Matcher findMatch(String line, String pattern){
         Pattern p = Pattern.compile(pattern);
         Matcher matcher = p.matcher(line);
         return matcher;
     }
-    private boolean isValidLine(Matcher matcher){
-        int count = 0;
-       while (matcher.find()){
-           count++;
-       }
-        return count==3;
+    private boolean isValidLine(String line){
+        StringTokenizer st = new StringTokenizer(line,"[\"][ ][][\"]");
+        return st.countTokens()==11 || st.countTokens()==6;
     }
 }
