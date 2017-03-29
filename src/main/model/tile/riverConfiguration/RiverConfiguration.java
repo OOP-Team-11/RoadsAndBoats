@@ -13,6 +13,7 @@ public class RiverConfiguration {
 
     private RiverConfiguration(Map<TileEdgeDirection, Boolean> riverMap) {
         this.riverMap = riverMap;
+        this.rotationAmount = 0;
     }
 
     public RiverConfiguration(int side) {
