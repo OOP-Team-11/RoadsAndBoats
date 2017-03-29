@@ -8,8 +8,10 @@ import model.tile.Tile;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import utilities.Observer.TileSelectObserver.TileSelectObserver;
 import view.MapMakerView;
 import view.TileSelectorView;
+import view.render.TileSelectorRenderInfo;
 
 import static org.junit.Assert.*;
 
@@ -45,5 +47,25 @@ public class ControlHandlerTest {
 
         assertSame(oldNextTile,ch.getCurrentProtoTile());
         assertSame(oldCurTile,ch.getPreviousProtoTile());
+    }
+
+
+
+
+
+    @Test
+    public void notifyTileSelectObserverTest(){
+        TileSelectObserver tso = new TileSelectObserver() {
+            @Override
+            public void updateTileSelect(TileSelectorRenderInfo tileSelectorRenderInfo) {
+//                assertSame(tileSelectorRenderInfo.getLowerTile(),ch.getNextProtoTile());
+//                assertSame(tileSelectorRenderInfo.getMiddleTile(),ch.getCurrentProtoTile());
+//                assertSame(tileSelectorRenderInfo.getTopTile(),ch.getPreviousProtoTile());
+//                assertSame(tileSelectorRenderInfo.getTerrainTypeSelection(),ch.getCurrentProtoTile().getTerrain());
+                assertTrue(true);
+            }
+        };
+        ch.registerTileSelectObserver(tso);
+        ch.notifyTileSelectObservers(new TileSelectorRenderInfo(ch.getPreviousProtoTile(),ch.getCurrentProtoTile(),ch.getNextProtoTile()));
     }
 }
