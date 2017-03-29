@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertTrue;
 
-public class FileHandling {
+public class FileHandlingTest {
     @Test
     public void readFile() throws IOException {
         FileImporter fileImporter = new FileImporter();
