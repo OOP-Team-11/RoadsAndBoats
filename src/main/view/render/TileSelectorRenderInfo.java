@@ -1,5 +1,6 @@
 package view.render;
 
+import direction.TileEdgeDirection;
 import model.tile.Terrain;
 import model.tile.Tile;
 
@@ -10,6 +11,7 @@ public class TileSelectorRenderInfo {
         topTile = prev.makeClone();
         middleTile = cur.makeClone();
         lowerTile = next.makeClone();
+
     }
 
     public Terrain getTerrainTypeSelection() {

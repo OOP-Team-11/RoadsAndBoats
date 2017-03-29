@@ -205,88 +205,81 @@ public class TileSelectorView implements TileSelectObserver{
     }
 
     private Image getRiverImage(Tile tile) {
-        RiverConfiguration riverConfig = tile.getRiverConfiguration();
 
-        /* FOR DEBUGGING
-        System.out.println("NORTH: "+riverConfig.canConnectNorth());
-        System.out.println("NE: "+riverConfig.canConnectNortheast());
-        System.out.println("SE: "+riverConfig.canConnectSoutheast());
-        System.out.println("S: "+riverConfig.canConnectSouth());
-        System.out.println("SW: "+riverConfig.canConnectSouthwest());
-        System.out.println("MW: "+riverConfig.canConnectNorthwest());
-    */
         int riverCount = 0;
-        if(riverConfig.canConnectNorth()){
+        if(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
             riverCount++;
-        } else if (riverConfig.canConnectNortheast()){
+        }
+        if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver()){
+            riverCount++; }
+        if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
+            riverCount++; }
+        if(tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
+            riverCount++; }
+        if(tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
+            riverCount++; }
+        if(tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
             riverCount++;
-        } else if(riverConfig.canConnectSoutheast()){
-            riverCount++;
-        } else if(riverConfig.canConnectSouth()){
-            riverCount++;
-        } else if(riverConfig.canConnectSouthwest()){
-            riverCount++;
-        } else if(riverConfig.canConnectNorthwest()){
-            riverCount++;
-        } else {
-            return null;
         }
 
         if(riverCount == 1){
-            if(riverConfig.canConnectNorth()){
+            if(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
                 return assets.getInstance().RIVER_SPRING_R0;
-            } else if (riverConfig.canConnectNortheast()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver()){
                 return assets.getInstance().RIVER_SPRING_R1;
-            } else if(riverConfig.canConnectSoutheast()){
+            } else if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
                 return assets.getInstance().RIVER_SPRING_R2;
-            } else if(riverConfig.canConnectSouth()){
+            } else if(tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
                 return assets.getInstance().RIVER_SPRING_R3;
-            } else if(riverConfig.canConnectSouthwest()){
+            } else if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
                 return assets.getInstance().RIVER_SPRING_R4;
-            } else if(riverConfig.canConnectNorthwest()){
+            } else if(tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_SPRING_R5;
             } else {
                 return null;
             }
         } else if (riverCount == 2){
-            if(riverConfig.canConnectNorth() && riverConfig.canConnectSouth()){
+            if(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
                 return assets.getInstance().RIVER_OPPOSITE_R0;
-            } else if(riverConfig.canConnectNortheast() && riverConfig.canConnectSouthwest()){
+            } else if(tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_OPPOSITE_R1;
-            } else if (riverConfig.canConnectSoutheast() && riverConfig.canConnectNorthwest()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_OPPOSITE_R2;
-            } else if (riverConfig.canConnectNorth() && riverConfig.canConnectSoutheast()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_ADJACENT_R0;
-            } else if (riverConfig.canConnectNortheast() && riverConfig.canConnectSoutheast()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver()&& tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
                 return assets.getInstance().RIVER_ADJACENT_R1;
-            } else if (riverConfig.canConnectSoutheast() && riverConfig.canConnectSouth()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
                 return assets.getInstance().RIVER_ADJACENT_R2;
-            } else if (riverConfig.canConnectSouth() && riverConfig.canConnectSouthwest()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_ADJACENT_R3;
-            } else if (riverConfig.canConnectSouthwest() && riverConfig.canConnectNorthwest()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_ADJACENT_R4;
-            } else if (riverConfig.canConnectNorthwest() && riverConfig.canConnectNorth()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
                 return assets.getInstance().RIVER_ADJACENT_R5;
-            } else if (riverConfig.canConnectNorth() && riverConfig.canConnectSoutheast()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
                 return assets.getInstance().RIVER_SKIP_R0;
-            } else if (riverConfig.canConnectNortheast() && riverConfig.canConnectSouth()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
                 return assets.getInstance().RIVER_SKIP_R1;
-            } else if (riverConfig.canConnectSoutheast() && riverConfig.canConnectSouthwest()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_SKIP_R2;
-            } else if (riverConfig.canConnectSouth() && riverConfig.canConnectNorthwest()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_SKIP_R3;
-            } else if (riverConfig.canConnectSouthwest() && riverConfig.canConnectNorth()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
                 return assets.getInstance().RIVER_SKIP_R4;
             } else {
                 return assets.getInstance().RIVER_SKIP_R5;
             }
-        } else {
+        } else if(riverCount == 3){
             // 3 sides
-            if(riverConfig.canConnectNorth()){
+            if(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
                 return assets.getInstance().RIVER_EVERYOTHER_R0;
             } else {
                 return assets.getInstance().RIVER_EVERYOTHER_R1;
             }
+        } else {
+            return null;
         }
+
     }
 }
