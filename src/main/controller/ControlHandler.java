@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import direction.Angle;
+import direction.DirectionToLocation;
 import direction.TileEdgeDirection;
 
 import model.Map;
@@ -63,20 +64,30 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     public boolean tryPlaceTile(){
+        boolean placed = placeTileOnMap();
+        notifyMapMakerObservers(this.gameMap.getRenderObject());
+        return placed;
+    }
+
+    private boolean placeTileOnMap() {
         return this.gameMap.placeTile(protoTileLocation, protoTile);
     }
 
-    public void clearTile(){
+    public void clearTile() {
+        clearMapTile();
+        notifyMapMakerObservers(this.gameMap.getRenderObject());
+    }
+
+    public void clearMapTile() {
         this.gameMap.removeTileAtLocation(getCursorLocation());
     }
 
-    //TODO: This method
     public void moveCursor(TileEdgeDirection dir){
-        //... move the cursor
-
-        //then
+        Location newCursorLocation = DirectionToLocation.getLocation(protoTileLocation, dir);
+        boolean isValidPlacement = gameMap.isValidPlacement(newCursorLocation, protoTile);
+        MapMakerCursorInfo cursorInfo = new MapMakerCursorInfo(newCursorLocation, isValidPlacement);
         observerUpdateFlags.replace(cursorObservers,true);  //Mark the cursorObservers for notification
-
+        notifyCursorObservers(cursorInfo);
     }
 
     public Location getCursorLocation(){

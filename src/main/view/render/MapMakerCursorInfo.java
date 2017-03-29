@@ -6,8 +6,9 @@ public class MapMakerCursorInfo {
     private Location cursorLocation;
     private boolean isCursorValid;
 
-    public MapMakerCursorInfo() {
-
+    public MapMakerCursorInfo(Location cursorLocation, boolean isValid ) {
+        this.cursorLocation = cursorLocation;
+        this.isCursorValid = isValid;
     }
 
     public Location getCursorLocation() {
