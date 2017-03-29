@@ -35,46 +35,45 @@ public class MapMakerKeyControlsMapperTest extends ApplicationTest {
     }
 
     @Test
-    public void setDesertTerrainTest() {
+    public void setSeaTerrainTest() {
         KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.DIGIT1, false, false, false, false);
         Event.fireEvent(this.scene, keyEvent);
-        verify(this.mockedControlHandler, times(1)).setDesertTerrain();
-    }
-
-    @Test
-    public void setMountainTerrainTest() {
-        KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.DIGIT2, false, false, false, false);
-        Event.fireEvent(this.scene, keyEvent);
-        verify(this.mockedControlHandler, times(1)).setMountainTerrain();
+        verify(this.mockedControlHandler, times(1)).setSeaTerrain();
     }
 
     @Test
     public void setPastureTerrainTest() {
-        KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.DIGIT3, false, false, false, false);
+        KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.DIGIT2, false, false, false, false);
         Event.fireEvent(this.scene, keyEvent);
         verify(this.mockedControlHandler, times(1)).setPastureTerrain();
     }
 
     @Test
-    public void setRockyTerrainTest() {
+    public void setWoodsTerrainTest() {
+        KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.DIGIT3, false, false, false, false);
+        Event.fireEvent(this.scene, keyEvent);
+        verify(this.mockedControlHandler, times(1)).setWoodsTerrain();
+    }
 
+    @Test
+    public void setRockyTerrainTest() {
         KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.DIGIT4, false, false, false, false);
         Event.fireEvent(this.scene, keyEvent);
         verify(this.mockedControlHandler, times(1)).setRockyTerrain();
     }
 
     @Test
-    public void setSeaTerrainTest() {
+    public void setDesertTerrainTest() {
         KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.DIGIT5, false, false, false, false);
         Event.fireEvent(this.scene, keyEvent);
-        verify(this.mockedControlHandler, times(1)).setSeaTerrain();
+        verify(this.mockedControlHandler, times(1)).setDesertTerrain();
     }
 
     @Test
-    public void setWoodsTerrainTest() {
+    public void setMountainTerrainTest() {
         KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "1", "1", KeyCode.DIGIT6, false, false, false, false);
         Event.fireEvent(this.scene, keyEvent);
-        verify(this.mockedControlHandler, times(1)).setWoodsTerrain();
+        verify(this.mockedControlHandler, times(1)).setMountainTerrain();
     }
 
     @Test

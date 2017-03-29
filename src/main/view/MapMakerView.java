@@ -1,5 +1,9 @@
 package view;
 
+import model.tile.Location;
+import model.tile.Terrain;
+import model.tile.Tile;
+import model.tile.riverConfiguration.RiverConfiguration;
 import utilities.Observer.CursorObserver.CursorObserver;
 
 import javafx.scene.canvas.Canvas;
@@ -11,6 +15,8 @@ import utilities.Observer.MapMakerObserver.MapMakerObserver;
 import view.render.MapMakerCursorInfo;
 import view.render.MapMakerRenderInfo;
 import view.utilities.Assets;
+
+import java.util.Map;
 
 public class MapMakerView implements CursorObserver, MapMakerObserver{
 
@@ -49,7 +55,7 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         if(newDataFlag){
             checkClearCanvas();
             drawDivider();
-            testPastureDraw();
+            drawMap();
             drawCursor();
             resetFlag();
         } else {
@@ -61,15 +67,19 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         this.newDataFlag = false;
     }
 
-    // camera offset function to pan/scroll placement area
-    public void moveCamera(int moveX, int moveY){
-        this.cameraX += moveX;
-        this.cameraY += moveY;
-    }
 
     // camera zoom function to move in/out of placement area
     public void changeZoom(int moveZ){
         this.cameraZoom += moveZ;
+        if(moveZ > 0) {
+            for (int i = 0; i < moveZ; i++) {
+                zoomIN();
+            }
+        } else {
+            for(int i=0; i>moveZ; i--){
+                zoomOUT();
+            }
+        }
     }
     private void setGraphicsContentStroke(Paint p){
         this.gc.setStroke(p);
@@ -92,11 +102,6 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         }
     }
 
-    private void testDraw(){
-        Image sea = assets.getInstance().SEA;
-
-        gc.drawImage(sea, 250, 250);
-    }
     private void drawImage(Image image, int x, int y, int z){
         // first thing we want to do is get the axial coordinates
         int xx = x;
@@ -122,34 +127,35 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
             // nothing to clear
         }
     }
+    private void drawMap(){
 
-    private void testPastureDraw(){
-
-        drawImage(pastureR4,-1,0,1);
-        drawImage(pastureR4,-1,-1,2);
-        drawImage(pastureR2,-1,1,0);
-
-        drawImage(pasture,0,0,0);
-        drawImage(pastureR1,0,-1,1);
-        //drawImage(pastureR1,0,-2,2);
-
-        drawImage(pastureR1,1,-1,0);
-        drawImage(pastureR1,1,-2,1);
-        // drawImage(pastureR1,1,0,-1);
-
-        drawImage(pasture,2,-2,0);
-        drawImage(pastureR1,2,-3,1);
-        // drawImage(pastureR1,2,-1,-1);
-
-        drawImage(pastureR1,3,-2,-1);
-        drawImage(pastureR1,3,-3,0);
+        if(renderInformation == null){
+            // no information yet
+        } else {
+            for (Map.Entry<Location, Tile> entry : renderInformation.getTileInformation().entrySet())
+            {
+                Image image = getTileImage(entry.getValue());
+                drawImage(image, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
+            }
+            System.out.println(renderInformation.getTileInformation().size());
+        }
     }
+
 
     private void drawDivider(){
         setGraphicsContentStroke(Color.BLACK);
         setGraphicsContentFill(Color.BLACK);
         setLineWidth(5.0);
         drawLine(0,0,canvas.getWidth(),0);
+    }
+
+    private void zoomIN(){
+        canvas.setScaleX(canvas.getScaleX()+0.05);
+        canvas.setScaleY(canvas.getScaleY()+0.05);
+    }
+    private void zoomOUT(){
+        canvas.setScaleX(canvas.getScaleX()-0.05);
+        canvas.setScaleY(canvas.getScaleY()-0.05);
     }
 
 
@@ -159,11 +165,110 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         this.cursorInformation = mapMakerCursorInfo;
         this.cameraX = mapMakerCursorInfo.getCameraX()*10;
         this.cameraY = mapMakerCursorInfo.getCameraY()*10;
+
     }
 
     @Override
     public void updateMapMaker(MapMakerRenderInfo mapMakerRenderInfo) {
         this.newDataFlag = true;
         this.renderInformation = mapMakerRenderInfo;
+    }
+
+    private Image getTileImage(Tile tile) {
+        RiverConfiguration riverConfig = tile.getRiverConfiguration();
+
+        if(tile.getTerrain().equals(Terrain.SEA)){
+            return assets.SEA;
+        }
+
+        if(riverConfig.canConnectNorth()) {
+            if(riverConfig.canConnectNortheast()) {
+                switch(tile.getTerrain()) {
+                    case DESERT:
+                        return assets.DESERT_R2_ADJACENT;
+                    case ROCK:
+                        return assets.ROCK_R2_ADJACENT;
+                    case MOUNTAIN:
+                        return assets.MOUNTAIN_R2_ADJACENT;
+                    case PASTURE:
+                        return assets.PASTURE_R2_ADJACENT;
+                    case WOODS:
+                        return assets.WOODS_R2_ADJACENT;
+                }
+            }
+            else if(riverConfig.canConnectSoutheast()) {
+                if(riverConfig.canConnectSouthwest()) {
+                    switch(tile.getTerrain()) {
+                        case DESERT:
+                            return assets.DESERT_R5_EVERYOTHER;
+                        case ROCK:
+                            return assets.ROCK_R5_EVERYOTHER;
+                        case MOUNTAIN:
+                            return assets.MOUNTAIN_R5_EVERYOTHER;
+                        case PASTURE:
+                            return assets.PASTURE_R5_EVERYOTHER;
+                        case WOODS:
+                            return assets.WOODS_R5_EVERYOTHER;
+                    }
+                }
+                else {
+                    switch(tile.getTerrain()) {
+                        case DESERT:
+                            return assets.DESERT_R3_SKIP;
+                        case ROCK:
+                            return assets.ROCK_R3_SKIP;
+                        case MOUNTAIN:
+                            return assets.MOUNTAIN_R3_SKIP;
+                        case PASTURE:
+                            return assets.PASTURE_R3_SKIP;
+                        case WOODS:
+                            return assets.WOODS_R3_SKIP;
+                    }
+                }
+            }
+            else if(riverConfig.canConnectSouth()) {
+                switch(tile.getTerrain()) {
+                    case DESERT:
+                        return assets.DESERT_R4_OPPOSITE;
+                    case ROCK:
+                        return assets.ROCK_R4_OPPOSITE;
+                    case MOUNTAIN:
+                        return assets.MOUNTAIN_R4_OPPOSITE;
+                    case PASTURE:
+                        return assets.PASTURE_R4_OPPOSITE;
+                    case WOODS:
+                        return assets.WOODS_R4_OPPOSITE;
+                }
+            }
+            else {
+                switch(tile.getTerrain()) {
+                    case DESERT:
+                        return assets.DESERT_R1_SPRING;
+                    case ROCK:
+                        return assets.ROCK_R1_SPRING;
+                    case MOUNTAIN:
+                        return assets.MOUNTAIN_R1_SPRING;
+                    case PASTURE:
+                        return assets.PASTURE_R1_SPRING;
+                    case WOODS:
+                        return assets.WOODS_R1_SPRING;
+                }
+            }
+        }
+        else {
+            switch(tile.getTerrain()) {
+                case DESERT:
+                    return assets.DESERT;
+                case ROCK:
+                    return assets.ROCK;
+                case MOUNTAIN:
+                    return assets.MOUNTAIN;
+                case PASTURE:
+                    return assets.PASTURE;
+                case WOODS:
+                    return assets.WOODS;
+            }
+        }
+        return null;
     }
 }
