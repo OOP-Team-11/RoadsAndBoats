@@ -13,6 +13,7 @@ import java.io.IOException;
 
 public class FileExporter {
     public void writeToFile(Map map, String filename){
+        int count = 0;
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File(filename)))) {
             if(map.hasTiles())
             {
@@ -24,8 +25,9 @@ public class FileExporter {
                     {
                         bw.write(" ( "+ riverString(tile)+" ) ");
                     }
-
-                    bw.write("\n");
+                    count++;
+                    if(count<map.getAllLocations().size())
+                        bw.write("\n");
                 }
             }
             else

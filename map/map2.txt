@@ -1,2 +1,4 @@
-( 0 -1 1 ) Mountain ( 2 )
-( 1 -1 0 ) Desert ( 5 )
+( 0 0 0 ) ROCK  ( 1  ) 
+( 0 1 -1 ) WOODS  ( 1  ) 
+( 1 0 -1 ) ROCK  ( 1  ) 
+( -1 0 1 ) ROCK  ( 1  ) 

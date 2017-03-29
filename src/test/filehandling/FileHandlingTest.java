@@ -28,7 +28,7 @@ public class FileHandlingTest {
     @Test
     public void readFile() throws IOException {
         FileImporter fileImporter = new FileImporter();
-        Map map = fileImporter.readFile("map/map.txt");
+        Map map = fileImporter.readFile("map/map2.txt");
         if(map!=null)
         assertTrue(map.hasTiles());
 
@@ -50,6 +50,6 @@ public class FileHandlingTest {
         }
         FileExporter fileExporter = new FileExporter();
         //Give File Name
-        fileExporter.writeToFile(map,"map/map.txt");
+        fileExporter.writeToFile(map,"map/map2.txt");
     }
 }
