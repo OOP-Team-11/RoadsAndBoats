@@ -6,6 +6,7 @@ import direction.TileEdgeDirection;
 
 import model.tile.*;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 

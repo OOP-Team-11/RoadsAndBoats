@@ -11,6 +11,8 @@ import java.io.IOException;
 import static org.junit.Assert.assertTrue;
 
 public class FileHandling {
+
+    //TODO: fix this test to verify correct map is created
     @Test
     public void readFile() throws IOException {
         FileImporter fileImporter = new FileImporter();
@@ -18,10 +20,11 @@ public class FileHandling {
         assertTrue(map.hasTiles());
 
     }
+
+    //TODO: fix this test to verify file output
     @Test
     public void writeFile() throws IOException {
         Map map = new Map();
-        map.initialize();
         FileExporter fileExporter = new FileExporter();
         fileExporter.writeToFile(map,"/Users/anip/Develop/RoadsAndBoats/src/map2.txt");
     }

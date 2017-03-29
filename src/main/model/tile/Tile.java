@@ -19,8 +19,8 @@ public class Tile {
         compartments = new HashMap<TileCompartmentDirection, TileCompartment>();
 
         edges.put(TileEdgeDirection.getNorth(), new TileEdge(
-                riverConfiguration.canConnectNorth() || terrain==Terrain.SEA, riverConfiguration.canConnectNorth()));
-        edges.put(TileEdgeDirection.getNorthEast(), new TileEdge(terrain==Terrain.SEA));
+                riverConfiguration.canConnectNorth() || isSeaTerrain(terrain), riverConfiguration.canConnectNorth()));
+        edges.put(TileEdgeDirection.getNorthEast(), new TileEdge());
         edges.put(TileEdgeDirection.getNorthWest(), new TileEdge(terrain==Terrain.SEA));
         edges.put(TileEdgeDirection.getSouth(), new TileEdge(terrain==Terrain.SEA));
         edges.put(TileEdgeDirection.getSouthEast(), new TileEdge(terrain==Terrain.SEA));
@@ -40,6 +40,10 @@ public class Tile {
         compartments.put(TileCompartmentDirection.getSouthSouthEast(), new TileCompartment(false));
 
         this.terrain = terrain;
+    }
+
+    private boolean isSeaTerrain(Terrain terrain) {
+        return terrain == Terrain.SEA;
     }
 
     private void initializeEdges(Terrain terrain, RiverConfiguration riverConfiguration) {
