@@ -137,6 +137,7 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
                 Image image = getTileImage(entry.getValue());
                 drawImage(image, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
             }
+            System.out.println(renderInformation.getTileInformation().size());
         }
     }
 
