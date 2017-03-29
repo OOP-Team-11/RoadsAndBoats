@@ -18,7 +18,7 @@ public class MapMakerCursorInfo {
     public Location getCursorLocation() {
         return cursorLocation;
     }
-    public void setCursorLocation(Location cursorLoc) {
+    public void setCursorLocation(Location cursorLocation) {
         this.cursorLocation = cursorLocation;
     }
     public boolean getIsCursorValid() {

@@ -92,11 +92,6 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         }
     }
 
-    private void testDraw(){
-        Image sea = assets.getInstance().SEA;
-
-        gc.drawImage(sea, 250, 250);
-    }
     private void drawImage(Image image, int x, int y, int z){
         // first thing we want to do is get the axial coordinates
         int xx = x;
