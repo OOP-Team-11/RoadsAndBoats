@@ -52,6 +52,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         mapMakerObservers = new ArrayList<>();
         observerUpdateFlags = new HashMap<>();
 
+
         registerCursorObserver(mapMakerView);
         registerTileSelectObserver(tileSelectorView);
         registeMapMakerObserver(mapMakerView);
@@ -67,6 +68,8 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         } catch(InvalidLocationException e) {
             System.out.println("Error : "+ e.getMessage());
         }
+
+        cursorInfo = new MapMakerCursorInfo(protoTileLocation, true);
 
         Terrain initialTerrain = Terrain.PASTURE;                           //Initialized to "pasture" by default
         riverConfigList = new RiverConfigurationCycler(initialTerrain);
@@ -110,6 +113,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
         //Set the nextProtoTile to a new Tile with the same terrain as the others and the new riverConfig
         this.previousProtoTile = new Tile(this.currentProtoTile.getTerrain() , this.riverConfigList.getCurrent());
+
     }
 
     public boolean tryPlaceTile(){

@@ -65,13 +65,14 @@ public class Assets {
     public Image DESERT_TERRAIN;
     public Image MOUNTAIN_TERRAIN;
 
+    public Image GREEN_CURSOR;
+    public Image RED_CURSOR;
+
     public Image ARROW_KEYS;
 
     public boolean loadAssets(){
         try{
-            // TODO load in images here
-            // for example
-            // EXAMPLE = new Image("resources/image.png");
+
 
             // sea tile
             SEA = new Image(this.getClass().getResourceAsStream("/tiles/sea/seaTile.png"));
@@ -122,6 +123,10 @@ public class Assets {
             ROCK_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/rockTerrain.png"));
             DESERT_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/desertTerrain.png"));
             MOUNTAIN_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/mountainTerrain.png"));
+
+
+            GREEN_CURSOR = new Image(this.getClass().getResourceAsStream("/tiles/greenCursor.png"));
+            RED_CURSOR = new Image(this.getClass().getResourceAsStream("/tiles/redCursor.png"));
 
             ARROW_KEYS = new Image(this.getClass().getResourceAsStream("/misc/arrowkeys.png"));
 
