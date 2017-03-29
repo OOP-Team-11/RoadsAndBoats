@@ -66,7 +66,7 @@ public class Tile {
     private void rotateAccordingToRiverConfiguration() {
         int rotationAmount = this.riverConfiguration.getRotationAmount();
         while (rotationAmount > 0) {
-            this.rotate(new Angle(-60));
+            this.rotate(new Angle(60));
             rotationAmount--;
         }
     }

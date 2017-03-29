@@ -105,11 +105,45 @@ public class TileTest {
         assertTrue(t.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver());
     }
 
-//    @Test
-//    public void rotateTileForAdjacentRiverConfig() {
-//        RiverConfiguration riverConfiguration = new RiverConfiguration(5, 6);
-//        Tile t = new Tile(Terrain.SEA, riverConfiguration);
-//        assertTrue(t.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver());
-//        assertTrue(t.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver());
-//    }
+    @Test
+    public void rotateTileForAdjacentRiverConfig() {
+        RiverConfiguration riverConfiguration = new RiverConfiguration(5, 6);
+        Tile t = new Tile(Terrain.SEA, riverConfiguration);
+        assertTrue(t.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver());
+        assertTrue(t.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver());
+    }
+
+    @Test
+    public void rotateTileForSkipOneRiverConfig() {
+        RiverConfiguration riverConfiguration = new RiverConfiguration(2, 4);
+        Tile t = new Tile(Terrain.SEA, riverConfiguration);
+        assertTrue(t.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver());
+        assertTrue(t.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver());
+    }
+
+    @Test
+    public void rotateTileForOppositeRiverConfig() {
+        RiverConfiguration riverConfiguration = new RiverConfiguration(2, 5);
+        Tile t = new Tile(Terrain.SEA, riverConfiguration);
+        assertTrue(t.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver());
+        assertTrue(t.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver());
+    }
+
+    @Test
+    public void dontRotateTileForEveryOtherRiverConfig() {
+        RiverConfiguration riverConfiguration = new RiverConfiguration(1, 3,5);
+        Tile t = new Tile(Terrain.SEA, riverConfiguration);
+        assertTrue(t.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver());
+        assertTrue(t.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver());
+        assertTrue(t.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver());
+    }
+
+    @Test
+    public void rotateTileForEveryOtherRiverConfig() {
+        RiverConfiguration riverConfiguration = new RiverConfiguration(2, 4,6);
+        Tile t = new Tile(Terrain.SEA, riverConfiguration);
+        assertTrue(t.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver());
+        assertTrue(t.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver());
+        assertTrue(t.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver());
+    }
 }
