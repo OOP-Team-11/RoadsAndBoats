@@ -18,9 +18,8 @@ import java.util.regex.Pattern;
 public class FileImporter {
     public Map readFile(String fileName) throws IOException {
         Map map = new Map();
-        //Get file from resources folder\
+
         File directory = new File("./");
-        ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(directory.getAbsolutePath().replace(".","")+fileName);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
@@ -47,9 +46,9 @@ public class FileImporter {
         int x = Integer.parseInt(locationString[0]);
         int y = Integer.parseInt(locationString[1]);
         int z= Integer.parseInt(locationString[2]);
-        Location location = new Location(x,y,z);
-        return location;
+        return new Location(x,y,z);
     }
+
     public Terrain parseTerrain(String line) {
         Matcher matcher = findMatch(line, "[\"][a-z || A-Z][\"]");
         String intString = null;

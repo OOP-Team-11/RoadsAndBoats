@@ -16,7 +16,7 @@ public class FileExporter {
             {
                 for(Location location : map.getLocations()){
                     Tile tile = map.getTile(location);
-                    bw.write(" \""+"(\" "+ location.getlocationString() +" \")"+"\"");
+                    bw.write(" \""+"(\" "+ this.getLocationString(location) +" \")"+"\"");
                     bw.write(" \""+String.valueOf(tile.getTerrain())+"\" ");
                     bw.write("\n");
                 }
@@ -30,6 +30,10 @@ public class FileExporter {
             e.printStackTrace();
         }
 
+    }
+
+    private String getLocationString(Location location) {
+        return location.getX() + " " + location.getY() + " " + location.getZ();
     }
 
 }

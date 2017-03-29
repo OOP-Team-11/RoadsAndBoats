@@ -7,10 +7,7 @@ import direction.Angle;
 import direction.TileEdgeDirection;
 
 import model.Map;
-import model.tile.InvalidLocationException;
-import model.tile.Location;
-import model.tile.Terrain;
-import model.tile.Tile;
+import model.tile.*;
 
 import utilities.Observer.CursorObserver.CursorObserver;
 import utilities.Observer.CursorObserver.CursorObserverSubject;
@@ -28,10 +25,13 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
     private Map gameMap;
 
-    private Tile protoTile;
+    private Tile previousProtoTile;
+    private Tile currentProtoTile;
+    private Tile nextProtoTile;
+
     private Location protoTileLocation;
 
-    ArrayList<TileEdgeDirection> riverDirections;
+    RiverConfiguration protoRiverConfig;
 
     // mapMakerView is given as an observer that the map will use to notify
     // tileSelectorView is given as an observer that ControlHandler will notify
@@ -44,11 +44,28 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
         registerCursorObserver(mapMakerView);
         registerTileSelectObserver(tileSelectorView);
-        protoTile = new Tile(Terrain.PASTURE);                  //Initialized to "pasture" by default
+        previousProtoTile = new Tile(Terrain.PASTURE);
+        currentProtoTile = new Tile(Terrain.PASTURE);                  //Initialized to "pasture" by default
+        nextProtoTile = new Tile(Terrain.PASTURE);
+
         protoTileLocation = new Location(0,0,0);    //Initialized to center spot initially.
-        riverDirections = new ArrayList<>();
+        protoRiverConfig = RiverConfiguration.getNoRivers();
 
     }
+
+    public Tile getPreviousProtoTile() {
+        return this.previousProtoTile;
+    }
+
+    public Tile getCurrentProtoTile() {
+        return this.currentProtoTile;
+    }
+
+    public Tile getNextProtoTile() {
+        return this.nextProtoTile;
+    }
+
+    public RiverConfiguration peek
 
     public boolean tryPlaceTile(){
         return this.gameMap.placeTile(protoTileLocation, protoTile);

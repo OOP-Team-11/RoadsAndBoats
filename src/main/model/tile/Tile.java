@@ -14,16 +14,17 @@ public class Tile {
     private Map<TileCompartmentDirection, TileCompartment> compartments;
     private Terrain terrain;
 
-    public Tile(Terrain terrain) {
+    public Tile(Terrain terrain, RiverConfiguration riverConfiguration) {
         edges = new HashMap<TileEdgeDirection, TileEdge>();
         compartments = new HashMap<TileCompartmentDirection, TileCompartment>();
 
-        edges.put(TileEdgeDirection.getNorth(), new TileEdge(terrain.canConnectRiver(), false));
-        edges.put(TileEdgeDirection.getNorthEast(), new TileEdge(terrain.canConnectRiver(), false));
-        edges.put(TileEdgeDirection.getNorthWest(), new TileEdge(terrain.canConnectRiver(), false));
-        edges.put(TileEdgeDirection.getSouth(), new TileEdge(terrain.canConnectRiver(), false));
-        edges.put(TileEdgeDirection.getSouthEast(), new TileEdge(terrain.canConnectRiver(), false));
-        edges.put(TileEdgeDirection.getSouthWest(), new TileEdge(terrain.canConnectRiver(), false));
+        edges.put(TileEdgeDirection.getNorth(), new TileEdge(
+                riverConfiguration.canConnectNorth() || terrain==Terrain.SEA, riverConfiguration.canConnectNorth()));
+        edges.put(TileEdgeDirection.getNorthEast(), new TileEdge(terrain==Terrain.SEA));
+        edges.put(TileEdgeDirection.getNorthWest(), new TileEdge(terrain==Terrain.SEA));
+        edges.put(TileEdgeDirection.getSouth(), new TileEdge(terrain==Terrain.SEA));
+        edges.put(TileEdgeDirection.getSouthEast(), new TileEdge(terrain==Terrain.SEA));
+        edges.put(TileEdgeDirection.getSouthWest(), new TileEdge(terrain==Terrain.SEA));
 
         compartments.put(TileCompartmentDirection.getEast(), new TileCompartment(false));
         compartments.put(TileCompartmentDirection.getNorthNorthEast(), new TileCompartment(false));
@@ -39,6 +40,10 @@ public class Tile {
         compartments.put(TileCompartmentDirection.getSouthSouthEast(), new TileCompartment(false));
 
         this.terrain = terrain;
+    }
+
+    private void initializeEdges(Terrain terrain, RiverConfiguration riverConfiguration) {
+
     }
 
     // TileEdge
