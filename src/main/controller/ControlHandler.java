@@ -74,7 +74,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         previousProtoTile = new Tile(initialTerrain, riverConfigList.getPrevious());
         currentProtoTile = new Tile(initialTerrain,riverConfigList.getCurrent());
         nextProtoTile = new Tile(initialTerrain,riverConfigList.getNext());
-
+        nextRiverConfiguration();
     }
 
     /* Returns the "previous" prototype tile in terms of river configuration*/
@@ -158,9 +158,10 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     public void rotateTileClockwise() {
-        previousProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
+        System.out.println("CALLED");
+      //  previousProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
         currentProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
-        nextProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
+      //  nextProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
         notifyTileSelectObservers(makeRenderInfo());
     }
 

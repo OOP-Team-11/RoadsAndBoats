@@ -27,6 +27,10 @@ public class TileSelectorView implements TileSelectObserver{
     private Image middle;
     private Image bottom;
 
+    private Image topTerrain;
+    private Image middleTerrain;
+    private Image bottomTerain;
+
     private Assets assets;
     private Image terrain1 = assets.getInstance().SEA_TERRAIN;
     private Image terrain2 = assets.getInstance().PASTURE_TERRAIN;
@@ -53,6 +57,9 @@ public class TileSelectorView implements TileSelectObserver{
         drawArrowKeys();
         drawMiddleRectangle();
         drawTerrainSelectRectangle();
+        drawUpper(this.topTerrain);
+        drawMiddle(this.middleTerrain);
+        drawLower(this.bottomTerain);
         drawUpper(this.top);
         drawMiddle(this.middle);
         drawLower(this.bottom);
@@ -116,6 +123,7 @@ public class TileSelectorView implements TileSelectObserver{
 
     private void drawUpper(Image image) {
         if (image != assets.SEA) {
+
             this.gc.drawImage(image, 130, 55);
         }
     }
@@ -167,107 +175,90 @@ public class TileSelectorView implements TileSelectObserver{
             terrainSelected = 6;
         }
 
+        this.topTerrain = getTerrainImage(tileSelectorRenderInfo.getTopTile());
+        this.middleTerrain = getTerrainImage(tileSelectorRenderInfo.getMiddleTile());
+        this.bottomTerain = getTerrainImage(tileSelectorRenderInfo.getLowerTile());
+
         this.top = getTileImage(tileSelectorRenderInfo.getTopTile());
         this.middle = getTileImage(tileSelectorRenderInfo.getMiddleTile());
         this.bottom = getTileImage(tileSelectorRenderInfo.getLowerTile());
         this.newDataFlag = true;
     }
+    private Image getTerrainImage(Tile tile){
+        if(tile.getTerrain().equals(Terrain.SEA)){
+            return assets.SEA;
+        } else if (tile.getTerrain().equals(Terrain.DESERT)){
+            return assets.DESERT;
+        } else if(tile.getTerrain().equals(Terrain.MOUNTAIN)){
+            return assets.MOUNTAIN;
+        } else if(tile.getTerrain().equals(Terrain.PASTURE)){
+            return assets.PASTURE;
+        } else if(tile.getTerrain().equals(Terrain.ROCK)){
+            return assets.ROCK;
+        } else {
+            return assets.WOODS;
+        }
+    }
 
     private Image getTileImage(Tile tile) {
         RiverConfiguration riverConfig = tile.getRiverConfiguration();
 
-        if(tile.getTerrain().equals(Terrain.SEA)){
-            return assets.SEA;
+        /* FOR DEBUGGING
+        System.out.println("NORTH: "+riverConfig.canConnectNorth());
+        System.out.println("NE: "+riverConfig.canConnectNortheast());
+        System.out.println("SE: "+riverConfig.canConnectSoutheast());
+        System.out.println("S: "+riverConfig.canConnectSouth());
+        System.out.println("SW: "+riverConfig.canConnectSouthwest());
+        System.out.println("MW: "+riverConfig.canConnectNorthwest());
+    */
+        int riverCount = 0;
+        if(riverConfig.canConnectNorth()){
+            riverCount++;
+        } else if (riverConfig.canConnectNortheast()){
+            riverCount++;
+        } else if(riverConfig.canConnectSoutheast()){
+            riverCount++;
+        } else if(riverConfig.canConnectSouth()){
+            riverCount++;
+        } else if(riverConfig.canConnectSouthwest()){
+            riverCount++;
+        } else if(riverConfig.canConnectNorthwest()){
+            riverCount++;
+        } else {
+            return null;
         }
 
-        if(riverConfig.canConnectNorth()) {
-            if(riverConfig.canConnectNortheast()) {
-                switch(tile.getTerrain()) {
-                    case DESERT:
-                        return assets.DESERT_R2_ADJACENT;
-                    case ROCK:
-                        return assets.ROCK_R2_ADJACENT;
-                    case MOUNTAIN:
-                        return assets.MOUNTAIN_R2_ADJACENT;
-                    case PASTURE:
-                        return assets.PASTURE_R2_ADJACENT;
-                    case WOODS:
-                        return assets.WOODS_R2_ADJACENT;
-                }
+        if(riverCount == 1){
+            if(riverConfig.canConnectNorth()){
+                return assets.getInstance().RIVER1_R0;
+            } else if (riverConfig.canConnectNortheast()){
+                return assets.getInstance().RIVER1_R1;
+            } else if(riverConfig.canConnectSoutheast()){
+                return assets.getInstance().RIVER1_R2;
+            } else if(riverConfig.canConnectSouth()){
+                return  assets.getInstance().RIVER1_R3;
+            } else if(riverConfig.canConnectSouthwest()){
+                return assets.getInstance().RIVER1_R4;
+            } else if(riverConfig.canConnectNorthwest()){
+                return assets.getInstance().RIVER1_R5;
+            } else {
+                return null;
             }
-            else if(riverConfig.canConnectSoutheast()) {
-                if(riverConfig.canConnectSouthwest()) {
-                    switch(tile.getTerrain()) {
-                        case DESERT:
-                            return assets.DESERT_R5_EVERYOTHER;
-                        case ROCK:
-                            return assets.ROCK_R5_EVERYOTHER;
-                        case MOUNTAIN:
-                            return assets.MOUNTAIN_R5_EVERYOTHER;
-                        case PASTURE:
-                            return assets.PASTURE_R5_EVERYOTHER;
-                        case WOODS:
-                            return assets.WOODS_R5_EVERYOTHER;
-                    }
-                }
-                else {
-                    switch(tile.getTerrain()) {
-                        case DESERT:
-                            return assets.DESERT_R3_SKIP;
-                        case ROCK:
-                            return assets.ROCK_R3_SKIP;
-                        case MOUNTAIN:
-                            return assets.MOUNTAIN_R3_SKIP;
-                        case PASTURE:
-                            return assets.PASTURE_R3_SKIP;
-                        case WOODS:
-                            return assets.WOODS_R3_SKIP;
-                    }
-                }
-            }
-            else if(riverConfig.canConnectSouth()) {
-                switch(tile.getTerrain()) {
-                    case DESERT:
-                        return assets.DESERT_R4_OPPOSITE;
-                    case ROCK:
-                        return assets.ROCK_R4_OPPOSITE;
-                    case MOUNTAIN:
-                        return assets.MOUNTAIN_R4_OPPOSITE;
-                    case PASTURE:
-                        return assets.PASTURE_R4_OPPOSITE;
-                    case WOODS:
-                        return assets.WOODS_R4_OPPOSITE;
-                }
-            }
-            else {
-                switch(tile.getTerrain()) {
-                    case DESERT:
-                        return assets.DESERT_R1_SPRING;
-                    case ROCK:
-                        return assets.ROCK_R1_SPRING;
-                    case MOUNTAIN:
-                        return assets.MOUNTAIN_R1_SPRING;
-                    case PASTURE:
-                        return assets.PASTURE_R1_SPRING;
-                    case WOODS:
-                        return assets.WOODS_R1_SPRING;
-                }
+        } else if (riverCount == 2){
+            if(riverConfig.canConnectNorth()){
+                return assets.getInstance().RIVER2_R0;
+            } else if(riverConfig.canConnectNortheast()){
+                return assets.getInstance().RIVER2_R2;
+            } else {
+                return assets.getInstance().RIVER2_R2;
+            }   
+        } else {
+            // 3 sides
+            if(riverConfig.canConnectNorth()){
+                return assets.getInstance().RIVER3_R0;
+            } else {
+                return assets.getInstance().RIVER3_R1;
             }
         }
-        else {
-            switch(tile.getTerrain()) {
-                case DESERT:
-                    return assets.DESERT;
-                case ROCK:
-                    return assets.ROCK;
-                case MOUNTAIN:
-                    return assets.MOUNTAIN;
-                case PASTURE:
-                    return assets.PASTURE;
-                case WOODS:
-                    return assets.WOODS;
-            }
-        }
-        return null;
     }
 }

@@ -123,12 +123,15 @@ public class Tile {
 
     public void rotate(Angle angle) {
         int rotationDegrees = angle.getDegrees();
+
         if(rotationDegrees < 60)
             return;
         for(int i = 0; i < (rotationDegrees/60); i++) {
             rotateEdges();
             rotateCompartments();
         }
+
+
     }
 
     private void rotateEdges() {

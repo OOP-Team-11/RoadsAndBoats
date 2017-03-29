@@ -70,6 +70,21 @@ public class Assets {
 
     public Image ARROW_KEYS;
 
+
+    public Image RIVER1_R0;
+    public Image RIVER1_R1;
+    public Image RIVER1_R2;
+    public Image RIVER1_R3;
+    public Image RIVER1_R4;
+    public Image RIVER1_R5;
+
+    public Image RIVER2_R0;
+    public Image RIVER2_R1;
+    public Image RIVER2_R2;
+
+    public Image RIVER3_R0;
+    public Image RIVER3_R1;
+
     public boolean loadAssets(){
         try{
 
@@ -123,6 +138,21 @@ public class Assets {
             ROCK_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/rockTerrain.png"));
             DESERT_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/desertTerrain.png"));
             MOUNTAIN_TERRAIN = new Image(this.getClass().getResourceAsStream("/terrain/mountainTerrain.png"));
+
+            RIVER1_R0 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR0.png"));
+            RIVER1_R1 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR1.png"));
+            RIVER1_R2 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR2.png"));
+            RIVER1_R3 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR3.png"));
+            RIVER1_R4 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR4.png"));
+            RIVER1_R5 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR5.png"));
+
+
+            RIVER2_R0 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR0.png"));
+            RIVER2_R1 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR0.png"));
+            RIVER2_R2 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR0.png"));
+
+            RIVER3_R1 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR0.png"));
+            RIVER3_R1 = new Image(this.getClass().getResourceAsStream("/tiles/Rivers/river1_SpringR0.png"));
 
 
             GREEN_CURSOR = new Image(this.getClass().getResourceAsStream("/tiles/greenCursor.png"));
