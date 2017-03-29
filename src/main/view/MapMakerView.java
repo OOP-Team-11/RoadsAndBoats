@@ -55,26 +55,20 @@ public class MapMakerView implements CursorObserver{
         this.gc.strokeLine(x1,y1,x2,y2);
     }
 
-    private void testDraw(){
-        Image sea = assets.getInstance().SEA;
-
-        gc.drawImage(sea, 250, 250);
-    }
-
     private void testPastureDraw(){
-        Image pasture = assets.getInstance().PASTURE;
-        Image pastureR1 = assets.getInstance().PASTURE_RIVER1;
-        Image pastureR2 = assets.getInstance().PASTURE_RIVER2;
-        Image pastureR3 = assets.getInstance().PASTURE_RIVER3;
-        Image pastureR4 = assets.getInstance().PASTURE_RIVER4;
-        Image pastureR5 = assets.getInstance().PASTURE_RIVER5;
+        Image t = assets.getInstance().PASTURE;
+        Image t1 = assets.getInstance().PASTURE_R1_SPRING;
+        Image t2 = assets.getInstance().PASTURE_R2_ADJACENT;
+        Image t3 = assets.getInstance().PASTURE_R3_SKIP;
+        Image t4 = assets.getInstance().PASTURE_R4_OPPOSITE;
+        Image t5 = assets.getInstance().PASTURE_R5_EVERYOTHER;
 
-        gc.drawImage(pasture, 0, 0);
-        gc.drawImage(pastureR1,0,454);
-        gc.drawImage(pastureR2, 384, 227);
-        gc.drawImage(pastureR3,384,-227);
-        gc.drawImage(pastureR4, 384, 681);
-        gc.drawImage(pastureR5,768,0);
+        gc.drawImage(t, 0, 0);
+        gc.drawImage(t1,0,114);
+        gc.drawImage(t2, 192, 228);
+        gc.drawImage(t3,192,-227);
+        gc.drawImage(t4, 192, 681);
+        gc.drawImage(t5,768,0);
     }
 
     private void drawDivider(){
