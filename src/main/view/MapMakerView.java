@@ -15,8 +15,15 @@ public class MapMakerView implements CursorObserver{
     private int cameraX;
     private int cameraY;
     private int cameraZoom;
-
     private Assets assets;
+    private Image pasture = assets.getInstance().PASTURE;
+    private Image pastureR1 = assets.getInstance().PASTURE_RIVER1;
+    private Image pastureR2 = assets.getInstance().PASTURE_RIVER2;
+    private Image pastureR3 = assets.getInstance().PASTURE_RIVER3;
+    private Image pastureR4 = assets.getInstance().PASTURE_RIVER4;
+    private Image pastureR5 = assets.getInstance().PASTURE_RIVER5;
+
+
 
     public MapMakerView(Canvas canvas){
 
@@ -30,7 +37,9 @@ public class MapMakerView implements CursorObserver{
     public void render(){
         drawDivider();
         testPastureDraw();
+
     }
+
 
     // camera offset function to pan/scroll placement area
     public void moveCamera(int moveX, int moveY){
@@ -60,21 +69,44 @@ public class MapMakerView implements CursorObserver{
 
         gc.drawImage(sea, 250, 250);
     }
+    private void drawImage(Image image, int x, int y, int z){
+        // first thing we want to do is get the axial coordinates
+        int xx = x;
+        int yy = z;
+        if(xx%2 == 0){ // even
+            double offsetHorizontal = image.getWidth()*xx*0.25;
+            double offsetVertical = (image.getHeight())*(xx/2);
+            gc.drawImage(image,image.getWidth()*xx-offsetHorizontal,image.getHeight()*yy+offsetVertical); // x, y
+        } else {
+
+            double offset = image.getHeight()*0.50;
+            double offsetVertical = (image.getHeight())*((xx-1)/2);
+            gc.drawImage(image,image.getWidth()*xx*0.75,(image.getHeight()*((yy)) + offset +offsetVertical)); // x, y
+        }
+
+    }
 
     private void testPastureDraw(){
-        Image pasture = assets.getInstance().PASTURE;
-        Image pastureR1 = assets.getInstance().PASTURE_RIVER1;
-        Image pastureR2 = assets.getInstance().PASTURE_RIVER2;
-        Image pastureR3 = assets.getInstance().PASTURE_RIVER3;
-        Image pastureR4 = assets.getInstance().PASTURE_RIVER4;
-        Image pastureR5 = assets.getInstance().PASTURE_RIVER5;
 
-        gc.drawImage(pasture, 0, 0);
-        gc.drawImage(pastureR1,0,454);
-        gc.drawImage(pastureR2, 384, 227);
-        gc.drawImage(pastureR3,384,-227);
-        gc.drawImage(pastureR4, 384, 681);
-        gc.drawImage(pastureR5,768,0);
+
+        drawImage(pastureR4,-1,0,1);
+        drawImage(pastureR4,-1,-1,2);
+        drawImage(pastureR2,-1,1,0);
+
+        drawImage(pasture,0,0,0);
+        drawImage(pastureR1,0,-1,1);
+        //drawImage(pastureR1,0,-2,2);
+
+        drawImage(pastureR1,1,-1,0);
+        drawImage(pastureR1,1,-2,1);
+        // drawImage(pastureR1,1,0,-1);
+
+        drawImage(pasture,2,-2,0);
+        drawImage(pastureR1,2,-3,1);
+        // drawImage(pastureR1,2,-1,-1);
+
+        drawImage(pastureR1,3,-2,-1);
+        drawImage(pastureR1,3,-3,0);
     }
 
     private void drawDivider(){
