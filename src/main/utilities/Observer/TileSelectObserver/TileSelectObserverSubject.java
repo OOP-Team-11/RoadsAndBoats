@@ -1,8 +1,10 @@
 package utilities.Observer.TileSelectObserver;
 
-import utilities.Observer.ObserverSubject;
 
-public interface TileSelectObserverSubject extends ObserverSubject {
+import view.render.TileSelectorRenderInfo;
+
+public interface TileSelectObserverSubject{
     void registerTileSelectObserver(TileSelectObserver o);
     void removeTileSelectObserver(TileSelectObserver o);
+    void notifyTileSelectObservers(TileSelectorRenderInfo tileSelectorRenderInfo);
 }
