@@ -11,26 +11,26 @@ public class TileEdgeTest {
 
     @Test
     public void constructorTestCanConnectRiver() {
-        TileEdge tileEdge = new TileEdge(true);
+        TileEdge tileEdge = new TileEdge(true, true);
         assertTrue(tileEdge.canConnectRiver());
     }
 
     @Test
     public void constructorTestCannotConnectRiver() {
-        TileEdge tileEdge = new TileEdge(false);
+        TileEdge tileEdge = new TileEdge(false, false);
         assertFalse(tileEdge.canConnectRiver());
     }
 
     @Test
     public void setCantConnectRiver() {
-        TileEdge tileEdge = new TileEdge(true);
+        TileEdge tileEdge = new TileEdge(true, true);
         tileEdge.setCanConnectRiver(false);
         assertFalse(tileEdge.canConnectRiver());
     }
 
     @Test
     public void setCanConnectRiver() {
-        TileEdge tileEdge = new TileEdge(false);
+        TileEdge tileEdge = new TileEdge(false, false);
         tileEdge.setCanConnectRiver(true);
         assertTrue(tileEdge.canConnectRiver());
     }

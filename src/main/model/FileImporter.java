@@ -28,12 +28,13 @@ public class FileImporter {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if(isValidLine(line)){
-                    parseRiver(line);
+                    if(hasRiver(line))
+                        parseRiver(line);
                     map.placeTile(parseTile(line), new Tile(parseTerrain(line)));
                 }
                 else {
-                    System.out.println("Not the correct Tile Format");
-//                    break;
+                    System.err.println("Not the correct Tile Format");
+                    break;
                 }
             }
             scanner.close();
@@ -85,7 +86,13 @@ public class FileImporter {
     }
 
     public void parseRiver(String group) {
-
+        Matcher matcher = findMatch(group,"[( ]-?[0-9][ ]-?[0-9][ ]-?[0-9][ )]");
+        String intString = null;
+        while (matcher.find()){intString = matcher.group();}
+        String [] locationString = intString.split(" ");
+        int x = Integer.parseInt(locationString[1]);
+        int y = Integer.parseInt(locationString[2]);
+        int z = Integer.parseInt(locationString[3]);
     }
     private Matcher findMatch(String line, String pattern){
         Pattern p = Pattern.compile(pattern);

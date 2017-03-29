@@ -1,7 +1,7 @@
 package utilities.Observer.CursorObserver;
 
-import utilities.Observer.Observer;
+import view.render.MapMakerCursorInfo;
 
-public interface CursorObserver extends Observer{
-    //things, presumably
+public interface CursorObserver {
+    void updateCursorInfo(MapMakerCursorInfo mapMakerCursorInfo);
 }
