@@ -127,8 +127,8 @@ public class TileSelectorView implements TileSelectObserver{
 
     private void drawUpper(Image image) {
         if (image != assets.SEA) {
-
             this.gc.drawImage(image, 130, 55);
+            this.gc.drawImage(assets.FADED,130,55);
         }
     }
     private void drawMiddle(Image image){
@@ -137,6 +137,7 @@ public class TileSelectorView implements TileSelectObserver{
     private void drawLower(Image image) {
         if (image != assets.SEA) {
             this.gc.drawImage(image, 130, 450);
+            this.gc.drawImage(assets.FADED,130,450);
         }
     }
 

@@ -99,6 +99,8 @@ public class Assets {
     public Image RIVER_EVERYOTHER_R0;
     public Image RIVER_EVERYOTHER_R1;
 
+    public Image FADED;
+
     public boolean loadAssets(){
         try{
 
@@ -185,6 +187,7 @@ public class Assets {
             RED_CURSOR = new Image(this.getClass().getResourceAsStream("/tiles/redCursor.png"));
 
             ARROW_KEYS = new Image(this.getClass().getResourceAsStream("/misc/arrowkeys.png"));
+            FADED = new Image(this.getClass().getResourceAsStream("/tiles/fadedHex.png"));
 
         } catch(Exception e){
             e.printStackTrace();
