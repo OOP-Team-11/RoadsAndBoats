@@ -116,36 +116,36 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         nextProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
     }
 
-    public void setSeaTerrain(){
-        previousProtoTile.setTerrain(Terrain.SEA);
-        currentProtoTile.setTerrain(Terrain.SEA);
-        nextProtoTile.setTerrain(Terrain.SEA);
-    }
-    public void setPastureTerrain(){
-        previousProtoTile.setTerrain(Terrain.PASTURE);
-        currentProtoTile.setTerrain(Terrain.PASTURE);
-        nextProtoTile.setTerrain(Terrain.PASTURE);
-    }
-    public void setWoodsTerrain(){
-        previousProtoTile.setTerrain(Terrain.WOODS);
-        currentProtoTile.setTerrain(Terrain.WOODS);
-        nextProtoTile.setTerrain(Terrain.WOODS);
-    }
-    public void setRockyTerrain(){
-        previousProtoTile.setTerrain(Terrain.ROCK);
-        currentProtoTile.setTerrain(Terrain.ROCK);
-        nextProtoTile.setTerrain(Terrain.ROCK);
-    }
-    public void setMountainTerrain(){
-        previousProtoTile.setTerrain(Terrain.MOUNTAIN);
-        currentProtoTile.setTerrain(Terrain.MOUNTAIN);
-        nextProtoTile.setTerrain(Terrain.MOUNTAIN);
-    }
-    public void setDesertTerrain(){
-        previousProtoTile.setTerrain(Terrain.DESERT);
-        currentProtoTile.setTerrain(Terrain.DESERT);
-        nextProtoTile.setTerrain(Terrain.DESERT);
-    }
+//    public void setSeaTerrain(){
+//        previousProtoTile.setTerrain(Terrain.SEA);
+//        currentProtoTile.setTerrain(Terrain.SEA);
+//        nextProtoTile.setTerrain(Terrain.SEA);
+//    }
+//    public void setPastureTerrain(){
+//        previousProtoTile.setTerrain(Terrain.PASTURE);
+//        currentProtoTile.setTerrain(Terrain.PASTURE);
+//        nextProtoTile.setTerrain(Terrain.PASTURE);
+//    }
+//    public void setWoodsTerrain(){
+//        previousProtoTile.setTerrain(Terrain.WOODS);
+//        currentProtoTile.setTerrain(Terrain.WOODS);
+//        nextProtoTile.setTerrain(Terrain.WOODS);
+//    }
+//    public void setRockyTerrain(){
+//        previousProtoTile.setTerrain(Terrain.ROCK);
+//        currentProtoTile.setTerrain(Terrain.ROCK);
+//        nextProtoTile.setTerrain(Terrain.ROCK);
+//    }
+//    public void setMountainTerrain(){
+//        previousProtoTile.setTerrain(Terrain.MOUNTAIN);
+//        currentProtoTile.setTerrain(Terrain.MOUNTAIN);
+//        nextProtoTile.setTerrain(Terrain.MOUNTAIN);
+//    }
+//    public void setDesertTerrain(){
+//        previousProtoTile.setTerrain(Terrain.DESERT);
+//        currentProtoTile.setTerrain(Terrain.DESERT);
+//        nextProtoTile.setTerrain(Terrain.DESERT);
+//    }
 
      /* Observer stuff below  */
 

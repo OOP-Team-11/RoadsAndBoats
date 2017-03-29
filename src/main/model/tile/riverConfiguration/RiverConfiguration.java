@@ -8,8 +8,21 @@ import java.util.Map;
 public class RiverConfiguration {
 
     private Map<TileEdgeDirection, Boolean> riverMap;
+
     private RiverConfiguration(Map<TileEdgeDirection, Boolean> riverMap) {
         this.riverMap = riverMap;
+    }
+
+    public RiverConfiguration(int side) {
+
+    }
+
+    public RiverConfiguration(int side1, int side2) {
+
+    }
+
+    public RiverConfiguration(int side1, int side2, int side3) {
+
     }
 
     private static Map<TileEdgeDirection, Boolean> getDefaultMap() {
