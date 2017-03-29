@@ -32,6 +32,8 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
     private Location protoTileLocation;
 
+    //make class that encapsulates a list of possible river configurations for a given terrain type
+
     RiverConfiguration protoRiverConfig;
 
     // mapMakerView is given as an observer that the map will use to notify
@@ -45,31 +47,44 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
         registerCursorObserver(mapMakerView);
         registerTileSelectObserver(tileSelectorView);
-        previousProtoTile = new Tile(Terrain.PASTURE);
-        currentProtoTile = new Tile(Terrain.PASTURE);                  //Initialized to "pasture" by default
-        nextProtoTile = new Tile(Terrain.PASTURE);
 
         protoTileLocation = new Location(0,0,0);    //Initialized to center spot initially.
         protoRiverConfig = RiverConfiguration.getNoRivers();
 
+        previousProtoTile = new Tile(Terrain.PASTURE, protoRiverConfig);
+        currentProtoTile = new Tile(Terrain.PASTURE,protoRiverConfig);                  //Initialized to "pasture" by default
+        nextProtoTile = new Tile(Terrain.PASTURE,protoRiverConfig);
+
     }
 
+    /* Returns the "previous" prototype tile in terms of river configuration*/
     public Tile getPreviousProtoTile() {
         return this.previousProtoTile;
     }
 
+    /* Returns the prototype tile that would actually be placed*/
     public Tile getCurrentProtoTile() {
         return this.currentProtoTile;
     }
 
+    /* Returns the "next" prototype tile in terms of river configuration*/
     public Tile getNextProtoTile() {
         return this.nextProtoTile;
     }
 
-    public RiverConfiguration peek
+    public void nextRiverConfiguration(){
+        this.previousProtoTile = this.currentProtoTile;     //Set the previous prototype to the current one
+        this.currentProtoTile = this.nextProtoTile;         //Set the current prototype to the next one
+//        this.nextProtoTile
+
+    }
+
+    public void previousRiverConfiguration(){
+
+    }
 
     public boolean tryPlaceTile(){
-        return this.gameMap.placeTile(protoTileLocation, protoTile);
+        return this.gameMap.placeTile(protoTileLocation, currentProtoTile);
     }
 
     public void clearTile(){
@@ -90,30 +105,46 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     public void rotateTileClockwise() {
-        protoTile.rotate(new Angle(60));    //Single-side rotation clockwise
+        previousProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
+        currentProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
+        nextProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
     }
 
     public void rotateTileCounterClockwise() {
-        protoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
+        previousProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
+        currentProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
+        nextProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
     }
 
     public void setSeaTerrain(){
-        protoTile.setTerrain(Terrain.SEA);
+        previousProtoTile.setTerrain(Terrain.SEA);
+        currentProtoTile.setTerrain(Terrain.SEA);
+        nextProtoTile.setTerrain(Terrain.SEA);
     }
     public void setPastureTerrain(){
-        protoTile.setTerrain(Terrain.PASTURE);
+        previousProtoTile.setTerrain(Terrain.PASTURE);
+        currentProtoTile.setTerrain(Terrain.PASTURE);
+        nextProtoTile.setTerrain(Terrain.PASTURE);
     }
     public void setWoodsTerrain(){
-        protoTile.setTerrain(Terrain.WOODS);
+        previousProtoTile.setTerrain(Terrain.WOODS);
+        currentProtoTile.setTerrain(Terrain.WOODS);
+        nextProtoTile.setTerrain(Terrain.WOODS);
     }
     public void setRockyTerrain(){
-        protoTile.setTerrain(Terrain.ROCK);
+        previousProtoTile.setTerrain(Terrain.ROCK);
+        currentProtoTile.setTerrain(Terrain.ROCK);
+        nextProtoTile.setTerrain(Terrain.ROCK);
     }
     public void setMountainTerrain(){
-        protoTile.setTerrain(Terrain.MOUNTAIN);
+        previousProtoTile.setTerrain(Terrain.MOUNTAIN);
+        currentProtoTile.setTerrain(Terrain.MOUNTAIN);
+        nextProtoTile.setTerrain(Terrain.MOUNTAIN);
     }
     public void setDesertTerrain(){
-        protoTile.setTerrain(Terrain.DESERT);
+        previousProtoTile.setTerrain(Terrain.DESERT);
+        currentProtoTile.setTerrain(Terrain.DESERT);
+        nextProtoTile.setTerrain(Terrain.DESERT);
     }
 
      /* Observer stuff below  */
@@ -123,10 +154,12 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         /* Notifies both sets of Observers depending on whether or not they're flagged for updating*/
          if(observerUpdateFlags.get(cursorObservers)){
              notifyCursorObservers();
+             observerUpdateFlags.replace(cursorObservers,false);
          }
 
          if(observerUpdateFlags.get(tileSelectObservers)){
              notifyTileSelectObservers();
+             observerUpdateFlags.replace(tileSelectObservers,false);
          }
      }
 
