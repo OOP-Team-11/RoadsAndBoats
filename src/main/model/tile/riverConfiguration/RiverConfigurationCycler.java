@@ -36,7 +36,7 @@ public class RiverConfigurationCycler implements Iterator<RiverConfiguration> {
     }
 
     public void next() {
-        this.index = this.index++ % this.riverConfigurations.size();
+        this.index = ++this.index % this.riverConfigurations.size();
         setCurrentRiverConfiguration();
     }
 
@@ -65,7 +65,6 @@ public class RiverConfigurationCycler implements Iterator<RiverConfiguration> {
         this.currentRiverConfiguration = this.riverConfigurations.get(this.index);
     }
 
-    //lol
     public void updateTerrain(Terrain terrain){
         setupRiverConfigurationsArrayList(terrain);
     }

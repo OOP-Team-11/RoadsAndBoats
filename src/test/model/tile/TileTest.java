@@ -54,6 +54,7 @@ public class TileTest {
 
     @Test
     public void constructTestMountainTile() {
+
         Tile t = new Tile(Terrain.MOUNTAIN, this.springHeadConfiguration);
         assertEquals(t.getTerrain(), Terrain.MOUNTAIN);
     }
@@ -63,6 +64,7 @@ public class TileTest {
     // Toggle TileCompartment in Tile
     @Test
     public void getTileCompartmentTest() {
+
         Tile t = new Tile(Terrain.SEA, this.springHeadConfiguration);
         t.setHasWater(TileCompartmentDirection.getNorth(), true);
         assertEquals(t.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater(), true);
@@ -73,6 +75,7 @@ public class TileTest {
     // Getting TileEdge from Tile
     @Test
     public void getTileEdgeTest() {
+
         Tile t = new Tile(Terrain.SEA, this.springHeadConfiguration);
         t.setCanConnectWater(TileEdgeDirection.getNorth(), true);
         assertEquals(t.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver(), true);
@@ -82,6 +85,7 @@ public class TileTest {
     // Check if a tile edge is rotating properly
     @Test
     public void rotateTileEdgeTest() {
+
         Tile t = new Tile(Terrain.SEA, this.springHeadConfiguration);
         TileEdge northEdge = t.getTileEdge(TileEdgeDirection.getNorth());
         t.rotate(new Angle(60));
@@ -91,6 +95,7 @@ public class TileTest {
 //    Check if a tile compartment is rotating properly
     @Test
     public void rotateTileCompartmentTest() {
+
         Tile t = new Tile(Terrain.SEA, this.springHeadConfiguration);
         TileCompartment northCompartment = t.getTileCompartment(TileCompartmentDirection.getNorth());
         t.rotate(new Angle(120));

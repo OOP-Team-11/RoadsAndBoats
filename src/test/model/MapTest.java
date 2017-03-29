@@ -19,7 +19,7 @@ public class MapTest
     @Before
     public void setUp() throws InvalidLocationException
     {
-        map=new Map();
+        map = new Map();
         riverConfiguration = RiverConfiguration.getNoRivers();
 
         setUpTiles();
@@ -45,7 +45,7 @@ public class MapTest
             map.placeTile(new Location(-3, 2, 1), new Tile(Terrain.PASTURE, riverConfiguration));
             map.placeTile(new Location(-3, 1, 2), new Tile(Terrain.WOODS, riverConfiguration));
             map.placeTile(new Location(-3, 0, 3), new Tile(Terrain.PASTURE, riverConfiguration));
-        } catch(InvalidLocationException e)
+        } catch (InvalidLocationException e)
         {
             fail("Invalid Location created while setting up tiles");
         }
@@ -55,28 +55,29 @@ public class MapTest
     {
         try
         {
-            map.getTile(new Location(-2,2,0)).setCanConnectWater(TileEdgeDirection.getNorthEast(), true);
-            map.getTile(new Location(-2,2,0)).setCanConnectWater(TileEdgeDirection.getNorthWest(), true);
-            map.getTile(new Location(-2,2,0)).setCanConnectWater(TileEdgeDirection.getSouth(), true);
-            map.getTile(new Location(-2,1,1)).setCanConnectWater(TileEdgeDirection.getNorthEast(), true);
-            map.getTile(new Location(-2,1,1)).setCanConnectWater(TileEdgeDirection.getNorth(), true);
-        } catch(InvalidLocationException e)
+            map.getTile(new Location(-2, 2, 0)).setCanConnectWater(TileEdgeDirection.getNorthEast(), true);
+            map.getTile(new Location(-2, 2, 0)).setCanConnectWater(TileEdgeDirection.getNorthWest(), true);
+            map.getTile(new Location(-2, 2, 0)).setCanConnectWater(TileEdgeDirection.getSouth(), true);
+            map.getTile(new Location(-2, 1, 1)).setCanConnectWater(TileEdgeDirection.getNorthEast(), true);
+            map.getTile(new Location(-2, 1, 1)).setCanConnectWater(TileEdgeDirection.getNorth(), true);
+        } catch (InvalidLocationException e)
         {
             fail("Invalid Location created while setting up rivers");
         }
     }
 
     @Test
+
     public void getTile_invalidLocation_returnsNull() throws InvalidLocationException
     {
-        Tile tile = map.getTile(new Location(1,0,-1));
+        Tile tile = map.getTile(new Location(1, 0, -1));
         assertNull(tile);
     }
 
     @Test
     public void getTile_validLocation_returnsCorrectTerrain() throws InvalidLocationException
     {
-        Tile tile = map.getTile(new Location(-1,-2,3));
+        Tile tile = map.getTile(new Location(-1, -2, 3));
         assertEquals(Terrain.DESERT, tile.getTerrain());
     }
 
@@ -86,6 +87,28 @@ public class MapTest
         Location loc = new Location(0, -3, 3);
         Tile tile = new Tile(Terrain.MOUNTAIN, riverConfiguration);
         boolean isValid = map.isValidPlacement(loc, tile);
+        assertTrue(isValid);
+    }
+
+    @Test
+    public void isValidPlacement_invalidUnattatchedTile_returnsFalse() throws InvalidLocationException
+    {
+        Location loc = new Location(10, -3, -7);
+        Tile tile = new Tile(Terrain.MOUNTAIN, riverConfiguration);
+        boolean isValid = map.isValidPlacement(loc, tile);
+        assertFalse(isValid);
+    }
+
+    //0 -1 1 and 1 -1 0
+    @Test
+    public void isValidPlacement_validSecondTile_returnsTrue() throws InvalidLocationException
+    {
+        Map map = new Map();
+        map.placeTile(new Location(0, -1, 1), new Tile(Terrain.MOUNTAIN, RiverConfiguration.getNoRivers()));
+        Location loc = new Location(1, -1, 0);
+        Tile tile = new Tile(Terrain.DESERT, RiverConfiguration.getNoRivers());
+        boolean isValid = map.isValidPlacement(loc, tile);
+
         assertTrue(isValid);
     }
 
