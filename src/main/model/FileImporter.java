@@ -33,7 +33,7 @@ public class FileImporter {
                 }
                 else {
                     System.out.println("Not the correct Tile Format");
-                    break;
+//                    break;
                 }
             }
             scanner.close();
@@ -48,20 +48,21 @@ public class FileImporter {
     }
 
     public Location parseTile(String line) throws InvalidLocationException {
-        Matcher matcher = findMatch(line,"[\"][(][\"].*[\"][)][\"]");
+        Matcher matcher = findMatch(line,"[( ]-?[0-9][ ]-?[0-9][ ]-?[0-9][ )]");
         String intString = null;
-        while (matcher.find()){intString = matcher.group().replace("\"","").replace("( ","").replace(" )","");}
+        while (matcher.find()){
+            intString = matcher.group(); break;}
         String [] locationString = intString.split(" ");
-        int x = Integer.parseInt(locationString[0]);
-        int y = Integer.parseInt(locationString[1]);
-        int z= Integer.parseInt(locationString[2]);
+            int x = Integer.parseInt(locationString[1]);
+            int y = Integer.parseInt(locationString[2]);
+            int z = Integer.parseInt(locationString[3]);
         Location location = new Location(x,y,z);
         return location;
     }
     public Terrain parseTerrain(String line) {
-        Matcher matcher = findMatch(line, "[\"][a-z || A-Z][\"]");
+        Matcher matcher = findMatch(line, "[A-Z][A-Z||a-z]*[a-z]");
         String intString = null;
-        while (matcher.find()) {intString = line.substring(matcher.start()).replace("\"","");}
+        while (matcher.find()) {intString = matcher.group();}
         return getTerrain(intString);
     }
 
@@ -92,7 +93,11 @@ public class FileImporter {
         return matcher;
     }
     private boolean isValidLine(String line){
-        StringTokenizer st = new StringTokenizer(line,"[\"][ ][][\"]");
+        StringTokenizer st = new StringTokenizer(line," ");
         return st.countTokens()==11 || st.countTokens()==6;
+    }
+    private boolean hasRiver(String line){
+        StringTokenizer st = new StringTokenizer(line," ");
+        return st.countTokens()==11;
     }
 }

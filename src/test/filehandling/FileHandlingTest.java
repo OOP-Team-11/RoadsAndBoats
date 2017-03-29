@@ -17,6 +17,7 @@ public class FileHandlingTest {
         Map map = fileImporter.readFile("map/map2.txt");
         if(map!=null)
         assertTrue(map.hasTiles());
+        System.out.print(map.getAllLocations().size());
 
     }
     @Test
