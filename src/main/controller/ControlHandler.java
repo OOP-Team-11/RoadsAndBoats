@@ -32,7 +32,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     private ArrayList<TileSelectObserver> tileSelectObservers;  //Hold TileSelectObservers who've registered for TileSelect updates
     private ArrayList<MapMakerObserver> mapMakerObservers;
     private HashMap<ArrayList,Boolean> observerUpdateFlags;  //Will flag a need to update one or both sets of observers when notifyObservers() is called
-
+    private MapMakerCursorInfo cursorInfo;
     private Map gameMap;
 
     private Tile protoTile;
@@ -90,8 +90,15 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     public void moveCursor(TileEdgeDirection dir){
         Location newCursorLocation = DirectionToLocation.getLocation(protoTileLocation, dir);
         boolean isValidPlacement = gameMap.isValidPlacement(newCursorLocation, protoTile);
-        MapMakerCursorInfo cursorInfo = new MapMakerCursorInfo(newCursorLocation, isValidPlacement);
+        cursorInfo.setCursorLocation(newCursorLocation);
+        cursorInfo.setIsCursorValid(isValidPlacement);
         observerUpdateFlags.replace(cursorObservers,true);  //Mark the cursorObservers for notification
+        notifyCursorObservers(cursorInfo);
+    }
+
+    public void moveViewport(int x, int y) {
+        cursorInfo.setCameraX(cursorInfo.getCameraX() + x);
+        cursorInfo.setCameraY(cursorInfo.getCameraY() + y);
         notifyCursorObservers(cursorInfo);
     }
 
