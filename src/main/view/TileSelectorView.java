@@ -49,6 +49,9 @@ public class TileSelectorView implements TileSelectObserver{
         drawArrowKeys();
         drawMiddleRectangle();
         drawTerrainSelectRectangle();
+        drawUpper();
+        drawMiddle();
+        drawLower();
     }
     private void setGraphicsContentStroke(Paint p){
         this.gc.setStroke(p);
@@ -111,6 +114,16 @@ public class TileSelectorView implements TileSelectObserver{
         } else {
             this.gc.strokeRoundRect(290,700,35,35,5,5);
         }
+    }
+    private void drawUpper(Image image){
+        this.gc.drawImage(image,130,55);
+    }
+
+    private void drawMiddle(Image image){
+        this.gc.drawImage(image,130,250);
+    }
+    private void drawLower(Image image){
+        this.gc.drawImage(image,130,450);
     }
 
     private void drawTerrainOptions(){
