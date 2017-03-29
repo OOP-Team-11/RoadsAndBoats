@@ -18,12 +18,12 @@ public class Tile {
         edges = new HashMap<TileEdgeDirection, TileEdge>();
         compartments = new HashMap<TileCompartmentDirection, TileCompartment>();
 
-        edges.put(TileEdgeDirection.getNorth(), new TileEdge(terrain==Terrain.SEA));
-        edges.put(TileEdgeDirection.getNorthEast(), new TileEdge(terrain==Terrain.SEA));
-        edges.put(TileEdgeDirection.getNorthWest(), new TileEdge(terrain==Terrain.SEA));
-        edges.put(TileEdgeDirection.getSouth(), new TileEdge(terrain==Terrain.SEA));
-        edges.put(TileEdgeDirection.getSouthEast(), new TileEdge(terrain==Terrain.SEA));
-        edges.put(TileEdgeDirection.getSouthWest(), new TileEdge(terrain==Terrain.SEA));
+        edges.put(TileEdgeDirection.getNorth(), new TileEdge(terrain.canConnectRiver(), false));
+        edges.put(TileEdgeDirection.getNorthEast(), new TileEdge(terrain.canConnectRiver(), false));
+        edges.put(TileEdgeDirection.getNorthWest(), new TileEdge(terrain.canConnectRiver(), false));
+        edges.put(TileEdgeDirection.getSouth(), new TileEdge(terrain.canConnectRiver(), false));
+        edges.put(TileEdgeDirection.getSouthEast(), new TileEdge(terrain.canConnectRiver(), false));
+        edges.put(TileEdgeDirection.getSouthWest(), new TileEdge(terrain.canConnectRiver(), false));
 
         compartments.put(TileCompartmentDirection.getEast(), new TileCompartment(false));
         compartments.put(TileCompartmentDirection.getNorthNorthEast(), new TileCompartment(false));
@@ -46,6 +46,10 @@ public class Tile {
         return edges.get(edgeDirection);
     }
 
+    public TileEdge setTileEdge(TileEdgeDirection edgeDirection, TileEdge edge) {
+        return edges.put(edgeDirection, edge);
+    }
+
     public void setCanConnectWater(TileEdgeDirection direction, boolean bool) {
         getTileEdge(direction).setCanConnectRiver(bool);
     }
@@ -63,10 +67,19 @@ public class Tile {
         return terrain;
     }
 
-    public void setTerrain(Terrain t){
+    public void setTerrain(Terrain t)
+    {
         this.terrain = t;
-    }
 
+        if(terrain.canConnectRiver())
+        {
+            for(TileEdge edge: edges.values())
+            {
+                edge.setCanConnectRiver(true);
+                edge.setHasRiver(false);
+            }
+        }
+    }
 
     public void rotate(Angle angle) {
         int rotationDegrees = angle.getDegrees();
