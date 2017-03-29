@@ -55,10 +55,6 @@ public class FileImporter {
         while (matcher.find()){
             intString = matcher.group(); break;}
         String [] locationString = intString.split(" ");
-<<<<<<< HEAD
-
-=======
->>>>>>> fef86ddf804d2507d8c39ae33f850f25c17728a6
             int x = Integer.parseInt(locationString[1]);
             int y = Integer.parseInt(locationString[2]);
             int z = Integer.parseInt(locationString[3]);
@@ -99,10 +95,6 @@ public class FileImporter {
         int x = Integer.parseInt(locationString[1]);
         int y = Integer.parseInt(locationString[2]);
         int z = Integer.parseInt(locationString[3]);
-<<<<<<< HEAD
-
-=======
->>>>>>> fef86ddf804d2507d8c39ae33f850f25c17728a6
     }
     private Matcher findMatch(String line, String pattern){
         Pattern p = Pattern.compile(pattern);
