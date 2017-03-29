@@ -10,8 +10,6 @@ import view.TileSelectorView;
 import javafx.stage.Stage;
 import view.ViewInitializer;
 
-import static oracle.jrockit.jfr.events.Bits.intValue;
-
 public class MapMakerController {
 
     private ControlHandler controlHandler;
@@ -54,7 +52,7 @@ public class MapMakerController {
 
     private void attachScrollEventToScene() {
         this.scene.setOnScroll(event -> {
-            this.mapMakerView.changeZoom(intValue(event.getDeltaY()));
+            this.mapMakerView.changeZoom((int) event.getDeltaY()));
         });
     }
 }
