@@ -5,6 +5,7 @@ import direction.TileCompartmentDirection;
 import direction.TileEdgeDirection;
 import model.tile.riverConfiguration.RiverConfiguration;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
@@ -14,40 +15,47 @@ import static org.junit.Assert.assertNotEquals;
 
 public class TileTest {
 
+    private RiverConfiguration springConfiguration;
+    @Before
+    public void setUp() {
+        this.springConfiguration = RiverConfiguration.getSpringHead();
+    }
+
     // Creating Tiles using all the Terrain Types --------------------------------------------------
     @Test
     public void constructTestSeaTile() {
-        Tile t = new Tile(Terrain.SEA, RiverConfiguration.getNoRivers());
+        Tile t = new Tile(Terrain.SEA, this.springConfiguration);
         assertEquals(t.getTerrain(), Terrain.SEA);
     }
 
     @Test
     public void constructTestPastureTile() {
-        Tile t = new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers());
+        Tile t = new Tile(Terrain.PASTURE, this.springConfiguration);
         assertEquals(t.getTerrain(), Terrain.PASTURE);
     }
 
     @Test
     public void constructTestWoodsTile() {
-        Tile t = new Tile(Terrain.WOODS, RiverConfiguration.getNoRivers());
+        Tile t = new Tile(Terrain.WOODS, this.springConfiguration);
         assertEquals(t.getTerrain(), Terrain.WOODS);
     }
 
     @Test
     public void constructTestRockTile() {
-        Tile t = new Tile(Terrain.ROCK, RiverConfiguration.getNoRivers());
+        Tile t = new Tile(Terrain.ROCK, this.springConfiguration);
         assertEquals(t.getTerrain(), Terrain.ROCK);
     }
 
     @Test
     public void constructTestDesertTile() {
-        Tile t = new Tile(Terrain.DESERT, RiverConfiguration.getNoRivers());
+        Tile t = new Tile(Terrain.DESERT, this.springConfiguration);
         assertEquals(t.getTerrain(), Terrain.DESERT);
     }
 
     @Test
     public void constructTestMountainTile() {
-        Tile t = new Tile(Terrain.MOUNTAIN, RiverConfiguration.getNoRivers());
+
+        Tile t = new Tile(Terrain.MOUNTAIN, this.springConfiguration);
         assertEquals(t.getTerrain(), Terrain.MOUNTAIN);
     }
     // ----------------------------------------------------------------------------------------------------
@@ -56,7 +64,8 @@ public class TileTest {
     // Toggle TileCompartment in Tile
     @Test
     public void getTileCompartmentTest() {
-        Tile t = new Tile(Terrain.SEA, RiverConfiguration.getNoRivers());
+
+        Tile t = new Tile(Terrain.SEA, this.springConfiguration);
         t.setHasWater(TileCompartmentDirection.getNorth(), true);
         assertEquals(t.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater(), true);
     }
@@ -66,7 +75,8 @@ public class TileTest {
     // Getting TileEdge from Tile
     @Test
     public void getTileEdgeTest() {
-        Tile t = new Tile(Terrain.SEA, RiverConfiguration.getNoRivers());
+
+        Tile t = new Tile(Terrain.SEA, this.springConfiguration);
         t.setCanConnectWater(TileEdgeDirection.getNorth(), true);
         assertEquals(t.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver(), true);
     }
@@ -75,7 +85,8 @@ public class TileTest {
     // Check if a tile edge is rotating properly
     @Test
     public void rotateTileEdgeTest() {
-        Tile t = new Tile(Terrain.SEA, RiverConfiguration.getNoRivers());
+
+        Tile t = new Tile(Terrain.SEA, this.springConfiguration);
         TileEdge northEdge = t.getTileEdge(TileEdgeDirection.getNorth());
         t.rotate(new Angle(60));
 //        Make sure the north edge rotated ONCE to the right, making it the northEast edge now
@@ -84,7 +95,8 @@ public class TileTest {
 //    Check if a tile compartment is rotating properly
     @Test
     public void rotateTileCompartmentTest() {
-        Tile t = new Tile(Terrain.SEA, RiverConfiguration.getNoRivers());
+
+        Tile t = new Tile(Terrain.SEA, this.springConfiguration);
         TileCompartment northCompartment = t.getTileCompartment(TileCompartmentDirection.getNorth());
         t.rotate(new Angle(120));
 //        Make sure the north edge rotated TWICE to the right, making it the northEast edge now

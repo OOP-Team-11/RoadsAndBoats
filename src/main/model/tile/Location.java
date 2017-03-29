@@ -46,4 +46,7 @@ public class Location {
     public int hashCode() {
         return Arrays.hashCode(new int[]{this.x, this.y, this.z});
     }
+    public String getLocationString() {
+        return String.valueOf(x) + " " + String.valueOf(y) + " " + String.valueOf(z);
+    }
 }

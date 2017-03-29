@@ -19,12 +19,12 @@ public class MapMakerController {
     private MenuBar menuBar;
     private Scene scene;
 
-    public MapMakerController(Stage primaryStage, Map gameMap) throws InvalidLocationException{
+    public MapMakerController(Stage primaryStage, Map gameMap) {
         initializeViews(primaryStage);
         getReferences();
         initializeControlHandler(gameMap);
         attachControlsToScene(this.controlHandler);
-
+        attachScrollEventToScene();
         // after everything is setup, start the animation timer
         viewInitializer.startAnimationLoop();
     }
@@ -40,7 +40,7 @@ public class MapMakerController {
         this.scene = viewInitializer.getSceneReferense();
     }
 
-    private void initializeControlHandler(Map gameMap) throws InvalidLocationException{
+    private void initializeControlHandler(Map gameMap) {
         // initialize controlHandler and pass in the 2 views that will be used as the observers for communication
         this.controlHandler = new ControlHandler(gameMap, mapMakerView, tileSelectorView);
     }
@@ -48,5 +48,11 @@ public class MapMakerController {
     private void attachControlsToScene(ControlHandler controlHandler) {
         MapMakerKeyControlsMapper mapMakerKeyControlsMapper = new MapMakerKeyControlsMapper(controlHandler);
         mapMakerKeyControlsMapper.attachToScene(this.scene);
+    }
+
+    private void attachScrollEventToScene() {
+        this.scene.setOnScroll(event -> {
+            this.mapMakerView.changeZoom((int) event.getDeltaY());
+        });
     }
 }

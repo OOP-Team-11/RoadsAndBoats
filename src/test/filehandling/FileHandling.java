@@ -16,7 +16,7 @@ public class FileHandling {
     @Test
     public void readFile() throws IOException {
         FileImporter fileImporter = new FileImporter();
-        Map map = fileImporter.readFile("map2.txt");
+        Map map = fileImporter.readFile("map/map2.txt");
         assertTrue(map.hasTiles());
 
     }

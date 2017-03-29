@@ -11,6 +11,7 @@ import model.tile.*;
 
 import model.tile.riverConfiguration.RiverConfiguration;
 import model.tile.riverConfiguration.RiverConfigurationCycler;
+
 import utilities.Observer.CursorObserver.CursorObserver;
 import utilities.Observer.CursorObserver.CursorObserverSubject;
 import utilities.Observer.TileSelectObserver.TileSelectObserver;
@@ -24,7 +25,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     //TODO: Go through each and every method and figure out whether they should notify either observer
     private ArrayList<CursorObserver> cursorObservers;          //Hold CursorObservers who've registered for Cursor updates
     private ArrayList<TileSelectObserver> tileSelectObservers;  //Hold TileSelectObservers who've registered for TileSelect updates
-    HashMap<ArrayList,Boolean> observerUpdateFlags;  //Will flag a need to update one or both sets of observers when notifyObservers() is called
+    private HashMap<ArrayList,Boolean> observerUpdateFlags;  //Will flag a need to update one or both sets of observers when notifyObservers() is called
 
     private Map gameMap;
 
@@ -38,7 +39,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
     // mapMakerView is given as an observer that the map will use to notify
     // tileSelectorView is given as an observer that ControlHandler will notify
-    public ControlHandler(Map gameMap, MapMakerView mapMakerView, TileSelectorView tileSelectorView) throws InvalidLocationException {
+    public ControlHandler(Map gameMap, MapMakerView mapMakerView, TileSelectorView tileSelectorView) {
         this.gameMap = gameMap;
 
         cursorObservers = new ArrayList<>();
@@ -48,7 +49,11 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         registerCursorObserver(mapMakerView);
         registerTileSelectObserver(tileSelectorView);
 
-        protoTileLocation = new Location(0,0,0);    //Initialized to center spot initially.
+        try {
+            protoTileLocation = new Location(0, 0, 0);    //Initialized to center spot initially.
+        } catch (InvalidLocationException e) {
+            throw new RuntimeException("Cannot initialize prototype tile location: " + e.getLocalizedMessage());
+        }
 
         Terrain initialTerrain = Terrain.PASTURE;                           //Initialized to "pasture" by default
         riverConfigList = new RiverConfigurationCycler(initialTerrain);
@@ -126,7 +131,6 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         currentProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
         nextProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
     }
-
     public void setSeaTerrain(){
         updateTerrain(Terrain.SEA);
     }

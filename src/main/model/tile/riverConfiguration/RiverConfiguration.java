@@ -8,8 +8,57 @@ import java.util.Map;
 public class RiverConfiguration {
 
     private Map<TileEdgeDirection, Boolean> riverMap;
+    private int rotationAmount;
+
     private RiverConfiguration(Map<TileEdgeDirection, Boolean> riverMap) {
         this.riverMap = riverMap;
+    }
+
+    public RiverConfiguration(int side) {
+        if (side < 1 || side > 6) throw new IllegalArgumentException("Side must be [1-6]");
+        this.riverMap = getSpringHeadMap();
+        this.rotationAmount = side - 1;
+    }
+
+    public RiverConfiguration(int side1, int side2) {
+        if (side1 < 1 || side1 > 6) throw new IllegalArgumentException("Side1 must be [1-6]");
+        if (side2 < 1 || side2 > 6) throw new IllegalArgumentException("Side2 must be [1-6]");
+        if (side2 < side1) throw new IllegalArgumentException("Side2 must be less than side1");
+
+        int sideDifference = side2 - side1;
+        switch (sideDifference) {
+            case 1:
+                this.riverMap = getAdjacentFacesMap();
+                break;
+            case 2:
+                this.riverMap = getSkipAFaceMap();
+                break;
+            case 3:
+                this.riverMap = getOppositeFacesMap();
+                break;
+        }
+
+        this.rotationAmount = side1 - 1;
+    }
+
+    public RiverConfiguration(int side1, int side2, int side3) {
+        if (side1 < 1 || side1 > 6) throw new IllegalArgumentException("Side1 must be [1-6]");
+        if (side2 < 1 || side2 > 6) throw new IllegalArgumentException("Side2 must be [1-6]");
+        if (side3 < 1 || side3 > 6) throw new IllegalArgumentException("Side3 must be [1-6]");
+        if (side2 < side1 || side3 < side2) throw new IllegalArgumentException("Side1 < side2 < side2");
+        if (side3 - side2 != 2 || side2 - side1 != 2) throw new IllegalArgumentException("Sides must be 2 apart.");
+
+        this.riverMap = getEveryOtherFaceMap();
+
+        if (side1 == 1) {
+            this.rotationAmount = 0;
+        } else if (side1 == 2) {
+            this.rotationAmount = 1;
+        }
+    }
+
+    public int getRotationAmount() {
+        return this.rotationAmount;
     }
 
     private static Map<TileEdgeDirection, Boolean> getDefaultMap() {
@@ -51,38 +100,58 @@ public class RiverConfiguration {
         return new RiverConfiguration(getDefaultMap());
     }
 
-    public static RiverConfiguration getSpringHead() {
+    private static Map<TileEdgeDirection, Boolean> getSpringHeadMap() {
         Map<TileEdgeDirection, Boolean> riverMap = getDefaultMap();
         riverMap.replace(TileEdgeDirection.getNorth(), true);
-        return new RiverConfiguration(riverMap);
+        return riverMap;
     }
 
-    public static RiverConfiguration getAdjacentFaces() {
+    public static RiverConfiguration getSpringHead() {
+        return new RiverConfiguration(getSpringHeadMap());
+    }
+
+    private static Map<TileEdgeDirection, Boolean> getAdjacentFacesMap() {
         Map<TileEdgeDirection, Boolean> riverMap = getDefaultMap();
         riverMap.replace(TileEdgeDirection.getNorth(), true);
         riverMap.replace(TileEdgeDirection.getNorthEast(), true);
-        return new RiverConfiguration(riverMap);
+        return riverMap;
     }
 
-    public static RiverConfiguration getSkipAFace() {
+    public static RiverConfiguration getAdjacentFaces() {
+        return new RiverConfiguration(getAdjacentFacesMap());
+    }
+
+    private static Map<TileEdgeDirection, Boolean> getSkipAFaceMap() {
         Map<TileEdgeDirection, Boolean> riverMap = getDefaultMap();
         riverMap.replace(TileEdgeDirection.getNorth(), true);
         riverMap.replace(TileEdgeDirection.getSouthEast(), true);
-        return new RiverConfiguration(riverMap);
+        return riverMap;
     }
 
-    public static RiverConfiguration getOppositeFaces() {
+    public static RiverConfiguration getSkipAFace() {
+        return new RiverConfiguration(getSkipAFaceMap());
+    }
+
+    private static Map<TileEdgeDirection, Boolean> getOppositeFacesMap() {
         Map<TileEdgeDirection, Boolean> riverMap = getDefaultMap();
         riverMap.replace(TileEdgeDirection.getNorth(), true);
         riverMap.replace(TileEdgeDirection.getSouth(), true);
-        return new RiverConfiguration(riverMap);
+        return riverMap;
     }
 
-    public static RiverConfiguration getEveryOtherFace() {
+    public static RiverConfiguration getOppositeFaces() {
+        return new RiverConfiguration(getOppositeFacesMap());
+    }
+
+    private static Map<TileEdgeDirection, Boolean> getEveryOtherFaceMap() {
         Map<TileEdgeDirection, Boolean> riverMap = getDefaultMap();
         riverMap.replace(TileEdgeDirection.getNorth(), true);
         riverMap.replace(TileEdgeDirection.getSouthEast(), true);
         riverMap.replace(TileEdgeDirection.getSouthWest(), true);
-        return new RiverConfiguration(riverMap);
+        return riverMap;
+    }
+
+    public static RiverConfiguration getEveryOtherFace() {
+        return new RiverConfiguration(getEveryOtherFaceMap());
     }
 }
