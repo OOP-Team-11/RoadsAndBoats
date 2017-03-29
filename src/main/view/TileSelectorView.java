@@ -53,9 +53,9 @@ public class TileSelectorView implements TileSelectObserver{
         drawArrowKeys();
         drawMiddleRectangle();
         drawTerrainSelectRectangle();
-        drawUpper();
-        drawMiddle();
-        drawLower();
+        drawUpper(this.top);
+        drawMiddle(this.middle);
+        drawLower(this.bottom);
     }
     private void setGraphicsContentStroke(Paint p){
         this.gc.setStroke(p);
@@ -170,14 +170,19 @@ public class TileSelectorView implements TileSelectObserver{
             terrainSelected = 6;
         }
 
-        top = getTileImage(tileSelectorRenderInfo.getTopTile());
-        middle = getTileImage(tileSelectorRenderInfo.getMiddleTile());
-        bottom = getTileImage(tileSelectorRenderInfo.getLowerTile());
+        this.top = getTileImage(tileSelectorRenderInfo.getTopTile());
+        this.middle = getTileImage(tileSelectorRenderInfo.getMiddleTile());
+        this.bottom = getTileImage(tileSelectorRenderInfo.getLowerTile());
         this.newDataFlag = true;
     }
 
     private Image getTileImage(Tile tile) {
         RiverConfiguration riverConfig = tile.getRiverConfiguration();
+
+        if(tile.getTerrain().equals(Terrain.SEA)){
+            return assets.SEA;
+        }
+
         if(riverConfig.canConnectNorth()) {
             if(riverConfig.canConnectNortheast()) {
                 switch(tile.getTerrain()) {
