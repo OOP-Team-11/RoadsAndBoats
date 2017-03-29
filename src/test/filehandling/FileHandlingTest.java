@@ -7,6 +7,8 @@ import model.tile.InvalidLocationException;
 import model.tile.Location;
 import model.tile.Terrain;
 import model.tile.Tile;
+import model.tile.riverConfiguration.RiverConfiguration;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -16,6 +18,13 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class FileHandlingTest {
+
+    private RiverConfiguration riverConfiguration;
+    @Before
+    public void setUp() {
+        this.riverConfiguration = RiverConfiguration.getNoRivers();
+    }
+
     @Test
     public void readFile() throws IOException {
         FileImporter fileImporter = new FileImporter();
@@ -28,12 +37,12 @@ public class FileHandlingTest {
     public void writeFile() throws IOException {
         Map map = new Map();
         try {
-            map.placeTile(new Location(0, 0, 0), new Tile(Terrain.SEA));
-            map.placeTile(new Location(0, -1, 1), new Tile(Terrain.SEA));
-            map.placeTile(new Location(0, 1, -1), new Tile(Terrain.SEA));
-            map.placeTile(new Location(1, 0, -1), new Tile(Terrain.SEA));
-            map.placeTile(new Location(-1, 0, 1), new Tile(Terrain.SEA));
-            map.placeTile(new Location(1, -1, 0), new Tile(Terrain.SEA));
+            map.placeTile(new Location(0, 0, 0), new Tile(Terrain.SEA, riverConfiguration));
+            map.placeTile(new Location(0, -1, 1), new Tile(Terrain.SEA, riverConfiguration));
+            map.placeTile(new Location(0, 1, -1), new Tile(Terrain.SEA, riverConfiguration));
+            map.placeTile(new Location(1, 0, -1), new Tile(Terrain.SEA, riverConfiguration));
+            map.placeTile(new Location(-1, 0, 1), new Tile(Terrain.SEA, riverConfiguration));
+            map.placeTile(new Location(1, -1, 0), new Tile(Terrain.SEA, riverConfiguration));
         }
         catch(InvalidLocationException e)
         {
