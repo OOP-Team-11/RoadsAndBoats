@@ -123,6 +123,9 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     public boolean tryPlaceTile(){
         boolean placed = placeTileOnMap();
         notifyMapMakerObservers(this.gameMap.getRenderObject());
+        if (placed) {
+            this.updateTerrain(this.currentProtoTile.getTerrain());
+        }
         return placed;
     }
 
