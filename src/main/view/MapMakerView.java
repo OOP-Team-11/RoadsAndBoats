@@ -221,7 +221,7 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
                 return assets.getInstance().RIVER_SPRING_R2;
             } else if(tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
                 return assets.getInstance().RIVER_SPRING_R3;
-            } else if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
+            } else if(tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_SPRING_R4;
             } else if(tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_SPRING_R5;
@@ -235,7 +235,7 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
                 return assets.getInstance().RIVER_OPPOSITE_R1;
             } else if (tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_OPPOSITE_R2;
-            } else if (tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver()){
                 return assets.getInstance().RIVER_ADJACENT_R0;
             } else if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver()&& tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
                 return assets.getInstance().RIVER_ADJACENT_R1;

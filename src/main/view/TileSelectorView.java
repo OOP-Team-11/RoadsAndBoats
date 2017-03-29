@@ -231,7 +231,7 @@ public class TileSelectorView implements TileSelectObserver{
                 return assets.getInstance().RIVER_SPRING_R2;
             } else if(tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
                 return assets.getInstance().RIVER_SPRING_R3;
-            } else if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
+            } else if(tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_SPRING_R4;
             } else if(tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
                 return assets.getInstance().RIVER_SPRING_R5;

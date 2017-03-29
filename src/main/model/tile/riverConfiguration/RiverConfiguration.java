@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class RiverConfiguration {
+public class RiverConfiguration implements  Cloneable{
 
     private Map<TileEdgeDirection, Boolean> riverMap;
     private int rotationAmount;
@@ -41,6 +41,15 @@ public class RiverConfiguration {
         }
 
         this.rotationAmount = side1 - 1;
+    }
+
+    public RiverConfiguration clone(){
+        try{
+            RiverConfiguration riverClone = (RiverConfiguration) super.clone();
+            return riverClone;
+        } catch(CloneNotSupportedException e){
+            throw new InternalError(e.toString());
+        }
     }
 
     public RiverConfiguration(int side1, int side2, int side3) {
