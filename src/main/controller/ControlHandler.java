@@ -60,6 +60,11 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
             throw new RuntimeException("Could not initialize protoTileLocation. Got: " + e.getLocalizedMessage());
         }
         riverDirections = new ArrayList<>();
+        try {
+            notifyCursorObservers(new MapMakerCursorInfo((new Location(0,0,0), true);
+        } catch(InvalidLocationException e) {
+            System.out.println("Error : "+ e.getMessage());
+        }
 
     }
 
