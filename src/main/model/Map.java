@@ -9,6 +9,7 @@ import model.tile.Location;
 import model.tile.Terrain;
 import model.tile.Tile;
 import model.tile.TileEdge;
+import view.render.MapMakerRenderInfo;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -237,5 +238,12 @@ public class Map
         return false;
     }
 
-    public boolean hasTiles(){return !(tiles.isEmpty());}
+    public boolean hasTiles() {
+        return !(tiles.isEmpty());
+    }
+
+    public MapMakerRenderInfo getRenderObject() {
+        return new MapMakerRenderInfo(getTiles());
+    }
+
 }

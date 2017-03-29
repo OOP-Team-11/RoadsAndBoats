@@ -7,9 +7,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import utilities.Observer.MapMakerObserver.MapMakerObserver;
+import view.render.MapMakerCursorInfo;
+import view.render.MapMakerRenderInfo;
 import view.utilities.Assets;
 
-public class MapMakerView implements CursorObserver{
+public class MapMakerView implements CursorObserver, MapMakerObserver{
 
     private Canvas canvas;
     private GraphicsContext gc;
@@ -17,6 +20,11 @@ public class MapMakerView implements CursorObserver{
     private int cameraY;
     private int cameraZoom;
     private Assets assets;
+    private MapMakerCursorInfo cursorInformation;
+    private MapMakerRenderInfo renderInformation;
+    private boolean newDataFlag = false;
+
+
     private Image pasture = assets.getInstance().PASTURE;
     private Image pastureR1 = assets.getInstance().PASTURE_R1_SPRING;
     private Image pastureR2 = assets.getInstance().PASTURE_R2_ADJACENT;
@@ -40,7 +48,6 @@ public class MapMakerView implements CursorObserver{
         testPastureDraw();
 
     }
-
 
     // camera offset function to pan/scroll placement area
     public void moveCamera(int moveX, int moveY){
@@ -89,7 +96,6 @@ public class MapMakerView implements CursorObserver{
 
     private void testPastureDraw(){
 
-
         drawImage(pastureR4,-1,0,1);
         drawImage(pastureR4,-1,-1,2);
         drawImage(pastureR2,-1,1,0);
@@ -115,5 +121,18 @@ public class MapMakerView implements CursorObserver{
         setGraphicsContentFill(Color.BLACK);
         setLineWidth(5.0);
         drawLine(0,0,canvas.getWidth(),0);
+    }
+
+
+    @Override
+    public void updateCursorInfo(MapMakerCursorInfo mapMakerCursorInfo) {
+        this.newDataFlag = true;
+        this.cursorInformation = mapMakerCursorInfo;
+    }
+
+    @Override
+    public void updateMapMaker(MapMakerRenderInfo mapMakerRenderInfo) {
+        this.newDataFlag = true;
+        this.renderInformation = mapMakerRenderInfo;
     }
 }

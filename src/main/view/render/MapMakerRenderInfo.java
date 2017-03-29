@@ -1,19 +1,21 @@
 package view.render;
 
+import model.tile.Location;
 import model.tile.Tile;
 import java.util.Collection;
+import java.util.Map;
 
 public class MapMakerRenderInfo {
-    private Collection<Tile> tileInformation;
+    private Map<Location, Tile> tileInformation;
 
-    public MapMakerRenderInfo() {
-
+    public MapMakerRenderInfo(Map<Location, Tile> tileInfo) {
+        this.tileInformation = tileInfo;
     }
 
-    public Collection<Tile> getTileInformation() {
+    public Map<Location, Tile> getTileInformation() {
         return this.tileInformation;
     }
-    public void setTileInformation(Collection<Tile> tileInfo) {
+    public void setTileInformation(Map<Location, Tile> tileInfo) {
         this.tileInformation = tileInfo;
     }
 }

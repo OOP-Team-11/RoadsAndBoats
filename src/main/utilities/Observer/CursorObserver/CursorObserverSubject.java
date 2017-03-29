@@ -1,8 +1,9 @@
 package utilities.Observer.CursorObserver;
 
-import utilities.Observer.ObserverSubject;
+import view.render.MapMakerCursorInfo;
 
-public interface CursorObserverSubject extends ObserverSubject {
+public interface CursorObserverSubject {
     void registerCursorObserver(CursorObserver o);
     void removeCursorObserver(CursorObserver o);
+    void notifyCursorObservers(MapMakerCursorInfo mapMakerCursorInfo);
 }
