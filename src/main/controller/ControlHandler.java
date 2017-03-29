@@ -94,6 +94,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     private TileSelectorRenderInfo makeRenderInfo(){
+
         return new TileSelectorRenderInfo(getPreviousProtoTile(),getCurrentProtoTile(),getNextProtoTile());
     }
 
@@ -158,10 +159,9 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     public void rotateTileClockwise() {
-        System.out.println("CALLED");
-      //  previousProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
+        previousProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
         currentProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
-      //  nextProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
+        nextProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
         notifyTileSelectObservers(makeRenderInfo());
     }
 
