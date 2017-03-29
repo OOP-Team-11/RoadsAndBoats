@@ -21,6 +21,8 @@ public class RiverConfiguration {
     }
 
     public RiverConfiguration(int side1, int side2) {
+        if (side1 < 1 || side1 > 6) throw new IllegalArgumentException("Side1 must be [1-6]");
+        if (side2 < 1 || side2 > 6) throw new IllegalArgumentException("Side2 must be [1-6]");
         if (side2 < side1) throw new IllegalArgumentException("Side2 must be less than side1");
 
         int sideDifference = side2 - side1;
@@ -40,6 +42,9 @@ public class RiverConfiguration {
     }
 
     public RiverConfiguration(int side1, int side2, int side3) {
+        if (side1 < 1 || side1 > 6) throw new IllegalArgumentException("Side1 must be [1-6]");
+        if (side2 < 1 || side2 > 6) throw new IllegalArgumentException("Side2 must be [1-6]");
+        if (side3 < 1 || side3 > 6) throw new IllegalArgumentException("Side3 must be [1-6]");
         if (side2 < side1 || side3 < side2) throw new IllegalArgumentException("Side1 < side2 < side2");
         if (side3 - side2 != 2 || side2 - side1 != 2) throw new IllegalArgumentException("Sides must be 2 apart.");
 
