@@ -32,7 +32,7 @@ public class FileImporter {
                     map.placeTile(parseTile(line), new Tile(parseTerrain(line)));
                 }
                 else {
-                    System.out.println("Not the correct Tile Format");
+                    System.err.println("Not the correct Tile Format");
                     break;
                 }
             }
