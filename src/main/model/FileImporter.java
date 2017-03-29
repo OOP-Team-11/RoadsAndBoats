@@ -28,8 +28,9 @@ public class FileImporter {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if(isValidLine(line)){
-                    if(hasRiver(line))
+                    if(hasRiver(line)) {
                         parseRiver(line);
+                    }
                     map.placeTile(parseTile(line), new Tile(parseTerrain(line)));
                 }
                 else {
