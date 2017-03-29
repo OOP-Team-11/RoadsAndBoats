@@ -76,12 +76,6 @@ public class TileSelectorView implements TileSelectObserver{
         drawLine(0,0,0,canvas.getHeight()); // vertical stroke line
         drawLine(0,0,canvas.getWidth(),0); // horizontal stroke line
     }
-    private void setImagesForTiles(){
-
-    }
-    private void drawMiddleImage(){
-
-    }
 
     private void drawCanvasBackGround(){
         this.gc.setFill(Color.TEAL);
