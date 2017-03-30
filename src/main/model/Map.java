@@ -104,7 +104,7 @@ public class Map
             TileEdge newTileEdge=tile.getTileEdge(dir);
             TileEdge existingTileEdge=existingTile.getTileEdge(dir.reverse());
 
-            if(newTileEdge.hasRiver() && !existingTileEdge.canConnectRiver())
+            if(newTileEdge.hasRiver() && !existingTileEdge.canConnectRiver() || (existingTileEdge.hasRiver() && !newTileEdge.canConnectRiver()))
             {
                 return false;
             }
