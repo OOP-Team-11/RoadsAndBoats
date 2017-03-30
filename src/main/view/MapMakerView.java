@@ -31,18 +31,16 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
     private MapMakerCursorInfo cursorInformation;
     private MapMakerRenderInfo renderInformation;
     private boolean newDataFlag = true;
+    private boolean firstTime = true;
 
-
-    private Image pasture = assets.getInstance().PASTURE;
-    private Image pastureR1 = assets.getInstance().PASTURE_R1_SPRING;
-    private Image pastureR2 = assets.getInstance().PASTURE_R2_ADJACENT;
-    private Image pastureR3 = assets.getInstance().PASTURE_R3_SKIP;
-    private Image pastureR4 = assets.getInstance().PASTURE_R4_OPPOSITE;
-    private Image pastureR5 = assets.getInstance().PASTURE_R5_EVERYOTHER;
     private Image cursorGreen = assets.getInstance().GREEN_CURSOR;
     private Image cursorRed = assets.getInstance().RED_CURSOR;
 
 
+    private void recenterCanvas(){
+        this.cameraX = (int)(canvas.getWidth()/2);
+        this.cameraY = (int)(canvas.getHeight()/2);
+    }
 
     public MapMakerView(Canvas canvas){
 
@@ -54,9 +52,12 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
 
     // public method called by GameLoop when refresh is necessary
     public void render(){
+        if(firstTime){
+            recenterCanvas();
+            firstTime = false;
+        }
         if(newDataFlag){
             checkClearCanvas();
-           // drawDivider();
             drawMap();
             drawCursor();
             resetFlag();
@@ -131,36 +132,16 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
             // no information yet
         } else {
             // first time around we just render the terrain
+            System.out.println("------");
             for (Map.Entry<Location, Tile> entry : renderInformation.getTileInformation().entrySet())
             {
+                System.out.println(entry.getKey().getX() + " : " +entry.getKey().getY() + " : " + entry.getKey().getZ());
                 Image image = getTerrainImage(entry.getValue());
                 drawImage(image, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
             }
             // second time around we draw the rivers
-            System.out.println("DRAWMING MAP");
             for (Map.Entry<Location, Tile> entry : renderInformation.getTileInformation().entrySet())
             {
-                System.out.println(entry.getValue().getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver());
-                System.out.println(entry.getValue().getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver());
-                System.out.println(entry.getValue().getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver());
-                System.out.println(entry.getValue().getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver());
-                System.out.println(entry.getValue().getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver());
-                System.out.println(entry.getValue().getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver());
-                System.out.println("-");
-                System.out.println(entry.getValue().getRiverConfiguration().canConnectNorth());
-                System.out.println(entry.getValue().getRiverConfiguration().canConnectNortheast());
-                System.out.println(entry.getValue().getRiverConfiguration().canConnectSoutheast());
-                System.out.println(entry.getValue().getRiverConfiguration().canConnectSouth());
-                System.out.println(entry.getValue().getRiverConfiguration().canConnectSouthwest());
-                System.out.println(entry.getValue().getRiverConfiguration().canConnectNorthwest());
-                System.out.println("--");
-                System.out.println(entry.getValue().getTileCompartment(TileCompartmentDirection.getNorth()).hasWater());
-                System.out.println(entry.getValue().getTileCompartment(TileCompartmentDirection.getNorthEast()).hasWater());
-                System.out.println(entry.getValue().getTileCompartment(TileCompartmentDirection.getSouthEast()).hasWater());
-                System.out.println(entry.getValue().getTileCompartment(TileCompartmentDirection.getSouth()).hasWater());
-                System.out.println(entry.getValue().getTileCompartment(TileCompartmentDirection.getSouthWest()).hasWater());
-                System.out.println(entry.getValue().getTileCompartment(TileCompartmentDirection.getNorthWest()).hasWater());
-                System.out.println("------------------------------");
                 Image image = getRiverImage(entry.getValue());
                 if(image != null){
                     drawImage(image, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
@@ -189,13 +170,13 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
     public void updateCursorInfo(MapMakerCursorInfo mapMakerCursorInfo) {
         this.newDataFlag = true;
         this.cursorInformation = mapMakerCursorInfo;
-        this.cameraX = mapMakerCursorInfo.getCameraX()*10;
-        this.cameraY = mapMakerCursorInfo.getCameraY()*10;
-
+        this.cameraX = mapMakerCursorInfo.getCameraX()*5 +(int)(canvas.getWidth()/2);
+        this.cameraY = mapMakerCursorInfo.getCameraY()*5 + (int)(canvas.getHeight()/2);
     }
 
     @Override
     public void updateMapMaker(MapMakerRenderInfo mapMakerRenderInfo) {
+        recenterCanvas();
         this.newDataFlag = true;
         this.renderInformation = mapMakerRenderInfo;
     }
