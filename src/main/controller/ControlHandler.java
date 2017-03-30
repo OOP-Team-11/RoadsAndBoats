@@ -78,7 +78,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         previousProtoTile = new Tile(initialTerrain, riverConfigList.getPrevious());
         currentProtoTile = new Tile(initialTerrain,riverConfigList.getCurrent());
         nextProtoTile = new Tile(initialTerrain,riverConfigList.getNext());
-        nextRiverConfiguration();
+        notifyTileSelectObservers(makeRenderInfo());
     }
 
     /* Returns the "previous" prototype tile in terms of river configuration*/
