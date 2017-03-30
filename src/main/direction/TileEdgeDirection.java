@@ -2,7 +2,7 @@ package direction;
 
 import java.util.ArrayList;
 
-public class TileEdgeDirection {
+public class TileEdgeDirection implements Cloneable{
     private Angle angle;
 
     private TileEdgeDirection(Angle angle) {
@@ -18,6 +18,9 @@ public class TileEdgeDirection {
         return new TileEdgeDirection(new Angle(newDegrees));
 
 	}
+	public Object clone() throws CloneNotSupportedException{
+        return super.clone();
+    }
 	
     public static TileEdgeDirection getNorthEast() {
         return new TileEdgeDirection(CompassAngles.NORTHEAST.getAngle());

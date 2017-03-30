@@ -8,9 +8,9 @@ public class TileSelectorRenderInfo {
     private Tile topTile, middleTile, lowerTile;
 
     public TileSelectorRenderInfo(Tile prev, Tile cur, Tile next) {
-        topTile = prev.makeClone();
-        middleTile = cur.makeClone();
-        lowerTile = next.makeClone();
+        topTile = (Tile) prev.makeClone();
+        middleTile = (Tile) cur.makeClone();
+        lowerTile = (Tile) next.makeClone();
 
     }
 

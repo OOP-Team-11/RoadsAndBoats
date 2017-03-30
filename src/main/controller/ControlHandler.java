@@ -127,7 +127,9 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     private boolean placeTileOnMap() {
-        return this.gameMap.placeTile(protoTileLocation, currentProtoTile.makeClone());
+
+        Tile tile = (Tile) currentProtoTile.makeClone();
+        return this.gameMap.placeTile(protoTileLocation.clone(), tile);
     }
 
     public void clearTile() {
