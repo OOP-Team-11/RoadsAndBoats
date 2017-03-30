@@ -184,14 +184,6 @@ public class TileSelectorView implements TileSelectObserver{
     public void updateTileSelect(TileSelectorRenderInfo tileSelectorRenderInfo) {
 
         newDataFlag = true;
-
-        System.out.println("----------------    TileSelector");
-        System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver());
-        System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver());
-        System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver());
-        System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver());
-        System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver());
-        System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver());
         
         this.currentRenderInfo = tileSelectorRenderInfo;
         if(tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.SEA)){

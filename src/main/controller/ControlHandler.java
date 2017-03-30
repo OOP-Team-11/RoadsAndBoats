@@ -136,13 +136,6 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     private boolean placeTileOnMap() {
 
         Tile tile = (Tile) currentProtoTile.makeClone();
-        System.out.println("ADDING TILE TO MAP====");
-        System.out.println(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver());
-        System.out.println(tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver());
-        System.out.println(tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver());
-        System.out.println(tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver());
-        System.out.println(tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver());
-        System.out.println(tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver());
         return this.gameMap.placeTile(protoTileLocation.clone(), tile);
     }
 
