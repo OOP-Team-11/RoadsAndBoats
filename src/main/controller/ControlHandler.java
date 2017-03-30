@@ -155,7 +155,6 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         cursorInfo.setCursorLocation(newCursorLocation);
         cursorInfo.setIsCursorValid(isValidPlacement);
         notifyCursorObservers(cursorInfo);
-        notifyMapMakerObservers(this.gameMap.getRenderObject());
     }
 
     public void moveViewport(int x, int y) {

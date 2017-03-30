@@ -15,10 +15,12 @@ public class FileHandling {
     //TODO: fix this test to verify correct map is created
     @Test
     public void readFile() throws IOException {
-        FileImporter fileImporter = new FileImporter();
-        Map map = fileImporter.readFile("map/map2.txt");
-        assertTrue(map.hasTiles());
+        File directory = new File("./");
+        File file = new File(directory.getAbsolutePath().replace(".","") + "/map/map2.txt");
 
+        FileImporter fileImporter = new FileImporter();
+        Map map = fileImporter.readFile(file);
+        assertTrue(map.hasTiles());
     }
 
     //TODO: fix this test to verify file output
