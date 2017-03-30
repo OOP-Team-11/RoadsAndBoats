@@ -29,9 +29,11 @@ public class FileImporter {
                 String line = scanner.nextLine();
                 if(isValidLine(line)) {
                     if (hasRiver(line)) {
-                        parseRiver(line);
+                        map.placeTile(parseTile(line), new Tile(parseTerrain(line),parseRiver(line)));
                     }
-                    map.placeTile(parseTile(line), new Tile(parseTerrain(line),RiverConfiguration.getNoRivers()));
+                    else {
+                        map.placeTile(parseTile(line), new Tile(parseTerrain(line), RiverConfiguration.getNoRivers()));
+                    }
                 }
                 else {
                     System.err.println("Not the correct Tile Format");
@@ -63,7 +65,7 @@ public class FileImporter {
     }
 
     public Terrain parseTerrain(String line) {
-        Matcher matcher = findMatch(line, "[A-Z][A-Z||a-z]*[a-z]");
+        Matcher matcher = findMatch(line, "[A-Z][A-Z||a-z]*[A-Z]");
         String intString = null;
         while (matcher.find()) {intString = matcher.group();}
         return getTerrain(intString);
@@ -71,31 +73,52 @@ public class FileImporter {
 
     private Terrain getTerrain(String terrain) {
         terrain = terrain.replace(" ","");
-        if(terrain.equalsIgnoreCase("wood"))
+        if(terrain.equalsIgnoreCase("WOODS"))
             return Terrain.WOODS;
-        else if(terrain.equalsIgnoreCase("pasture"))
+        else if(terrain.equalsIgnoreCase("PASTURE"))
             return Terrain.PASTURE;
-        else if(terrain.equalsIgnoreCase("desert"))
+        else if(terrain.equalsIgnoreCase("DESERT"))
             return Terrain.DESERT;
-        else if(terrain.equalsIgnoreCase("mountain"))
+        else if(terrain.equalsIgnoreCase("MOUNTAIN"))
             return Terrain.MOUNTAIN;
-        else if(terrain.equalsIgnoreCase("sea"))
+        else if(terrain.equalsIgnoreCase("SEA"))
             return Terrain.SEA;
-        else if(terrain.equalsIgnoreCase("rock"))
+        else if(terrain.equalsIgnoreCase("ROCK"))
             return Terrain.ROCK;
         else
             return Terrain.WOODS; ///default
     }
 
-    public void parseRiver(String group) {
-        Matcher matcher = findMatch(group,"[( ]-?[0-9][ ]-?[0-9][ ]-?[0-9][ )]");
+    public RiverConfiguration parseRiver(String group) {
+        Matcher matcher = findMatch(group,"[( ]?([0-9][ ])?([0-9][ ])?([0-9][ )])");
         String intString = null;
         while (matcher.find()){intString = matcher.group();}
         String [] locationString = intString.split(" ");
-        int x = Integer.parseInt(locationString[1]);
-        int y = Integer.parseInt(locationString[2]);
-        int z = Integer.parseInt(locationString[3]);
-    }
+        if(locationString.length==4)
+        {
+            int x = Integer.parseInt(locationString[1]);
+            int y = Integer.parseInt(locationString[2]);
+            int z = Integer.parseInt(locationString[3]);
+            return new RiverConfiguration(x,y,z);
+        }
+        else if(locationString.length==3)
+        {
+            int x = Integer.parseInt(locationString[1]);
+            int y = Integer.parseInt(locationString[2]);
+            return new RiverConfiguration(x,y);
+        }
+        else if(locationString.length==2)
+        {
+            int x = Integer.parseInt(locationString[1]);
+            return new RiverConfiguration(x);
+        }
+        else
+        {
+            System.out.print("Called Null");
+            return RiverConfiguration.getNoRivers();
+        }
+
+        }
     private Matcher findMatch(String line, String pattern){
         Pattern p = Pattern.compile(pattern);
         Matcher matcher = p.matcher(line);
@@ -104,10 +127,10 @@ public class FileImporter {
 
     private boolean isValidLine(String line){
         StringTokenizer st = new StringTokenizer(line," ");
-        return st.countTokens()==11 || st.countTokens()==6;
+        return st.countTokens()==11 || st.countTokens()==6 || st.countTokens()==9 |st.countTokens()==10;
     }
     private boolean hasRiver(String line){
         StringTokenizer st = new StringTokenizer(line," ");
-        return st.countTokens()==11;
+        return st.countTokens()==11 || st.countTokens()==9 |st.countTokens()==10;
     }
 }
