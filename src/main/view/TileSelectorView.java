@@ -1,5 +1,6 @@
 package view;
 
+import direction.TileCompartmentDirection;
 import direction.TileEdgeDirection;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -164,6 +165,14 @@ public class TileSelectorView implements TileSelectObserver{
 
     @Override
     public void updateTileSelect(TileSelectorRenderInfo tileSelectorRenderInfo) {
+
+        System.out.println("----------------    TileSelector");
+        System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver());
+        System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver());
+        System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver());
+        System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver());
+        System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver());
+        System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver());
         
         this.currentRenderInfo = tileSelectorRenderInfo;
         if(tileSelectorRenderInfo.getMiddleTile().getTerrain().equals(Terrain.SEA)){
@@ -208,72 +217,71 @@ public class TileSelectorView implements TileSelectObserver{
     private Image getRiverImage(Tile tile) {
 
         int riverCount = 0;
-        if(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
-            riverCount++;
-        }
-        if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver()){
+        if(tile.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater()){
             riverCount++; }
-        if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
+        if (tile.getTileCompartment(TileCompartmentDirection.getNorthWest()).hasWater()){
             riverCount++; }
-        if(tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
+        if(tile.getTileCompartment(TileCompartmentDirection.getSouthWest()).hasWater()){
             riverCount++; }
-        if(tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
+        if(tile.getTileCompartment(TileCompartmentDirection.getSouth()).hasWater()){
             riverCount++; }
-        if(tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
+        if(tile.getTileCompartment(TileCompartmentDirection.getNorthEast()).hasWater()){
+            riverCount++; }
+        if(tile.getTileCompartment(TileCompartmentDirection.getSouthEast()).hasWater()){
             riverCount++;
         }
 
         if(riverCount == 1){
-            if(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
+            if(tile.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater()){
                 return assets.getInstance().RIVER_SPRING_R0;
-            } else if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver()){
+            } else if (tile.getTileCompartment(TileCompartmentDirection.getNorthEast()).hasWater()){
                 return assets.getInstance().RIVER_SPRING_R1;
-            } else if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
+            } else if(tile.getTileCompartment(TileCompartmentDirection.getSouthEast()).hasWater()){
                 return assets.getInstance().RIVER_SPRING_R2;
-            } else if(tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
+            } else if(tile.getTileCompartment(TileCompartmentDirection.getSouth()).hasWater()){
                 return assets.getInstance().RIVER_SPRING_R3;
-            } else if(tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
+            } else if(tile.getTileCompartment(TileCompartmentDirection.getSouthWest()).hasWater()){
                 return assets.getInstance().RIVER_SPRING_R4;
-            } else if(tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
+            } else if(tile.getTileCompartment(TileCompartmentDirection.getNorthWest()).hasWater()){
                 return assets.getInstance().RIVER_SPRING_R5;
             } else {
                 return null;
             }
         } else if (riverCount == 2){
-            if(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
+            if(tile.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getSouth()).hasWater()){
                 return assets.getInstance().RIVER_OPPOSITE_R0;
-            } else if(tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
+            } else if(tile.getTileCompartment(TileCompartmentDirection.getNorthEast()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getSouthWest()).hasWater()){
                 return assets.getInstance().RIVER_OPPOSITE_R1;
-            } else if (tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
+            } else if (tile.getTileCompartment(TileCompartmentDirection.getSouthEast()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getNorthWest()).hasWater()){
                 return assets.getInstance().RIVER_OPPOSITE_R2;
-            } else if (tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver()){
+            } else if (tile.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getNorthEast()).hasWater()){
                 return assets.getInstance().RIVER_ADJACENT_R0;
-            } else if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver()&& tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
+            } else if (tile.getTileCompartment(TileCompartmentDirection.getNorthEast()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getSouthEast()).hasWater()){
                 return assets.getInstance().RIVER_ADJACENT_R1;
-            } else if (tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
+            } else if (tile.getTileCompartment(TileCompartmentDirection.getSouthEast()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getSouth()).hasWater()){
                 return assets.getInstance().RIVER_ADJACENT_R2;
-            } else if (tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
+            } else if (tile.getTileCompartment(TileCompartmentDirection.getSouth()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getSouthWest()).hasWater()){
                 return assets.getInstance().RIVER_ADJACENT_R3;
-            } else if (tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
+            } else if (tile.getTileCompartment(TileCompartmentDirection.getSouthWest()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getNorthWest()).hasWater()){
                 return assets.getInstance().RIVER_ADJACENT_R4;
-            } else if (tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
+            } else if (tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver() && tile.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater()){
                 return assets.getInstance().RIVER_ADJACENT_R5;
-            } else if (tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver()){
+            } else if (tile.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getSouthEast()).hasWater()){
                 return assets.getInstance().RIVER_SKIP_R0;
-            } else if (tile.getTileEdge(TileEdgeDirection.getNorthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver()){
+            } else if (tile.getTileCompartment(TileCompartmentDirection.getNorthEast()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getSouth()).hasWater()){
                 return assets.getInstance().RIVER_SKIP_R1;
-            } else if (tile.getTileEdge(TileEdgeDirection.getSouthEast()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver()){
+            } else if (tile.getTileCompartment(TileCompartmentDirection.getSouthEast()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getSouthWest()).hasWater()){
                 return assets.getInstance().RIVER_SKIP_R2;
-            } else if (tile.getTileEdge(TileEdgeDirection.getSouth()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorthWest()).canConnectRiver()){
+            } else if (tile.getTileCompartment(TileCompartmentDirection.getSouth()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getNorthWest()).hasWater()){
                 return assets.getInstance().RIVER_SKIP_R3;
-            } else if (tile.getTileEdge(TileEdgeDirection.getSouthWest()).canConnectRiver() && tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
+            } else if (tile.getTileCompartment(TileCompartmentDirection.getSouthWest()).hasWater() && tile.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater()){
                 return assets.getInstance().RIVER_SKIP_R4;
             } else {
                 return assets.getInstance().RIVER_SKIP_R5;
             }
         } else if(riverCount == 3){
             // 3 sides
-            if(tile.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver()){
+            if(tile.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater()){
                 return assets.getInstance().RIVER_EVERYOTHER_R0;
             } else {
                 return assets.getInstance().RIVER_EVERYOTHER_R1;

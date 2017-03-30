@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextInputDialog;
+import javafx.stage.FileChooser;
 import model.FileImporter;
 import model.Map;
 import model.tile.InvalidLocationException;
@@ -16,7 +17,10 @@ import view.TileSelectorView;
 import javafx.stage.Stage;
 import view.ViewInitializer;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 public class MapMakerController {
@@ -68,27 +72,22 @@ public class MapMakerController {
     private void importExportEvent(){
         this.menuBar.getMenus().get(0).getItems().get(0).setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                TextInputDialog dialog = new TextInputDialog("walter");
-                dialog.setTitle("Import");
-                dialog.setHeaderText("Please specify the name of the file");
-                dialog.setContentText("Enter the file name in the directory");
 
-                // TODO get this hooked up
-                Optional<String> result = dialog.showAndWait();
-                if (result.isPresent()){
-                    System.out.println(": " + result.get());
-                    try {
-                        controlHandler.importMap(result.get());
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
+                final FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Import map data");
+                Path currentRelativePath = Paths.get("");
+                String directory = currentRelativePath.toAbsolutePath().toString();
+                fileChooser.setInitialDirectory(new File(directory+ "/map"));
+                File file = fileChooser.showOpenDialog(scene.getWindow());
+                try {
+                    controlHandler.importMap(file);
+                } catch( Exception e2){
                 }
 
             }
         });
         this.menuBar.getMenus().get(0).getItems().get(1).setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                // TODO hook up with export
                 controlHandler.exportMap("map/exportedMap.txt");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Export");
