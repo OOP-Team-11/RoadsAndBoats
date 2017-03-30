@@ -65,9 +65,9 @@ public class TileSelectorView implements TileSelectObserver{
         drawLower(this.bottomTerain);
 
         // on top of that we draw the river configurations
-        drawUpper(this.top);
-        drawMiddle(this.middle);
-        drawLower(this.bottom);
+        drawUpper(this.top, currentRenderInfo.getTopTile().getTerrain());
+        drawMiddle(this.middle, currentRenderInfo.getMiddleTile().getTerrain());
+        drawLower(this.bottom, currentRenderInfo.getLowerTile().getTerrain());
     }
     private void setGraphicsContentStroke(Paint p){
         this.gc.setStroke(p);
@@ -126,8 +126,22 @@ public class TileSelectorView implements TileSelectObserver{
         }
     }
 
-    private void drawUpper(Image image) {
-        if (image != assets.SEA) {
+    private void drawUpper(Image image){
+        this.gc.drawImage(image, 130, 55);
+        this.gc.drawImage(assets.FADED,130,55);
+    }
+    private void drawLower(Image image){
+        this.gc.drawImage(image, 130, 450);
+        this.gc.drawImage(assets.FADED,130,450);
+    }
+    private void drawMiddle(Image image, Terrain terrain){
+        if (!terrain.equals(Terrain.SEA)) {
+            this.gc.drawImage(image,130,250);
+        }
+    }
+
+    private void drawUpper(Image image, Terrain terrain) {
+        if (!terrain.equals(Terrain.SEA)) {
             this.gc.drawImage(image, 130, 55);
             this.gc.drawImage(assets.FADED,130,55);
         }
@@ -135,8 +149,8 @@ public class TileSelectorView implements TileSelectObserver{
     private void drawMiddle(Image image){
         this.gc.drawImage(image,130,250);
     }
-    private void drawLower(Image image) {
-        if (image != assets.SEA) {
+    private void drawLower(Image image, Terrain terrain) {
+        if (!terrain.equals(Terrain.SEA)) {
             this.gc.drawImage(image, 130, 450);
             this.gc.drawImage(assets.FADED,130,450);
         }
