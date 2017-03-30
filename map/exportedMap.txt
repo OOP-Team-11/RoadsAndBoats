@@ -1,2 +1,4 @@
 ( 0 0 0 ) PASTURE  ( 1  ) 
 ( -1 0 1 ) PASTURE  ( 1  ) 
+( -1 1 0 ) ROCK  ( 1  ) 
+( -1 2 -1 ) ROCK  ( 2  ) 

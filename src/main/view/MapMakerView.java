@@ -218,6 +218,7 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
 
     private Image getRiverImage(Tile tile) {
 
+
         int riverCount = 0;
         if(tile.getTileCompartment(TileCompartmentDirection.getNorth()).hasWater()){
             riverCount++; }

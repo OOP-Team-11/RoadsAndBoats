@@ -39,7 +39,6 @@ public class TileSelectorView implements TileSelectObserver{
     private Image terrain4 = assets.getInstance().ROCK_TERRAIN;
     private Image terrain5 = assets.getInstance().DESERT_TERRAIN;
     private Image terrain6 = assets.getInstance().MOUNTAIN_TERRAIN;
-    private Image test = assets.getInstance().DESERT_R1_SPRING;
 
     public TileSelectorView(Canvas canvas){
         this.canvas = canvas;
@@ -47,27 +46,32 @@ public class TileSelectorView implements TileSelectObserver{
         this.setFontSize();
         assets = Assets.getInstance();
         assets.loadAssets();
-    }
-
-    // public method called by GameLoop when refresh is necessary
-    public void render(){
         drawViewDivider();
         drawCanvasBackGround();
         drawTileSelectBox();
         drawTerrainOptions();
         drawArrowKeys();
         drawMiddleRectangle();
-        drawTerrainSelectRectangle();
+    }
 
-        // first we draw the terrain
-        drawUpper(this.topTerrain);
-        drawMiddle(this.middleTerrain);
-        drawLower(this.bottomTerain);
+    // public method called by GameLoop when refresh is necessary
+    public void render(){
 
-        // on top of that we draw the river configurations
-        drawUpper(this.top);
-        drawMiddle(this.middle);
-        drawLower(this.bottom);
+        if(newDataFlag){
+            drawTerrainSelectRectangle();
+            drawUpper(this.topTerrain);
+            drawMiddle(this.middleTerrain);
+            drawLower(this.bottomTerain);
+            // on top of that we draw the river configurations
+            drawUpper(this.top, currentRenderInfo.getTopTile().getTerrain());
+            drawMiddle(this.middle, currentRenderInfo.getMiddleTile().getTerrain());
+            drawLower(this.bottom, currentRenderInfo.getLowerTile().getTerrain());
+            resetDataFlag();
+        }
+
+    }
+    private void resetDataFlag(){
+        newDataFlag = false;
     }
     private void setGraphicsContentStroke(Paint p){
         this.gc.setStroke(p);
@@ -126,8 +130,21 @@ public class TileSelectorView implements TileSelectObserver{
         }
     }
 
-    private void drawUpper(Image image) {
-        if (image != assets.SEA) {
+    private void drawUpper(Image image){
+        this.gc.drawImage(image, 130, 55);
+        this.gc.drawImage(assets.FADED,130,55);
+    }
+    private void drawLower(Image image){
+        this.gc.drawImage(image, 130, 450);
+        this.gc.drawImage(assets.FADED,130,450);
+    }
+    private void drawMiddle(Image image, Terrain terrain){
+        if (!terrain.equals(Terrain.SEA)) {
+            this.gc.drawImage(image,130,250);
+        }
+    }
+    private void drawUpper(Image image, Terrain terrain) {
+        if (!terrain.equals(Terrain.SEA)) {
             this.gc.drawImage(image, 130, 55);
             this.gc.drawImage(assets.FADED,130,55);
         }
@@ -135,8 +152,8 @@ public class TileSelectorView implements TileSelectObserver{
     private void drawMiddle(Image image){
         this.gc.drawImage(image,130,250);
     }
-    private void drawLower(Image image) {
-        if (image != assets.SEA) {
+    private void drawLower(Image image, Terrain terrain) {
+        if (!terrain.equals(Terrain.SEA)) {
             this.gc.drawImage(image, 130, 450);
             this.gc.drawImage(assets.FADED,130,450);
         }
@@ -165,6 +182,8 @@ public class TileSelectorView implements TileSelectObserver{
 
     @Override
     public void updateTileSelect(TileSelectorRenderInfo tileSelectorRenderInfo) {
+
+        newDataFlag = true;
 
         System.out.println("----------------    TileSelector");
         System.out.println(tileSelectorRenderInfo.getMiddleTile().getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver());
