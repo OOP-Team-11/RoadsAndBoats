@@ -1,6 +1,7 @@
 package model;
 
 
+import controller.MapRenderTranslator;
 import direction.DirectionToLocation;
 import direction.TileEdgeDirection;
 
@@ -244,7 +245,7 @@ public class Map
     }
 
     public MapMakerRenderInfo getRenderObject() {
-        return new MapMakerRenderInfo(getTiles());
+        return new MapMakerRenderInfo(MapRenderTranslator.getRenderInformationForMap(this));
     }
 
 }
