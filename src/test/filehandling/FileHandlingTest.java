@@ -27,8 +27,11 @@ public class FileHandlingTest {
 
     @Test
     public void readFile() throws IOException {
+        File directory = new File("./");
+        File file = new File(directory.getAbsolutePath().replace(".","") + "/map/map2.txt");
+
         FileImporter fileImporter = new FileImporter();
-        Map map = fileImporter.readFile("map/map2.txt");
+        Map map = fileImporter.readFile(file);
         if(map!=null)
         assertTrue(map.hasTiles());
 

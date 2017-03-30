@@ -50,7 +50,7 @@ public class Map
         }
         updateTileEdges(tileLocation, tile);
         tiles.put(tileLocation, tile);
-        recenter();
+
         return true;
     }
 
