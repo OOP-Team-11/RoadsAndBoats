@@ -90,13 +90,28 @@ public class Tile implements Cloneable{
                 isSeaTerrain(terrain);
     }
 
-    public Tile makeClone(){
+    public Object makeClone(){
         try{
             Tile tileClone = (Tile) super.clone();
+            tileClone.setRiverConfiguration((RiverConfiguration)(tileClone.getRiverConfiguration()));
+            Map<TileEdgeDirection, TileEdge> directionsClone = new HashMap<TileEdgeDirection, TileEdge>();
+            for (Map.Entry<TileEdgeDirection, TileEdge> entry : edges.entrySet()) {
+                TileEdgeDirection  directionClone = (TileEdgeDirection)entry.getKey().clone();
+                TileEdge edgeClone = (TileEdge)entry.getValue().clone();
+                directionsClone.put(directionClone,edgeClone);
+            }
+            tileClone.edges = directionsClone;
             return tileClone;
         } catch(CloneNotSupportedException e){
             throw new InternalError(e.toString());
         }
+    }
+
+
+
+    // for deep cloning
+    private void setRiverConfiguration(RiverConfiguration riverConfiguration){
+        this.riverConfiguration = riverConfiguration;
     }
 
     // TileEdge

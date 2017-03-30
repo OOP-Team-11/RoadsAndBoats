@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,6 +8,8 @@ import direction.Angle;
 import direction.DirectionToLocation;
 import direction.TileEdgeDirection;
 
+import model.FileExporter;
+import model.FileImporter;
 import model.Map;
 import model.tile.*;
 
@@ -130,7 +133,9 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     private boolean placeTileOnMap() {
-        return this.gameMap.placeTile(protoTileLocation, currentProtoTile.makeClone());
+
+        Tile tile = (Tile) currentProtoTile.makeClone();
+        return this.gameMap.placeTile(protoTileLocation.clone(), tile);
     }
 
     public void clearTile() {
@@ -211,6 +216,19 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         currentProtoTile = new Tile(newTerrain,riverConfigList.getCurrent());
         nextProtoTile = new Tile(newTerrain,riverConfigList.getNext());
         notifyTileSelectObservers(makeRenderInfo());
+    }
+
+    public void importMap(String filename) throws IOException {
+        FileImporter fileImporter = new FileImporter();
+        this.gameMap = fileImporter.readFile(filename);
+        MapMakerRenderInfo mapMakerRenderInfo = new MapMakerRenderInfo(this.gameMap.getTiles());
+        this.notifyMapMakerObservers(mapMakerRenderInfo);
+    }
+
+    public void exportMap(String filename) {
+        FileExporter fileExporter = new FileExporter();
+        fileExporter.writeToFile(this.gameMap,filename);
+
     }
 
     /* Update the iterator of RiverConfigurations */

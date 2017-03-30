@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextInputDialog;
+import model.FileImporter;
 import model.Map;
 import model.tile.InvalidLocationException;
 import view.MapMakerView;
@@ -15,6 +16,7 @@ import view.TileSelectorView;
 import javafx.stage.Stage;
 import view.ViewInitializer;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class MapMakerController {
@@ -75,6 +77,11 @@ public class MapMakerController {
                 Optional<String> result = dialog.showAndWait();
                 if (result.isPresent()){
                     System.out.println(": " + result.get());
+                    try {
+                        controlHandler.importMap(result.get());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
 
             }
@@ -82,11 +89,11 @@ public class MapMakerController {
         this.menuBar.getMenus().get(0).getItems().get(1).setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 // TODO hook up with export
-
+                controlHandler.exportMap("map/exportedMap.txt");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Export");
                 alert.setHeaderText("Export is succsefull");
-                alert.setContentText("File saved to : TODO");
+                alert.setContentText("File saved to : exportedMap.txt");
 
                 alert.showAndWait();
             }

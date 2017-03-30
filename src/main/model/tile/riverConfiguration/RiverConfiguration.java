@@ -43,7 +43,7 @@ public class RiverConfiguration implements  Cloneable{
         this.rotationAmount = side1 - 1;
     }
 
-    public RiverConfiguration clone(){
+    public Object clone(){
         try{
             RiverConfiguration riverClone = (RiverConfiguration) super.clone();
             return riverClone;

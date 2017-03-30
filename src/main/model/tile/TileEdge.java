@@ -2,7 +2,7 @@ package model.tile;
 
 import java.util.Objects;
 
-public class TileEdge {
+public class TileEdge implements Cloneable{
     private boolean canConnectRiver;
     private boolean hasRiver;
 
@@ -31,6 +31,11 @@ public class TileEdge {
             this.canConnectRiver = true;
         }
     }
+    public Object clone() throws CloneNotSupportedException{
+        return super.clone();
+    }
+
+
 
     @Override
     public int hashCode()
