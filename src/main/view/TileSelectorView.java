@@ -46,18 +46,18 @@ public class TileSelectorView implements TileSelectObserver{
         this.setFontSize();
         assets = Assets.getInstance();
         assets.loadAssets();
-        drawViewDivider();
-        drawCanvasBackGround();
-        drawTileSelectBox();
-        drawTerrainOptions();
-        drawArrowKeys();
-        drawMiddleRectangle();
     }
 
     // public method called by GameLoop when refresh is necessary
     public void render(){
 
         if(newDataFlag){
+            drawViewDivider();
+            drawCanvasBackGround();
+            drawTerrainOptions();
+            drawArrowKeys();
+            drawMiddleRectangle();
+            drawTileSelectBox();
             drawTerrainSelectRectangle();
             drawUpper(this.topTerrain);
             drawMiddle(this.middleTerrain);

@@ -31,14 +31,7 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
     private MapMakerCursorInfo cursorInformation;
     private MapMakerRenderInfo renderInformation;
     private boolean newDataFlag = true;
-
-
-    private Image pasture = assets.getInstance().PASTURE;
-    private Image pastureR1 = assets.getInstance().PASTURE_R1_SPRING;
-    private Image pastureR2 = assets.getInstance().PASTURE_R2_ADJACENT;
-    private Image pastureR3 = assets.getInstance().PASTURE_R3_SKIP;
-    private Image pastureR4 = assets.getInstance().PASTURE_R4_OPPOSITE;
-    private Image pastureR5 = assets.getInstance().PASTURE_R5_EVERYOTHER;
+    
     private Image cursorGreen = assets.getInstance().GREEN_CURSOR;
     private Image cursorRed = assets.getInstance().RED_CURSOR;
 
