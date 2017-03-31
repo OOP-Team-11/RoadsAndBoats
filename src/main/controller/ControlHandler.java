@@ -99,7 +99,8 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
     private TileSelectorRenderInfo makeRenderInfo(){
 
-        return new TileSelectorRenderInfo(getPreviousProtoTile(),getCurrentProtoTile(),getNextProtoTile());
+        return null;
+        // new TileSelectorRenderInfo(getPreviousProtoTile(),getCurrentProtoTile(),getNextProtoTile());
     }
 
     public void nextRiverConfiguration(){
@@ -221,7 +222,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     public void importMap(File file) throws IOException {
         FileImporter fileImporter = new FileImporter();
         this.gameMap = fileImporter.readFile(file);
-        MapMakerRenderInfo mapMakerRenderInfo = new MapMakerRenderInfo(this.gameMap.getTiles());
+        MapMakerRenderInfo mapMakerRenderInfo = new MapMakerRenderInfo(null);
         this.notifyMapMakerObservers(mapMakerRenderInfo);
     }
 

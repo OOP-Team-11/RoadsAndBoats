@@ -244,7 +244,7 @@ public class Map
     }
 
     public MapMakerRenderInfo getRenderObject() {
-        return new MapMakerRenderInfo(getTiles());
+        return null;
     }
 
 }
