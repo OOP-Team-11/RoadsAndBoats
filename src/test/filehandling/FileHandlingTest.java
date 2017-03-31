@@ -50,11 +50,26 @@ public class FileHandlingTest {
         }
         FileExporter fileExporter = new FileExporter();
         //Give File Name
-        fileExporter.writeToFile(map,"../map/map2.txt");
+        fileExporter.writeToFile(map,"map/map2.txt");
     }
     @Test
     public void isCorrectFileExported() throws IOException {
-        writeFile();
+        Map map = new Map();
+        try {
+            map.placeTile(new Location(0, 0, 0), new Tile(Terrain.ROCK, riverConfiguration));
+            map.placeTile(new Location(0, -1, 1), new Tile(Terrain.DESERT, riverConfiguration));
+            map.placeTile(new Location(0, 1, -1), new Tile(Terrain.WOODS, riverConfiguration));
+            map.placeTile(new Location(1, 0, -1), new Tile(Terrain.ROCK, riverConfiguration));
+            map.placeTile(new Location(-1, 0, 1), new Tile(Terrain.ROCK, riverConfiguration));
+            map.placeTile(new Location(1, -1, 0), new Tile(Terrain.ROCK, riverConfiguration));
+        }
+        catch(InvalidLocationException e)
+        {
+            fail("Invalid Location used in map creation");
+        }
+        FileExporter fileExporter = new FileExporter();
+        //Give File Name
+        fileExporter.writeToFile(map,"../map/map2.txt");
         assertTrue(isFileEqual("../map/map2.txt", "../map/test1.txt"));
     }
     @Test
