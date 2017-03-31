@@ -53,7 +53,7 @@ public class ControlHandlerTest {
 
 
 
-
+/*
     @Test
     public void notifyTileSelectObserverTest() {
         TileSelectObserver tso = new TileSelectObserver() {
@@ -73,4 +73,5 @@ public class ControlHandlerTest {
         ch.registerTileSelectObserver(tso);
         ch.notifyTileSelectObservers(new TileSelectorRenderInfo(previousTileRenderInfo, currentTileRenderInfo, nextTileRenderInfo));
     }
+    */
 }
