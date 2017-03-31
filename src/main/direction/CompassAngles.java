@@ -7,17 +7,17 @@ import direction.Angle;
  */
 public enum CompassAngles {
     EAST(0),
-    NORTHEAST(45),
+    NORTHEAST(30),
     NORTH_NORTHEAST(60),
     NORTH(90),
     NORTH_NORTHWEST(120),
-    NORTHWEST(135),
+    NORTHWEST(150),
     WEST(180),
-    SOUTHWEST(225),
+    SOUTHWEST(210),
     SOUTH_SOUTHWEST(240),
     SOUTH(270),
     SOUTH_SOUTHEAST(300),
-    SOUTHEAST(315);
+    SOUTHEAST(330);
 
     private Angle angle;
     CompassAngles(int degrees) {
