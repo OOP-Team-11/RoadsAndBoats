@@ -72,8 +72,8 @@ public class FileHandlingTest {
         }
         FileExporter fileExporter = new FileExporter();
         //Give File Name
-        fileExporter.writeToFile(map,"../map/map2.txt");
-        assertTrue(isFileEqual("../map/map2.txt", "map/test1.txt"));
+        fileExporter.writeToFile(map,"map/map3.txt");
+        assertTrue(isFileEqual("map/map3.txt", "map/test1.txt"));
     }
     @Test
     public void isCorrectFileImported() throws IOException{
