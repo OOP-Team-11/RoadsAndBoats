@@ -77,7 +77,6 @@ public class TileTest {
     public void getTileEdgeTest() {
 
         Tile t = new Tile(Terrain.SEA, this.springHeadConfiguration);
-        t.setCanConnectWater(TileEdgeDirection.getNorth(), true);
         assertEquals(t.getTileEdge(TileEdgeDirection.getNorth()).canConnectRiver(), true);
     }
     // ----------------------------------------------------------------------------------------------------
