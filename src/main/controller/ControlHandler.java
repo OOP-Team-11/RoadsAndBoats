@@ -149,15 +149,14 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
     public boolean tryPlaceTile(){
         boolean placed = placeTileOnMap();
-        notifyMapMakerObservers(this.gameMap.getRenderObject());
         if (placed) {
-            this.updateTerrain(this.currentProtoTile.getTerrain());
+            gameMap.recenter();
         }
+        notifyMapMakerObservers(this.gameMap.getRenderObject());
         return placed;
     }
 
     private boolean placeTileOnMap() {
-        gameMap.recenter();
         Tile tile = new Tile(currentProtoTile.getTerrain(), (RiverConfiguration)currentProtoTile.getRiverConfiguration().clone());
         return this.gameMap.placeTile(protoTileLocation.clone(), tile);
     }
@@ -191,9 +190,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     public void rotateTileClockwise() {
-        previousProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
         currentProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
-        nextProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
         notifyTileSelectObservers(makeRenderInfo());
         boolean temp =  gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
         cursorInfo.setCursorLocation(protoTileLocation);
@@ -204,9 +201,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     public void rotateTileCounterClockwise() {
-        previousProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
         currentProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
-        nextProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
         notifyTileSelectObservers(makeRenderInfo());
         boolean temp =  gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
         cursorInfo.setCursorLocation(protoTileLocation);
