@@ -17,23 +17,17 @@ public class TileRenderInformation {
     public TileRenderInformation(Tile t){
         this.terrain = t.getTerrain();
 
-        TileEdge northEdge = t.getTileEdge(TileEdgeDirection.getNorth());
-        this.north = tileEdgeCanConnectRiver(northEdge);
+        this.north = t.getRiverConfiguration().canConnectNorth();
 
-        TileEdge northEast = t.getTileEdge(TileEdgeDirection.getNorthEast());
-        this.northEast = tileEdgeCanConnectRiver(northEast);
+        this.northEast = t.getRiverConfiguration().canConnectNortheast();
 
-        TileEdge southEast = t.getTileEdge(TileEdgeDirection.getSouthEast());
-        this.southEast = tileEdgeCanConnectRiver(southEast);
+        this.southEast = t.getRiverConfiguration().canConnectSoutheast();
 
-        TileEdge south = t.getTileEdge(TileEdgeDirection.getSouth());
-        this.south = tileEdgeCanConnectRiver(south);
+        this.south = t.getRiverConfiguration().canConnectSouth();
 
-        TileEdge southWest = t.getTileEdge(TileEdgeDirection.getSouthWest());
-        this.southWest = tileEdgeCanConnectRiver(southWest);
+        this.southWest = t.getRiverConfiguration().canConnectSouthwest();
 
-        TileEdge northWest = t.getTileEdge(TileEdgeDirection.getNorthWest());
-        this.northWest = tileEdgeCanConnectRiver(northWest);
+        this.northWest = t.getRiverConfiguration().canConnectNorthwest();
     }
 
     public Terrain getTerrain(){

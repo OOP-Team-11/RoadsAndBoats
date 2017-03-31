@@ -49,15 +49,15 @@ public class Tile implements Cloneable{
 
         compartments.put(TileCompartmentDirection.getEast(), new TileCompartment(false));
         compartments.put(TileCompartmentDirection.getNorthNorthEast(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getNorthEast(), new TileCompartment(riverConfiguration.canConnectNortheast()));
-        compartments.put(TileCompartmentDirection.getNorth(), new TileCompartment(riverConfiguration.canConnectNorth()));
+        compartments.put(TileCompartmentDirection.getNorthEast(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getNorth(), new TileCompartment(false));
         compartments.put(TileCompartmentDirection.getNorthNorthWest(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getNorthWest(), new TileCompartment(riverConfiguration.canConnectNorthwest()));
+        compartments.put(TileCompartmentDirection.getNorthWest(), new TileCompartment(false));
         compartments.put(TileCompartmentDirection.getWest(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getSouthWest(), new TileCompartment(riverConfiguration.canConnectSouthwest()));
+        compartments.put(TileCompartmentDirection.getSouthWest(), new TileCompartment(false));
         compartments.put(TileCompartmentDirection.getSouthSouthWest(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getSouth(), new TileCompartment(riverConfiguration.canConnectSouth()));
-        compartments.put(TileCompartmentDirection.getSouthEast(), new TileCompartment(riverConfiguration.canConnectSoutheast()));
+        compartments.put(TileCompartmentDirection.getSouth(), new TileCompartment(false));
+        compartments.put(TileCompartmentDirection.getSouthEast(), new TileCompartment(false));
 
         this.terrain = terrain;
     }
@@ -106,8 +106,6 @@ public class Tile implements Cloneable{
         }
     }
 
-
-
     // for deep cloning
     private void setRiverConfiguration(RiverConfiguration riverConfiguration){
         this.riverConfiguration = riverConfiguration;
@@ -151,6 +149,14 @@ public class Tile implements Cloneable{
 
 
     }
+
+    private void rotateRiverConfigurations(){
+
+
+
+
+    }
+
 
     private void rotateEdges() {
         TileEdge northEdge = edges.get(TileEdgeDirection.getNorth());

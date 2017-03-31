@@ -104,6 +104,15 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         TileRenderInformation currentTileRenderInfo = new TileRenderInformation(getCurrentProtoTile());
         TileRenderInformation nextTileRenderInfo = new TileRenderInformation(getNextProtoTile());
 
+        /*
+        System.out.println(previousTileRenderInfo.getNorth());
+        System.out.println(previousTileRenderInfo.getSouthWest());
+        System.out.println(currentTileRenderInfo.getNorth());
+        System.out.println(currentTileRenderInfo.getSouthWest());
+        System.out.println(nextTileRenderInfo.getNorth());
+        System.out.println(nextTileRenderInfo.getSouthWest());
+        System.out.println("------");
+        */
         return new TileSelectorRenderInfo(previousTileRenderInfo, currentTileRenderInfo, nextTileRenderInfo);
     }
 

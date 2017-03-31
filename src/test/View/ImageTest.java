@@ -282,7 +282,4 @@ public class ImageTest {
         assertEquals(assets.getInstance().RIVER_EVERYOTHER_R1 , image);
     }
 
-
-
-
 }
