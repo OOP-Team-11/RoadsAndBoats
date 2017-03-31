@@ -1,6 +1,9 @@
 package view.render;
 
+import direction.TileEdgeDirection;
 import model.tile.Terrain;
+import model.tile.Tile;
+import model.tile.TileEdge;
 
 public class TileRenderInformation {
     private Terrain terrain;
@@ -11,29 +14,30 @@ public class TileRenderInformation {
     private Boolean southWest;
     private Boolean northWest;
 
-    public TileRenderInformation(Terrain terrain){
-        this.terrain = terrain;
+    public TileRenderInformation(Tile t){
+        this.terrain = t.getTerrain();
+
+        TileEdge northEdge = t.getTileEdge(TileEdgeDirection.getNorth());
+        this.north = tileEdgeCanConnectRiver(northEdge);
+
+        TileEdge northEast = t.getTileEdge(TileEdgeDirection.getNorthEast());
+        this.northEast = tileEdgeCanConnectRiver(northEast);
+
+        TileEdge southEast = t.getTileEdge(TileEdgeDirection.getSouthEast());
+        this.southEast = tileEdgeCanConnectRiver(southEast);
+
+        TileEdge south = t.getTileEdge(TileEdgeDirection.getSouth());
+        this.south = tileEdgeCanConnectRiver(south);
+
+        TileEdge southWest = t.getTileEdge(TileEdgeDirection.getSouthWest());
+        this.southWest = tileEdgeCanConnectRiver(southWest);
+
+        TileEdge northWest = t.getTileEdge(TileEdgeDirection.getNorthWest());
+        this.northWest = tileEdgeCanConnectRiver(northWest);
     }
+
     public Terrain getTerrain(){
         return this.terrain;
-    }
-    public void setNorth(Boolean north){
-        this.north = north;
-    }
-    public void setNorthEast(Boolean northEast){
-        this.northEast = northEast;
-    }
-    public void setSouthEast(Boolean southEast){
-        this.southEast = southEast;
-    }
-    public void setSouth(Boolean south){
-        this.south = south;
-    }
-    public void setSouthWest(Boolean southWest){
-        this.southWest = southWest;
-    }
-    public void setNorthWest(Boolean northWest){
-        this.northWest = northWest;
     }
     public Boolean getNorth(){
         return this.north;
@@ -52,6 +56,10 @@ public class TileRenderInformation {
     }
     public Boolean getNorthWest(){
         return this.northWest;
+    }
+
+    private boolean tileEdgeCanConnectRiver(TileEdge tileEdge) {
+        return tileEdge.canConnectRiver();
     }
 
 }

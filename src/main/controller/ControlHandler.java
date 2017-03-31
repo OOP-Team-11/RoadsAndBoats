@@ -27,6 +27,7 @@ import view.MapMakerView;
 import view.TileSelectorView;
 import view.render.MapMakerCursorInfo;
 import view.render.MapMakerRenderInfo;
+import view.render.TileRenderInformation;
 import view.render.TileSelectorRenderInfo;
 
 
@@ -99,7 +100,11 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
     private TileSelectorRenderInfo makeRenderInfo(){
 
-        return new TileSelectorRenderInfo(getPreviousProtoTile(),getCurrentProtoTile(),getNextProtoTile());
+        TileRenderInformation previousTileRenderInfo = new TileRenderInformation(getPreviousProtoTile());
+        TileRenderInformation currentTileRenderInfo = new TileRenderInformation(getCurrentProtoTile());
+        TileRenderInformation nextTileRenderInfo = new TileRenderInformation(getNextProtoTile());
+
+        return new TileSelectorRenderInfo(previousTileRenderInfo, currentTileRenderInfo, nextTileRenderInfo);
     }
 
     public void nextRiverConfiguration(){
@@ -222,21 +227,18 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     public void importMap(File file) throws IOException {
         FileImporter fileImporter = new FileImporter();
         this.gameMap = fileImporter.readFile(file);
-        MapMakerRenderInfo mapMakerRenderInfo = new MapMakerRenderInfo(this.gameMap.getTiles());
-        this.notifyMapMakerObservers(mapMakerRenderInfo);
+        this.notifyMapMakerObservers(this.gameMap.getRenderObject());
     }
 
     public void exportMap(String filename) {
         FileExporter fileExporter = new FileExporter();
         fileExporter.writeToFile(this.gameMap,filename);
-
     }
 
     /* Update the iterator of RiverConfigurations */
     private void updateRiverConfigList(Terrain newTerrain){
         this.riverConfigList.updateTerrain(newTerrain);
     }
-
 
     @Override
     public void registerCursorObserver(CursorObserver o) {
