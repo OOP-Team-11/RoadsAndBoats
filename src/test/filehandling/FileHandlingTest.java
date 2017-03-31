@@ -27,8 +27,11 @@ public class FileHandlingTest {
 
     @Test
     public void readFile() throws IOException {
+        File directory = new File("./");
+        File file = new File(directory.getAbsolutePath().replace(".","") + "/map/map2.txt");
+
         FileImporter fileImporter = new FileImporter();
-        Map map = fileImporter.readFile("map/map2.txt");
+        Map map = fileImporter.readFile(file);
         if(map!=null)
         assertTrue(map.hasTiles());
 
@@ -86,7 +89,9 @@ public class FileHandlingTest {
             e.printStackTrace();
         }
         FileImporter fileImporter = new FileImporter();
-        Map map1 = fileImporter.readFile("map/test1.txt");
+        File directory = new File("./");
+        File file = new File(directory.getAbsolutePath().replace(".","")+"map/test1.txt");
+        Map map1 = fileImporter.readFile(file);
         assertTrue(isMapEqual(map, map1));
     }
     private boolean isMapEqual(Map map1, Map map2){

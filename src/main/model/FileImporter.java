@@ -19,10 +19,8 @@ import java.util.regex.Pattern;
 
 
 public class FileImporter {
-    public Map readFile(String fileName) throws IOException {
+    public Map readFile(File file) throws IOException {
         Map map = new Map();
-        File directory = new File("./");
-        File file = new File(directory.getAbsolutePath().replace(".","")+fileName);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
