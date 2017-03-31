@@ -50,31 +50,52 @@ public class FileHandlingTest {
         }
         FileExporter fileExporter = new FileExporter();
         //Give File Name
-        fileExporter.writeToFile(map,"map/map2.txt");
+        fileExporter.writeToFile(map,"../map/map2.txt");
     }
     @Test
-    public void isCorrectFileExported(){
-        FileExporter fileExporter = new FileExporter();
+    public void isCorrectFileExported() throws IOException {
+        writeFile();
+        assertTrue(isFileEqual("../map/map2.txt", "../map/test1.txt"));
+    }
+    @Test
+    public void isCorrectFileImported() throws IOException{
         Map map = new Map();
         try {
             map.placeTile(new Location(0, 0, 0), new Tile(Terrain.ROCK, riverConfiguration));
             map.placeTile(new Location(0, -1, 1), new Tile(Terrain.DESERT, riverConfiguration));
             map.placeTile(new Location(0, 1, -1), new Tile(Terrain.WOODS, riverConfiguration));
             map.placeTile(new Location(1, 0, -1), new Tile(Terrain.ROCK, riverConfiguration));
+            map.placeTile(new Location(-1, 0, 1), new Tile(Terrain.ROCK, riverConfiguration));
+            map.placeTile(new Location(1, -1, 0), new Tile(Terrain.ROCK, riverConfiguration));
         } catch (InvalidLocationException e) {
             e.printStackTrace();
         }
-        fileExporter.writeToFile(map,"map/map2.txt");
-        try {
-            assertTrue(isFileEqual("map/map2.txt", "map/test1.txt"));
-        } catch (IOException e) {
-            Assert.fail("File Not Same");
-            e.printStackTrace();
-        }
+        FileImporter fileImporter = new FileImporter();
+        Map map1 = fileImporter.readFile("../map/test1.txt");
+        assertTrue(isMapEqual(map, map1));
     }
-    public boolean isFileEqual(String file1, String file2) throws IOException {
-        BufferedReader reader1 = new BufferedReader(new FileReader(file1));
-        BufferedReader reader2 = new BufferedReader(new FileReader(file2));
+    private boolean isMapEqual(Map map1, Map map2){
+        boolean isEqual = true;
+        if(map1.getAllLocations().size() == map2.getAllLocations().size()){
+            for(Location location : map1.getAllLocations()){
+                if(map1.getTile(location).getRiverConfiguration().getRotationAmount() != map2.getTile(location).getRiverConfiguration().getRotationAmount()){
+                    isEqual = false;
+                }
+            }
+        }
+        else {
+            isEqual = false;
+        }
+        System.out.print(isEqual);
+        return isEqual;
+    }
+    public boolean isFileEqual(String filename1, String filename2) throws IOException {
+        File directory = new File("./");
+        FileReader file1 = new FileReader(directory.getAbsolutePath().replace(".","")+filename1);
+        FileReader file2 = new FileReader(directory.getAbsolutePath().replace(".","")+filename2);
+        directory.delete();
+        BufferedReader reader1 = new BufferedReader(file1);
+        BufferedReader reader2 = new BufferedReader(file2);
         String line1 = reader1.readLine();
         String line2 = reader2.readLine();
         boolean areEqual = true;

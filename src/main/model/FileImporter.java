@@ -22,7 +22,6 @@ public class FileImporter {
     public Map readFile(String fileName) throws IOException {
         Map map = new Map();
         File directory = new File("./");
-
         File file = new File(directory.getAbsolutePath().replace(".","")+fileName);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
