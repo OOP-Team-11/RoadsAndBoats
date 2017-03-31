@@ -110,6 +110,10 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     public void nextRiverConfiguration(){
         this.previousProtoTile = this.currentProtoTile;     //Set the previous prototype to the current one
         this.currentProtoTile = this.nextProtoTile;         //Set the current prototype to the next one
+        boolean temp =  gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
+        cursorInfo.setCursorLocation(protoTileLocation);
+        cursorInfo.setIsCursorValid(temp);
+        notifyCursorObservers(cursorInfo);
 
         this.riverConfigList.next();                        //Iterate to the next riverConfig
 
@@ -121,6 +125,10 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     public void previousRiverConfiguration(){
         this.nextProtoTile = this.currentProtoTile;         //Set the next prototype to the current one
         this.currentProtoTile = this.previousProtoTile;     //set the current prototype to the previous one
+        boolean temp =  gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
+        cursorInfo.setCursorLocation(protoTileLocation);
+        cursorInfo.setIsCursorValid(temp);
+        notifyCursorObservers(cursorInfo);
 
         this.riverConfigList.previous();                    //Iterate to the previous riverConfig
 
@@ -131,6 +139,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
     public boolean tryPlaceTile(){
         boolean placed = placeTileOnMap();
+        gameMap.recenter();
         notifyMapMakerObservers(this.gameMap.getRenderObject());
         if (placed) {
             this.updateTerrain(this.currentProtoTile.getTerrain());
@@ -219,6 +228,10 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         updateRiverConfigList(newTerrain);  //Updates the iterator of possible river configurations to those possible for the new Terrain
         previousProtoTile = new Tile(newTerrain,riverConfigList.getPrevious());
         currentProtoTile = new Tile(newTerrain,riverConfigList.getCurrent());
+        boolean temp =  gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
+        cursorInfo.setCursorLocation(protoTileLocation);
+        cursorInfo.setIsCursorValid(temp);
+        notifyCursorObservers(cursorInfo);
         nextProtoTile = new Tile(newTerrain,riverConfigList.getNext());
         notifyTileSelectObservers(makeRenderInfo());
     }

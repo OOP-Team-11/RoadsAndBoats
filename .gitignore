@@ -74,7 +74,7 @@ gradle/wrapper/gradle-wrapper.properties
 # .idea/misc.xml
 # *.ipr
 src/.DS_Store
-
+.DS_Store
 src/map.txt
 classes
 
@@ -95,6 +95,6 @@ classes/production/RoadsAndBoats/model/
 classes/production/RoadsAndBoats/utilities/
 classes/production/RoadsAndBoats/view/
 classes/test/
-
+map/.DS_Store
 
 *.orig

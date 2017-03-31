@@ -184,4 +184,9 @@ public class RiverConfiguration implements  Cloneable{
 
         return rc.riverMap.equals(riverMap) && rotationAmount == rc.rotationAmount;
     }
+
+    public boolean canConnect(TileEdgeDirection dir)
+    {
+        return riverMap.get(dir);
+    }
 }

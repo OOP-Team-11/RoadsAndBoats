@@ -33,6 +33,13 @@ public class MapMakerKeyControlsMapper extends KeyControlsMapper {
         this.addControl(KeyCode.U, ()-> this.controlHandler.moveCursor(TileEdgeDirection.getNorth()));
         this.addControl(KeyCode.K, ()-> this.controlHandler.moveCursor(TileEdgeDirection.getNorthEast()));
 
+        this.addControl(KeyCode.NUMPAD1, ()-> this.controlHandler.moveCursor(TileEdgeDirection.getSouthWest()));
+        this.addControl(KeyCode.NUMPAD2, ()-> this.controlHandler.moveCursor(TileEdgeDirection.getSouth()));
+        this.addControl(KeyCode.NUMPAD3, ()-> this.controlHandler.moveCursor(TileEdgeDirection.getSouthEast()));
+        this.addControl(KeyCode.NUMPAD4, ()-> this.controlHandler.moveCursor(TileEdgeDirection.getNorthWest()));
+        this.addControl(KeyCode.NUMPAD5, ()-> this.controlHandler.moveCursor(TileEdgeDirection.getNorth()));
+        this.addControl(KeyCode.NUMPAD6, ()-> this.controlHandler.moveCursor(TileEdgeDirection.getNorthEast()));
+
         this.addControl(KeyCode.W, ()-> this.controlHandler.moveViewport(0,1));
         this.addControl(KeyCode.A, ()-> this.controlHandler.moveViewport(1,0));
         this.addControl(KeyCode.S, ()-> this.controlHandler.moveViewport(0,-1));
