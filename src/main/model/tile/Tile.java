@@ -19,7 +19,9 @@ public class Tile implements Cloneable{
     public Tile(Terrain terrain, RiverConfiguration riverConfiguration) {
         edges = new HashMap<TileEdgeDirection, TileEdge>();
         compartments = new HashMap<TileCompartmentDirection, TileCompartment>();
+
         this.riverConfiguration = riverConfiguration;
+        this.terrain = terrain;
 
         edges.put(TileEdgeDirection.getNorth(),
                 new TileEdge(canConnectRiver(TileEdgeDirection.getNorth(), riverConfiguration, terrain),
@@ -60,6 +62,7 @@ public class Tile implements Cloneable{
         compartments.put(TileCompartmentDirection.getSouthEast(), new TileCompartment(false));
 
         this.terrain = terrain;
+
     }
 
     private void rotateAccordingToRiverConfiguration() {
@@ -74,10 +77,6 @@ public class Tile implements Cloneable{
         return this.riverConfiguration;
     }
 
-    private boolean isSeaTerrain(Terrain terrain) {
-        return terrain == Terrain.SEA;
-    }
-
     private boolean canConnectRiver(TileEdgeDirection tileEdgeDirection, RiverConfiguration riverConfiguration, Terrain terrain) {
 
         return (tileEdgeDirection.equals(TileEdgeDirection.getNorth()) && riverConfiguration.canConnectNorth() ||
@@ -86,7 +85,7 @@ public class Tile implements Cloneable{
                 tileEdgeDirection.equals(TileEdgeDirection.getSouth()) && riverConfiguration.canConnectSouth() ||
                 tileEdgeDirection.equals(TileEdgeDirection.getSouthWest()) && riverConfiguration.canConnectSouthwest() ||
                 tileEdgeDirection.equals(TileEdgeDirection.getNorthWest()) && riverConfiguration.canConnectNorthwest()) ||
-                isSeaTerrain(terrain);
+                terrain.canConnectRiver();
     }
 
     public Object makeClone(){
@@ -120,10 +119,6 @@ public class Tile implements Cloneable{
         return edges.put(edgeDirection, edge);
     }
 
-    public void setCanConnectWater(TileEdgeDirection direction, boolean bool) {
-        getTileEdge(direction).setCanConnectRiver(bool);
-    }
-
     // TileCompartment
     public TileCompartment getTileCompartment(TileCompartmentDirection compartmentDirection) {
         return compartments.get(compartmentDirection);
@@ -145,18 +140,12 @@ public class Tile implements Cloneable{
         for(int i = 0; i < (rotationDegrees/60); i++) {
             rotateEdges();
             rotateCompartments();
+            rotateRiverConfigurations();
         }
-
-
     }
-
     private void rotateRiverConfigurations(){
-
-
-
-
+        riverConfiguration.rotateRiverConfigurationOnce();
     }
-
 
     private void rotateEdges() {
         TileEdge northEdge = edges.get(TileEdgeDirection.getNorth());
@@ -202,5 +191,12 @@ public class Tile implements Cloneable{
         compartments.put(TileCompartmentDirection.getSouthEast(), northEastComp);
         compartments.put(TileCompartmentDirection.getSouthSouthEast(), eastComp);
 
+    }
+
+    public void resetTileEdge(TileEdgeDirection dir)
+    {
+        edges.put(TileEdgeDirection.getSouthWest(),
+                new TileEdge(canConnectRiver(TileEdgeDirection.getSouthWest(), riverConfiguration, terrain),
+                        riverConfiguration.canConnect(dir)));
     }
 }

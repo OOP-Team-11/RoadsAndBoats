@@ -49,9 +49,10 @@ public class Map
         {
             return false;
         }
+
         updateTileEdges(tileLocation, tile);
         tiles.put(tileLocation, tile);
-        recenter();
+
         return true;
     }
 
@@ -66,6 +67,7 @@ public class Map
     {
         return isEmptyMap() ||
                 (hasAdjacentTile(tileLocation)
+                        && noTileAlreadyPresent(tileLocation, tile)
                         && hasMatchingEdges(tileLocation, tile)
                         && isWithinMaxDistance(tileLocation));
     }
@@ -90,6 +92,11 @@ public class Map
         return false;
     }
 
+    private boolean noTileAlreadyPresent(Location tileLocation, Tile tile)
+    {
+        return !tiles.containsKey(tileLocation);
+    }
+
     private boolean hasMatchingEdges(Location tileLocation, Tile tile)
     {
         for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
@@ -105,7 +112,8 @@ public class Map
             TileEdge newTileEdge=tile.getTileEdge(dir);
             TileEdge existingTileEdge=existingTile.getTileEdge(dir.reverse());
 
-            if(newTileEdge.hasRiver() && !existingTileEdge.canConnectRiver())
+            if(newTileEdge.hasRiver() && !existingTileEdge.canConnectRiver() ||
+                    existingTileEdge.hasRiver() && !newTileEdge.canConnectRiver())
             {
                 return false;
             }
@@ -166,7 +174,12 @@ public class Map
                 continue;
             }
 
+            TileEdge newTileEdge=tile.getTileEdge(dir);
             TileEdge existingTileEdge=existingTile.getTileEdge(dir.reverse());
+
+            boolean canConnectRiver = newTileEdge.canConnectRiver() || existingTileEdge.canConnectRiver();
+            existingTileEdge.setCanConnectRiver(canConnectRiver);
+
             tile.setTileEdge(dir, existingTileEdge);
         }
     }
@@ -234,9 +247,19 @@ public class Map
         if (this.tiles.containsKey(location))
         {
             this.tiles.remove(location);
+
+            for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
+            {
+                Location loc = DirectionToLocation.getLocation(location, dir);
+                Tile tile = tiles.get(loc);
+                if(tile != null)
+                {
+                    tile.resetTileEdge(dir);
+                }
+            }
+
             return true;
         }
-
         return false;
     }
 
