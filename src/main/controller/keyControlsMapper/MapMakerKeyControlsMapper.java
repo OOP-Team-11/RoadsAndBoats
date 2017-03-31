@@ -21,8 +21,8 @@ public class MapMakerKeyControlsMapper extends KeyControlsMapper {
         this.addControl(KeyCode.DIGIT6, ()-> this.controlHandler.setMountainTerrain());
 
 
-        this.addControl(KeyCode.UP, ()-> this.controlHandler.previousRiverConfiguration());
-        this.addControl(KeyCode.DOWN, ()-> this.controlHandler.nextRiverConfiguration());
+        this.addControl(KeyCode.UP, ()-> this.controlHandler.nextRiverConfiguration());
+        this.addControl(KeyCode.DOWN, ()-> this.controlHandler.previousRiverConfiguration());
         this.addControl(KeyCode.RIGHT, ()-> this.controlHandler.rotateTileClockwise());
         this.addControl(KeyCode.LEFT, ()-> this.controlHandler.rotateTileCounterClockwise());
 
