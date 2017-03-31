@@ -11,6 +11,7 @@ import org.junit.Test;
 import utilities.Observer.TileSelectObserver.TileSelectObserver;
 import view.MapMakerView;
 import view.TileSelectorView;
+import view.render.TileRenderInformation;
 import view.render.TileSelectorRenderInfo;
 
 import static org.junit.Assert.*;
@@ -54,7 +55,7 @@ public class ControlHandlerTest {
 
 
     @Test
-    public void notifyTileSelectObserverTest(){
+    public void notifyTileSelectObserverTest() {
         TileSelectObserver tso = new TileSelectObserver() {
             @Override
             public void updateTileSelect(TileSelectorRenderInfo tileSelectorRenderInfo) {
@@ -65,7 +66,11 @@ public class ControlHandlerTest {
                 assertTrue(true);
             }
         };
+        TileRenderInformation previousTileRenderInfo = new TileRenderInformation(ch.getPreviousProtoTile());
+        TileRenderInformation currentTileRenderInfo = new TileRenderInformation(ch.getCurrentProtoTile());
+        TileRenderInformation nextTileRenderInfo = new TileRenderInformation(ch.getNextProtoTile());
+
         ch.registerTileSelectObserver(tso);
-        ch.notifyTileSelectObservers(new TileSelectorRenderInfo(ch.getPreviousProtoTile(),ch.getCurrentProtoTile(),ch.getNextProtoTile()));
+        ch.notifyTileSelectObservers(new TileSelectorRenderInfo(previousTileRenderInfo, currentTileRenderInfo, nextTileRenderInfo));
     }
 }

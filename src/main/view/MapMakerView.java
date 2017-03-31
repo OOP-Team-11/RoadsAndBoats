@@ -133,7 +133,6 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
             // no information yet
         } else {
             // first time around we just render the terrain
-            System.out.println("------");
             for (Map.Entry<Location, TileRenderInformation> entry : renderInformation.getTileInformation().entrySet())
             {
                 Image image = getTerrainImage(entry.getValue());
