@@ -32,8 +32,6 @@ public class FileExporter {
             }
             else
             System.out.println("Empty Map");
-
-
         } catch (IOException e) {
 
             e.printStackTrace();
@@ -43,22 +41,22 @@ public class FileExporter {
 
     private StringBuffer riverString(Tile tile) {
         StringBuffer riverString = new StringBuffer();
-        if(tile.getTileEdge(TileEdgeDirection.getNorth()).hasRiver()) {
+        if(tile.getRiverConfiguration().canConnectNorth()) {
             riverString.append("1 ");
         }
-        else if(tile.getTileEdge(TileEdgeDirection.getNorthEast()).hasRiver()){
+        if(tile.getRiverConfiguration().canConnectNortheast()){
              riverString.append("2 ");
         }
-        else if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).hasRiver()){
+        if(tile.getRiverConfiguration().canConnectSoutheast()){
             riverString.append("3 ");
         }
-        else if(tile.getTileEdge(TileEdgeDirection.getSouth()).hasRiver()){
+        if(tile.getRiverConfiguration().canConnectSouth()){
             riverString.append("4 ");
         }
-        else if(tile.getTileEdge(TileEdgeDirection.getSouthWest()).hasRiver()){
+        if(tile.getRiverConfiguration().canConnectSouthwest()){
             riverString.append("5 ");
         }
-        else if(tile.getTileEdge(TileEdgeDirection.getNorthWest()).hasRiver()){
+        if(tile.getRiverConfiguration().canConnectNorthwest()){
             riverString.append("6 ");
         }
 
