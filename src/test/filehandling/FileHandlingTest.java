@@ -69,8 +69,8 @@ public class FileHandlingTest {
         }
         FileExporter fileExporter = new FileExporter();
         //Give File Name
-        fileExporter.writeToFile(map,"../map/map2.txt");
-        assertTrue(isFileEqual("../map/map2.txt", "../map/test1.txt"));
+        fileExporter.writeToFile(map,"map/map2.txt");
+        assertTrue(isFileEqual("map/map2.txt", "map/test1.txt"));
     }
     @Test
     public void isCorrectFileImported() throws IOException{
@@ -86,7 +86,7 @@ public class FileHandlingTest {
             e.printStackTrace();
         }
         FileImporter fileImporter = new FileImporter();
-        Map map1 = fileImporter.readFile("../map/test1.txt");
+        Map map1 = fileImporter.readFile("map/test1.txt");
         assertTrue(isMapEqual(map, map1));
     }
     private boolean isMapEqual(Map map1, Map map2){
