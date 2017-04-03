@@ -6,7 +6,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -19,6 +21,10 @@ public class ViewInitializer {
     private GameLoop gameLoop;
     private MenuBar menuBar;
     private Scene scene;
+    private StackPane stackPane;
+    private AnchorPane anchorPane;
+    private Canvas mapMakerCanvas;
+    private Canvas tileSelectorCanvas;
 
     public ViewInitializer(Stage primaryStage){
         this.primaryStage = primaryStage;
@@ -26,45 +32,35 @@ public class ViewInitializer {
     }
 
     public void setUpStage(){
+        stackPane = new StackPane();
+        anchorPane = new AnchorPane();
         HBox root = new HBox();
         VBox root2 = new VBox();
-        createMenuBar();
-        Canvas mapMakerCanvas = new Canvas(1000,800);
-        Canvas tileSelectorCanvas = new Canvas(400,800);
+        mapMakerCanvas = new Canvas(1000,800);
+        tileSelectorCanvas = new Canvas(400,800);
         this.mapMakerView = new MapMakerView(mapMakerCanvas);
         this.tileSelectorView = new TileSelectorView(tileSelectorCanvas);
         this.primaryStage.setTitle("Roads and Boats ");
-        root2.getChildren().add(menuBar);
-        root.getChildren().add(mapMakerCanvas);
-        root.getChildren().add(tileSelectorCanvas);
-        root2.getChildren().add(root);
-        this.scene = new Scene(root2,1400 , 800);
+        anchorPane.getChildren().add(mapMakerCanvas);
+        anchorPane.setTopAnchor(mapMakerCanvas,0.0);
+        anchorPane.setLeftAnchor(mapMakerCanvas,0.0);
+        anchorPane.getChildren().add(tileSelectorCanvas);
+        anchorPane.setTopAnchor(tileSelectorCanvas,0.0);
+        anchorPane.setLeftAnchor(tileSelectorCanvas,1000.0);
+        stackPane.getChildren().add(anchorPane);
+        this.scene = new Scene(stackPane,1400 , 800);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private void createMenuBar(){
-        this.menuBar = new MenuBar();
-        menuBar.setMinWidth(300);
-        Menu menu = new Menu();
-        menu.setText("Import/Export");
-        menuBar.getMenus().add(menu);
-        MenuItem item = new MenuItem();
-        MenuItem item2 = new MenuItem();
-        item.setText("Import");
-        item2.setText("Export");
-        menu.getItems().add(item);
-        menu.getItems().add(item2);
-    }
 
+    public Canvas getMapMakerCanvas() { return  mapMakerCanvas; }
+    public Canvas getTileSelectorCanvas() { return tileSelectorCanvas; }
     public TileSelectorView getTileSelectorViewReference(){
         return this.tileSelectorView;
     }
     public MapMakerView getMapMakerViewReference(){
         return this.mapMakerView;
-    }
-    public MenuBar getMenuBarReferense(){
-        return this.menuBar;
     }
     public Scene getSceneReferense(){
         return this.scene;

@@ -127,7 +127,6 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         }
     }
 
-
     private void drawMap(){
 
         if(renderInformation == null){

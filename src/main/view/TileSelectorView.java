@@ -24,6 +24,7 @@ public class TileSelectorView implements TileSelectObserver{
     private TileSelectorRenderInfo currentRenderInfo;
     private boolean newDataFlag = false;
     private int terrainSelected = 1;
+    private boolean mapStatus = false;
 
     private Image top;
     private Image middle;
@@ -60,9 +61,11 @@ public class TileSelectorView implements TileSelectObserver{
             drawMiddleRectangle();
             drawTileSelectBox();
             drawTerrainSelectRectangle();
+            drawImportExportButtons();
             drawUpper(this.topTerrain);
             drawMiddle(this.middleTerrain);
             drawLower(this.bottomTerain);
+            drawMapStatusIndicator();
             // on top of that we draw the river configurations
             drawUpper(this.top, currentRenderInfo.getTopTile().getTerrain());
             drawMiddle(this.middle, currentRenderInfo.getMiddleTile().getTerrain());
@@ -104,14 +107,38 @@ public class TileSelectorView implements TileSelectObserver{
 
     private void drawTileSelectBox(){
         this.gc.setLineWidth(3);
-        this.gc.strokeRoundRect(35,20,300,600,20,20);
+        this.gc.strokeRoundRect(35,65,300,550,20,20);
     }
+    private void drawImportExportButtons(){
+        this.gc.setLineWidth(3);
+        this.gc.strokeRoundRect(35,20,70,30,20,20);
+        this.gc.strokeText("Import", 40,40);
+        this.gc.strokeRoundRect(120,20,70,30,20,20);
+        this.gc.strokeText("Export", 125,40);
+    }
+
+    private void drawMapStatusIndicator(){
+        this.gc.strokeRoundRect(250,20,100,30,20,20);
+
+        if(mapStatus){
+            this.gc.setFill(Color.GREEN);
+            this.gc.fillRoundRect(250,20,100,30,20,20);
+            this.gc.strokeText("Valid", 270,40);
+        }
+        else {
+            this.gc.setFill(Color.RED);
+            this.gc.fillRoundRect(250,20,100,30,20,20);
+            this.gc.strokeText("Invalid", 270,40);
+        }
+    }
+
     private void drawArrowKeys(){
         Image arrowKeys = assets.getInstance().ARROW_KEYS;
         gc.drawImage(arrowKeys, 135, 610, 100, 100);
     }
     private void drawMiddleRectangle(){
-        this.gc.strokeRoundRect(35,210,300,200,20,20);
+
+        //this.gc.strokeRoundRect(35,210,300,200,20,20);
     }
 
     private void drawTerrainSelectRectangle(){
@@ -132,8 +159,8 @@ public class TileSelectorView implements TileSelectObserver{
     }
 
     private void drawUpper(Image image){
-        this.gc.drawImage(image, 130, 55);
-        this.gc.drawImage(assets.FADED,130,55);
+        this.gc.drawImage(image, 130, 90);
+        this.gc.drawImage(assets.FADED,130,90);
     }
     private void drawLower(Image image){
         this.gc.drawImage(image, 130, 450);
@@ -141,17 +168,17 @@ public class TileSelectorView implements TileSelectObserver{
     }
     private void drawMiddle(Image image, Terrain terrain){
         if (!terrain.equals(Terrain.SEA)) {
-            this.gc.drawImage(image,130,250);
+            this.gc.drawImage(image,130,275);
         }
     }
     private void drawUpper(Image image, Terrain terrain) {
         if (!terrain.equals(Terrain.SEA)) {
-            this.gc.drawImage(image, 130, 55);
-            this.gc.drawImage(assets.FADED,130,55);
+            this.gc.drawImage(image, 130, 90);
+            this.gc.drawImage(assets.FADED,130,90);
         }
     }
     private void drawMiddle(Image image){
-        this.gc.drawImage(image,130,250);
+        this.gc.drawImage(image,130,275);
     }
     private void drawLower(Image image, Terrain terrain) {
         if (!terrain.equals(Terrain.SEA)) {
@@ -183,7 +210,7 @@ public class TileSelectorView implements TileSelectObserver{
 
     @Override
     public void updateTileSelect(TileSelectorRenderInfo tileSelectorRenderInfo) {
-
+        mapStatus = tileSelectorRenderInfo.getMapValidation();
         newDataFlag = true;
         
         this.currentRenderInfo = tileSelectorRenderInfo;

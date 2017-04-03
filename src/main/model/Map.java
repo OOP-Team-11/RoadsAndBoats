@@ -201,6 +201,11 @@ public class Map
         }
     }
 
+    public boolean isMapValid(){
+        // TODO implement this method
+        return true;
+    }
+
     private Location calculateCenter()
     {
         MapBoundary bounds = getMapBoundaries();

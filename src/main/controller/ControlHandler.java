@@ -46,6 +46,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     private Location protoTileLocation;
 
     private RiverConfigurationCycler riverConfigList;
+    private MouseInterpreter mouseInterpreter;
 
     // mapMakerView is given as an observer that the map will use to notify
     // tileSelectorView is given as an observer that ControlHandler will notify
@@ -73,6 +74,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         }
 
         cursorInfo = new MapMakerCursorInfo(protoTileLocation, true);
+        mouseInterpreter = new MouseInterpreter(1000,800,114,128);
 
         Terrain initialTerrain = Terrain.PASTURE;                           //Initialized to "pasture" by default
         riverConfigList = new RiverConfigurationCycler(initialTerrain);
@@ -104,17 +106,8 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         TileRenderInformation previousTileRenderInfo = new TileRenderInformation(getPreviousProtoTile());
         TileRenderInformation currentTileRenderInfo = new TileRenderInformation(getCurrentProtoTile());
         TileRenderInformation nextTileRenderInfo = new TileRenderInformation(getNextProtoTile());
-
-        /*
-        System.out.println(previousTileRenderInfo.getNorth());
-        System.out.println(previousTileRenderInfo.getSouthWest());
-        System.out.println(currentTileRenderInfo.getNorth());
-        System.out.println(currentTileRenderInfo.getSouthWest());
-        System.out.println(nextTileRenderInfo.getNorth());
-        System.out.println(nextTileRenderInfo.getSouthWest());
-        System.out.println("------");
-        */
-        return new TileSelectorRenderInfo(previousTileRenderInfo, currentTileRenderInfo, nextTileRenderInfo);
+        boolean temp =  gameMap.isMapValid();
+        return new TileSelectorRenderInfo(previousTileRenderInfo, currentTileRenderInfo, nextTileRenderInfo, temp);
     }
 
     public void nextRiverConfiguration(){
@@ -165,6 +158,14 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         clearMapTile();
         notifyMapMakerObservers(this.gameMap.getRenderObject());
     }
+    public void cursorClicked(double x, double y){
+        Location location = mouseInterpreter.interpretMouseClick(x,y);
+        boolean isValidPlacement = gameMap.isValidPlacement(location, currentProtoTile);
+        protoTileLocation = location;
+        cursorInfo.setCursorLocation(location);
+        cursorInfo.setIsCursorValid(isValidPlacement);
+        notifyCursorObservers(cursorInfo);
+    }
 
     public void clearMapTile() {
         this.gameMap.removeTileAtLocation(getCursorLocation());
@@ -182,6 +183,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     public void moveViewport(int x, int y) {
         cursorInfo.setCameraX(cursorInfo.getCameraX() + x);
         cursorInfo.setCameraY(cursorInfo.getCameraY() + y);
+        mouseInterpreter.updateCameraOffsetValues(cursorInfo.getCameraX(), cursorInfo.getCameraY());
         notifyCursorObservers(cursorInfo);
     }
 
