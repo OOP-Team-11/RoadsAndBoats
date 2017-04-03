@@ -1,3 +1,7 @@
-( 0 0 0 ) PASTURE  ( 1  ) 
-( 1 0 -1 ) PASTURE  ( 1  ) 
-( -1 1 0 ) PASTURE  ( 1 2  ) 
+( -1 0 1 ) PASTURE 
+( 0 0 0 ) PASTURE 
+( 0 -1 1 ) PASTURE 
+( -1 1 0 ) PASTURE 
+( 1 -1 0 ) PASTURE  ( 1 2  ) 
+( 1 0 -1 ) PASTURE  ( 3 4  ) 
+( 2 -1 -1 ) PASTURE  ( 5 6  ) 

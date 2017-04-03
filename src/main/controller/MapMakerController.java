@@ -115,17 +115,14 @@ public class MapMakerController {
                     else {
                         scene.setCursor(Cursor.DEFAULT);
                     }
-
                 }
             }
         });
-
     }
     private void MouseClickEvents(){
 
         this.mapMakerCanvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-
                 controlHandler.cursorClicked(event.getX(), event.getY());
             }
         });
@@ -133,7 +130,6 @@ public class MapMakerController {
         this.tileSelectorCanvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             public void handle(MouseEvent event) {
-                System.out.println("TileSelector Canvas" + event.getX() + " : " + event.getY());
                 if(event.getX() > 35 && event.getX() < 105 && event.getY() > 20 && event.getY() < 50){
                     final FileChooser fileChooser = new FileChooser();
                     fileChooser.setTitle("Import map data");
@@ -183,7 +179,6 @@ public class MapMakerController {
                 } else if (event.getX() > 210 && event.getX() < 240 && event.getY() > 650 && event.getY() < 690   ){
                     controlHandler.rotateTileClockwise();
                 }
-
             }
         });
     }
