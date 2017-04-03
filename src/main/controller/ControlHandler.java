@@ -106,7 +106,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         TileRenderInformation previousTileRenderInfo = new TileRenderInformation(getPreviousProtoTile());
         TileRenderInformation currentTileRenderInfo = new TileRenderInformation(getCurrentProtoTile());
         TileRenderInformation nextTileRenderInfo = new TileRenderInformation(getNextProtoTile());
-        boolean temp =  gameMap.isMapValid();
+        boolean temp =  true; //gameMap.isValid(); TODO
         return new TileSelectorRenderInfo(previousTileRenderInfo, currentTileRenderInfo, nextTileRenderInfo, temp);
     }
 

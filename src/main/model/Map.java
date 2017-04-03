@@ -1,19 +1,17 @@
 package model;
-
-
 import controller.MapRenderTranslator;
 import direction.DirectionToLocation;
 import direction.TileEdgeDirection;
 
 import model.tile.InvalidLocationException;
 import model.tile.Location;
-import model.tile.Terrain;
 import model.tile.Tile;
 import model.tile.TileEdge;
+
 import view.render.MapMakerRenderInfo;
 
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
@@ -26,18 +24,18 @@ public class Map
     public Map()
     {
         tiles = new LinkedHashMap<Location, Tile>();
-//        this.initialize();
     }
 
     /**
      * Gets a tile from the map
      *
-//     * @param tileLocation The location you are trying to find a tile at.
-     * @return returns the tile at the specified location or null if there isn't one there.
+     * @return returns all tiles on the map.
      */
-    public java.util.Map<Location, Tile> getTiles() {
+    public java.util.Map<Location, Tile> getTiles()
+    {
         return tiles;
     }
+
     public Tile getTile(Location tileLocation)
     {
         return tiles.get(tileLocation);
@@ -201,11 +199,6 @@ public class Map
         }
     }
 
-    public boolean isMapValid(){
-        // TODO implement this method
-        return true;
-    }
-
     private Location calculateCenter()
     {
         MapBoundary bounds = getMapBoundaries();
@@ -276,4 +269,86 @@ public class Map
         return new MapMakerRenderInfo(MapRenderTranslator.getRenderInformationForMap(this));
     }
 
+    public boolean isValid()
+    {
+        return !isEmptyMap()
+                && isContinuousMap()
+                && hasNoHangingRiver()
+                && allTilesAreValid();
+    }
+
+    private boolean isContinuousMap()
+    {
+        Location loc = getTiles().keySet().iterator().next();
+
+        int continuousSize = getAllConnectedLocations(loc, new HashSet<Location>()).size();
+
+        return continuousSize == getTiles().size();
+    }
+
+    private Set<Location> getAllConnectedLocations(Location loc, Set<Location> locations)
+    {
+        for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
+        {
+            Location newLoc = DirectionToLocation.getLocation(loc, dir);
+
+            if(locations.add(newLoc))
+            {
+                getAllConnectedLocations(newLoc, locations);
+            }
+        }
+
+        return locations;
+    }
+
+    private boolean hasNoHangingRiver()
+    {
+        for(Location loc: getTiles().keySet())
+        {
+            if(hasHangingRiver(loc))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean hasHangingRiver(Location tileLocation)
+    {
+        Tile tile=getTile(tileLocation);
+
+        for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
+        {
+            Location loc = DirectionToLocation.getLocation(tileLocation, dir);
+            Tile adjacentTile = tiles.get(loc);
+
+            TileEdge tileEdge=tile.getTileEdge(dir);
+
+            if(adjacentTile == null && tileEdge.hasRiver() && !tile.getTerrain().canConnectRiver())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean allTilesAreValid()
+    {
+        for(java.util.Map.Entry<Location, Tile> entry: getTiles().entrySet())
+        {
+            Location tileLocation = entry.getKey();
+            Tile tile = entry.getValue();
+
+            if(!hasAdjacentTile(tileLocation)
+                    || !hasMatchingEdges(tileLocation, tile)
+                    || !isWithinMaxDistance(tileLocation))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
