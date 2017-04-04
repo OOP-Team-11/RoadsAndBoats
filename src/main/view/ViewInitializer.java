@@ -3,9 +3,7 @@ package view;
 import controller.GameLoop;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -18,13 +16,17 @@ public class ViewInitializer {
     private Stage primaryStage;
     private MapMakerView mapMakerView;
     private TileSelectorView tileSelectorView;
+    private ExportView exportView;
     private GameLoop gameLoop;
-    private MenuBar menuBar;
     private Scene scene;
     private StackPane stackPane;
     private AnchorPane anchorPane;
+    private AnchorPane anchorPane2;
     private Canvas mapMakerCanvas;
     private Canvas tileSelectorCanvas;
+    private Button overLayConfirm;
+    private Button exportClose;
+    private TextField textField;
 
     public ViewInitializer(Stage primaryStage){
         this.primaryStage = primaryStage;
@@ -32,42 +34,56 @@ public class ViewInitializer {
     }
 
     public void setUpStage(){
-        stackPane = new StackPane();
-        anchorPane = new AnchorPane();
-        HBox root = new HBox();
-        VBox root2 = new VBox();
-        mapMakerCanvas = new Canvas(1000,800);
-        tileSelectorCanvas = new Canvas(400,800);
+        this.stackPane = new StackPane();
+        this.anchorPane = new AnchorPane();
+        this.anchorPane2 = new AnchorPane();
+        this.mapMakerCanvas = new Canvas(1000,800);
+        this.tileSelectorCanvas = new Canvas(400,800);
+        this.overLayConfirm = new Button();
+        this.exportClose =  new Button();
+        this.textField = new TextField();
+        this.exportView = new ExportView(anchorPane2, overLayConfirm, exportClose, textField);
         this.mapMakerView = new MapMakerView(mapMakerCanvas);
         this.tileSelectorView = new TileSelectorView(tileSelectorCanvas);
         this.primaryStage.setTitle("Roads and Boats ");
-        anchorPane.getChildren().add(mapMakerCanvas);
-        anchorPane.setTopAnchor(mapMakerCanvas,0.0);
-        anchorPane.setLeftAnchor(mapMakerCanvas,0.0);
-        anchorPane.getChildren().add(tileSelectorCanvas);
-        anchorPane.setTopAnchor(tileSelectorCanvas,0.0);
-        anchorPane.setLeftAnchor(tileSelectorCanvas,1000.0);
-        stackPane.getChildren().add(anchorPane);
+        this.anchorPane.getChildren().add(mapMakerCanvas);
+        this.anchorPane.setTopAnchor(mapMakerCanvas,0.0);
+        this.anchorPane.setLeftAnchor(mapMakerCanvas,0.0);
+        this.anchorPane.getChildren().add(tileSelectorCanvas);
+        this.anchorPane.setTopAnchor(tileSelectorCanvas,0.0);
+        this.anchorPane.setLeftAnchor(tileSelectorCanvas,1000.0);
+        this.stackPane.getChildren().add(anchorPane);
         this.scene = new Scene(stackPane,1400 , 800);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        this.exportView.initialize();
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
     }
-
-
-    public Canvas getMapMakerCanvas() { return  mapMakerCanvas; }
-    public Canvas getTileSelectorCanvas() { return tileSelectorCanvas; }
+    public void displayExportOverlay(){
+        this.stackPane.getChildren().add(anchorPane2);
+        this.exportView.displayCurrentFiles();
+    }
+    public void closeExportOverlay(){
+        if(this.stackPane.getChildren().size() > 1){
+            this.stackPane.getChildren().remove(1);
+        }
+    }
+    public Canvas getMapMakerCanvas() { return  this.mapMakerCanvas; }
+    public Canvas getTileSelectorCanvas() { return this.tileSelectorCanvas; }
     public TileSelectorView getTileSelectorViewReference(){
         return this.tileSelectorView;
     }
     public MapMakerView getMapMakerViewReference(){
         return this.mapMakerView;
     }
+    public TextField getExportOverlayTextFieldRefernse() { return this.textField; }
+    public Button getOverlayCloseButtonRefernce() { return this.exportClose; }
+    public Button getOverlayConfirmButtonReference() { return this.overLayConfirm; }
     public Scene getSceneReferense(){
         return this.scene;
     }
     public void startAnimationLoop(){
         // initialize GameLoop that will control FPS
-        this.gameLoop = new GameLoop(mapMakerView, tileSelectorView);
+        this.gameLoop = new GameLoop(this.mapMakerView, this.tileSelectorView);
         // start animation timer
         this.gameLoop.startAnimationTimer();
     }

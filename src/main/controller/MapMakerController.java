@@ -7,10 +7,9 @@ import javafx.event.EventType;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Alert;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import model.FileImporter;
 import model.Map;
@@ -36,6 +35,9 @@ public class MapMakerController {
     private Canvas mapMakerCanvas;
     private Canvas tileSelectorCanvas;
     private Scene scene;
+    private Button overlayConfirm;
+    private Button overlayClose;
+    private TextField textField;
 
     public MapMakerController(Stage primaryStage, Map gameMap) {
         initializeViews(primaryStage);
@@ -45,6 +47,7 @@ public class MapMakerController {
         attachScrollEventToScene();
         MouseClickEvents();
         cursorHandler();
+        buttonClickEvents();
         // after everything is setup, start the animation timer
         viewInitializer.startAnimationLoop();
     }
@@ -59,6 +62,9 @@ public class MapMakerController {
         this.scene = viewInitializer.getSceneReferense();
         this.mapMakerCanvas = viewInitializer.getMapMakerCanvas();
         this.tileSelectorCanvas = viewInitializer.getTileSelectorCanvas();
+        this.overlayConfirm = viewInitializer.getOverlayConfirmButtonReference();
+        this.overlayClose = viewInitializer.getOverlayCloseButtonRefernce();
+        this.textField = viewInitializer.getExportOverlayTextFieldRefernse();
     }
 
     private void initializeControlHandler(Map gameMap) {
@@ -74,6 +80,30 @@ public class MapMakerController {
     private void attachScrollEventToScene() {
         this.scene.setOnScroll(event -> {
             this.mapMakerView.changeZoom((int) event.getDeltaY());
+        });
+    }
+    private void buttonClickEvents(){
+
+        // export button when overlay is clicked
+        this.overlayConfirm.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                controlHandler.exportMap("map/" +textField.getText() + ".txt");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Export");
+                alert.setHeaderText("Export is successful");
+                alert.setContentText("File saved to : " + textField.getText() + ".txt");
+                alert.showAndWait();
+                viewInitializer.closeExportOverlay();
+            }
+        });
+
+        // close button to exit overlay
+        this.overlayClose.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                viewInitializer.closeExportOverlay();
+            }
         });
     }
 
@@ -143,12 +173,7 @@ public class MapMakerController {
                     }
                 }
                 else if(event.getX() > 120 && event.getX() < 190 && event.getY() > 20 && event.getY() < 50){
-                    controlHandler.exportMap("map/exportedMap.txt");
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Export");
-                    alert.setHeaderText("Export is successful");
-                    alert.setContentText("File saved to : exportedMap.txt");
-                    alert.showAndWait();
+                    viewInitializer.displayExportOverlay();
                 }
                 else if(event.getX() > 35 && event.getX() < 300 && event.getY() > 250 && event.getY() < 400 ){
                     controlHandler.tryPlaceTile();
