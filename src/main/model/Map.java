@@ -271,10 +271,12 @@ public class Map
 
     public boolean isValid()
     {
-        return !isEmptyMap()
-                && isContinuousMap()
-                && hasNoHangingRiver()
-                && allTilesAreValid();
+        boolean b = !isEmptyMap();
+        b = b && isContinuousMap();
+        b = b && hasNoHangingRiver();
+        b = b && allTilesAreValid();
+
+        return b;
     }
 
     private boolean isContinuousMap()
@@ -292,7 +294,7 @@ public class Map
         {
             Location newLoc = DirectionToLocation.getLocation(loc, dir);
 
-            if(locations.add(newLoc))
+            if(tiles.containsKey(newLoc) && locations.add(newLoc))
             {
                 getAllConnectedLocations(newLoc, locations);
             }
