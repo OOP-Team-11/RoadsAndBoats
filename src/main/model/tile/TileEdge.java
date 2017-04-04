@@ -25,7 +25,6 @@ public class TileEdge implements Cloneable{
 
     public void setHasRiver(boolean hasRiver) {
         this.hasRiver = hasRiver;
-        
         if(hasRiver)
         {
             this.canConnectRiver = true;

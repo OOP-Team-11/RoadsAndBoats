@@ -31,9 +31,10 @@ public class FileHandlingTest {
         File file = new File(directory.getAbsolutePath().replace(".","") + "/map/map2.txt");
 
         FileImporter fileImporter = new FileImporter();
+
         Map map = fileImporter.readFile(file);
         if(map!=null)
-        assertTrue(map.hasTiles());
+            assertTrue(map.hasTiles());
 
     }
     @Test

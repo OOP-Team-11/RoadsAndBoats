@@ -21,7 +21,6 @@ public class FileHandling {
         FileImporter fileImporter = new FileImporter();
         Map map = fileImporter.readFile(file);
         assertTrue(map.hasTiles());
-
     }
 
     //TODO: fix this test to verify file output

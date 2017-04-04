@@ -1,5 +1,6 @@
 package model.tile.riverConfiguration;
 
+import direction.Angle;
 import direction.TileEdgeDirection;
 
 import java.util.HashMap;
@@ -46,6 +47,12 @@ public class RiverConfiguration implements  Cloneable{
     public Object clone(){
         try{
             RiverConfiguration riverClone = (RiverConfiguration) super.clone();
+            Map<TileEdgeDirection, Boolean> riverMapClone = new HashMap<TileEdgeDirection,Boolean>();
+            for (Map.Entry<TileEdgeDirection, Boolean> entry : riverMap.entrySet())
+            {
+                TileEdgeDirection edgeClone = (TileEdgeDirection)(entry.getKey()).clone();
+                riverMapClone.put(edgeClone,entry.getValue());
+            }
             return riverClone;
         } catch(CloneNotSupportedException e){
             throw new InternalError(e.toString());
@@ -67,6 +74,25 @@ public class RiverConfiguration implements  Cloneable{
             this.rotationAmount = 1;
         }
     }
+    public void rotateRiverConfigurationOnce(){
+        Boolean north = riverMap.get(TileEdgeDirection.getNorth());
+        Boolean northEast =  riverMap.get(TileEdgeDirection.getNorthEast());
+        Boolean southEast = riverMap.get(TileEdgeDirection.getSouthEast());
+        Boolean south = riverMap.get(TileEdgeDirection.getSouth());
+        Boolean southWest = riverMap.get(TileEdgeDirection.getSouthWest());
+        Boolean northWest = riverMap.get(TileEdgeDirection.getNorthWest());
+
+        this.riverMap = null;
+        this.riverMap = new HashMap<TileEdgeDirection, Boolean>();
+        riverMap.put(TileEdgeDirection.getNorth(), northWest);
+        riverMap.put(TileEdgeDirection.getNorthEast(), north);
+        riverMap.put(TileEdgeDirection.getSouthEast(), northEast);
+        riverMap.put(TileEdgeDirection.getSouth(), southEast);
+        riverMap.put(TileEdgeDirection.getSouthWest(), south);
+        riverMap.put(TileEdgeDirection.getNorthWest(), southWest);
+    }
+
+
 
     public int getRotationAmount() {
         return this.rotationAmount;

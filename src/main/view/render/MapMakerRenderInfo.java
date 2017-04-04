@@ -6,16 +6,16 @@ import java.util.Collection;
 import java.util.Map;
 
 public class MapMakerRenderInfo {
-    private Map<Location, Tile> tileInformation;
+    private Map<Location, TileRenderInformation> tileInformation;
 
-    public MapMakerRenderInfo(Map<Location, Tile> tileInfo) {
+    public MapMakerRenderInfo(Map<Location, TileRenderInformation> tileInfo) {
         this.tileInformation = tileInfo;
     }
-
-    public Map<Location, Tile> getTileInformation() {
+    public Map<Location, TileRenderInformation> getTileInformation()
+    {
         return this.tileInformation;
     }
-    public void setTileInformation(Map<Location, Tile> tileInfo) {
+    public void setTileInformation(Map<Location, TileRenderInformation> tileInfo) {
         this.tileInformation = tileInfo;
     }
 }

@@ -19,6 +19,8 @@ public class TileEdgeDirection implements Cloneable{
 
 	}
 	public Object clone() throws CloneNotSupportedException{
+        Object clone = super.clone();
+        ((TileEdgeDirection)clone).angle = (Angle)this.angle.clone();
         return super.clone();
     }
 	

@@ -1,5 +1,5 @@
 package model;
-
+import controller.MapRenderTranslator;
 import direction.DirectionToLocation;
 import direction.TileEdgeDirection;
 
@@ -53,7 +53,11 @@ public class Map
 
         return true;
     }
-
+    public boolean placeTileWithoutCheck(Location tileLocation, Tile tile){
+        updateTileEdges(tileLocation, tile);
+        tiles.put(tileLocation, tile);
+        return true;
+    }
     /**
      * Checks if a tile may be placed at a location on the map
      *
@@ -266,15 +270,17 @@ public class Map
     }
 
     public MapMakerRenderInfo getRenderObject() {
-        return new MapMakerRenderInfo(getTiles());
+        return new MapMakerRenderInfo(MapRenderTranslator.getRenderInformationForMap(this));
     }
 
     public boolean isValid()
     {
-        return !isEmptyMap()
-                && isContinuousMap()
-                && hasNoHangingRiver()
-                && allTilesAreValid();
+        boolean b = !isEmptyMap();
+        b = b && isContinuousMap();
+        b = b && hasNoHangingRiver();
+        b = b && allTilesAreValid();
+
+        return b;
     }
 
     private boolean isContinuousMap()
@@ -292,7 +298,7 @@ public class Map
         {
             Location newLoc = DirectionToLocation.getLocation(loc, dir);
 
-            if(locations.add(newLoc))
+            if(tiles.containsKey(newLoc) && locations.add(newLoc))
             {
                 getAllConnectedLocations(newLoc, locations);
             }
@@ -351,4 +357,5 @@ public class Map
 
         return true;
     }
+
 }

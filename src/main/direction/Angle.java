@@ -2,7 +2,7 @@ package direction;
 
 import java.util.Objects;
 
-public class Angle {
+public class Angle implements Cloneable{
 
     private int degrees;
 
@@ -19,6 +19,9 @@ public class Angle {
         }
 
         return niceDegrees;
+    }
+    public Object clone()throws CloneNotSupportedException{
+        return super.clone();
     }
 
     public boolean equals(Angle otherAngle){

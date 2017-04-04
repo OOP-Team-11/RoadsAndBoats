@@ -1,29 +1,30 @@
 package view.render;
 
 import direction.TileEdgeDirection;
+import model.tile.Location;
 import model.tile.Terrain;
 import model.tile.Tile;
 
 public class TileSelectorRenderInfo {
-    private Tile topTile, middleTile, lowerTile;
+    private TileRenderInformation topTile;
+    private TileRenderInformation middleTile;
+    private TileRenderInformation lowerTile;
+    private Boolean validMap;
 
-    public TileSelectorRenderInfo(Tile prev, Tile cur, Tile next) {
-        topTile = (Tile) prev.makeClone();
-        middleTile = (Tile) cur.makeClone();
-        lowerTile = (Tile) next.makeClone();
 
+    public TileSelectorRenderInfo(TileRenderInformation topTile, TileRenderInformation middleTile, TileRenderInformation lowerTile, boolean validMap ) {
+        this.topTile = topTile;
+        this.middleTile = middleTile;
+        this.lowerTile = lowerTile;
+        this.validMap = validMap;
     }
 
-    public Terrain getTerrainTypeSelection() {
-        return middleTile.getTerrain();
-    }
-    public Tile getTopTile() {
-        return topTile;
-    }
-    public Tile getMiddleTile() {
+    public TileRenderInformation getTopTile() {return topTile; }
+    public TileRenderInformation getMiddleTile() {
         return middleTile;
     }
-    public Tile getLowerTile() {
+    public TileRenderInformation getLowerTile() {
         return lowerTile;
     }
+    public Boolean getMapValidation() {return validMap; }
 }

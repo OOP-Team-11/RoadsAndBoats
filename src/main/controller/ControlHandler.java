@@ -14,6 +14,7 @@ import model.FileImporter;
 import model.Map;
 import model.tile.*;
 
+import model.tile.riverConfiguration.RiverConfiguration;
 import model.tile.riverConfiguration.RiverConfigurationCycler;
 
 import utilities.Observer.CursorObserver.CursorObserver;
@@ -27,6 +28,7 @@ import view.MapMakerView;
 import view.TileSelectorView;
 import view.render.MapMakerCursorInfo;
 import view.render.MapMakerRenderInfo;
+import view.render.TileRenderInformation;
 import view.render.TileSelectorRenderInfo;
 
 
@@ -34,7 +36,6 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     private ArrayList<CursorObserver> cursorObservers;          //Hold CursorObservers who've registered for Cursor updates
     private ArrayList<TileSelectObserver> tileSelectObservers;  //Hold TileSelectObservers who've registered for TileSelect updates
     private ArrayList<MapMakerObserver> mapMakerObservers;
-    private MapMakerCursorInfo cursorInfo;
     private Map gameMap;
 
     private Tile previousProtoTile;
@@ -42,8 +43,12 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     private Tile nextProtoTile;
 
     private Location protoTileLocation;
+    private Location cursorLocation;
 
     private RiverConfigurationCycler riverConfigList;
+    private MouseInterpreter mouseInterpreter;
+    private int cameraX;
+    private int cameraY;
 
     // mapMakerView is given as an observer that the map will use to notify
     // tileSelectorView is given as an observer that ControlHandler will notify
@@ -60,6 +65,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
         try {
             protoTileLocation = new Location(0, 0, 0);    //Initialized to center spot initially.
+            cursorLocation = new Location(0,0,0);
         } catch (InvalidLocationException e) {
             throw new RuntimeException("Cannot initialize prototype tile location: " + e.getLocalizedMessage());
         }
@@ -69,16 +75,20 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         } catch(InvalidLocationException e) {
             System.out.println("Error : "+ e.getMessage());
         }
+        cameraX = 0;
+        cameraY = 0;
 
-        cursorInfo = new MapMakerCursorInfo(protoTileLocation, true);
+
+        mouseInterpreter = new MouseInterpreter(1000,800,114,128);
 
         Terrain initialTerrain = Terrain.PASTURE;                           //Initialized to "pasture" by default
         riverConfigList = new RiverConfigurationCycler(initialTerrain);
 
-        previousProtoTile = new Tile(initialTerrain, riverConfigList.getPrevious());
-        currentProtoTile = new Tile(initialTerrain,riverConfigList.getCurrent());
         nextProtoTile = new Tile(initialTerrain,riverConfigList.getNext());
-        nextRiverConfiguration();
+        currentProtoTile = new Tile(initialTerrain,riverConfigList.getCurrent());
+        previousProtoTile = new Tile(initialTerrain, riverConfigList.getPrevious());
+        notifyTileSelectObservers(makeTileSelectRenderInfo());
+        notifyCursorObservers(makeMapMakerCursorInfo());
     }
 
     /* Returns the "previous" prototype tile in terms of river configuration*/
@@ -97,54 +107,56 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         return this.nextProtoTile;
     }
 
-    private TileSelectorRenderInfo makeRenderInfo(){
+    private TileSelectorRenderInfo makeTileSelectRenderInfo(){
 
-        return new TileSelectorRenderInfo(getPreviousProtoTile(),getCurrentProtoTile(),getNextProtoTile());
+        TileRenderInformation previousTileRenderInfo = new TileRenderInformation(getPreviousProtoTile());
+        TileRenderInformation currentTileRenderInfo = new TileRenderInformation(getCurrentProtoTile());
+        TileRenderInformation nextTileRenderInfo = new TileRenderInformation(getNextProtoTile());
+        boolean temp = gameMap.isValid();
+        return new TileSelectorRenderInfo(previousTileRenderInfo, currentTileRenderInfo, nextTileRenderInfo, temp);
+    }
+
+    private MapMakerCursorInfo makeMapMakerCursorInfo(){
+
+        boolean isValid = gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
+        MapMakerCursorInfo cursorInfo = new MapMakerCursorInfo(protoTileLocation,isValid);
+        cursorInfo.setCameraX(cameraX);
+        cursorInfo.setCameraY(cameraY);
+        return cursorInfo;
     }
 
     public void nextRiverConfiguration(){
-        this.previousProtoTile = this.currentProtoTile;     //Set the previous prototype to the current one
-        this.currentProtoTile = this.nextProtoTile;         //Set the current prototype to the next one
-        boolean temp =  gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
-        cursorInfo.setCursorLocation(protoTileLocation);
-        cursorInfo.setIsCursorValid(temp);
-        notifyCursorObservers(cursorInfo);
-
         this.riverConfigList.next();                        //Iterate to the next riverConfig
 
-        //Set the nextProtoTile to a new Tile with the same terrain as the others and the new riverConfig
-        this.nextProtoTile = new Tile(this.currentProtoTile.getTerrain() , this.riverConfigList.getCurrent());
-        notifyTileSelectObservers(makeRenderInfo());
+        this.previousProtoTile = this.currentProtoTile;     //Set the previous prototype to the current one
+        this.currentProtoTile = this.nextProtoTile;         //Set the current prototype to the next one
+        this.nextProtoTile = new Tile(this.currentProtoTile.getTerrain() , this.riverConfigList.getNext());
+        notifyCursorObservers(makeMapMakerCursorInfo());
+        notifyTileSelectObservers(makeTileSelectRenderInfo());
     }
 
     public void previousRiverConfiguration(){
-        this.nextProtoTile = this.currentProtoTile;         //Set the next prototype to the current one
-        this.currentProtoTile = this.previousProtoTile;     //set the current prototype to the previous one
-        boolean temp =  gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
-        cursorInfo.setCursorLocation(protoTileLocation);
-        cursorInfo.setIsCursorValid(temp);
-        notifyCursorObservers(cursorInfo);
+        this.riverConfigList.previous();                        //Iterate to the next riverConfig
 
-        this.riverConfigList.previous();                    //Iterate to the previous riverConfig
-
-        //Set the nextProtoTile to a new Tile with the same terrain as the others and the new riverConfig
-        this.previousProtoTile = new Tile(this.currentProtoTile.getTerrain() , this.riverConfigList.getCurrent());
-        notifyTileSelectObservers(makeRenderInfo());
+        this.nextProtoTile = this.currentProtoTile;             //Set the next prototype to the current one
+        this.currentProtoTile = this.previousProtoTile;         //Set the current prototype to the previous one
+        this.previousProtoTile = new Tile(this.currentProtoTile.getTerrain() , this.riverConfigList.getPrevious());
+        notifyCursorObservers(makeMapMakerCursorInfo());
+        notifyTileSelectObservers(makeTileSelectRenderInfo());
     }
 
     public boolean tryPlaceTile(){
         boolean placed = placeTileOnMap();
-        gameMap.recenter();
-        notifyMapMakerObservers(this.gameMap.getRenderObject());
         if (placed) {
-            this.updateTerrain(this.currentProtoTile.getTerrain());
+            gameMap.recenter();
         }
+        notifyMapMakerObservers(this.gameMap.getRenderObject());
+        notifyTileSelectObservers(makeTileSelectRenderInfo());
         return placed;
     }
 
     private boolean placeTileOnMap() {
-
-        Tile tile = (Tile) currentProtoTile.makeClone();
+        Tile tile = new Tile(currentProtoTile.getTerrain(), (RiverConfiguration)currentProtoTile.getRiverConfiguration().clone());
         return this.gameMap.placeTile(protoTileLocation.clone(), tile);
     }
 
@@ -152,25 +164,31 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         clearMapTile();
         notifyMapMakerObservers(this.gameMap.getRenderObject());
     }
+    public void cursorClicked(double x, double y){
+        Location location = mouseInterpreter.interpretMouseClick(x,y);
+        cursorLocation = location;
+        protoTileLocation = location;
+        notifyCursorObservers(makeMapMakerCursorInfo());
+    }
 
     public void clearMapTile() {
         this.gameMap.removeTileAtLocation(getCursorLocation());
+        notifyTileSelectObservers(makeTileSelectRenderInfo());
+        notifyCursorObservers(makeMapMakerCursorInfo());
     }
 
     public void moveCursor(TileEdgeDirection dir){
-        Location newCursorLocation = DirectionToLocation.getLocation(cursorInfo.getCursorLocation(), dir);
+        Location newCursorLocation = DirectionToLocation.getLocation(cursorLocation, dir);
+        cursorLocation = newCursorLocation;
         protoTileLocation = newCursorLocation;
-        boolean isValidPlacement = gameMap.isValidPlacement(newCursorLocation, currentProtoTile);
-        cursorInfo.setCursorLocation(newCursorLocation);
-        cursorInfo.setIsCursorValid(isValidPlacement);
-        notifyCursorObservers(cursorInfo);
-        notifyMapMakerObservers(this.gameMap.getRenderObject());
+        notifyCursorObservers(makeMapMakerCursorInfo());
     }
 
     public void moveViewport(int x, int y) {
-        cursorInfo.setCameraX(cursorInfo.getCameraX() + x);
-        cursorInfo.setCameraY(cursorInfo.getCameraY() + y);
-        notifyCursorObservers(cursorInfo);
+        cameraX = cameraX + x;
+        cameraY = cameraY + y;
+        mouseInterpreter.updateCameraOffsetValues(cameraX, cameraY);
+        notifyCursorObservers(makeMapMakerCursorInfo());
     }
 
     public Location getCursorLocation(){
@@ -178,27 +196,17 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     }
 
     public void rotateTileClockwise() {
-        previousProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
         currentProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
-        nextProtoTile.rotate(new Angle(60));    //Single-side rotation clockwise
-        notifyTileSelectObservers(makeRenderInfo());
-        boolean temp =  gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
-        cursorInfo.setCursorLocation(protoTileLocation);
-        cursorInfo.setIsCursorValid(temp);
-        notifyCursorObservers(cursorInfo);
+        notifyTileSelectObservers(makeTileSelectRenderInfo());
+        notifyCursorObservers(makeMapMakerCursorInfo());
         notifyMapMakerObservers(this.gameMap.getRenderObject());
 
     }
 
     public void rotateTileCounterClockwise() {
-        previousProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
         currentProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
-        nextProtoTile.rotate(new Angle(300));   //300 degree clockwise rotation = 60 degree counterclockwise
-        notifyTileSelectObservers(makeRenderInfo());
-        boolean temp =  gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
-        cursorInfo.setCursorLocation(protoTileLocation);
-        cursorInfo.setIsCursorValid(temp);
-        notifyCursorObservers(cursorInfo);
+        notifyTileSelectObservers(makeTileSelectRenderInfo());
+        notifyCursorObservers(makeMapMakerCursorInfo());
         notifyMapMakerObservers(this.gameMap.getRenderObject());
     }
     public void setSeaTerrain(){
@@ -224,32 +232,26 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         updateRiverConfigList(newTerrain);  //Updates the iterator of possible river configurations to those possible for the new Terrain
         previousProtoTile = new Tile(newTerrain,riverConfigList.getPrevious());
         currentProtoTile = new Tile(newTerrain,riverConfigList.getCurrent());
-        boolean temp =  gameMap.isValidPlacement(protoTileLocation,currentProtoTile);
-        cursorInfo.setCursorLocation(protoTileLocation);
-        cursorInfo.setIsCursorValid(temp);
-        notifyCursorObservers(cursorInfo);
+        notifyCursorObservers(makeMapMakerCursorInfo());
         nextProtoTile = new Tile(newTerrain,riverConfigList.getNext());
-        notifyTileSelectObservers(makeRenderInfo());
+        notifyTileSelectObservers(makeTileSelectRenderInfo());
     }
 
     public void importMap(File file) throws IOException {
         FileImporter fileImporter = new FileImporter();
         this.gameMap = fileImporter.readFile(file);
-        MapMakerRenderInfo mapMakerRenderInfo = new MapMakerRenderInfo(this.gameMap.getTiles());
-        this.notifyMapMakerObservers(mapMakerRenderInfo);
+        this.notifyMapMakerObservers(this.gameMap.getRenderObject());
     }
 
     public void exportMap(String filename) {
         FileExporter fileExporter = new FileExporter();
         fileExporter.writeToFile(this.gameMap,filename);
-
     }
 
     /* Update the iterator of RiverConfigurations */
     private void updateRiverConfigList(Terrain newTerrain){
         this.riverConfigList.updateTerrain(newTerrain);
     }
-
 
     @Override
     public void registerCursorObserver(CursorObserver o) {

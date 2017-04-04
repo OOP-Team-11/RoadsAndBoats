@@ -1,7 +1,5 @@
 package direction;
 
-import direction.Angle;
-
 /**
  * Pre-defined set of Angles that relate to directions on a compass.
  */
