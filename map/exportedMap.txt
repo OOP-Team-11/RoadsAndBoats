@@ -1,1 +1,9 @@
-( 0 0 0 ) ROCK  ( 1  ) 
+( 1 -1 0 ) PASTURE  ( 1  ) 
+( 0 -1 1 ) WOODS  ( 1 3 5  ) 
+( -1 0 1 ) SEA 
+( -2 1 1 ) ROCK  ( 6  ) 
+( -2 2 0 ) MOUNTAIN  ( 1 3  ) 
+( -1 1 0 ) MOUNTAIN  ( 3 6  ) 
+( -2 0 2 ) WOODS  ( 6  ) 
+( -1 -1 2 ) DESERT  ( 2 4  ) 
+( -2 -1 3 ) DESERT 

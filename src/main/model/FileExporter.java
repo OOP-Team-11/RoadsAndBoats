@@ -46,19 +46,19 @@ public class FileExporter {
         if(tile.getTileEdge(TileEdgeDirection.getNorth()).hasRiver()) {
             riverString.append("1 ");
         }
-        else if(tile.getTileEdge(TileEdgeDirection.getNorthEast()).hasRiver()){
+        if(tile.getTileEdge(TileEdgeDirection.getNorthEast()).hasRiver()){
              riverString.append("2 ");
         }
-        else if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).hasRiver()){
+        if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).hasRiver()){
             riverString.append("3 ");
         }
-        else if(tile.getTileEdge(TileEdgeDirection.getSouth()).hasRiver()){
+        if(tile.getTileEdge(TileEdgeDirection.getSouth()).hasRiver()){
             riverString.append("4 ");
         }
-        else if(tile.getTileEdge(TileEdgeDirection.getSouthWest()).hasRiver()){
+        if(tile.getTileEdge(TileEdgeDirection.getSouthWest()).hasRiver()){
             riverString.append("5 ");
         }
-        else if(tile.getTileEdge(TileEdgeDirection.getNorthWest()).hasRiver()){
+        if(tile.getTileEdge(TileEdgeDirection.getNorthWest()).hasRiver()){
             riverString.append("6 ");
         }
 
