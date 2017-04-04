@@ -44,19 +44,20 @@ public class FileExporter {
         if(tile.getRiverConfiguration().canConnectNorth()) {
             riverString.append("1 ");
         }
-        if(tile.getRiverConfiguration().canConnectNortheast()){
+
+        if(tile.getTileEdge(TileEdgeDirection.getNorthEast()).hasRiver()){
              riverString.append("2 ");
         }
-        if(tile.getRiverConfiguration().canConnectSoutheast()){
+        if(tile.getTileEdge(TileEdgeDirection.getSouthEast()).hasRiver()){
             riverString.append("3 ");
         }
-        if(tile.getRiverConfiguration().canConnectSouth()){
+        if(tile.getTileEdge(TileEdgeDirection.getSouth()).hasRiver()){
             riverString.append("4 ");
         }
-        if(tile.getRiverConfiguration().canConnectSouthwest()){
+        if(tile.getTileEdge(TileEdgeDirection.getSouthWest()).hasRiver()){
             riverString.append("5 ");
         }
-        if(tile.getRiverConfiguration().canConnectNorthwest()){
+        if(tile.getTileEdge(TileEdgeDirection.getNorthWest()).hasRiver()){
             riverString.append("6 ");
         }
 
