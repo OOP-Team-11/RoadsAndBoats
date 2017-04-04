@@ -53,7 +53,11 @@ public class Map
 
         return true;
     }
-
+    public boolean placeTileWithoutCheck(Location tileLocation, Tile tile){
+        updateTileEdges(tileLocation, tile);
+        tiles.put(tileLocation, tile);
+        return true;
+    }
     /**
      * Checks if a tile may be placed at a location on the map
      *
@@ -353,4 +357,5 @@ public class Map
 
         return true;
     }
+
 }

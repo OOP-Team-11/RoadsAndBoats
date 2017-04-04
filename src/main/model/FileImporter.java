@@ -26,10 +26,10 @@ public class FileImporter {
                 String line = scanner.nextLine();
                 if(isValidLine(line)) {
                     if (hasRiver(line)) {
-                        map.placeTile(parseTile(line), new Tile(parseTerrain(line),parseRiver(line)));
+                        map.placeTileWithoutCheck(parseTile(line), new Tile(parseTerrain(line),parseRiver(line)));
                     }
                     else {
-                        map.placeTile(parseTile(line), new Tile(parseTerrain(line), RiverConfiguration.getNoRivers()));
+                        map.placeTileWithoutCheck(parseTile(line), new Tile(parseTerrain(line), RiverConfiguration.getNoRivers()));
                     }
                 }
                 else {
