@@ -179,6 +179,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
 
     public void moveCursor(TileEdgeDirection dir){
         Location newCursorLocation = DirectionToLocation.getLocation(cursorLocation, dir);
+        cursorLocation = newCursorLocation;
         protoTileLocation = newCursorLocation;
         notifyCursorObservers(makeMapMakerCursorInfo());
     }
