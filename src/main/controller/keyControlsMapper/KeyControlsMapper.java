@@ -16,18 +16,13 @@ public abstract class KeyControlsMapper {
     }
 
     public void attachToScene(Scene s ) {
-        s.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (controls.containsKey(event.getCode()))
-                {
-                    executeControl(controls.get(event.getCode()));
-                }
+        s.setOnKeyPressed(event ->{
+            if (controls.containsKey(event.getCode()))
+            {
+                executeControl(controls.get(event.getCode()));
             }
         });
-
     }
-
 
     protected void addControl(KeyCode keyCode, Runnable controlHandler) {
         controls.put(keyCode, controlHandler);
