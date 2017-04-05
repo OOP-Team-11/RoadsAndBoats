@@ -152,6 +152,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         }
         notifyMapMakerObservers(this.gameMap.getRenderObject());
         notifyTileSelectObservers(makeTileSelectRenderInfo());
+        resetCamera();
         return placed;
     }
 
@@ -171,6 +172,10 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         notifyCursorObservers(makeMapMakerCursorInfo());
     }
 
+    public void updateMouseClickInterpreter(int canvasX, int canvasY){
+        mouseInterpreter.updateCanvasDimensions(canvasX, canvasY);
+    }
+
     public void clearMapTile() {
         this.gameMap.removeTileAtLocation(getCursorLocation());
         notifyTileSelectObservers(makeTileSelectRenderInfo());
@@ -187,6 +192,10 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     public void moveViewport(int x, int y) {
         cameraX = cameraX + x;
         cameraY = cameraY + y;
+        mouseInterpreter.updateCameraOffsetValues(cameraX, cameraY);
+        notifyCursorObservers(makeMapMakerCursorInfo());
+    }
+    public void resetCamera(){
         mouseInterpreter.updateCameraOffsetValues(cameraX, cameraY);
         notifyCursorObservers(makeMapMakerCursorInfo());
     }

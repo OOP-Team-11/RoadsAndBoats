@@ -41,6 +41,7 @@ public class MapMakerController {
     private Button overlayClose;
     private TextField textField;
     private Slider zoomSlider;
+    private boolean normalSizeCanvas = true;
 
     public MapMakerController(Stage primaryStage, Map gameMap) {
         initializeViews(primaryStage);
@@ -82,8 +83,40 @@ public class MapMakerController {
     }
 
     private void zoomHandler(){
-        this.zoomSlider.setOnMouseDragged(event -> {
-            this.mapMakerView.changeZoom((int)zoomSlider.getValue());
+        this.zoomSlider.setOnMouseReleased(event -> {
+
+            if(zoomSlider.getValue() < 1){
+                viewInitializer.enlargeCanvas();
+                this.mapMakerView.changeZoom((int)zoomSlider.getValue());
+                normalSizeCanvas = false;
+                this.controlHandler.updateMouseClickInterpreter(2000,1600);
+                this.controlHandler.resetCamera();
+            } else {
+                if(!normalSizeCanvas){
+                    viewInitializer.setCanvasToNormalSize();
+                    normalSizeCanvas = true;
+                    this.controlHandler.updateMouseClickInterpreter(1000,800);
+                    this.controlHandler.resetCamera();
+                }
+                this.mapMakerView.changeZoom((int)zoomSlider.getValue());
+            }
+        });
+        this.zoomSlider.setOnMouseClicked(event ->{
+            if(zoomSlider.getValue() < 1){
+                viewInitializer.enlargeCanvas();
+                this.mapMakerView.changeZoom((int)zoomSlider.getValue());
+                normalSizeCanvas = false;
+                this.controlHandler.updateMouseClickInterpreter(2000,1600);
+                this.controlHandler.resetCamera();
+            } else {
+                if(!normalSizeCanvas){
+                    viewInitializer.setCanvasToNormalSize();
+                    normalSizeCanvas = true;
+                    this.controlHandler.updateMouseClickInterpreter(1000,800);
+                    this.controlHandler.resetCamera();
+                }
+                this.mapMakerView.changeZoom((int)zoomSlider.getValue());
+            }
         });
     }
 
