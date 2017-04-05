@@ -4,9 +4,6 @@ import view.MapMakerView;
 import view.TileSelectorView;
 import javafx.animation.AnimationTimer;
 
-/**
- * Created by Konrad on 3/26/2017.
- */
 public class GameLoop {
 
     private MapMakerView mapMakerView;

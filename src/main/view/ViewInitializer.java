@@ -8,12 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.awt.*;
 
 public class ViewInitializer {
 
@@ -61,14 +57,15 @@ public class ViewInitializer {
         this.anchorPane.getChildren().add(mapMakerCanvas);
         this.anchorPane.setTopAnchor(mapMakerCanvas,0.0);
         this.anchorPane.setLeftAnchor(mapMakerCanvas,0.0);
-        this.anchorPane.getChildren().add(tileSelectorCanvas);
-        this.anchorPane.setTopAnchor(tileSelectorCanvas,0.0);
-        this.anchorPane.setLeftAnchor(tileSelectorCanvas,1000.0);
         this.anchorPane.getChildren().add(zoomSlider);
         this.anchorPane.setTopAnchor(zoomSlider,550.0);
         this.anchorPane.setLeftAnchor(zoomSlider,50.0);
+        this.anchorPane.getChildren().add(tileSelectorCanvas);
+        this.anchorPane.setTopAnchor(tileSelectorCanvas,0.0);
+        this.anchorPane.setLeftAnchor(tileSelectorCanvas,1000.0);
         this.stackPane.getChildren().add(anchorPane);
         this.scene = new Scene(stackPane,1400 , 800);
+        this.scene.getRoot().getChildrenUnmodifiable().get(0).requestFocus();
         this.exportView.initialize();
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
@@ -94,12 +91,12 @@ public class ViewInitializer {
         this.anchorPane.getChildren().add(mapMakerCanvas);
         this.anchorPane.setTopAnchor(mapMakerCanvas,0.0);
         this.anchorPane.setLeftAnchor(mapMakerCanvas,0.0);
-        this.anchorPane.getChildren().add(tileSelectorCanvas);
-        this.anchorPane.setTopAnchor(tileSelectorCanvas,0.0);
-        this.anchorPane.setLeftAnchor(tileSelectorCanvas,1000.0);
         this.anchorPane.getChildren().add(zoomSlider);
         this.anchorPane.setTopAnchor(zoomSlider,550.0);
         this.anchorPane.setLeftAnchor(zoomSlider,50.0);
+        this.anchorPane.getChildren().add(tileSelectorCanvas);
+        this.anchorPane.setTopAnchor(tileSelectorCanvas,0.0);
+        this.anchorPane.setLeftAnchor(tileSelectorCanvas,1000.0);
     }
 
     public void displayExportOverlay(){

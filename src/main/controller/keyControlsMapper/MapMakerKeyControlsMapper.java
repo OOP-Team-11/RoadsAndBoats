@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 public class MapMakerKeyControlsMapper extends KeyControlsMapper {
 
     private ControlHandler controlHandler;
+
     public MapMakerKeyControlsMapper(ControlHandler controlHandler) {
         this.controlHandler = controlHandler;
         this.initializeControls();
