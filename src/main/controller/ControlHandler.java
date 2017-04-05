@@ -209,7 +209,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         notifyTileSelectObservers(makeTileSelectRenderInfo());
         notifyCursorObservers(makeMapMakerCursorInfo());
         notifyMapMakerObservers(this.gameMap.getRenderObject());
-
+        resetCamera();
     }
 
     public void rotateTileCounterClockwise() {
@@ -217,6 +217,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         notifyTileSelectObservers(makeTileSelectRenderInfo());
         notifyCursorObservers(makeMapMakerCursorInfo());
         notifyMapMakerObservers(this.gameMap.getRenderObject());
+        resetCamera();
     }
     public void setSeaTerrain(){
         updateTerrain(Terrain.SEA);
