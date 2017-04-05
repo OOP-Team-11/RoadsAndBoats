@@ -1,14 +1,19 @@
 package view;
 
 import controller.GameLoop;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.awt.*;
 
 public class ViewInitializer {
 
@@ -27,6 +32,7 @@ public class ViewInitializer {
     private Button overLayConfirm;
     private Button exportClose;
     private TextField textField;
+    private Slider zoomSlider;
 
     public ViewInitializer(Stage primaryStage){
         this.primaryStage = primaryStage;
@@ -46,18 +52,56 @@ public class ViewInitializer {
         this.mapMakerView = new MapMakerView(mapMakerCanvas);
         this.tileSelectorView = new TileSelectorView(tileSelectorCanvas);
         this.primaryStage.setTitle("Roads and Boats ");
+        this.zoomSlider = new Slider(0,7,1);
+        this.zoomSlider.setStyle("-fx-pref-height:200; -fx-control-inner-background: teal;");
+        this.zoomSlider.setMajorTickUnit(100);
+        this.zoomSlider.setShowTickLabels(false);
+        this.zoomSlider.setShowTickMarks(false);
+        this.zoomSlider.setOrientation(Orientation.VERTICAL);
         this.anchorPane.getChildren().add(mapMakerCanvas);
         this.anchorPane.setTopAnchor(mapMakerCanvas,0.0);
         this.anchorPane.setLeftAnchor(mapMakerCanvas,0.0);
         this.anchorPane.getChildren().add(tileSelectorCanvas);
         this.anchorPane.setTopAnchor(tileSelectorCanvas,0.0);
         this.anchorPane.setLeftAnchor(tileSelectorCanvas,1000.0);
+        this.anchorPane.getChildren().add(zoomSlider);
+        this.anchorPane.setTopAnchor(zoomSlider,550.0);
+        this.anchorPane.setLeftAnchor(zoomSlider,50.0);
         this.stackPane.getChildren().add(anchorPane);
         this.scene = new Scene(stackPane,1400 , 800);
         this.exportView.initialize();
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
+    public void enlargeCanvas(){
+        this.mapMakerCanvas.setHeight(1600.0);
+        this.mapMakerCanvas.setWidth(2000.0);
+        this.anchorPane.getChildren().removeAll(mapMakerCanvas,zoomSlider,tileSelectorCanvas);
+        this.anchorPane.getChildren().add(mapMakerCanvas);
+        this.anchorPane.setTopAnchor(mapMakerCanvas, 0.0);
+        this.anchorPane.setLeftAnchor(mapMakerCanvas, -360.0);
+        this.anchorPane.getChildren().add(zoomSlider);
+        this.anchorPane.setTopAnchor(zoomSlider,950.0);
+        this.anchorPane.setLeftAnchor(zoomSlider,170.0);
+        this.anchorPane.getChildren().add(tileSelectorCanvas);
+        this.anchorPane.setLeftAnchor(tileSelectorCanvas,1120.0);
+        this.anchorPane.setTopAnchor(tileSelectorCanvas, 400.0);
+    }
+    public void setCanvasToNormalSize(){
+        this.mapMakerCanvas.setHeight(800.0);
+        this.mapMakerCanvas.setWidth(1000.0);
+        this.anchorPane.getChildren().removeAll(mapMakerCanvas,zoomSlider,tileSelectorCanvas);
+        this.anchorPane.getChildren().add(mapMakerCanvas);
+        this.anchorPane.setTopAnchor(mapMakerCanvas,0.0);
+        this.anchorPane.setLeftAnchor(mapMakerCanvas,0.0);
+        this.anchorPane.getChildren().add(tileSelectorCanvas);
+        this.anchorPane.setTopAnchor(tileSelectorCanvas,0.0);
+        this.anchorPane.setLeftAnchor(tileSelectorCanvas,1000.0);
+        this.anchorPane.getChildren().add(zoomSlider);
+        this.anchorPane.setTopAnchor(zoomSlider,550.0);
+        this.anchorPane.setLeftAnchor(zoomSlider,50.0);
+    }
+
     public void displayExportOverlay(){
         this.stackPane.getChildren().add(anchorPane2);
         this.exportView.displayCurrentFiles();
@@ -78,6 +122,7 @@ public class ViewInitializer {
     public TextField getExportOverlayTextFieldRefernse() { return this.textField; }
     public Button getOverlayCloseButtonRefernce() { return this.exportClose; }
     public Button getOverlayConfirmButtonReference() { return this.overLayConfirm; }
+    public Slider getZoomScrollBarReference() { return this.zoomSlider; }
     public Scene getSceneReferense(){
         return this.scene;
     }

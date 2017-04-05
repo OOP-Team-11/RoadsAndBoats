@@ -152,6 +152,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         }
         notifyMapMakerObservers(this.gameMap.getRenderObject());
         notifyTileSelectObservers(makeTileSelectRenderInfo());
+        resetCamera();
         return placed;
     }
 
@@ -169,6 +170,10 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         cursorLocation = location;
         protoTileLocation = location;
         notifyCursorObservers(makeMapMakerCursorInfo());
+    }
+
+    public void updateMouseClickInterpreter(int canvasX, int canvasY){
+        mouseInterpreter.updateCanvasDimensions(canvasX, canvasY);
     }
 
     public void clearMapTile() {
@@ -190,6 +195,10 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         mouseInterpreter.updateCameraOffsetValues(cameraX, cameraY);
         notifyCursorObservers(makeMapMakerCursorInfo());
     }
+    public void resetCamera(){
+        mouseInterpreter.updateCameraOffsetValues(cameraX, cameraY);
+        notifyCursorObservers(makeMapMakerCursorInfo());
+    }
 
     public Location getCursorLocation(){
         return protoTileLocation;
@@ -200,7 +209,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         notifyTileSelectObservers(makeTileSelectRenderInfo());
         notifyCursorObservers(makeMapMakerCursorInfo());
         notifyMapMakerObservers(this.gameMap.getRenderObject());
-
+        resetCamera();
     }
 
     public void rotateTileCounterClockwise() {
@@ -208,6 +217,7 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
         notifyTileSelectObservers(makeTileSelectRenderInfo());
         notifyCursorObservers(makeMapMakerCursorInfo());
         notifyMapMakerObservers(this.gameMap.getRenderObject());
+        resetCamera();
     }
     public void setSeaTerrain(){
         updateTerrain(Terrain.SEA);
