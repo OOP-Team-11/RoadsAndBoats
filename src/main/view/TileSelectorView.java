@@ -1,7 +1,5 @@
 package view;
 
-import direction.TileCompartmentDirection;
-import direction.TileEdgeDirection;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -9,9 +7,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import model.tile.Terrain;
-import model.tile.Tile;
-import model.tile.riverConfiguration.RiverConfiguration;
-
 import view.render.TileRenderInformation;
 import view.render.TileSelectorRenderInfo;
 import view.utilities.Assets;
@@ -72,7 +67,6 @@ public class TileSelectorView implements TileSelectObserver{
             drawLower(this.bottom, currentRenderInfo.getLowerTile().getTerrain());
             resetDataFlag();
         }
-
     }
     private void resetDataFlag(){
         newDataFlag = false;

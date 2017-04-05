@@ -1,11 +1,5 @@
 package view;
-
-import direction.TileCompartmentDirection;
-import direction.TileEdgeDirection;
 import model.tile.Location;
-import model.tile.Terrain;
-import model.tile.Tile;
-import model.tile.riverConfiguration.RiverConfiguration;
 import utilities.Observer.CursorObserver.CursorObserver;
 
 import javafx.scene.canvas.Canvas;
@@ -28,7 +22,6 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
     private GraphicsContext gc;
     private int cameraX;
     private int cameraY;
-    private int cameraZoom;
     private Assets assets;
     private MapMakerCursorInfo cursorInformation;
     private MapMakerRenderInfo renderInformation;
@@ -134,18 +127,17 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         if(renderInformation == null){
             // no information yet
         } else {
-            // first time around we just render the terrain
+
             for (Map.Entry<Location, TileRenderInformation> entry : renderInformation.getTileInformation().entrySet())
             {
+                // first time around we just render the terrain
                 Image image = RenderToImageConverter.getTerrainImage(entry.getValue(), assets);
                 drawImage(image, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
-            }
-            // second time around we draw the rivers
-            for (Map.Entry<Location, TileRenderInformation> entry : renderInformation.getTileInformation().entrySet())
-            {
-                Image image = RenderToImageConverter.getRiverImage(entry.getValue(), assets);
-                if(image != null){
-                    drawImage(image, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
+
+                // second time around we draw the rivers
+                Image riverImage = RenderToImageConverter.getRiverImage(entry.getValue(), assets);
+                if(riverImage != null && image != assets.SEA){
+                    drawImage(riverImage, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
                 }
             }
         }

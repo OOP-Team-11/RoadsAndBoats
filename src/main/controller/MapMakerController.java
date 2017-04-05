@@ -1,32 +1,21 @@
 package controller;
 
 import controller.keyControlsMapper.MapMakerKeyControlsMapper;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
-import model.FileImporter;
 import model.Map;
-import model.tile.InvalidLocationException;
-import model.tile.Location;
 import view.MapMakerView;
 import view.TileSelectorView;
 import javafx.stage.Stage;
 import view.ViewInitializer;
-
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 
 public class MapMakerController {
 
@@ -83,6 +72,7 @@ public class MapMakerController {
     }
 
     private void zoomHandler(){
+
         this.zoomSlider.setOnMouseReleased(event -> {
 
             if(zoomSlider.getValue() < 1){
@@ -100,6 +90,7 @@ public class MapMakerController {
                 }
                 this.mapMakerView.changeZoom((int)zoomSlider.getValue());
             }
+            this.scene.getRoot().getChildrenUnmodifiable().get(0).requestFocus();
         });
         this.zoomSlider.setOnMouseClicked(event ->{
             if(zoomSlider.getValue() < 1){
@@ -117,6 +108,7 @@ public class MapMakerController {
                 }
                 this.mapMakerView.changeZoom((int)zoomSlider.getValue());
             }
+            this.scene.getRoot().getChildrenUnmodifiable().get(0).requestFocus();
         });
     }
 
