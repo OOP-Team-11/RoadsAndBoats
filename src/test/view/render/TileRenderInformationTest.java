@@ -1,10 +1,9 @@
-package view.render;
+package mapMaker.view.render;
 
-import direction.Angle;
-import model.tile.Terrain;
-import model.tile.Tile;
-import model.tile.riverConfiguration.RiverConfiguration;
-import org.junit.Before;
+import mapMaker.direction.Angle;
+import mapMaker.model.tile.Terrain;
+import mapMaker.model.tile.Tile;
+import mapMaker.model.tile.riverConfiguration.RiverConfiguration;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

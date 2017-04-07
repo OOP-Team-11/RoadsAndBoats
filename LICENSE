@@ -105,7 +105,7 @@ to the extent that it includes a convenient and prominently visible
 feature that (1) displays an appropriate copyright notice, and (2)
 tells the user that there is no warranty for the work (except to the
 extent that warranties are provided), that licensees may convey the
-work under this License, and how to view a copy of this License.  If
+work under this License, and how to mapMaker.view a copy of this License.  If
 the interface presents a list of user commands or options, such as a
 menu, a prominent item in the list meets this criterion.
 
@@ -168,7 +168,7 @@ of having them make modifications exclusively for you, or provide you
 with facilities for running those works, provided that you comply with
 the terms of this License in conveying all material for which you do
 not control copyright.  Those thus making or running the covered works
-for you must do so exclusively on your behalf, under your direction
+for you must do so exclusively on your behalf, under your mapMaker.direction
 and control, on terms that prohibit them from making any copies of
 your copyrighted material outside their relationship with you.
 
@@ -258,7 +258,7 @@ in one of these ways:
     (including a physical distribution medium), accompanied by a
     written offer, valid for at least three years and valid for as
     long as you offer spare parts or customer support for that product
-    model, to give anyone who possesses the object code either (1) a
+    mapMaker.model, to give anyone who possesses the object code either (1) a
     copy of the Corresponding Source for all the software in the
     product that is covered by this License, on a durable physical
     medium customarily used for software interchange, for a price no

@@ -1,14 +1,13 @@
 package filehandling;
 
-import model.FileExporter;
-import model.FileImporter;
-import model.Map;
-import model.tile.InvalidLocationException;
-import model.tile.Location;
-import model.tile.Terrain;
-import model.tile.Tile;
-import model.tile.riverConfiguration.RiverConfiguration;
-import org.junit.Assert;
+import mapMaker.model.FileExporter;
+import mapMaker.model.FileImporter;
+import mapMaker.model.Map;
+import mapMaker.model.tile.InvalidLocationException;
+import mapMaker.model.tile.Location;
+import mapMaker.model.tile.Terrain;
+import mapMaker.model.tile.Tile;
+import mapMaker.model.tile.riverConfiguration.RiverConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 

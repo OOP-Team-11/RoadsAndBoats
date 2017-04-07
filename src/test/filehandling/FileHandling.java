@@ -1,8 +1,8 @@
 package filehandling;
 
-import model.FileExporter;
-import model.FileImporter;
-import model.Map;
+import mapMaker.model.FileExporter;
+import mapMaker.model.FileImporter;
+import mapMaker.model.Map;
 import org.junit.Test;
 
 import java.io.File;
