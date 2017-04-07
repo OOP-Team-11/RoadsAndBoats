@@ -1,14 +1,14 @@
 package View;
 
-import direction.Angle;
+import mapMaker.direction.Angle;
 import javafx.scene.image.Image;
-import model.tile.Terrain;
-import model.tile.Tile;
-import model.tile.riverConfiguration.RiverConfiguration;
+import mapMaker.model.tile.Terrain;
+import mapMaker.model.tile.Tile;
+import mapMaker.model.tile.riverConfiguration.RiverConfiguration;
 import org.junit.Test;
-import view.render.RenderToImageConverter;
-import view.render.TileRenderInformation;
-import view.utilities.Assets;
+import mapMaker.view.render.RenderToImageConverter;
+import mapMaker.view.render.TileRenderInformation;
+import mapMaker.view.utilities.Assets;
 
 
 import static junit.framework.TestCase.assertEquals;
