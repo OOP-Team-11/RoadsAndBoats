@@ -1,5 +1,6 @@
 package mapMaker.controller.keyControlsMapper;
 
+import javafx.scene.layout.StackPane;
 import mapMaker.controller.ControlHandler;
 import mapMaker.direction.TileEdgeDirection;
 import javafx.event.Event;
@@ -24,13 +25,13 @@ public class MapMakerKeyControlsMapperTest extends ApplicationTest {
     @Override
     public void start(Stage stage) {
         this.stage = stage;
-        ViewInitializer viewInitializer = new ViewInitializer(stage.getScene());
+        Scene testScene = new Scene(new StackPane(), 300,200);
+        ViewInitializer viewInitializer = new ViewInitializer(testScene);
         viewInitializer.startAnimationLoop();
         this.scene = viewInitializer.getSceneReferense();
         this.mockedControlHandler = mock(ControlHandler.class);
         this.mapMakerKeyControlsMapper = new MapMakerKeyControlsMapper(this.mockedControlHandler);
         this.mapMakerKeyControlsMapper.attachToScene(this.scene);
-        this.stage.setScene(this.scene);
         this.stage.show();
     }
 
