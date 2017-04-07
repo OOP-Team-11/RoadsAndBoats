@@ -77,10 +77,6 @@ public class MapMakerController {
     private void zoomHandler(){
 
         this.zoomSlider.setOnMouseReleased(event -> {
-
-            this.viewInitializer.stopAnimationTimer();
-            this.welcomeViewController.returnToWelcomeView();
-
             if(zoomSlider.getValue() < 1){
                 viewInitializer.enlargeCanvas();
                 this.mapMakerView.changeZoom((int)zoomSlider.getValue());
@@ -177,6 +173,8 @@ public class MapMakerController {
                         scene.setCursor(Cursor.HAND); // bottom 3 arrows
                     } else if (event.getX() > 1145 && event.getX() < 1180 && event.getY() > 620 && event.getY() < 650 ){
                         scene.setCursor(Cursor.HAND); // top arrow
+                    } else if(event.getX() > 1180 && event.getX() < 1255 && event.getY() > 20 && event.getY() < 50){
+                        scene.setCursor(Cursor.HAND); // Return Button
                     }
                     else {
                         scene.setCursor(Cursor.DEFAULT);
@@ -239,6 +237,9 @@ public class MapMakerController {
                     controlHandler.nextRiverConfiguration();
                 } else if (event.getX() > 210 && event.getX() < 240 && event.getY() > 650 && event.getY() < 690   ){
                     controlHandler.rotateTileClockwise();
+                } else if (event.getX() > 200 && event.getX() < 270 && event.getY() > 20 && event.getY() < 50){
+                    viewInitializer.stopAnimationTimer(); // Return Button
+                    welcomeViewController.returnToWelcomeView();
                 }
             }
         });

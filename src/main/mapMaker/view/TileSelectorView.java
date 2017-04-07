@@ -57,6 +57,7 @@ public class TileSelectorView implements TileSelectObserver{
             drawTileSelectBox();
             drawTerrainSelectRectangle();
             drawImportExportButtons();
+            drawReturnButton();
             drawUpper(this.topTerrain);
             drawMiddle(this.middleTerrain);
             drawLower(this.bottomTerain);
@@ -105,24 +106,35 @@ public class TileSelectorView implements TileSelectObserver{
     }
     private void drawImportExportButtons(){
         this.gc.setLineWidth(3);
+        this.gc.setFill(Color.AQUAMARINE);
+        this.gc.fillRoundRect(35,20,70,30,20,20);
         this.gc.strokeRoundRect(35,20,70,30,20,20);
         this.gc.strokeText("Import", 40,40);
+        this.gc.fillRoundRect(120,20,70,30,20,20);
         this.gc.strokeRoundRect(120,20,70,30,20,20);
         this.gc.strokeText("Export", 125,40);
     }
 
+    private void drawReturnButton(){
+        this.gc.setLineWidth(3);
+        this.gc.setFill(Color.AQUAMARINE);
+        this.gc.fillRoundRect(200,20,70,30,20,20);
+        this.gc.strokeRoundRect(200,20,70,30,20,20);
+        this.gc.strokeText("Return",205,40);
+    }
+
     private void drawMapStatusIndicator(){
-        this.gc.strokeRoundRect(250,20,100,30,20,20);
+        this.gc.strokeRoundRect(280,20,75,30,20,20);
 
         if(mapStatus){
             this.gc.setFill(Color.GREEN);
-            this.gc.fillRoundRect(250,20,100,30,20,20);
-            this.gc.strokeText("Valid", 270,40);
+            this.gc.fillRoundRect(280,20,75,30,20,20);
+            this.gc.strokeText("Valid", 285,40);
         }
         else {
             this.gc.setFill(Color.RED);
-            this.gc.fillRoundRect(250,20,100,30,20,20);
-            this.gc.strokeText("Invalid", 270,40);
+            this.gc.fillRoundRect(280,20,75,30,20,20);
+            this.gc.strokeText("Invalid", 285,40);
         }
     }
 
@@ -131,7 +143,6 @@ public class TileSelectorView implements TileSelectObserver{
         gc.drawImage(arrowKeys, 135, 610, 100, 100);
     }
     private void drawMiddleRectangle(){
-
         //this.gc.strokeRoundRect(35,210,300,200,20,20);
     }
 
