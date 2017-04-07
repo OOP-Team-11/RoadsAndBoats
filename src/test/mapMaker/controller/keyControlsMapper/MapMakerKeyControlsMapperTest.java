@@ -24,7 +24,7 @@ public class MapMakerKeyControlsMapperTest extends ApplicationTest {
     @Override
     public void start(Stage stage) {
         this.stage = stage;
-        ViewInitializer viewInitializer = new ViewInitializer(stage);
+        ViewInitializer viewInitializer = new ViewInitializer(stage.getScene());
         viewInitializer.startAnimationLoop();
         this.scene = viewInitializer.getSceneReferense();
         this.mockedControlHandler = mock(ControlHandler.class);
