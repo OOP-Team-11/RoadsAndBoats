@@ -249,7 +249,9 @@ public class ControlHandler implements CursorObserverSubject, TileSelectObserver
     public void importMap(File file) throws IOException {
         FileImporter fileImporter = new FileImporter();
         this.gameMap = fileImporter.readFile(file);
-        this.notifyMapMakerObservers(this.gameMap.getRenderObject());
+        notifyMapMakerObservers(this.gameMap.getRenderObject());
+        notifyTileSelectObservers(makeTileSelectRenderInfo());
+        resetCamera();
     }
 
     public void exportMap(String filename) {
