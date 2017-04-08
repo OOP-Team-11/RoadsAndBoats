@@ -174,7 +174,7 @@ public class MapMakerController {
                     } else if (event.getX() > 1145 && event.getX() < 1180 && event.getY() > 620 && event.getY() < 650 ){
                         scene.setCursor(Cursor.HAND); // top arrow
                     } else if(event.getX() > 1180 && event.getX() < 1255 && event.getY() > 20 && event.getY() < 50){
-                        scene.setCursor(Cursor.HAND); // Return Button
+                        scene.setCursor(Cursor.HAND); // Return ButtonN
                     }
                     else {
                         scene.setCursor(Cursor.DEFAULT);

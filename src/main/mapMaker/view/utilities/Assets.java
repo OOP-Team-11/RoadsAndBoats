@@ -103,6 +103,8 @@ public class Assets {
 
     public Image BACKGROUND;
 
+    public Image NAVIGATION_BAR_1;
+
     public boolean loadAssets(){
         try{
 
@@ -192,6 +194,8 @@ public class Assets {
             FADED = new Image(this.getClass().getResourceAsStream("/tiles/fadedHex.png"));
 
             BACKGROUND = new Image(this.getClass().getResourceAsStream("/misc/WelcomeImage.png"));
+
+            NAVIGATION_BAR_1 = new Image(this.getClass().getResourceAsStream("/buttons/mainViewButton.png"));
 
         } catch(Exception e){
             e.printStackTrace();
