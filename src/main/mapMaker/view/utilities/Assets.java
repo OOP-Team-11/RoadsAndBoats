@@ -103,6 +103,28 @@ public class Assets {
 
     public Image BACKGROUND;
 
+    // primary
+    public Image CLAY_PIT_BUILDING;
+    public Image OIL_RIG_BUILDING;
+    public Image QUARRY_BUILDING;
+    public Image WOODCUTTER_BUILDING;
+    public Image MINE_BUILDING;
+
+    // secondary
+    public Image COAL_BURNER_BUILDING;
+    public Image MINT_BUILDING;
+    public Image PAPERMILL_BUILDING;
+    public Image SAWMILL_BUILDING;
+    public Image STOCK_EXCHANGE_BUILDING;
+    public Image STONE_FACTORY_BUILDING;
+
+    // factory buildings
+    public Image RAFT_FACTORY;
+    public Image ROWBOAT_FACTORY;
+    public Image STEAMER_FACTORY;
+    public Image TRUCK_FACTORY;
+    public Image WAGON_FACTORY;
+
     public boolean loadAssets(){
         try{
 
@@ -192,6 +214,25 @@ public class Assets {
             FADED = new Image(this.getClass().getResourceAsStream("/tiles/fadedHex.png"));
 
             BACKGROUND = new Image(this.getClass().getResourceAsStream("/misc/WelcomeImage.png"));
+
+            CLAY_PIT_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/clay_pit.png"));
+            OIL_RIG_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/oil_rig.png"));
+            QUARRY_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/quarry.png"));
+            WOODCUTTER_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/woodcutter.png"));
+            MINE_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/mine.png"));
+
+            COAL_BURNER_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/coal_burner.png"));
+            MINT_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/mint.png"));
+            PAPERMILL_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/papermill.png"));
+            SAWMILL_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/sawmill.png"));
+            STOCK_EXCHANGE_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/stock_exchange.png"));
+            STONE_FACTORY_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/stone_factory.png"));
+
+            RAFT_FACTORY = new Image(this.getClass().getResourceAsStream("/buildings/raft_factory.png"));
+            ROWBOAT_FACTORY = new Image(this.getClass().getResourceAsStream("/buildings/rowboat_factory.png"));
+            STEAMER_FACTORY = new Image(this.getClass().getResourceAsStream("/buildings/steamer_factory.png"));
+            TRUCK_FACTORY = new Image(this.getClass().getResourceAsStream("/buildings/truck_factory.png"));
+            WAGON_FACTORY = new Image(this.getClass().getResourceAsStream("/buildings/wagon_factory.png"));
 
         } catch(Exception e){
             e.printStackTrace();
