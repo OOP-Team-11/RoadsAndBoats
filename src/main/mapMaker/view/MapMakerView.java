@@ -56,7 +56,6 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
             drawMap();
             drawCursor();
             resetFlag();
-            drawBuildingsTest();
         } else {
             // nothing to redraw
         }
@@ -166,25 +165,5 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         this.newDataFlag = true;
         this.renderInformation = mapMakerRenderInfo;
     }
-
-    private void drawBuildingsTest() {
-        gc.drawImage(assets.CLAY_PIT_BUILDING, 50, 50);
-        gc.drawImage(assets.COAL_BURNER_BUILDING, 100, 100);
-        gc.drawImage(assets.MINE_BUILDING, 150, 150);
-        gc.drawImage(assets.MINT_BUILDING, 200, 200);
-        gc.drawImage(assets.OIL_RIG_BUILDING, 250, 250);
-        gc.drawImage(assets.PAPERMILL_BUILDING, 300, 300);
-        gc.drawImage(assets.QUARRY_BUILDING, 350, 350);
-        gc.drawImage(assets.RAFT_FACTORY, 400, 400);
-        gc.drawImage(assets.ROWBOAT_FACTORY, 450, 450);
-        gc.drawImage(assets.SAWMILL_BUILDING, 500, 500);
-        gc.drawImage(assets.STEAMER_FACTORY, 550, 550);
-        gc.drawImage(assets.STOCK_EXCHANGE_BUILDING, 600, 600);
-        gc.drawImage(assets.STONE_FACTORY_BUILDING, 650, 650);
-        gc.drawImage(assets.TRUCK_FACTORY, 700, 700);
-        gc.drawImage(assets.WAGON_FACTORY, 750, 750);
-        gc.drawImage(assets.WOODCUTTER_BUILDING, 100, 200);
-    }
-
-
+    
 }
