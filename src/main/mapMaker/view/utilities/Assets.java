@@ -103,6 +103,7 @@ public class Assets {
 
     public Image BACKGROUND;
 
+    public Image NAVIGATION_BAR_1;
     // primary
     public Image CLAY_PIT_BUILDING;
     public Image OIL_RIG_BUILDING;
@@ -248,6 +249,8 @@ public class Assets {
             FADED = new Image(this.getClass().getResourceAsStream("/tiles/fadedHex.png"));
 
             BACKGROUND = new Image(this.getClass().getResourceAsStream("/misc/WelcomeImage.png"));
+
+            NAVIGATION_BAR_1 = new Image(this.getClass().getResourceAsStream("/buttons/mainViewButton.png"));
 
             CLAY_PIT_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/clay_pit.png"));
             OIL_RIG_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/oil_rig.png"));

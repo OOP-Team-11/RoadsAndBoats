@@ -52,21 +52,28 @@ public class WelcomeViewController {
         this.startGameButton = welcomeView.getStartGameButtonReference();
     }
 
-
     public void returnToWelcomeView(){
         this.welcomeView.refresh();
         this.getReferences();
         this.initializeEventHandlers();
     }
 
-    private void updateDirectoryContents(Boolean menuChoice){
-        startOrLoad = menuChoice;
-        File[] listOfFiles;
-        if(startOrLoad){
-            listOfFiles = startGameDirectory.listFiles();
-        } else{
-            listOfFiles = loadGameDirectory.listFiles();
+    private void updateNewGameDirectoryContents(){
+        File[] listOfFiles = startGameDirectory.listFiles();
+        String[] fileNames = new String[listOfFiles.length];
+        for(int i=0; i<listOfFiles.length; i++){
+            fileNames[i] = listOfFiles[i].getName();
         }
+        if(listOfFiles.length == 0){
+            fileNames = new String[1];
+            fileNames[0] = "No files in Directory";
+        }
+        ObservableList<String> items = FXCollections.observableArrayList(fileNames);
+        this.welcomeView.updateListView(items);
+    }
+
+    private void updateLoadGameDirectoryContents(){
+        File[] listOfFiles = loadGameDirectory.listFiles();
         String[] fileNames = new String[listOfFiles.length];
         for(int i=0; i<listOfFiles.length; i++){
             fileNames[i] = listOfFiles[i].getName();
@@ -79,18 +86,27 @@ public class WelcomeViewController {
         ObservableList<String> items = FXCollections.observableArrayList(fileNames);
         this.welcomeView.updateListView(items);
     }
+    private void setLoad(){
+        this.startOrLoad = false;
+    }
+    private void setNewGame(){
+        this.startOrLoad = true;
+    }
+
 
     private void initializeEventHandlers(){
 
         // start game
         this.newGameButton.setOnMouseClicked(event -> {
-             updateDirectoryContents(true);
+             setNewGame();
+             updateNewGameDirectoryContents();
              welcomeView.displayStartGameOverlay();
         });
 
         // load existing game
         this.loadGameButton.setOnMouseClicked(event -> {
-            updateDirectoryContents(false);
+            setLoad();
+            updateLoadGameDirectoryContents();
             welcomeView.displayLoadGameOverlay();
         });
 
@@ -133,12 +149,12 @@ public class WelcomeViewController {
                 directoryChooser.setTitle("Choose Map");
                 directoryChooser.setInitialDirectory(startGameDirectory);
                 startGameDirectory = directoryChooser.showDialog(primaryStage);
-                updateDirectoryContents(true);
+                updateNewGameDirectoryContents();
             } else {
                 directoryChooser.setTitle("Choose Saved Game");
                 directoryChooser.setInitialDirectory(loadGameDirectory);
                 loadGameDirectory = directoryChooser.showDialog(primaryStage);
-                updateDirectoryContents(false);
+                updateLoadGameDirectoryContents();
             }
         });
 
