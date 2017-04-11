@@ -280,7 +280,7 @@ public class Map
         b = b && hasNoHangingRiver();
         b = b && allTilesAreValid();
 
-        return b;
+        return b || this.tiles.size() == 1 && hasNoHangingRiver();
     }
 
     private boolean isContinuousMap()

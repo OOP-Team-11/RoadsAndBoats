@@ -165,6 +165,5 @@ public class MapMakerView implements CursorObserver, MapMakerObserver{
         this.newDataFlag = true;
         this.renderInformation = mapMakerRenderInfo;
     }
-
-
+    
 }

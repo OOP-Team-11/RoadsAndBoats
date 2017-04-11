@@ -104,6 +104,61 @@ public class Assets {
     public Image BACKGROUND;
 
     public Image NAVIGATION_BAR_1;
+    // primary
+    public Image CLAY_PIT_BUILDING;
+    public Image OIL_RIG_BUILDING;
+    public Image QUARRY_BUILDING;
+    public Image WOODCUTTER_BUILDING;
+    public Image MINE_BUILDING;
+
+    // secondary
+    public Image COAL_BURNER_BUILDING;
+    public Image MINT_BUILDING;
+    public Image PAPERMILL_BUILDING;
+    public Image SAWMILL_BUILDING;
+    public Image STOCK_EXCHANGE_BUILDING;
+    public Image STONE_FACTORY_BUILDING;
+
+    // factory buildings
+    public Image RAFT_FACTORY;
+    public Image ROWBOAT_FACTORY;
+    public Image STEAMER_FACTORY;
+    public Image TRUCK_FACTORY;
+    public Image WAGON_FACTORY;
+
+    // goods
+    public Image BOARDS_GOODS;
+    public Image CLAY_GOODS;
+    public Image COINS_GOODS;
+    public Image FUEL_GOODS;
+    public Image GOLD_GOODS;
+    public Image GOOSE_GOODS;
+    public Image IRON_GOODS;
+    public Image PAPER_GOODS;
+    public Image STOCK_GOODS;
+    public Image STONE_GOODS;
+    public Image TRUNKS_GOODS;
+
+    // research
+    public Image BIG_MINE_RESEARCH;
+    public Image NEW_SHAFT_RESEARCH;
+    public Image OIL_RIG_RESEARCH;
+    public Image ROWBOAT_RESEARCH;
+    public Image SPECIALIZE_MINE_RESEARCH;
+    public Image STEAMSHIP_RESEARCH;
+    public Image TRUCK_RESEARCH;
+    public Image BRIGHT_IDEA_RESEARCH;
+    public Image RESEARCH_TABLE;
+
+    // wonder
+    public Image WONDER;
+    public Image WONDERBRICK_BLUE;
+    public Image WONDERBRICK_NEUTRAL;
+    public Image WONDERBRICK_RED;
+
+    // player-owned
+    public Image HOUSE_BLUE;
+    public Image HOUSE_RED;
 
     public boolean loadAssets(){
         try{
@@ -196,6 +251,55 @@ public class Assets {
             BACKGROUND = new Image(this.getClass().getResourceAsStream("/misc/WelcomeImage.png"));
 
             NAVIGATION_BAR_1 = new Image(this.getClass().getResourceAsStream("/buttons/mainViewButton.png"));
+
+            CLAY_PIT_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/clay_pit.png"));
+            OIL_RIG_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/oil_rig.png"));
+            QUARRY_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/quarry.png"));
+            WOODCUTTER_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/woodcutter.png"));
+            MINE_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/mine.png"));
+
+            COAL_BURNER_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/coal_burner.png"));
+            MINT_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/mint.png"));
+            PAPERMILL_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/papermill.png"));
+            SAWMILL_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/sawmill.png"));
+            STOCK_EXCHANGE_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/stock_exchange.png"));
+            STONE_FACTORY_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/stone_factory.png"));
+
+            RAFT_FACTORY = new Image(this.getClass().getResourceAsStream("/buildings/raft_factory.png"));
+            ROWBOAT_FACTORY = new Image(this.getClass().getResourceAsStream("/buildings/rowboat_factory.png"));
+            STEAMER_FACTORY = new Image(this.getClass().getResourceAsStream("/buildings/steamer_factory.png"));
+            TRUCK_FACTORY = new Image(this.getClass().getResourceAsStream("/buildings/truck_factory.png"));
+            WAGON_FACTORY = new Image(this.getClass().getResourceAsStream("/buildings/wagon_factory.png"));
+
+            BOARDS_GOODS = new Image(this.getClass().getResourceAsStream("/goods/boards.png"));
+            CLAY_GOODS = new Image(this.getClass().getResourceAsStream("/goods/clay.png"));
+            COINS_GOODS = new Image(this.getClass().getResourceAsStream("/goods/coins.png"));
+            FUEL_GOODS = new Image(this.getClass().getResourceAsStream("/goods/fuel.png"));
+            GOLD_GOODS = new Image(this.getClass().getResourceAsStream("/goods/gold.png"));
+            GOOSE_GOODS = new Image(this.getClass().getResourceAsStream("/goods/goose.png"));
+            IRON_GOODS = new Image(this.getClass().getResourceAsStream("/goods/iron.png"));
+            PAPER_GOODS = new Image(this.getClass().getResourceAsStream("/goods/paper.png"));
+            STOCK_GOODS = new Image(this.getClass().getResourceAsStream("/goods/stock.png"));
+            STONE_GOODS = new Image(this.getClass().getResourceAsStream("/goods/stone.png"));
+            TRUNKS_GOODS = new Image(this.getClass().getResourceAsStream("/goods/trunks.png"));
+
+            BIG_MINE_RESEARCH = new Image(this.getClass().getResourceAsStream("/research/big_mine_research.png"));
+            NEW_SHAFT_RESEARCH = new Image(this.getClass().getResourceAsStream("/research/new_shaft_research.png"));
+            OIL_RIG_RESEARCH = new Image(this.getClass().getResourceAsStream("/research/oil_rig_research.png"));
+            ROWBOAT_RESEARCH = new Image(this.getClass().getResourceAsStream("/research/rowboat_research.png"));
+            SPECIALIZE_MINE_RESEARCH = new Image(this.getClass().getResourceAsStream("/research/specialize_mine_research.png"));
+            STEAMSHIP_RESEARCH = new Image(this.getClass().getResourceAsStream("/research/steamship_research.png"));
+            TRUCK_RESEARCH = new Image(this.getClass().getResourceAsStream("/research/truck_research.png"));
+            BRIGHT_IDEA_RESEARCH = new Image(this.getClass().getResourceAsStream("/research/bright_idea.png"));
+            RESEARCH_TABLE = new Image(this.getClass().getResourceAsStream("/research/research_table.png"));
+
+            WONDER = new Image(this.getClass().getResourceAsStream("/wonder/wonder.png"));
+            WONDERBRICK_BLUE = new Image(this.getClass().getResourceAsStream("/wonder/wonderbrick_blue.jpg"));
+            WONDERBRICK_NEUTRAL = new Image(this.getClass().getResourceAsStream("/wonder/wonderbrick_neutral.jpg"));
+            WONDERBRICK_RED = new Image(this.getClass().getResourceAsStream("/wonder/wonderbrick_red.jpg"));
+
+            HOUSE_BLUE = new Image(this.getClass().getResourceAsStream("/player/house_blue.jpg"));
+            HOUSE_RED = new Image(this.getClass().getResourceAsStream("/player/house_red.jpg"));
 
         } catch(Exception e){
             e.printStackTrace();
