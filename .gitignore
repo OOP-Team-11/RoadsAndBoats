@@ -75,7 +75,7 @@ gradle/wrapper/gradle-wrapper.properties
 # *.ipr
 src/.DS_Store
 .DS_Store
-src/map.txt
+src/mmMap.txt
 classes
 
 # Sonarlint plugin
@@ -95,6 +95,6 @@ classes/production/RoadsAndBoats/mapMaker.model/
 classes/production/RoadsAndBoats/mapMaker.utilities/
 classes/production/RoadsAndBoats/mapMaker.view/
 classes/test/
-map/.DS_Store
+mmMap/.DS_Store
 
 *.orig

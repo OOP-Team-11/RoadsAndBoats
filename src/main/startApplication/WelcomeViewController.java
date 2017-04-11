@@ -1,14 +1,12 @@
 package startApplication;
 
-import game.Game;
+import game.mmGame;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import mapMaker.MapMaker;
-import startApplication.WelcomeView;
+import mapMaker.mmMapMaker;
 
 import java.io.File;
 
@@ -110,9 +108,9 @@ public class WelcomeViewController {
             welcomeView.displayLoadGameOverlay();
         });
 
-        // jump to MapMaker
+        // jump to mmMapMaker
         this.mapMakerButton.setOnMouseClicked(event ->{
-            new MapMaker(primaryStage.getScene(), this);
+            new mmMapMaker(primaryStage.getScene(), this);
         });
 
         // options page
@@ -131,7 +129,7 @@ public class WelcomeViewController {
             String player1Name = welcomeView.getPlayer1Name();
             String player2Name = welcomeView.getPlayer2Name();
             if(gameFile != null){
-                new Game(gameFile,player1Name ,player2Name ,primaryStage.getScene());
+                new mmGame(gameFile,player1Name ,player2Name ,primaryStage.getScene());
             } else {
                 // no file has been selected
             }
@@ -146,12 +144,12 @@ public class WelcomeViewController {
         this.changeDirectoryButton.setOnMouseClicked(event -> {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             if(startOrLoad){
-                directoryChooser.setTitle("Choose Map");
+                directoryChooser.setTitle("Choose mmMap");
                 directoryChooser.setInitialDirectory(startGameDirectory);
                 startGameDirectory = directoryChooser.showDialog(primaryStage);
                 updateNewGameDirectoryContents();
             } else {
-                directoryChooser.setTitle("Choose Saved Game");
+                directoryChooser.setTitle("Choose Saved mmGame");
                 directoryChooser.setInitialDirectory(loadGameDirectory);
                 loadGameDirectory = directoryChooser.showDialog(primaryStage);
                 updateLoadGameDirectoryContents();
