@@ -663,7 +663,7 @@ walls need to be rendered
 
 --
 Holds information about when you right click on
-a tile, shows the available options that you can
+a mmTile, shows the available options that you can
 select from </panel_attributes>
     <additional_attributes/>
   </element>
@@ -939,7 +939,7 @@ select from </panel_attributes>
 
 --
 Holds information regarding resources
-placed on the map such as geese,
+placed on the mmMap such as geese,
 trunks, paper, etc.</panel_attributes>
     <additional_attributes/>
   </element>
@@ -1026,7 +1026,7 @@ trunks, paper, etc.</panel_attributes>
 
 --
 Holds information about when you right click on
-a tile, shows the available options that you can
+a mmTile, shows the available options that you can
 select from </panel_attributes>
     <additional_attributes/>
   </element>

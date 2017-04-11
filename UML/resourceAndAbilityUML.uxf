@@ -2675,7 +2675,7 @@ have been produced.</panel_attributes>
 --
 categorize primary 
 producers that place
-resources on a tile after
+resources on a mmTile after
 they have been produced. </panel_attributes>
     <additional_attributes/>
   </element>
@@ -3260,11 +3260,11 @@ detach(WallInfoOberserver)
 --
 -tiles:HashMap&lt;Location, Tile&gt;
 --
-getTile(location: Location): Tile
-placeTile(location: Location, tile: Tile): void
+getTile(mmLocation: Location): Tile
+placeTile(mmLocation: Location, mmTile: Tile): void
 recenter(): void
 getAllLocations(): Location
-updateTerrain(location: Location)
+updateTerrain(mmLocation: Location)
 </panel_attributes>
     <additional_attributes/>
   </element>
