@@ -1,5 +1,5 @@
 BEGIN MAP
+( 0 -1 1 ) PASTURE ( 1 4 )
+( 0 0 0 ) PASTURE
+( -1 0 1 ) PASTURE ( 2 4 6 )
 END MAP
-BEGIN MINE
-END MINE
-...

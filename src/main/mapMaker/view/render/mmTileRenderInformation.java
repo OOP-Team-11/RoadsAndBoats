@@ -2,7 +2,7 @@ package mapMaker.view.render;
 
 import mapMaker.model.tile.mmTerrain;
 import mapMaker.model.tile.mmTile;
-import mapMaker.model.tile.mmTileEdge;
+import game.model.TileEdge;
 
 public class mmTileRenderInformation {
     private mmTerrain mmTerrain;
@@ -51,7 +51,7 @@ public class mmTileRenderInformation {
         return this.northWest;
     }
 
-    private boolean tileEdgeCanConnectRiver(mmTileEdge mmTileEdge) {
+    private boolean tileEdgeCanConnectRiver(TileEdge mmTileEdge) {
         return mmTileEdge.canConnectRiver();
     }
 

@@ -1,12 +1,12 @@
-package mapMaker.model.tile;
+package game.model;
 
 import java.util.Objects;
 
-public class mmTileEdge implements Cloneable{
+public class TileEdge {
     private boolean canConnectRiver;
     private boolean hasRiver;
 
-    public mmTileEdge(boolean canConnectRiver, boolean hasRiver) {
+    public TileEdge(boolean canConnectRiver, boolean hasRiver) {
         this.canConnectRiver = canConnectRiver;
         this.hasRiver = hasRiver;
     }
@@ -30,10 +30,6 @@ public class mmTileEdge implements Cloneable{
             this.canConnectRiver = true;
         }
     }
-    public Object clone() throws CloneNotSupportedException{
-        return super.clone();
-    }
-
 
 
     @Override
@@ -45,12 +41,12 @@ public class mmTileEdge implements Cloneable{
     @Override
     public boolean equals(Object o)
     {
-        if(!(o instanceof mmTileEdge))
+        if(!(o instanceof TileEdge))
         {
             return false;
         }
 
-        mmTileEdge other=((mmTileEdge)o);
+        TileEdge other=((TileEdge)o);
 
         return other.canConnectRiver() == this.canConnectRiver()
                 && other.hasRiver() == this.hasRiver();

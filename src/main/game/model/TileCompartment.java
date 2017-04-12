@@ -1,8 +1,8 @@
-package mapMaker.model.tile;
+package game.model;
 
-public class mmTileCompartment {
+public class TileCompartment {
     private boolean hasWater;
-    public mmTileCompartment(boolean hasWater) {
+    public TileCompartment(boolean hasWater) {
         this.hasWater = hasWater;
     }
 

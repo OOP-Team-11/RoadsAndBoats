@@ -1,12 +1,12 @@
 package startApplication;
 
 import game.mmGame;
+import game.view.MapMaker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import mapMaker.mmMapMaker;
 
 import java.io.File;
 
@@ -110,7 +110,7 @@ public class WelcomeViewController {
 
         // jump to mmMapMaker
         this.mapMakerButton.setOnMouseClicked(event ->{
-            new mmMapMaker(primaryStage.getScene(), this);
+            new MapMaker(primaryStage.getScene(), this);
         });
 
         // options page

@@ -1,5 +1,6 @@
 package startApplication;
 
+import game.view.utilities.Assets;
 import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
@@ -13,7 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import mapMaker.view.utilities.mmAssets;
 
 public class WelcomeView {
 
@@ -34,14 +34,14 @@ public class WelcomeView {
     private ListView listview;
     private Stage primaryStage;
     private ImageView imageView;
-    private mmAssets mmAssets;
+    private Assets assets;
 
 
     public WelcomeView(AnchorPane anchorPane, StackPane stackPane, Stage primaryStage){
         this.anchorPane = anchorPane;
         this.stackPane = stackPane;
         this.primaryStage = primaryStage;
-        this.mmAssets = mmAssets.getInstance();
+        this.assets = Assets.getInstance();
 
         initializeComponents();
     }
@@ -77,7 +77,7 @@ public class WelcomeView {
         this.exitGameButton.setPrefWidth(150.0);
         this.imageView = new ImageView();
         this.anchorPane.getChildren().add(imageView);
-        this.imageView.setImage(mmAssets.BACKGROUND);
+        this.imageView.setImage(assets.BACKGROUND);
         this.anchorPane.getChildren().add(newGameButton);
         this.anchorPane.setTopAnchor(newGameButton, 200.0);
         this.anchorPane.setLeftAnchor(newGameButton, 1100.0);

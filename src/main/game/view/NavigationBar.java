@@ -1,11 +1,11 @@
 package game.view;
 
 
+import game.view.utilities.Assets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import mapMaker.view.utilities.mmAssets;
 
 
 public class NavigationBar {
@@ -18,7 +18,7 @@ public class NavigationBar {
     private ImageView wonderViewButton;
     private ImageView saveLoadButton;
     private ImageView optionsViewButton;
-    private mmAssets mmAssets;
+    private Assets assets;
     private Canvas canvas;
 
 
@@ -36,7 +36,7 @@ public class NavigationBar {
         this.anchorPane = new AnchorPane();
     }
     private void loadAssets(){
-        this.mmAssets = mmAssets.getInstance();
+        this.assets = Assets.getInstance();
     }
 
     public AnchorPane getAnchorPaneReference(){
@@ -95,12 +95,12 @@ public class NavigationBar {
 
 
         // TODO replace images, make them look like icons or something
-        this.mainViewButton.setImage(mmAssets.NAVIGATION_BAR_1);
-        this.transportViewButton.setImage(mmAssets.NAVIGATION_BAR_1);
-        this.researchViewButton.setImage(mmAssets.NAVIGATION_BAR_1);
-        this.wonderViewButton.setImage(mmAssets.NAVIGATION_BAR_1);
-        this.saveLoadButton.setImage(mmAssets.NAVIGATION_BAR_1);
-        this.optionsViewButton.setImage(mmAssets.NAVIGATION_BAR_1);
+        this.mainViewButton.setImage(assets.NAVIGATION_BAR_1);
+        this.transportViewButton.setImage(assets.NAVIGATION_BAR_1);
+        this.researchViewButton.setImage(assets.NAVIGATION_BAR_1);
+        this.wonderViewButton.setImage(assets.NAVIGATION_BAR_1);
+        this.saveLoadButton.setImage(assets.NAVIGATION_BAR_1);
+        this.optionsViewButton.setImage(assets.NAVIGATION_BAR_1);
         this.mainViewButton.setFitHeight(75);
         this.mainViewButton.setFitWidth(75);
         this.transportViewButton.setFitWidth(75);

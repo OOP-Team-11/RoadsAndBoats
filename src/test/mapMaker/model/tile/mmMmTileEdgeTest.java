@@ -1,5 +1,6 @@
 package mapMaker.model.tile;
 
+import game.model.TileEdge;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
@@ -12,27 +13,27 @@ public class mmMmTileEdgeTest {
     @Test
     public void constructorTestCanConnectRiver() {
 
-        mmTileEdge mmTileEdge = new mmTileEdge(true, true);
+        TileEdge mmTileEdge = new TileEdge(true, true);
         assertTrue(mmTileEdge.canConnectRiver());
     }
 
     @Test
     public void constructorTestCannotConnectRiver() {
-        mmTileEdge mmTileEdge = new mmTileEdge(false, false);
+        TileEdge mmTileEdge = new TileEdge(false, false);
         assertFalse(mmTileEdge.canConnectRiver());
     }
 
     @Test
     public void setCantConnectRiver() {
 
-        mmTileEdge mmTileEdge = new mmTileEdge(true, true);
+        TileEdge mmTileEdge = new TileEdge(true, true);
         mmTileEdge.setCanConnectRiver(false);
         assertFalse(mmTileEdge.canConnectRiver());
     }
 
     @Test
     public void setCanConnectRiver() {
-        mmTileEdge mmTileEdge = new mmTileEdge(false, false);
+        TileEdge mmTileEdge = new TileEdge(false, false);
         mmTileEdge.setCanConnectRiver(true);
         assertTrue(mmTileEdge.canConnectRiver());
     }

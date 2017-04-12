@@ -31,7 +31,7 @@ public class mmDirectionToLocation {
                 return new mmLocation(startingMmLocation.getX() + 1, startingMmLocation.getY() - 1, startingMmLocation.getZ());
 
             } else {
-                throw new RuntimeException("mmAngle was not between 0 and 360");
+                throw new RuntimeException("Angle was not between 0 and 360");
             }
 
         } catch (mmInvalidLocationException e) {

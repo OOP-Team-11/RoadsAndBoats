@@ -1,6 +1,8 @@
 package mapMaker.model.tile;
 
 
+import game.model.TileCompartment;
+import game.model.TileEdge;
 import mapMaker.direction.mmAngle;
 import mapMaker.direction.mmTileCompartmentDirection;
 import mapMaker.direction.mmTileEdgeDirection;
@@ -11,55 +13,55 @@ import java.util.Map;
 
 public class mmTile implements Cloneable{
 
-    private Map<mmTileEdgeDirection, mmTileEdge> edges;
-    private Map<mmTileCompartmentDirection, mmTileCompartment> compartments;
+    private Map<mmTileEdgeDirection, TileEdge> edges;
+    private Map<mmTileCompartmentDirection, TileCompartment> compartments;
     private mmTerrain mmTerrain;
     private mmRiverConfiguration mmRiverConfiguration;
 
     public mmTile(mmTerrain mmTerrain, mmRiverConfiguration mmRiverConfiguration) {
-        edges = new HashMap<mmTileEdgeDirection, mmTileEdge>();
-        compartments = new HashMap<mmTileCompartmentDirection, mmTileCompartment>();
+        edges = new HashMap<mmTileEdgeDirection, TileEdge>();
+        compartments = new HashMap<mmTileCompartmentDirection, TileCompartment>();
 
         this.mmRiverConfiguration = mmRiverConfiguration;
         this.mmTerrain = mmTerrain;
 
         edges.put(mmTileEdgeDirection.getNorth(),
-                new mmTileEdge(canConnectRiver(mmTileEdgeDirection.getNorth(), mmRiverConfiguration, mmTerrain),
+                new TileEdge(canConnectRiver(mmTileEdgeDirection.getNorth(), mmRiverConfiguration, mmTerrain),
                         mmRiverConfiguration.canConnectNorth()));
 
         edges.put(mmTileEdgeDirection.getNorthEast(),
-                new mmTileEdge(canConnectRiver(mmTileEdgeDirection.getNorthEast(), mmRiverConfiguration, mmTerrain),
+                new TileEdge(canConnectRiver(mmTileEdgeDirection.getNorthEast(), mmRiverConfiguration, mmTerrain),
                         mmRiverConfiguration.canConnectNortheast()));
 
         edges.put(mmTileEdgeDirection.getNorthWest(),
-                new mmTileEdge(canConnectRiver(mmTileEdgeDirection.getNorthWest(), mmRiverConfiguration, mmTerrain),
+                new TileEdge(canConnectRiver(mmTileEdgeDirection.getNorthWest(), mmRiverConfiguration, mmTerrain),
                         mmRiverConfiguration.canConnectNorthwest()));
 
         edges.put(mmTileEdgeDirection.getSouth(),
-                new mmTileEdge(canConnectRiver(mmTileEdgeDirection.getSouth(), mmRiverConfiguration, mmTerrain),
+                new TileEdge(canConnectRiver(mmTileEdgeDirection.getSouth(), mmRiverConfiguration, mmTerrain),
                         mmRiverConfiguration.canConnectSouth()));
 
         edges.put(mmTileEdgeDirection.getSouthEast(),
-                new mmTileEdge(canConnectRiver(mmTileEdgeDirection.getSouthEast(), mmRiverConfiguration, mmTerrain),
+                new TileEdge(canConnectRiver(mmTileEdgeDirection.getSouthEast(), mmRiverConfiguration, mmTerrain),
                         mmRiverConfiguration.canConnectSoutheast()));
 
         edges.put(mmTileEdgeDirection.getSouthWest(),
-                new mmTileEdge(canConnectRiver(mmTileEdgeDirection.getSouthWest(), mmRiverConfiguration, mmTerrain),
+                new TileEdge(canConnectRiver(mmTileEdgeDirection.getSouthWest(), mmRiverConfiguration, mmTerrain),
                         mmRiverConfiguration.canConnectSouthwest()));
 
         this.rotateAccordingToRiverConfiguration();
 
-        compartments.put(mmTileCompartmentDirection.getEast(), new mmTileCompartment(false));
-        compartments.put(mmTileCompartmentDirection.getNorthNorthEast(), new mmTileCompartment(false));
-        compartments.put(mmTileCompartmentDirection.getNorthEast(), new mmTileCompartment(false));
-        compartments.put(mmTileCompartmentDirection.getNorth(), new mmTileCompartment(false));
-        compartments.put(mmTileCompartmentDirection.getNorthNorthWest(), new mmTileCompartment(false));
-        compartments.put(mmTileCompartmentDirection.getNorthWest(), new mmTileCompartment(false));
-        compartments.put(mmTileCompartmentDirection.getWest(), new mmTileCompartment(false));
-        compartments.put(mmTileCompartmentDirection.getSouthWest(), new mmTileCompartment(false));
-        compartments.put(mmTileCompartmentDirection.getSouthSouthWest(), new mmTileCompartment(false));
-        compartments.put(mmTileCompartmentDirection.getSouth(), new mmTileCompartment(false));
-        compartments.put(mmTileCompartmentDirection.getSouthEast(), new mmTileCompartment(false));
+        compartments.put(mmTileCompartmentDirection.getEast(), new TileCompartment(false));
+        compartments.put(mmTileCompartmentDirection.getNorthNorthEast(), new TileCompartment(false));
+        compartments.put(mmTileCompartmentDirection.getNorthEast(), new TileCompartment(false));
+        compartments.put(mmTileCompartmentDirection.getNorth(), new TileCompartment(false));
+        compartments.put(mmTileCompartmentDirection.getNorthNorthWest(), new TileCompartment(false));
+        compartments.put(mmTileCompartmentDirection.getNorthWest(), new TileCompartment(false));
+        compartments.put(mmTileCompartmentDirection.getWest(), new TileCompartment(false));
+        compartments.put(mmTileCompartmentDirection.getSouthWest(), new TileCompartment(false));
+        compartments.put(mmTileCompartmentDirection.getSouthSouthWest(), new TileCompartment(false));
+        compartments.put(mmTileCompartmentDirection.getSouth(), new TileCompartment(false));
+        compartments.put(mmTileCompartmentDirection.getSouthEast(), new TileCompartment(false));
 
         this.mmTerrain = mmTerrain;
 
@@ -92,10 +94,10 @@ public class mmTile implements Cloneable{
         try{
             mmTile mmTileClone = (mmTile) super.clone();
             mmTileClone.setMmRiverConfiguration((mmRiverConfiguration)(mmTileClone.getMmRiverConfiguration()));
-            Map<mmTileEdgeDirection, mmTileEdge> directionsClone = new HashMap<mmTileEdgeDirection, mmTileEdge>();
-            for (Map.Entry<mmTileEdgeDirection, mmTileEdge> entry : edges.entrySet()) {
+            Map<mmTileEdgeDirection, TileEdge> directionsClone = new HashMap<mmTileEdgeDirection, TileEdge>();
+            for (Map.Entry<mmTileEdgeDirection, TileEdge> entry : edges.entrySet()) {
                 mmTileEdgeDirection directionClone = (mmTileEdgeDirection)entry.getKey().clone();
-                mmTileEdge edgeClone = (mmTileEdge)entry.getValue().clone();
+                TileEdge edgeClone = (TileEdge)entry.getValue().clone();
                 directionsClone.put(directionClone,edgeClone);
             }
             mmTileClone.edges = directionsClone;
@@ -111,16 +113,16 @@ public class mmTile implements Cloneable{
     }
 
     // mmTileEdge
-    public mmTileEdge getTileEdge(mmTileEdgeDirection edgeDirection) {
+    public TileEdge getTileEdge(mmTileEdgeDirection edgeDirection) {
         return edges.get(edgeDirection);
     }
 
-    public mmTileEdge setTileEdge(mmTileEdgeDirection edgeDirection, mmTileEdge edge) {
+    public TileEdge setTileEdge(mmTileEdgeDirection edgeDirection, TileEdge edge) {
         return edges.put(edgeDirection, edge);
     }
 
     // mmTileCompartment
-    public mmTileCompartment getTileCompartment(mmTileCompartmentDirection compartmentDirection) {
+    public TileCompartment getTileCompartment(mmTileCompartmentDirection compartmentDirection) {
         return compartments.get(compartmentDirection);
     }
 
@@ -148,12 +150,12 @@ public class mmTile implements Cloneable{
     }
 
     private void rotateEdges() {
-        mmTileEdge northEdge = edges.get(mmTileEdgeDirection.getNorth());
-        mmTileEdge northEastEdge = edges.get(mmTileEdgeDirection.getNorthEast());
-        mmTileEdge northWestEdge = edges.get(mmTileEdgeDirection.getNorthWest());
-        mmTileEdge southEdge = edges.get(mmTileEdgeDirection.getSouth());
-        mmTileEdge southEastEdge = edges.get(mmTileEdgeDirection.getSouthEast());
-        mmTileEdge southWestEdge = edges.get(mmTileEdgeDirection.getSouthWest());
+        TileEdge northEdge = edges.get(mmTileEdgeDirection.getNorth());
+        TileEdge northEastEdge = edges.get(mmTileEdgeDirection.getNorthEast());
+        TileEdge northWestEdge = edges.get(mmTileEdgeDirection.getNorthWest());
+        TileEdge southEdge = edges.get(mmTileEdgeDirection.getSouth());
+        TileEdge southEastEdge = edges.get(mmTileEdgeDirection.getSouthEast());
+        TileEdge southWestEdge = edges.get(mmTileEdgeDirection.getSouthWest());
 
         edges.put(mmTileEdgeDirection.getNorth(), northWestEdge);
         edges.put(mmTileEdgeDirection.getNorthEast(), northEdge);
@@ -165,18 +167,18 @@ public class mmTile implements Cloneable{
     }
 
     private void rotateCompartments() {
-        mmTileCompartment northComp = compartments.get(mmTileCompartmentDirection.getNorth());
-        mmTileCompartment northNorthEastComp = compartments.get(mmTileCompartmentDirection.getNorthNorthEast());
-        mmTileCompartment northEastComp = compartments.get(mmTileCompartmentDirection.getNorthEast());
-        mmTileCompartment eastComp = compartments.get(mmTileCompartmentDirection.getEast());
-        mmTileCompartment southEastComp = compartments.get(mmTileCompartmentDirection.getSouthEast());
-        mmTileCompartment southSouthEastComp = compartments.get(mmTileCompartmentDirection.getSouthSouthEast());
-        mmTileCompartment southComp = compartments.get(mmTileCompartmentDirection.getSouth());
-        mmTileCompartment southSouthWestComp = compartments.get(mmTileCompartmentDirection.getSouthSouthWest());
-        mmTileCompartment southWestComp = compartments.get(mmTileCompartmentDirection.getSouthWest());
-        mmTileCompartment westComp = compartments.get(mmTileCompartmentDirection.getWest());
-        mmTileCompartment northWestComp = compartments.get(mmTileCompartmentDirection.getNorthWest());
-        mmTileCompartment northNorthWestComp = compartments.get(mmTileCompartmentDirection.getNorthNorthWest());
+        TileCompartment northComp = compartments.get(mmTileCompartmentDirection.getNorth());
+        TileCompartment northNorthEastComp = compartments.get(mmTileCompartmentDirection.getNorthNorthEast());
+        TileCompartment northEastComp = compartments.get(mmTileCompartmentDirection.getNorthEast());
+        TileCompartment eastComp = compartments.get(mmTileCompartmentDirection.getEast());
+        TileCompartment southEastComp = compartments.get(mmTileCompartmentDirection.getSouthEast());
+        TileCompartment southSouthEastComp = compartments.get(mmTileCompartmentDirection.getSouthSouthEast());
+        TileCompartment southComp = compartments.get(mmTileCompartmentDirection.getSouth());
+        TileCompartment southSouthWestComp = compartments.get(mmTileCompartmentDirection.getSouthSouthWest());
+        TileCompartment southWestComp = compartments.get(mmTileCompartmentDirection.getSouthWest());
+        TileCompartment westComp = compartments.get(mmTileCompartmentDirection.getWest());
+        TileCompartment northWestComp = compartments.get(mmTileCompartmentDirection.getNorthWest());
+        TileCompartment northNorthWestComp = compartments.get(mmTileCompartmentDirection.getNorthNorthWest());
 
         compartments.put(mmTileCompartmentDirection.getEast(), northNorthEastComp);
         compartments.put(mmTileCompartmentDirection.getNorthNorthEast(), northNorthWestComp);
@@ -196,7 +198,7 @@ public class mmTile implements Cloneable{
     public void resetTileEdge(mmTileEdgeDirection dir)
     {
         edges.put(mmTileEdgeDirection.getSouthWest(),
-                new mmTileEdge(canConnectRiver(mmTileEdgeDirection.getSouthWest(), mmRiverConfiguration, mmTerrain),
+                new TileEdge(canConnectRiver(mmTileEdgeDirection.getSouthWest(), mmRiverConfiguration, mmTerrain),
                         mmRiverConfiguration.canConnect(dir)));
     }
 }

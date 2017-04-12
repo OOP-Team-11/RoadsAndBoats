@@ -1,5 +1,7 @@
 package mapMaker.model.tile;
 
+import game.model.TileCompartment;
+import game.model.TileEdge;
 import mapMaker.direction.mmAngle;
 import mapMaker.direction.mmTileCompartmentDirection;
 import mapMaker.direction.mmTileEdgeDirection;
@@ -85,7 +87,7 @@ public class mmTileTest {
     public void rotateTileEdgeTest() {
 
         mmTile t = new mmTile(mmTerrain.SEA, this.springHeadConfiguration);
-        mmTileEdge northEdge = t.getTileEdge(mmTileEdgeDirection.getNorth());
+        TileEdge northEdge = t.getTileEdge(mmTileEdgeDirection.getNorth());
         t.rotate(new mmAngle(60));
 //        Make sure the north edge rotated ONCE to the right, making it the northEast edge now
         assertEquals(northEdge, t.getTileEdge(mmTileEdgeDirection.getNorthEast()));
@@ -95,7 +97,7 @@ public class mmTileTest {
     public void rotateTileCompartmentTest() {
 
         mmTile t = new mmTile(mmTerrain.SEA, this.springHeadConfiguration);
-        mmTileCompartment northCompartment = t.getTileCompartment(mmTileCompartmentDirection.getNorth());
+        TileCompartment northCompartment = t.getTileCompartment(mmTileCompartmentDirection.getNorth());
         t.rotate(new mmAngle(120));
 //        Make sure the north edge rotated TWICE to the right, making it the northEast edge now
         assertEquals(northCompartment, t.getTileCompartment(mmTileCompartmentDirection.getSouthEast()));

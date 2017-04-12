@@ -1,5 +1,6 @@
 package mapMaker.controller;
 
+import game.model.TileEdge;
 import mapMaker.direction.mmTileEdgeDirection;
 import mapMaker.model.mmMap;
 import mapMaker.model.tile.*;
@@ -41,27 +42,27 @@ public class mmMmMapRenderTranslatorTest {
         this.mmMap.placeTile(l7, mmTile7);
     }
 
-    private boolean tileEdgeCanConnectRiver(mmTileEdge mmTileEdge) {
+    private boolean tileEdgeCanConnectRiver(TileEdge mmTileEdge) {
         return mmTileEdge.canConnectRiver();
     }
 
     private boolean checkTileRenderInformatinMatchesTile(mmTile mmTile, mmTileRenderInformation mmTileRenderInformation) {
-        mmTileEdge northEdge = mmTile.getTileEdge(mmTileEdgeDirection.getNorth());
+        TileEdge northEdge = mmTile.getTileEdge(mmTileEdgeDirection.getNorth());
         if (tileEdgeCanConnectRiver(northEdge) != mmTileRenderInformation.getNorth()) return false;
 
-        mmTileEdge northEast = mmTile.getTileEdge(mmTileEdgeDirection.getNorthEast());
+        TileEdge northEast = mmTile.getTileEdge(mmTileEdgeDirection.getNorthEast());
         if (tileEdgeCanConnectRiver(northEast) != tileEdgeCanConnectRiver(northEast)) return false;
 
-        mmTileEdge southEast = mmTile.getTileEdge(mmTileEdgeDirection.getSouthEast());
+        TileEdge southEast = mmTile.getTileEdge(mmTileEdgeDirection.getSouthEast());
         if (tileEdgeCanConnectRiver(southEast) != tileEdgeCanConnectRiver(southEast)) return false;
 
-        mmTileEdge south = mmTile.getTileEdge(mmTileEdgeDirection.getSouth());
+        TileEdge south = mmTile.getTileEdge(mmTileEdgeDirection.getSouth());
         if (tileEdgeCanConnectRiver(south) != tileEdgeCanConnectRiver(south)) return false;
 
-        mmTileEdge southWest = mmTile.getTileEdge(mmTileEdgeDirection.getSouthWest());
+        TileEdge southWest = mmTile.getTileEdge(mmTileEdgeDirection.getSouthWest());
         if (tileEdgeCanConnectRiver(southWest) != tileEdgeCanConnectRiver(southWest)) return false;
 
-        mmTileEdge northWest = mmTile.getTileEdge(mmTileEdgeDirection.getNorthWest());
+        TileEdge northWest = mmTile.getTileEdge(mmTileEdgeDirection.getNorthWest());
         if (tileEdgeCanConnectRiver(northWest) != tileEdgeCanConnectRiver(northWest)) return false;
 
         return true;

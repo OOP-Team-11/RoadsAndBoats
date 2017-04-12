@@ -1,5 +1,6 @@
 package mapMaker.model.tile;
 
+import game.model.TileCompartment;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
@@ -10,13 +11,13 @@ public class mmMmTileCompartmentTest {
     //    Test construction of a mmTileCompartment with and without water
     @Test
     public void constructorTestNoWater() {
-        mmTileCompartment tileComp1 = new mmTileCompartment(false);
+        TileCompartment tileComp1 = new TileCompartment(false);
         assertFalse(tileComp1.hasWater());
     }
 
     @Test
     public void constructorTestHasWater() {
-        mmTileCompartment tileComp2 = new mmTileCompartment(true);
+        TileCompartment tileComp2 = new TileCompartment(true);
         assertTrue(tileComp2.hasWater());
     }
 }

@@ -6,7 +6,7 @@ import mapMaker.direction.mmTileEdgeDirection;
 import mapMaker.model.tile.mmInvalidLocationException;
 import mapMaker.model.tile.mmLocation;
 import mapMaker.model.tile.mmTile;
-import mapMaker.model.tile.mmTileEdge;
+import game.model.TileEdge;
 
 import mapMaker.view.render.mmMapMakerRenderInfo;
 
@@ -111,8 +111,8 @@ public class mmMap
                 continue;
             }
 
-            mmTileEdge newMmTileEdge = mmTile.getTileEdge(dir);
-            mmTileEdge existingMmTileEdge = existingMmTile.getTileEdge(dir.reverse());
+            TileEdge newMmTileEdge = mmTile.getTileEdge(dir);
+            TileEdge existingMmTileEdge = existingMmTile.getTileEdge(dir.reverse());
 
             if(newMmTileEdge.hasRiver() && !existingMmTileEdge.canConnectRiver() ||
                     existingMmTileEdge.hasRiver() && !newMmTileEdge.canConnectRiver())
@@ -176,8 +176,8 @@ public class mmMap
                 continue;
             }
 
-            mmTileEdge newMmTileEdge = mmTile.getTileEdge(dir);
-            mmTileEdge existingMmTileEdge = existingMmTile.getTileEdge(dir.reverse());
+            TileEdge newMmTileEdge = mmTile.getTileEdge(dir);
+            TileEdge existingMmTileEdge = existingMmTile.getTileEdge(dir.reverse());
 
             boolean canConnectRiver = newMmTileEdge.canConnectRiver() || existingMmTileEdge.canConnectRiver();
             existingMmTileEdge.setCanConnectRiver(canConnectRiver);
@@ -329,7 +329,7 @@ public class mmMap
             mmLocation loc = mmDirectionToLocation.getLocation(tileMmLocation, dir);
             mmTile adjacentMmTile = tiles.get(loc);
 
-            mmTileEdge mmTileEdge = mmTile.getTileEdge(dir);
+            TileEdge mmTileEdge = mmTile.getTileEdge(dir);
 
             if(adjacentMmTile == null && mmTileEdge.hasRiver() && !mmTile.getMmTerrain().canConnectRiver())
             {
