@@ -16,6 +16,7 @@ public class ResourceTest {
         Gold gold = new Gold();
         resourceManager.addResource(gold, 2);
         resourceManager.addResource(gold, 4);
+        assertTrue(resourceManager.hasResource());
     }
     @Test
     public void decrementResource(){
