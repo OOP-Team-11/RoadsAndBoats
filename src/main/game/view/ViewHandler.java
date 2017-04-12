@@ -104,6 +104,19 @@ public class ViewHandler {
         // at the start of the game mainView is active
     }
 
+    public MainView getMainViewReference(){
+        return this.mainView;
+    }
+    public TransportView getTransportViewReference(){
+        return this.transportView;
+    }
+    public OptionsView getOptionsViewReference(){
+        return this.optionsView;
+    }
+    public ResearchView getResearchViewReference(){return this.researchView;}
+    public WonderView getWonderViewReference(){ return this.wonderView; }
+    public SaveLoadView getSaveLoadViewReference() { return this.saveLoadView; }
+
     private void initializeGameLoop(){
         animationTimer = new AnimationTimer()
         {
