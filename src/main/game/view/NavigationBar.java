@@ -89,9 +89,9 @@ public class NavigationBar {
         this.wonderViewButton = new ImageView();
         this.saveLoadButton = new ImageView();
         this.optionsViewButton = new ImageView();
-        this.canvas = new Canvas(100,800);
+        this.canvas = new Canvas(80,800);
         this.canvas.getGraphicsContext2D().setFill(Color.TEAL);
-        this.canvas.getGraphicsContext2D().fillRect(0,0,120,800);
+        this.canvas.getGraphicsContext2D().fillRect(0,0,80,800);
 
 
         // TODO replace images, make them look like icons or something
@@ -113,29 +113,30 @@ public class NavigationBar {
         this.saveLoadButton.setFitWidth(75);
         this.optionsViewButton.setFitWidth(75);
         this.optionsViewButton.setFitHeight(75);
-        this.anchorPane.setPrefWidth(120);
-        this.anchorPane.setMaxWidth(120);
+        this.anchorPane.setPrefWidth(80);
+        this.anchorPane.setMaxWidth(80);
+        this.anchorPane.setMinWidth(80);
         this.anchorPane.setPrefHeight(800);
         this.anchorPane.setMaxHeight(800);
         this.anchorPane.getChildren().add(canvas);
         this.anchorPane.getChildren().add(mainViewButton);
         this.anchorPane.setTopAnchor(mainViewButton,50.0);
-        this.anchorPane.setLeftAnchor(mainViewButton,15.0);
+        this.anchorPane.setLeftAnchor(mainViewButton,2.5);
         this.anchorPane.getChildren().add(transportViewButton);
         this.anchorPane.setTopAnchor(transportViewButton,150.0);
-        this.anchorPane.setLeftAnchor(transportViewButton,15.0);
+        this.anchorPane.setLeftAnchor(transportViewButton,2.5);
         this.anchorPane.getChildren().add(researchViewButton);
         this.anchorPane.setTopAnchor(researchViewButton,250.0);
-        this.anchorPane.setLeftAnchor(researchViewButton,15.0);
+        this.anchorPane.setLeftAnchor(researchViewButton,2.5);
         this.anchorPane.getChildren().add(wonderViewButton);
         this.anchorPane.setTopAnchor(wonderViewButton,350.0);
-        this.anchorPane.setLeftAnchor(wonderViewButton,15.0);
+        this.anchorPane.setLeftAnchor(wonderViewButton,2.5);
         this.anchorPane.getChildren().add(saveLoadButton);
         this.anchorPane.setTopAnchor(saveLoadButton,450.0);
-        this.anchorPane.setLeftAnchor(saveLoadButton,15.0);
+        this.anchorPane.setLeftAnchor(saveLoadButton,2.5);
         this.anchorPane.getChildren().add(optionsViewButton);
         this.anchorPane.setTopAnchor(optionsViewButton,550.0);
-        this.anchorPane.setLeftAnchor(optionsViewButton, 15.0);
+        this.anchorPane.setLeftAnchor(optionsViewButton, 2.5);
 
     }
 }

@@ -1,0 +1,13 @@
+( -1 0 1 ) PASTURE 
+( 0 0 0 ) PASTURE 
+( 1 0 -1 ) ROCK  ( 1 4  ) 
+( 1 -1 0 ) ROCK  ( 1 4  ) 
+( 1 1 -2 ) DESERT  ( 3 4  ) 
+( 2 0 -2 ) SEA  ( 6  ) 
+( 2 -1 -1 ) SEA 
+( 2 1 -3 ) SEA 
+( 2 -2 0 ) SEA 
+( 1 -2 1 ) SEA 
+( 0 -1 1 ) SEA 
+( 0 1 -1 ) SEA 
+( 1 2 -3 ) SEA 

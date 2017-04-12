@@ -3,7 +3,7 @@ package game.view;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.HBox;
 
 public class ViewHandler {
 
@@ -19,7 +19,7 @@ public class ViewHandler {
     private AnchorPane primaryAnchorPane;
     private AnchorPane navigationBarAnchorPane;
     private AnimationTimer animationTimer;
-    private StackPane stackPane;
+    private HBox hbox;
     private AnchorPane mainViewAnchor;
     private AnchorPane optionsViewAnchor;
     private AnchorPane researchViewAnchor;
@@ -40,8 +40,8 @@ public class ViewHandler {
     }
 
     private void setUpGameWindow(){
-        this.stackPane = new StackPane();
-        this.scene.setRoot(stackPane);
+        this.hbox = new HBox();
+        this.scene.setRoot(hbox);
         this.navigationBar = new NavigationBar(this);
         this.mainViewAnchor = new AnchorPane();
         this.optionsViewAnchor = new AnchorPane();
@@ -59,56 +59,49 @@ public class ViewHandler {
 
     public void jumpToMainView(){
         this.activeView = mainView;
-        this.primaryAnchorPane.getChildren().remove(1);
-        this.primaryAnchorPane.getChildren().add(mainViewAnchor);
-        this.primaryAnchorPane.setLeftAnchor(mainViewAnchor,100.0);
+        this.hbox.getChildren().remove(1);
+        this.hbox.getChildren().add(mainViewAnchor);
     }
     public void jumpToResearchView(){
         this.activeView = researchView;
-        this.primaryAnchorPane.getChildren().remove(1);
-        this.primaryAnchorPane.getChildren().add(researchViewAnchor);
-        this.primaryAnchorPane.setLeftAnchor(researchViewAnchor,100.0);
+        this.hbox.getChildren().remove(1);
+        this.hbox.getChildren().add(researchViewAnchor);
     }
     public void jumpToTransportView(){
         this.activeView = transportView;
-        this.primaryAnchorPane.getChildren().remove(1);
-        this.primaryAnchorPane.getChildren().add(transportAnchor);
-        this.primaryAnchorPane.setLeftAnchor(transportAnchor,100.0);
+        this.hbox.getChildren().remove(1);
+        this.hbox.getChildren().add(transportAnchor);
     }
     public void jumptToWonderView(){
         this.activeView = wonderView;
-        this.primaryAnchorPane.getChildren().remove(1);
-        this.primaryAnchorPane.getChildren().add(wonderAnchor);
-        this.primaryAnchorPane.setLeftAnchor(wonderAnchor,100.0);
+        this.hbox.getChildren().remove(1);
+        this.hbox.getChildren().add(wonderAnchor);
     }
     public void jumpToSaveLoadView(){
         this.activeView = saveLoadView;
-        this.primaryAnchorPane.getChildren().remove(1);
-        this.primaryAnchorPane.getChildren().add(saveLoadAnchor);
-        this.primaryAnchorPane.setLeftAnchor(saveLoadAnchor,100.0);
+        this.hbox.getChildren().remove(1);
+        this.hbox.getChildren().add(saveLoadAnchor);
+
     }
     public void jumpToOptionsView(){
         this.activeView = optionsView;
-        this.primaryAnchorPane.getChildren().remove(1);
-        this.primaryAnchorPane.getChildren().add(optionsViewAnchor);
-        this.primaryAnchorPane.setLeftAnchor(optionsViewAnchor,100.0);
+        this.hbox.getChildren().remove(1);
+        this.hbox.getChildren().add(optionsViewAnchor);
     }
 
     private void setUpNavigationBar(){
         this.navigationBarAnchorPane = navigationBar.getAnchorPaneReference();
         this.primaryAnchorPane = new AnchorPane();
-        this.stackPane.getChildren().add(primaryAnchorPane);
-
+        this.hbox.getChildren().add(navigationBarAnchorPane);
         this.activeView = mainView;
-        this.primaryAnchorPane.getChildren().add(navigationBarAnchorPane);
         this.navigationBarAnchorPane.setMaxHeight(800);
         this.navigationBarAnchorPane.setPrefHeight(800);
-        this.navigationBarAnchorPane.setMaxWidth(150);
-        this.navigationBarAnchorPane.setPrefWidth(150);
-        this.stackPane.getChildren().add(mainViewAnchor);
+        this.navigationBarAnchorPane.setMaxWidth(80);
+        this.navigationBarAnchorPane.setPrefWidth(80);
+        this.navigationBarAnchorPane.setMinWidth(80);
+        this.hbox.getChildren().add(mainViewAnchor);
+        this.hbox.setSpacing(0.0);
         // at the start of the game mainView is active
-        this.primaryAnchorPane.getChildren().add(mainViewAnchor);
-        this.primaryAnchorPane.setLeftAnchor(mainViewAnchor,100.0);
     }
 
     private void initializeGameLoop(){
