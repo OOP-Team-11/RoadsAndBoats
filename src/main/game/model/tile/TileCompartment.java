@@ -1,4 +1,4 @@
-package game.model;
+package game.model.tile;
 
 public class TileCompartment {
     private boolean hasWater;

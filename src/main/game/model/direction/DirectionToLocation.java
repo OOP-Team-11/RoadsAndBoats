@@ -1,7 +1,5 @@
 package game.model.direction;
 
-import game.model.Location;
-
 public class DirectionToLocation {
 
     private static boolean angleIsInRange(Angle mmAngle, int lowerDegrees, int higherDegrees) {

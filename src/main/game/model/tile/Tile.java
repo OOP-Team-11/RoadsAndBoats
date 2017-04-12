@@ -1,4 +1,4 @@
-package game.model;
+package game.model.tile;
 
 import game.model.direction.Angle;
 import game.model.direction.TileCompartmentDirection;

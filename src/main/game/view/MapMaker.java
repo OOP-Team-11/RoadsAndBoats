@@ -1,6 +1,6 @@
 package game.view;
 
-import game.model.RBMap;
+import game.model.map.RBMap;
 import javafx.scene.Scene;
 
 import startApplication.WelcomeViewController;
