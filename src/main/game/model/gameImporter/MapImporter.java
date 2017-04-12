@@ -1,21 +1,18 @@
-package game;
+package game.model.gameImporter;
 
-import game.model.*;
+import game.model.direction.Location;
+import game.model.map.RBMap;
+import game.model.tile.RiverConfiguration;
+import game.model.tile.Terrain;
+import game.model.tile.Tile;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
-import static game.model.Terrain.*;
+import static game.model.tile.Terrain.*;
 
 public class MapImporter {
 

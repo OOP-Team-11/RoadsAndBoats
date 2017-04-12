@@ -1,4 +1,4 @@
-package game.model;
+package game.model.direction;
 
 
 import java.util.Arrays;

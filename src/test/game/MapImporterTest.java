@@ -1,10 +1,11 @@
 package game;
 
-import game.model.Location;
-import game.model.RBMap;
-import game.model.Terrain;
+import game.model.direction.Location;
+import game.model.gameImporter.MalformedMapFileException;
+import game.model.gameImporter.MapImporter;
+import game.model.map.RBMap;
+import game.model.tile.Terrain;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.*;
@@ -54,7 +55,7 @@ public class MapImporterTest {
             Location tileLocation = new Location(0,-1,1);
             assertNotNull(map.getTiles().get(tileLocation));
             assertEquals(map.getTiles().get(tileLocation).getTerrain(), Terrain.PASTURE);
-        } catch (MalformedMapFileException|IOException e) {
+        } catch (MalformedMapFileException |IOException e) {
             fail();
         }
     }

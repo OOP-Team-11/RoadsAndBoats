@@ -1,10 +1,13 @@
-package game.model;
+package game.model.map;
 
 import game.model.direction.DirectionToLocation;
+import game.model.direction.Location;
 import game.model.direction.TileEdgeDirection;
+import game.model.tile.Terrain;
+import game.model.tile.Tile;
+import game.model.tile.TileEdge;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
