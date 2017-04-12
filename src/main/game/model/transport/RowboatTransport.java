@@ -1,10 +1,10 @@
 package game.model.transport;
 
-public class RowboatFactory extends WaterTransport {
+public class RowboatTransport extends WaterTransport {
 
 //    private Vector<Ability> abilities;
 
-    RowboatFactory() {
+    RowboatTransport() {
 
     }
 
