@@ -1,6 +1,11 @@
 package game.model.ability.livestock;
 
-public class BreedAbility implements LivestockAbility {
+import game.model.ability.Ability;
+
+public class BreedAbility implements Ability {
+    public void attachToController() {
+
+    }
     @Override
     public void perform() {
 
@@ -12,7 +17,7 @@ public class BreedAbility implements LivestockAbility {
     }
 
     @Override
-    public void attachToController() {
-
+    public String getDisplayString() {
+        return "String";
     }
 }

@@ -1,5 +1,6 @@
 package game.model;
 
+import game.model.managers.AbilityManager;
 import game.model.map.RBMap;
 
 import java.util.ArrayList;
@@ -13,13 +14,15 @@ public class Game {
     private Player player2;
     private Player currentPlayer;
     private RBMap map;
+    private AbilityManager abilityManager;
     private PrayerManager prayerManager;
-
-    public Game(RBMap map, Player player1, Player player2) {
+  
+    public Game(RBMap map, Player player1, Player player2, AbilityManager abilityManager) {
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = player1;
         this.map = map;
+        this.abilityManager = abilityManager;
 
         ArrayList<PlayerId> playerIds=new ArrayList<PlayerId>();
         playerIds.add(player1.getPlayerId());
