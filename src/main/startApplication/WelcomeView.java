@@ -57,10 +57,10 @@ public class WelcomeView {
 
         this.newGameButton = new Button();
         this.newGameButton.setFont(new Font(20));
-        this.newGameButton.setText("New Game");
+        this.newGameButton.setText("New GameInitializer");
         this.newGameButton.setPrefWidth(150.0);
         this.loadGameButton = new Button();
-        this.loadGameButton.setText("Load Game");
+        this.loadGameButton.setText("Load GameInitializer");
         this.loadGameButton.setFont(new Font(20));
         this.loadGameButton.setPrefWidth(150.0);
         this.mapMakerButton = new Button();
@@ -178,7 +178,7 @@ public class WelcomeView {
 
     private void setUpStartGameOverlay(){
         this.startGameCanvas.getGraphicsContext2D().setFont(new Font(40));
-        this.startGameCanvas.getGraphicsContext2D().strokeText("New Game", 220.0,40.0);
+        this.startGameCanvas.getGraphicsContext2D().strokeText("New GameInitializer", 220.0,40.0);
         this.startNewGameButoon.setText("Start");
         this.startNewGameButoon.setFont(new Font(18));
         this.startNewGameButoon.setPrefWidth(80.0);
@@ -186,7 +186,7 @@ public class WelcomeView {
 
     private void setUpLoadGameOverlay(){
         this.startGameCanvas.getGraphicsContext2D().setFont(new Font(40));
-        this.startGameCanvas.getGraphicsContext2D().strokeText("Load Game", 220.0,40.0);
+        this.startGameCanvas.getGraphicsContext2D().strokeText("Load GameInitializer", 220.0,40.0);
         this.startNewGameButoon.setText("Resume");
         this.startNewGameButoon.setFont(new Font(18));
         this.startNewGameButoon.setPrefWidth(100.0);
