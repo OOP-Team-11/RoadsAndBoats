@@ -1,4 +1,4 @@
-package game.model.gameImporter;
+package game.utilities.exceptions;
 
 public class MalformedMapFileException extends Exception {
 
