@@ -1,6 +1,7 @@
 package game.view;
 
 import game.model.direction.Location;
+import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.utilities.observer.*;
 import game.view.render.*;
@@ -104,20 +105,27 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
             // no information yet
         } else {
 
+            for (Map.Entry<Location, RiverConfiguration> entry : mapRenderInfo.getRiverConfigurationMap().entrySet())
+            {
+                // second time around we draw the rivers
+                Image riverImage = this.renderToImageConverter.getRiverImage(entry.getValue());
+                if(riverImage != null){
+                    drawImage(riverImage, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
+                }
+            }
+
             for (Map.Entry<Location, Terrain> entry : mapRenderInfo.getTerrainMap().entrySet())
             {
                 // first time around we just render the terrain
                 Image image = this.renderToImageConverter.getTerrainImage(entry.getValue());
-                drawImage(image, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
-
-                /*
-                // second time around we draw the rivers
-                Image riverImage = mmRenderToImageConverter.getRiverImage(entry.getValue(), mmAssets);
-                if(riverImage != null && image != mmAssets.SEA){
-                    drawImage(riverImage, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
+                if(image != null){
+                    drawImage(image, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
                 }
-                */
             }
+
+
+
+
         }
     }
 
@@ -131,15 +139,20 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         this.cameraY = cameraInfo.getCameraY();
         this.newData = true;
     }
-
+    private void clearMapCanvas(){
+        this.mapGC.clearRect(0,0,950, 800);
+    }
+    private void clearNewDataFlag(){
+        this.newData = false;
+    }
 
     @Override
     public void render() {
         if(newData){
             // new data coming in
-            this.mapGC.clearRect(0,0,950, 800);
-            this.drawMap();
-            this.newData = false;
+            clearMapCanvas();
+            drawMap();
+            clearNewDataFlag();
         } else {
             // nothing to update
         }

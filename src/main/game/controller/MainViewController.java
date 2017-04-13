@@ -1,11 +1,12 @@
 package game.controller;
 
+import game.model.ability.Ability;
 import game.view.MainView;
 import game.view.render.CameraInfo;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
+
 
 public class MainViewController {
 
@@ -52,8 +53,7 @@ public class MainViewController {
         mainView.addEventFilterToMainCanvas(KeyEvent.ANY,eventHandler);
     }
 
+    public void attachControl(KeyCode keyCode, Ability ability) {
 
-
-
-
+    }
 }
