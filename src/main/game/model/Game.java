@@ -1,6 +1,6 @@
 package game.model;
 
-import game.model.managers.AbilityManager;
+import game.model.managers.TransportAbilityManager;
 import game.model.map.RBMap;
 
 import java.util.ArrayList;
@@ -12,14 +12,14 @@ public class Game {
     private Player player2;
     private Player currentPlayer;
     private RBMap map;
-    private AbilityManager abilityManager;
+    private TransportAbilityManager transportAbilityManager;
 
-    public Game(RBMap map, Player player1, Player player2, AbilityManager abilityManager) {
+    public Game(RBMap map, Player player1, Player player2, TransportAbilityManager transportAbilityManager) {
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = player1;
         this.map = map;
-        this.abilityManager = abilityManager;
+        this.transportAbilityManager = this.transportAbilityManager;
     }
 
     // TODO

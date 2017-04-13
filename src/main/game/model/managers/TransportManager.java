@@ -13,9 +13,12 @@ import java.util.List;
 public class TransportManager {
 
     private Player player;
+    private GooseManager gooseManager;
+    private TransportAbilityManager transportAbilityManager;
     private List<Transport> transports; // might want to do hashmap of location to transport?
-    public TransportManager(Player player) {
+    public TransportManager(Player player, GooseManager gooseManager) {
         this.transports = new ArrayList<>();
+        this.gooseManager = gooseManager;
     }
 
     public PlayerId getPlayerId() {
