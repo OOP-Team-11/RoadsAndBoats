@@ -3,6 +3,8 @@ package game.model.tile;
 import game.model.direction.Angle;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileEdgeDirection;
+import game.model.resources.ResourceManager;
+import game.model.resources.ResourceType;
 import game.model.structures.Structure;
 
 import java.util.HashMap;
@@ -15,10 +17,12 @@ public class Tile {
     private Terrain terrain;
     private RiverConfiguration RiverConfiguration;
     private Structure structure;
+    private ResourceManager resourceManager;
 
     public Tile(Terrain Terrain, RiverConfiguration RiverConfiguration) {
         edges = new HashMap<>();
         compartments = new HashMap<>();
+        resourceManager = new ResourceManager();
 
         this.RiverConfiguration = RiverConfiguration;
         this.terrain = Terrain;
@@ -194,5 +198,17 @@ public class Tile {
 
     public Structure getStructure() {
         return this.structure;
+    }
+
+    public ResourceManager getResourceManager() {
+        return this.resourceManager;
+    }
+
+    public void addResource(ResourceType resourceType, Integer amount) {
+        this.resourceManager.addResource(resourceType, amount);
+    }
+
+    public boolean removeResource(ResourceType resourceType, Integer amount) {
+        return this.resourceManager.removeResource(resourceType, amount);
     }
 }

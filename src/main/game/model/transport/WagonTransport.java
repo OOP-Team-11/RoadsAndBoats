@@ -11,7 +11,7 @@ public class WagonTransport extends LandTransport {
     }
 
     public String getExportString() {
-        return this.getPlayerId().getPlayerIdNumber() + " WAGON" + getResourceManager().getExportString();
+        return this.getPlayerId().getPlayerIdNumber() + " WAGON " + getResourceManager().getExportString();
     }
 
 }

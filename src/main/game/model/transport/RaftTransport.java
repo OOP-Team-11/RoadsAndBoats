@@ -11,7 +11,7 @@ public class RaftTransport extends WaterTransport {
     }
 
     public String getExportString() {
-        return this.getPlayerId().getPlayerIdNumber() + " RAFT" + getResourceManager().getExportString();
+        return this.getPlayerId().getPlayerIdNumber() + " RAFT " + getResourceManager().getExportString();
     }
 
 }

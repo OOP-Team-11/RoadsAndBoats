@@ -4,6 +4,7 @@ import game.model.Game;
 import game.model.Player;
 import game.model.direction.Location;
 import game.model.map.RBMap;
+import game.model.resources.ResourceManager;
 import game.model.structures.Structure;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
@@ -27,8 +28,9 @@ public class GameInfoAdapter {
             Tile tile = map.getTile(location);
             Terrain terrain = tile.getTerrain();
             RiverConfiguration riverConfiguration = tile.getRiverConfiguration();
+            ResourceManager resourceManager = tile.getResourceManager();
             Exportable exportable = new Exportable(location, terrain.getExportString()
-                    + " " + riverConfiguration.getExportString());
+                    + " " + riverConfiguration.getExportString() + " " + tile.getResourceManager().getExportString());
             exportables.add(exportable);
         }
         return exportables;
