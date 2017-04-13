@@ -9,9 +9,9 @@ import java.util.Vector;
 public class Goose extends Resource implements Livestock{
 
     private Vector<Ability> abilities;
-
-    public Goose() {
-
+    private GooseId id;
+    public Goose(GooseId gid) {
+        this.id = gid;
     }
 
     @Override
@@ -19,4 +19,7 @@ public class Goose extends Resource implements Livestock{
         return 0;
     }
 
+    public GooseId getId() {
+        return id;
+    }
 }

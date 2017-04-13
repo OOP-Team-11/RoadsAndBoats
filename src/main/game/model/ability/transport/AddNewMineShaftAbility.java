@@ -1,6 +1,8 @@
 package game.model.ability.transport;
 
-public class AddNewMineShaftAbility implements TransportAbility {
+import game.model.ability.Ability;
+
+public class AddNewMineShaftAbility implements Ability {
     @Override
     public void perform() {
 
@@ -11,8 +13,11 @@ public class AddNewMineShaftAbility implements TransportAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
+    }
+    @Override
+    public String getDisplayString() {
+        return "String";
     }
 }

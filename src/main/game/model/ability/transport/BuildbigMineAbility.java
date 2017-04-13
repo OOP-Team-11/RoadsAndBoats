@@ -1,6 +1,8 @@
 package game.model.ability.transport;
 
-public class BuildbigMineAbility implements TransportAbility {
+import game.model.ability.Ability;
+
+public class BuildbigMineAbility implements Ability {
     @Override
     public void perform() {
 
@@ -11,8 +13,12 @@ public class BuildbigMineAbility implements TransportAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
+    }
+
+    @Override
+    public String getDisplayString() {
+        return "String";
     }
 }
