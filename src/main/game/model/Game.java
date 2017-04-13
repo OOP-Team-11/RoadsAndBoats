@@ -5,6 +5,8 @@ import game.model.map.RBMap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Game {
 
@@ -13,13 +15,19 @@ public class Game {
     private Player currentPlayer;
     private RBMap map;
     private AbilityManager abilityManager;
-
+    private PrayerManager prayerManager;
+  
     public Game(RBMap map, Player player1, Player player2, AbilityManager abilityManager) {
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = player1;
         this.map = map;
         this.abilityManager = abilityManager;
+
+        ArrayList<PlayerId> playerIds=new ArrayList<PlayerId>();
+        playerIds.add(player1.getPlayerId());
+        playerIds.add(player2.getPlayerId());
+        prayerManager=new PrayerManager(playerIds);
     }
 
     // TODO
