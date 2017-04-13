@@ -15,5 +15,9 @@ public class MapRenderInfo {
         this.riverConfigurationMap = riverConfigurationMap;
     }
 
+    public Map<Location, Terrain> getTerrainMap(){
+        return this.terrainMap;
+    }
+
     // TODO
 }
