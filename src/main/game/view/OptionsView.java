@@ -20,7 +20,7 @@ public class OptionsView extends View{
     private void drawHeadingTitle(){
         // for Testing atm, remove later
         Label label = new Label();
-        label.setText("GameInitializer Settings");
+        label.setText("Game Settings");
         label.setFont(new Font(60));
         this.anchorPane.getChildren().add(label);
         this.anchorPane.setLeftAnchor(label,450.0);

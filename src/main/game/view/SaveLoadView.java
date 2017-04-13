@@ -53,7 +53,7 @@ public class SaveLoadView extends View {
         this.anchorPane.setLeftAnchor(loadField, 100.0);
         this.anchorPane.setTopAnchor(loadField,700.0);
         this.loadButton = new Button();
-        this.loadButton.setText("Load GameInitializer");
+        this.loadButton.setText("Load Game");
         this.loadButton.setFont(new Font(20));
         this.anchorPane.getChildren().add(loadButton);
         this.anchorPane.setLeftAnchor(loadButton, 500.0);
@@ -81,7 +81,7 @@ public class SaveLoadView extends View {
         this.anchorPane.setLeftAnchor(saveField, 700.0);
         this.anchorPane.setTopAnchor(saveField,700.0);
         this.saveButton = new Button();
-        this.saveButton.setText("Save GameInitializer");
+        this.saveButton.setText("Save Game");
         this.saveButton.setFont(new Font(20));
         this.anchorPane.getChildren().add(saveButton);
         this.anchorPane.setLeftAnchor(saveButton, 1100.0);
@@ -101,7 +101,7 @@ public class SaveLoadView extends View {
 
     public void showLoadMessage(String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Loading GameInitializer");
+        alert.setTitle("Loading Game");
         alert.setHeaderText("Load Status:");
         alert.setContentText(message);
         alert.showAndWait();
@@ -109,7 +109,7 @@ public class SaveLoadView extends View {
 
     public void showSaveMessage(String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Saving GameInitializer");
+        alert.setTitle("Saving Game");
         alert.setHeaderText("Save Status:");
         alert.setContentText(message);
         alert.showAndWait();

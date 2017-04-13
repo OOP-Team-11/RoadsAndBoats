@@ -149,7 +149,7 @@ public class WelcomeViewController {
                 startGameDirectory = directoryChooser.showDialog(primaryStage);
                 updateNewGameDirectoryContents();
             } else {
-                directoryChooser.setTitle("Choose Saved GameInitializer");
+                directoryChooser.setTitle("Choose Saved Game");
                 directoryChooser.setInitialDirectory(loadGameDirectory);
                 loadGameDirectory = directoryChooser.showDialog(primaryStage);
                 updateLoadGameDirectoryContents();
