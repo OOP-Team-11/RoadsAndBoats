@@ -1,6 +1,8 @@
 package game.model.resources;
 
+
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class ResourceManager {
@@ -50,5 +52,21 @@ public class ResourceManager {
 
     public boolean hasResource() {
         return resourceTypeIntegerMap.size()>0;
+    }
+
+    public String getExportString() {
+        Iterator it = resourceTypeIntegerMap.entrySet().iterator();
+        StringBuilder sb = new StringBuilder();
+        sb.append(" ");
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            ResourceType resource = (ResourceType) pair.getKey();
+            Integer resourceCount = (Integer) pair.getValue();
+            sb.append(resource.getName())
+                    .append(":")
+                    .append(resourceCount)
+                    .append(" ");
+        }
+        return sb.toString();
     }
 }

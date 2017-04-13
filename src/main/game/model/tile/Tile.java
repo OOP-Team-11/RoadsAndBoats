@@ -3,6 +3,7 @@ package game.model.tile;
 import game.model.direction.Angle;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileEdgeDirection;
+import game.model.structures.Structure;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,7 @@ public class Tile {
     private Map<TileCompartmentDirection, TileCompartment> compartments;
     private Terrain terrain;
     private RiverConfiguration RiverConfiguration;
+    private Structure structure;
 
     public Tile(Terrain Terrain, RiverConfiguration RiverConfiguration) {
         edges = new HashMap<>();
@@ -181,5 +183,16 @@ public class Tile {
         edges.put(TileEdgeDirection.getSouthWest(),
                 new TileEdge(canConnectRiver(TileEdgeDirection.getSouthWest(), RiverConfiguration, this.terrain),
                         RiverConfiguration.canConnect(dir)));
+    }
+
+    public boolean addStructure(Structure structure) {
+        if (this.structure != null) return false;
+
+        this.structure = structure;
+        return true;
+    }
+
+    public Structure getStructure() {
+        return this.structure;
     }
 }
