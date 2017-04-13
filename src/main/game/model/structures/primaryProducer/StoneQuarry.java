@@ -1,7 +1,6 @@
 package game.model.structures.primaryProducer;
 
-import game.model.resources.Resource;
-import game.model.resources.Stone;
+import game.model.resources.ResourceType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,9 +12,9 @@ public class StoneQuarry extends ResourceDropper {
     }
 
     @Override
-    public Map<Resource, Integer> produce() {
-        Map<Resource, Integer> resource = new HashMap<>();
-        resource.put(new Stone(), 1);
+    public Map<ResourceType, Integer> produce() {
+        Map<ResourceType, Integer> resource = new HashMap<>();
+        resource.put(ResourceType.STONE, 1);
         return resource;
     }
 
