@@ -2,12 +2,13 @@ package game.model.tile;
 
 
 import game.model.direction.TileEdgeDirection;
+import game.model.gameImporter.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class RiverConfiguration {
+public class RiverConfiguration implements Serializable {
 
     private Map<TileEdgeDirection, Boolean> riverMap;
     private int rotationAmount;
@@ -209,5 +210,10 @@ public class RiverConfiguration {
     public boolean canConnect(TileEdgeDirection dir)
     {
         return riverMap.get(dir);
+    }
+
+    public String getExportString() {
+        // TODO
+        return "";
     }
 }
