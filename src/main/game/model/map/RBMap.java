@@ -3,23 +3,26 @@ package game.model.map;
 import game.model.direction.DirectionToLocation;
 import game.model.direction.Location;
 import game.model.direction.TileEdgeDirection;
+import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
 import game.model.tile.TileEdge;
+import game.utilities.observer.MapRenderInfoObserver;
+import game.view.render.MapRenderInfo;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Set;
+import java.util.*;
 
-public class RBMap
+public class RBMap implements MapRenderInfoObservable
 {
     private final int MAX_DISTANCE = 21;
 
-    private java.util.Map<Location, Tile> tiles;
+    private Map<Location, Tile> tiles;
+    private Vector<MapRenderInfoObserver> mapRenderInfoObservers;
 
     public RBMap()
     {
         tiles = new LinkedHashMap<>();
+        mapRenderInfoObservers = new Vector<>();
     }
 
     /**
@@ -40,63 +43,8 @@ public class RBMap
     public boolean placeTile(Location tileLocation, Tile Tile){
         updateTileEdges(tileLocation, Tile);
         tiles.put(tileLocation, Tile);
+        notifyMapRenderInfoObservers();
         return true;
-    }
-
-    private boolean hasAdjacentTile(Location tileLocation)
-    {
-        for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
-        {
-            Location loc = DirectionToLocation.getLocation(tileLocation, dir);
-
-            if (tiles.get(loc) != null)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean hasMatchingEdges(Location tileLocation, Tile Tile)
-    {
-        for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
-        {
-            Location loc = DirectionToLocation.getLocation(tileLocation, dir);
-            Tile existingTile = tiles.get(loc);
-
-            if(existingTile == null)
-            {
-                continue;
-            }
-
-            TileEdge newTileEdge = Tile.getTileEdge(dir);
-            TileEdge existingTileEdge = existingTile.getTileEdge(dir.reverse());
-
-            if(newTileEdge.hasRiver() && !existingTileEdge.canConnectRiver() ||
-                    existingTileEdge.hasRiver() && !newTileEdge.canConnectRiver())
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private boolean isWithinMaxDistance(Location tileLocation)
-    {
-        MapBoundary bounds = getMapBoundaries();
-
-        int x = tileLocation.getX();
-        int y = tileLocation.getY();
-        int z = tileLocation.getZ();
-
-        return x > bounds.maxX - MAX_DISTANCE
-                && x < bounds.minX + MAX_DISTANCE
-                && y > bounds.maxY - MAX_DISTANCE
-                && y < bounds.minY + MAX_DISTANCE
-                && z > bounds.maxZ - MAX_DISTANCE
-                && z < bounds.minZ + MAX_DISTANCE;
     }
 
     private MapBoundary getMapBoundaries()
@@ -185,46 +133,45 @@ public class RBMap
         return tiles.keySet();
     }
 
-    /**
-     * Removes a tile at a Location in the map if it exists.
-     *
-     * @param Location
-     * @return true if tile was removed. false otherwise.
-     */
-    public boolean removeTileAtLocation(Location Location)
-    {
-        if (this.tiles.containsKey(Location))
-        {
-            this.tiles.remove(Location);
-
-            for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
-            {
-                Location loc = DirectionToLocation.getLocation(Location, dir);
-                Tile Tile = tiles.get(loc);
-                if(Tile != null)
-                {
-                    Tile.resetTileEdge(dir);
-                }
-            }
-
-            return true;
-        }
-        return false;
-    }
-
     public boolean hasTiles() {
         return !(tiles.isEmpty());
     }
-
-//    public mmMapMakerRenderInfo getRenderObject() {
-//        return new mmMapMakerRenderInfo(mmMapRenderTranslator.getRenderInformationForMap(this));
-//    }
 
     public boolean updateTerrain(Location location, Terrain terrain) {
         if (!this.tiles.containsKey(location)) return false;
 
         Tile tileAtLocation = this.tiles.get(location);
         tileAtLocation.setTerrain(terrain);
+        notifyMapRenderInfoObservers();
         return true;
+    }
+
+    private MapRenderInfo getMapRenderInfo() {
+        Map<Location, Terrain> terrainMap = new HashMap<>();
+        Map<Location, RiverConfiguration> riverConfigurationMap = new HashMap<>();
+
+        Iterator it = tiles.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            Location location = (Location) pair.getKey();
+            Tile tile = (Tile) pair.getValue();
+            terrainMap.put(location, tile.getTerrain());
+            riverConfigurationMap.put(location, tile.getRiverConfiguration());
+        }
+        return new MapRenderInfo(terrainMap, riverConfigurationMap);
+    }
+
+    public void attach(MapRenderInfoObserver observer) {
+        mapRenderInfoObservers.add(observer);
+    }
+
+    public void detach(MapRenderInfoObserver observer) {
+        mapRenderInfoObservers.remove(observer);
+    }
+
+    private void notifyMapRenderInfoObservers() {
+        for (MapRenderInfoObserver observer : mapRenderInfoObservers) {
+            observer.updateMapInfo(getMapRenderInfo());
+        }
     }
 }

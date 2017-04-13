@@ -17,12 +17,7 @@ import static game.model.tile.Terrain.*;
 
 public class MapImporter {
 
-    private RBMap map;
-    public MapImporter(RBMap map) {
-        this.map = map;
-    }
-
-    public void importMapFromFile(BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
+    public RBMap importMapFromFile(RBMap map, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
         if (!bufferedReader.readLine().equals("BEGIN MAP"))  throw new MalformedMapFileException("BEGIN MAP not found");
 
         boolean foundEOF = false;
@@ -34,10 +29,11 @@ public class MapImporter {
 
             Tile tile = getTileForTileString(line);
             Location location = getLocationForTileString(line);
-            this.map.placeTile(location, tile);
+            map.placeTile(location, tile);
         }
 
         if (!foundEOF) throw new MalformedMapFileException("END MAP not found");
+        return map;
     }
 
     private Location getLocationForTileString(String tileString) throws MalformedMapFileException {
