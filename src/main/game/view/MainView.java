@@ -105,14 +105,6 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
             // no information yet
         } else {
 
-            for (Map.Entry<Location, RiverConfiguration> entry : mapRenderInfo.getRiverConfigurationMap().entrySet())
-            {
-                // second time around we draw the rivers
-                Image riverImage = this.renderToImageConverter.getRiverImage(entry.getValue());
-                if(riverImage != null){
-                    drawImage(riverImage, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
-                }
-            }
 
             for (Map.Entry<Location, Terrain> entry : mapRenderInfo.getTerrainMap().entrySet())
             {
@@ -122,6 +114,17 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
                     drawImage(image, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
                 }
             }
+
+            for (Map.Entry<Location, RiverConfiguration> entry : mapRenderInfo.getRiverConfigurationMap().entrySet())
+            {
+                // second time around we draw the rivers
+                Image riverImage = this.renderToImageConverter.getRiverImage(entry.getValue());
+                if(!mapRenderInfo.getTerrainMap().get(entry.getKey()).equals(Terrain.SEA)){
+                    drawImage(riverImage, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
+                }
+            }
+
+
 
 
 
