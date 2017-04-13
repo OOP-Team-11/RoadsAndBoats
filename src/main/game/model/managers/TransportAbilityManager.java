@@ -2,6 +2,7 @@ package game.model.managers;
 
 import game.controller.MainViewController;
 import game.model.ability.Ability;
+import game.model.direction.Location;
 import game.model.factory.AbilityFactory;
 
 import java.util.ArrayList;
@@ -17,9 +18,9 @@ public class TransportAbilityManager {
         this.abilities = new ArrayList<Ability>();
     }
 
-    public void attachAbilites(Location loc, Transport) {
-        addFollowAbility()
-    }
+//    public void attachAbilites(Location loc, Transport transport) {
+//        addFollowAbility()
+//    }
 
     public void addFollowAbility() {
 
