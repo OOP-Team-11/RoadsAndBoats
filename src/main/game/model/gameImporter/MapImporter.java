@@ -5,6 +5,7 @@ import game.model.map.RBMap;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
+import game.utilities.exceptions.MalformedMapFileException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,8 +38,6 @@ public class MapImporter {
         }
 
         if (!foundEOF) throw new MalformedMapFileException("END MAP not found");
-
-        System.out.println(this.map);
     }
 
     private Location getLocationForTileString(String tileString) throws MalformedMapFileException {
@@ -56,7 +55,7 @@ public class MapImporter {
                 int y = Integer.parseInt(coordinates[1]);
                 int z = Integer.parseInt(coordinates[2]);
                 return new Location(x, y, z);
-            } catch (NumberFormatException e) {
+            } catch (IllegalArgumentException e) {
                 throw new MalformedMapFileException("Could not parse line. Invalid coordinates: " + tileString);
             }
         }

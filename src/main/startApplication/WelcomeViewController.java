@@ -144,7 +144,7 @@ public class WelcomeViewController {
         this.changeDirectoryButton.setOnMouseClicked(event -> {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             if(startOrLoad){
-                directoryChooser.setTitle("Choose mmMap");
+                directoryChooser.setTitle("Choose Map");
                 directoryChooser.setInitialDirectory(startGameDirectory);
                 startGameDirectory = directoryChooser.showDialog(primaryStage);
                 updateNewGameDirectoryContents();
