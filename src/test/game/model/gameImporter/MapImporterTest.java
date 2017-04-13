@@ -26,7 +26,7 @@ public class MapImporterTest {
     public void setUp() {
         testFile = new File(filePath);
         map = new RBMap();
-        mapImporter = new MapImporter(map);
+        mapImporter = new MapImporter();
         try {
             br = new BufferedReader(new FileReader(testFile));
             fw = new FileWriter(testFile);
@@ -39,7 +39,7 @@ public class MapImporterTest {
 
     private void assertTerrainAtLocation(Terrain terrain, Location location) {
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             assertNotNull(map.getTiles().get(location));
             assertEquals(map.getTiles().get(location).getTerrain(), terrain);
         } catch (MalformedMapFileException |IOException e) {
@@ -195,7 +195,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
         } catch (IOException e) {
             fail();
         } catch (MalformedMapFileException e) {
@@ -218,7 +218,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertEquals(placedTile.getRiverConfiguration(), RiverConfiguration.getNoRivers());
@@ -240,7 +240,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertEquals(placedTile.getRiverConfiguration(), RiverConfiguration.getSpringHead());
@@ -263,7 +263,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertTrue(placedTile.getRiverConfiguration().canConnectNortheast());
@@ -285,7 +285,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertTrue(placedTile.getRiverConfiguration().canConnectSoutheast());
@@ -307,7 +307,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertTrue(placedTile.getRiverConfiguration().canConnectSouth());
@@ -329,7 +329,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertTrue(placedTile.getRiverConfiguration().canConnectSouthwest());
@@ -351,7 +351,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertTrue(placedTile.getRiverConfiguration().canConnectNorthwest());
@@ -373,7 +373,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertTrue(placedTile.getRiverConfiguration().canConnectNorth());
@@ -400,7 +400,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertFalse(placedTile.getRiverConfiguration().canConnectNorth());
@@ -427,7 +427,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertFalse(placedTile.getRiverConfiguration().canConnectNorth());
@@ -454,7 +454,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertFalse(placedTile.getRiverConfiguration().canConnectNorth());
@@ -481,7 +481,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertFalse(placedTile.getRiverConfiguration().canConnectNorth());
@@ -508,7 +508,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertTrue(placedTile.getRiverConfiguration().canConnectNorth());
@@ -535,7 +535,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertTrue(placedTile.getRiverConfiguration().canConnectNorth());
@@ -562,7 +562,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertFalse(placedTile.getRiverConfiguration().canConnectNorth());
@@ -589,7 +589,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertFalse(placedTile.getRiverConfiguration().canConnectNorth());
@@ -616,7 +616,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertFalse(placedTile.getRiverConfiguration().canConnectNorth());
@@ -643,7 +643,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertTrue(placedTile.getRiverConfiguration().canConnectNorth());
@@ -670,7 +670,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertFalse(placedTile.getRiverConfiguration().canConnectNorth());
@@ -697,7 +697,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertTrue(placedTile.getRiverConfiguration().canConnectNorth());
@@ -724,7 +724,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertFalse(placedTile.getRiverConfiguration().canConnectNorth());
@@ -751,7 +751,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertFalse(placedTile.getRiverConfiguration().canConnectNorth());
@@ -778,7 +778,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertTrue(placedTile.getRiverConfiguration().canConnectNorth());
@@ -805,7 +805,7 @@ public class MapImporterTest {
         }
 
         try {
-            mapImporter.importMapFromFile(br);
+            mapImporter.importMapFromFile(map, br);
             Location tileLocation = new Location(0,0,0);
             Tile placedTile = map.getTiles().get(tileLocation);
             assertFalse(placedTile.getRiverConfiguration().canConnectNorth());
