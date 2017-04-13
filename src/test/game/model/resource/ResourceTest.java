@@ -1,4 +1,4 @@
-package resource;
+package model.resource;
 
 
 import game.model.resources.Gold;
