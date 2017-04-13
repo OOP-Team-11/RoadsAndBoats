@@ -3,19 +3,19 @@ package game.model.ability.goose;
 import game.controller.MainViewController;
 import game.model.ability.Ability;
 import game.model.managers.TransportManager;
+import game.model.transport.Transport;
 import game.model.transport.TransportId;
 import javafx.scene.input.KeyCode;
 
 import java.awt.event.KeyListener;
 
-public class FollowAbility implements Ability {
+public class FollowAbility extends Ability {
     private MainViewController mainViewController;
-    private TransportId transportId;
-    private TransportManager transportManager;
+    private Transport transport;
     private int gooseCount;
 
     public FollowAbility(MainViewController mainViewController) {
-        this.mainViewController = mainViewController;
+        super(mainViewController);
 
     }
     @Override
@@ -33,12 +33,11 @@ public class FollowAbility implements Ability {
         return ("Get "+gooseCount+" followers.");
     }
 
-    public void attachToController(TransportId transportId, TransportManager transManager, int gooseCount) {
-        this.transportId = transportId;
-        this.transportManager = transManager;
+    public void attachToController(Transport transport, int gooseCount) {
+        this.transport = transport;
         this.gooseCount = gooseCount;
         KeyCode kc = KeyCode.getKeyCode("Digit"+gooseCount);
-        mainViewController.attachControl(kc, this);
+        mainViewController.addControl(kc, this);
 
     }
 }

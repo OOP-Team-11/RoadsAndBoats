@@ -2,6 +2,7 @@ package game.model.managers;
 
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
+import game.model.direction.TileCompartmentLocation;
 import game.model.resources.Goose;
 import game.model.resources.GooseId;
 import game.model.tile.Tile;
@@ -15,12 +16,13 @@ public class GooseManagerTest {
     public void initializeAndAddGoose() {
         GooseManager gm = new GooseManager();
         Goose goose1 = new Goose(new GooseId());
+        Goose goose2 = new Goose(new GooseId());
         Location loc = new Location(0,0,0);
         TileCompartmentDirection tcd1 = TileCompartmentDirection.getNorth();
         TileCompartmentDirection tcd2 = TileCompartmentDirection.getEast();
-        gm.addGoose(loc, goose1, tcd1);
-        gm.addGoose(loc, goose1, tcd2);
-        assertEquals(gm.getMapGeese().get(loc).size(), 2);
+        gm.addGoose(new TileCompartmentLocation(loc, tcd1), goose1);
+        gm.addGoose(new TileCompartmentLocation(loc, tcd1), goose2);
+        assertEquals(gm.getMapGeese().get(new TileCompartmentLocation(loc, tcd1)).size(), 2);
     }
 
     @Test
@@ -29,8 +31,8 @@ public class GooseManagerTest {
         Goose goose = new Goose(new GooseId());
         Location loc = new Location(0,0,0);
         TileCompartmentDirection tcd1 = TileCompartmentDirection.getNorth();
-        gm.addGoose(loc, goose, tcd1);
-        gm.removeGoose(loc, goose);
+        gm.addGoose(new TileCompartmentLocation(loc, tcd1), goose);
+        gm.removeGoose(new TileCompartmentLocation(loc, tcd1), goose);
         assertEquals(gm.getMapGeese().size(), 0);
     }
 }

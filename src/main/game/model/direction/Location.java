@@ -1,7 +1,6 @@
 package game.model.direction;
 
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.ExplicitGroup;
 import game.model.gameImporter.Exportable;
 import game.model.gameImporter.Serializable;
 

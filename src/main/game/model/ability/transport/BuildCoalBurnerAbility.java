@@ -1,8 +1,13 @@
 package game.model.ability.transport;
 
+import game.controller.MainViewController;
 import game.model.ability.Ability;
 
-public class BuildCoalBurnerAbility implements Ability {
+public class BuildCoalBurnerAbility extends Ability {
+    public BuildCoalBurnerAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 

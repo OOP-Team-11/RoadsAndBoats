@@ -1,8 +1,13 @@
 package game.model.ability.transport;
 
+import game.controller.MainViewController;
 import game.model.ability.Ability;
 
-public class BuildSteamshipFactoryAbility implements Ability {
+public class BuildSteamshipFactoryAbility extends Ability {
+    public BuildSteamshipFactoryAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 

@@ -1,4 +1,4 @@
-package model.gameImporter;
+package game.model.gameImporter;
 
 import game.model.Game;
 import game.model.Player;
@@ -7,7 +7,7 @@ import game.model.direction.TileCompartmentDirection;
 import game.model.gameImporter.Exportable;
 import game.model.gameImporter.GameInfoAdapter;
 import game.model.gameImporter.MapImporter;
-import game.model.managers.AbilityManager;
+import game.model.managers.TransportAbilityManager;
 import game.model.managers.TransportManager;
 import game.model.map.RBMap;
 import game.model.resources.ResourceType;
@@ -41,7 +41,7 @@ public class GameInfoAdapterTest {
         Transport transport = new WagonTransport(player1.getPlayerId(), new TransportId(), 1, 1);
         transport.getResourceManager().addResource(ResourceType.GOLD, 2);
         transportManager.addTransport(transport, new Location(0,0,0), TileCompartmentDirection.getNorth());
-        game = new Game(map, player1, player2, null);
+        game = new Game(map, player1, player2);
     }
 
     @Test
