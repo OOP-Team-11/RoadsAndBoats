@@ -9,7 +9,7 @@ public class TransportProducer extends Structure {
 
     }
 
-//    public Transport produce(PlayerId pid, Resource model.resource) {
+//    public Transport produce(PlayerId pid, ResourceType model.resource) {
 //
 //    }
 

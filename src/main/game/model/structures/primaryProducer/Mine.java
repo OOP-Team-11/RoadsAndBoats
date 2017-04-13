@@ -1,8 +1,6 @@
 package game.model.structures.primaryProducer;
 
-import game.model.resources.Gold;
-import game.model.resources.Iron;
-import game.model.resources.Resource;
+import game.model.resources.ResourceType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,8 +21,8 @@ public class Mine extends ResourceDropper {
     }
 
     @Override
-    public Map<Resource, Integer> produce() {
-        Map<Resource, Integer> resource = new HashMap<>();
+    public Map<ResourceType, Integer> produce() {
+        Map<ResourceType, Integer> resource = new HashMap<>();
 
         Random random = new Random();
         int chosen = random.nextInt(2);
@@ -32,21 +30,21 @@ public class Mine extends ResourceDropper {
         switch(chosen) {
             case 1:
                 if (currentGoldCount != 0) {
-                    resource.put(new Gold(), 1);
+                    resource.put(ResourceType.GOLD, 1);
                     --currentGoldCount;
                 }
                 else if (currentIronCount != 0) {
-                    resource.put(new Iron(), 1);
+                    resource.put(ResourceType.IRON, 1);
                     --currentIronCount;
                 }
                 break;
             case 0:
                 if (currentIronCount != 0) {
-                    resource.put(new Iron(), 1);
+                    resource.put(ResourceType.IRON, 1);
                     --currentIronCount;
                 }
                 else if (currentGoldCount != 0) {
-                    resource.put(new Gold(), 1);
+                    resource.put(ResourceType.GOLD, 1);
                     --currentGoldCount;
                 }
                 break;

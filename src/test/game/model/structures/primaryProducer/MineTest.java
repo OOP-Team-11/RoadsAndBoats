@@ -1,8 +1,6 @@
 package model.structures.primaryProducer;
 
-import game.model.resources.Gold;
-import game.model.resources.Iron;
-import game.model.resources.Resource;
+import game.model.resources.ResourceType;
 import game.model.structures.primaryProducer.Mine;
 import org.junit.Test;
 
@@ -18,62 +16,62 @@ public class MineTest {
     @Test
     public void produceRandom() {
         Mine mine = new Mine(3, 3);
-        Map<Resource, Integer> resources = new HashMap<>();
-        Map<Resource, Integer> mineOutput;
+        Map<ResourceType, Integer> resources = new HashMap<>();
+        Map<ResourceType, Integer> mineOutput;
 
         while ( (mine.getCurrentGoldCount() != 0) || (mine.getCurrentIronCount() != 0) ) {
             mineOutput = mine.produce();
 
-            if (mineOutput.containsKey(new Gold())) {
-                if (resources.get(new Gold()) == null) {
-                    resources.put(new Gold(), mineOutput.get(new Gold()));
+            if (mineOutput.containsKey(ResourceType.GOLD)) {
+                if (resources.get(ResourceType.GOLD) == null) {
+                    resources.put(ResourceType.GOLD, mineOutput.get(ResourceType.GOLD));
                 }
                 else {
-                    resources.put(new Gold(), mineOutput.get(new Gold()) + resources.get(new Gold()));
+                    resources.put(ResourceType.GOLD, mineOutput.get(ResourceType.GOLD) + resources.get(ResourceType.GOLD));
                 }
             }
 
-            if (mineOutput.containsKey(new Iron())) {
-                if (resources.get(new Iron()) == null) {
-                    resources.put(new Iron(), mineOutput.get(new Iron()));
+            if (mineOutput.containsKey(ResourceType.IRON)) {
+                if (resources.get(ResourceType.IRON) == null) {
+                    resources.put(ResourceType.IRON, mineOutput.get(ResourceType.IRON));
                 }
                 else {
-                    resources.put(new Iron(), mineOutput.get(new Iron()) + resources.get(new Iron()));
+                    resources.put(ResourceType.IRON, mineOutput.get(ResourceType.IRON) + resources.get(ResourceType.IRON));
                 }
             }
         }
 
         assertEquals(mine.getCurrentGoldCount(), 0);
         assertEquals(mine.getCurrentIronCount(), 0);
-        assertEquals(resources.get(new Gold()), new Integer(3));
-        assertEquals(resources.get(new Iron()), new Integer(3));
+        assertEquals(resources.get(ResourceType.GOLD), new Integer(3));
+        assertEquals(resources.get(ResourceType.IRON), new Integer(3));
     }
 
     @Test
     public void addShaft() {
         Mine mine = new Mine(5, 5);
 
-        Map<Resource, Integer> resources = new HashMap<>();
-        Map<Resource, Integer> mineOutput;
+        Map<ResourceType, Integer> resources = new HashMap<>();
+        Map<ResourceType, Integer> mineOutput;
 
         while ( (mine.getCurrentGoldCount() != 0) || (mine.getCurrentIronCount() != 0) ) {
             mineOutput = mine.produce();
 
-            if (mineOutput.containsKey(new Gold())) {
-                if (resources.get(new Gold()) == null) {
-                    resources.put(new Gold(), mineOutput.get(new Gold()));
+            if (mineOutput.containsKey(ResourceType.GOLD)) {
+                if (resources.get(ResourceType.GOLD) == null) {
+                    resources.put(ResourceType.GOLD, mineOutput.get(ResourceType.GOLD));
                 }
                 else {
-                    resources.put(new Gold(), mineOutput.get(new Gold()) + resources.get(new Gold()));
+                    resources.put(ResourceType.GOLD, mineOutput.get(ResourceType.GOLD) + resources.get(ResourceType.GOLD));
                 }
             }
 
-            if (mineOutput.containsKey(new Iron())) {
-                if (resources.get(new Iron()) == null) {
-                    resources.put(new Iron(), mineOutput.get(new Iron()));
+            if (mineOutput.containsKey(ResourceType.IRON)) {
+                if (resources.get(ResourceType.IRON) == null) {
+                    resources.put(ResourceType.IRON, mineOutput.get(ResourceType.IRON));
                 }
                 else {
-                    resources.put(new Iron(), mineOutput.get(new Iron()) + resources.get(new Iron()));
+                    resources.put(ResourceType.IRON, mineOutput.get(ResourceType.IRON) + resources.get(ResourceType.IRON));
                 }
             }
         }
@@ -82,8 +80,8 @@ public class MineTest {
 
         assertEquals(mine.getCurrentGoldCount(), 5);
         assertEquals(mine.getCurrentIronCount(), 5);
-        assertEquals(resources.get(new Gold()), new Integer(5));
-        assertEquals(resources.get(new Gold()), new Integer(5));
+        assertEquals(resources.get(ResourceType.GOLD), new Integer(5));
+        assertEquals(resources.get(ResourceType.GOLD), new Integer(5));
     }
 
 }

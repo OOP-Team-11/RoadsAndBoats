@@ -2,7 +2,7 @@ package game.model.managers;
 
 import game.model.Player;
 import game.model.PlayerId;
-import game.model.TransportProducer;
+import game.model.structures.transportProducer.TransportProducer;
 import game.model.direction.Location;
 
 import java.util.List;

@@ -14,7 +14,7 @@ public class OilRigTest {
         ResourceManager rm = new ResourceManager();
         OilRig oilRig = new OilRig(rm);
         oilRig.produce();
-        Integer resourceNum = rm.getResource(new Fuel());
+        Integer resourceNum = rm.getResource(ResourceType.FUEL);
         assertEquals(resourceNum, new Integer(1));
     }
 
@@ -22,8 +22,8 @@ public class OilRigTest {
     public void storeResource() {
         ResourceManager rm = new ResourceManager();
         OilRig oilRig = new OilRig(rm);
-        oilRig.storeResource(new Goose(), 5);
-        Integer resourceNum = rm.getResource(new Goose());
+        oilRig.storeResource(ResourceType.GOOSE, 5);
+        Integer resourceNum = rm.getResource(ResourceType.GOOSE);
         assertEquals(resourceNum, new Integer(5));
     }
 
@@ -31,9 +31,9 @@ public class OilRigTest {
     public void removeResource() {
         ResourceManager rm = new ResourceManager();
         OilRig oilRig = new OilRig(rm);
-        oilRig.storeResource(new Goose(), 5);
-        oilRig.takeResource(new Goose(), 3);
-        Integer resourceNum = rm.getResource(new Goose());
+        oilRig.storeResource(ResourceType.GOOSE, 5);
+        oilRig.takeResource(ResourceType.GOOSE, 3);
+        Integer resourceNum = rm.getResource(ResourceType.GOOSE);
         assertEquals(resourceNum, new Integer(2));
     }
 
@@ -42,9 +42,9 @@ public class OilRigTest {
         ResourceManager rm = new ResourceManager();
         OilRig oilRig = new OilRig(rm);
         oilRig.produce();
-        oilRig.storeResource(new Goose(), 5);
-        assertEquals(rm.getResource(new Fuel()), new Integer(1));
-        assertEquals(rm.getResource(new Goose()), new Integer(5));
+        oilRig.storeResource(ResourceType.GOOSE, 5);
+        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(1));
+        assertEquals(rm.getResource(ResourceType.GOOSE), new Integer(5));
     }
 
     @Test
@@ -52,36 +52,36 @@ public class OilRigTest {
         ResourceManager rm = new ResourceManager();
         OilRig oilRig = new OilRig(rm);
         oilRig.produce();
-        oilRig.takeResource(new Fuel(), 1);
-        assertEquals(rm.getResource(new Fuel()), new Integer(0));
+        oilRig.takeResource(ResourceType.FUEL, 1);
+        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(0));
     }
 
     @Test
     public void storeAllResources() {
         ResourceManager rm = new ResourceManager();
         OilRig oilRig = new OilRig(rm);
-        oilRig.storeResource(new Boards(), 1);
-        oilRig.storeResource(new Clay(), 2);
-        oilRig.storeResource(new Coins(), 3);
-        oilRig.storeResource(new Fuel(), 4);
-        oilRig.storeResource(new Gold(), 5);
-        oilRig.storeResource(new Goose(), 6);
-        oilRig.storeResource(new Iron(), 7);
-        oilRig.storeResource(new Paper(), 8);
-        oilRig.storeResource(new StockBond(), 9);
-        oilRig.storeResource(new Stone(), 10);
-        oilRig.storeResource(new Trunks(), 11);
-        assertEquals(rm.getResource(new Boards()), new Integer(1));
-        assertEquals(rm.getResource(new Clay()), new Integer(2));
-        assertEquals(rm.getResource(new Coins()), new Integer(3));
-        assertEquals(rm.getResource(new Fuel()), new Integer(4));
-        assertEquals(rm.getResource(new Gold()), new Integer(5));
-        assertEquals(rm.getResource(new Goose()), new Integer(6));
-        assertEquals(rm.getResource(new Iron()), new Integer(7));
-        assertEquals(rm.getResource(new Paper()), new Integer(8));
-        assertEquals(rm.getResource(new StockBond()), new Integer(9));
-        assertEquals(rm.getResource(new Stone()), new Integer(10));
-        assertEquals(rm.getResource(new Trunks()), new Integer(11));
+        oilRig.storeResource(ResourceType.BOARDS, 1);
+        oilRig.storeResource(ResourceType.CLAY, 2);
+        oilRig.storeResource(ResourceType.COINS, 3);
+        oilRig.storeResource(ResourceType.FUEL, 4);
+        oilRig.storeResource(ResourceType.GOLD, 5);
+        oilRig.storeResource(ResourceType.GOOSE, 6);
+        oilRig.storeResource(ResourceType.IRON, 7);
+        oilRig.storeResource(ResourceType.PAPER, 8);
+        oilRig.storeResource(ResourceType.STOCKBOND, 9);
+        oilRig.storeResource(ResourceType.STONE, 10);
+        oilRig.storeResource(ResourceType.TRUNKS, 11);
+        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(1));
+        assertEquals(rm.getResource(ResourceType.CLAY), new Integer(2));
+        assertEquals(rm.getResource(ResourceType.COINS), new Integer(3));
+        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(4));
+        assertEquals(rm.getResource(ResourceType.GOLD), new Integer(5));
+        assertEquals(rm.getResource(ResourceType.GOOSE), new Integer(6));
+        assertEquals(rm.getResource(ResourceType.IRON), new Integer(7));
+        assertEquals(rm.getResource(ResourceType.PAPER), new Integer(8));
+        assertEquals(rm.getResource(ResourceType.STOCKBOND), new Integer(9));
+        assertEquals(rm.getResource(ResourceType.STONE), new Integer(10));
+        assertEquals(rm.getResource(ResourceType.TRUNKS), new Integer(11));
     }
 
 }

@@ -1,48 +1,42 @@
 package model.resource;
 
 
-import game.model.resources.Gold;
-import game.model.resources.Iron;
 import game.model.resources.ResourceManager;
+import game.model.resources.ResourceType;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ResourceTest {
+public class ResourceTypeTest {
     @Test
     public void addResource(){
         ResourceManager resourceManager = new ResourceManager();
-        Gold gold = new Gold();
-        resourceManager.addResource(gold, 2);
-        resourceManager.addResource(gold, 4);
+        resourceManager.addResource(ResourceType.GOLD, 2);
+        resourceManager.addResource(ResourceType.GOLD, 4);
         assertTrue(resourceManager.hasResource());
     }
     @Test
     public void decrementResource(){
         ResourceManager resourceManager = new ResourceManager();
-        Gold gold = new Gold();
-        resourceManager.addResource(gold, 2);
-        resourceManager.addResource(gold, 4);
+        resourceManager.addResource(ResourceType.GOLD, 2);
+        resourceManager.addResource(ResourceType.GOLD, 4);
         assertTrue(resourceManager.hasResource());
     }
     @Test
     public void removeResource(){
         ResourceManager resourceManager = new ResourceManager();
-        Gold gold = new Gold();
-        resourceManager.addResource(gold, 2);
-        resourceManager.addResource(gold, 4);
-        resourceManager.removeResource(gold, 8);
+        resourceManager.addResource(ResourceType.GOLD, 2);
+        resourceManager.addResource(ResourceType.GOLD, 4);
+        resourceManager.removeResource(ResourceType.GOLD, 8);
         assertTrue(!resourceManager.hasResource());
     }
     @Test
     public void getWealthPoints(){
         ResourceManager resourceManager = new ResourceManager();
-        Gold gold = new Gold();
-        Iron iron = new Iron();
-        resourceManager.addResource(iron, 3);
-        resourceManager.addResource(gold, 2);
-        resourceManager.addResource(gold, 4);
+        resourceManager.addResource(ResourceType.IRON, 3);
+        resourceManager.addResource(ResourceType.GOLD, 2);
+        resourceManager.addResource(ResourceType.GOLD, 4);
         assertEquals(resourceManager.getWealthPoints(), 60);
 
     }
