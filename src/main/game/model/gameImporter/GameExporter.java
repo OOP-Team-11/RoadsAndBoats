@@ -1,10 +1,15 @@
 package game.model.gameImporter;
 
-import game.GameInitializer;
+import game.model.Game;
 
 public class GameExporter {
 
-    public void exportGame(GameInitializer game) {
+    private Game game;
+    public GameExporter(Game game) {
+        this.game = game;
+    }
+
+    public void exportGameToPath(String filePath) {
 
     }
 }
