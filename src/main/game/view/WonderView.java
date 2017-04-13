@@ -87,7 +87,6 @@ public class WonderView extends View implements WonderRenderInfoObserver{
         if(brickCount < 62){
             this.brickX += 66;
         }
-
         if(brickCount % 4 == 0 && brickCount < 9){
             this.brickY -= 34;
             this.brickX -= (4*66);
