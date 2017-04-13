@@ -129,7 +129,7 @@ public class WelcomeViewController {
             String player1Name = welcomeView.getPlayer1Name();
             String player2Name = welcomeView.getPlayer2Name();
             if(gameFile != null){
-                new GameInitializer(gameFile,player1Name ,player2Name ,primaryStage.getScene());
+                new GameInitializer(gameFile,player1Name ,player2Name ,primaryStage);
             } else {
                 // no file has been selected
             }

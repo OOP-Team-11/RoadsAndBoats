@@ -1,11 +1,18 @@
 package game.view;
 
+import game.view.utilities.DirectoryPicker;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.DirectoryChooser;
+
+import java.io.File;
 
 
 public class SaveLoadView extends View {
@@ -13,7 +20,6 @@ public class SaveLoadView extends View {
     private AnchorPane anchorPane;
     private Canvas canvas;
     private GraphicsContext gc;
-    private TextField loadField;
     private TextField saveField;
     private Button loadButton;
     private Button saveButton;
@@ -21,17 +27,22 @@ public class SaveLoadView extends View {
     private Button loadDirectory;
     private ListView loadList;
     private ListView saveList;
+    private DirectoryPicker directoryPicker;
 
-    public SaveLoadView(AnchorPane anchorPane){
+    public SaveLoadView(AnchorPane anchorPane, DirectoryPicker directoryPicker){
         setAnchorPane(anchorPane);
         setupPage();
+        setDirectoryPicker(directoryPicker);
         drawLoadOptions();
         drawSaveOption();
     }
-
     private void setAnchorPane(AnchorPane anchorPane){
         this.anchorPane = anchorPane;
     }
+    private void setDirectoryPicker(DirectoryPicker directoryPicker){
+        this.directoryPicker = directoryPicker;
+    }
+
     private void setupPage(){
         this.canvas = new Canvas(1300, 800);
         this.gc = this.canvas.getGraphicsContext2D();
@@ -39,6 +50,8 @@ public class SaveLoadView extends View {
         this.gc.fillRect(0,0,1300,800);
         this.gc.setStroke(Color.BLACK);
         this.gc.setLineWidth(3.0);
+        this.gc.setFont(new Font(80));
+        this.gc.strokeText("Save Load Options", 350.0, 70.0);
         this.gc.strokeLine(650, 100, 650, 750);
         this.anchorPane.getChildren().add(canvas);
     }
@@ -46,12 +59,6 @@ public class SaveLoadView extends View {
         this.gc.setLineWidth(2.0);
         this.gc.setFont(new Font(35));
         this.gc.strokeText("Load", 100, 150);
-        this.loadField = new TextField();
-        this.loadField.setFont(new Font(20));
-        this.loadField.setPrefWidth(350.0);
-        this.anchorPane.getChildren().add(loadField);
-        this.anchorPane.setLeftAnchor(loadField, 100.0);
-        this.anchorPane.setTopAnchor(loadField,700.0);
         this.loadButton = new Button();
         this.loadButton.setText("Load Game");
         this.loadButton.setFont(new Font(20));
@@ -114,12 +121,39 @@ public class SaveLoadView extends View {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    public String getSelectedLoadFile(){
+        return (String)this.loadList.getSelectionModel().getSelectedItem();
+    }
+    public String getSaveFileName(){
+        return this.saveField.getText();
+    }
 
-    public Button getLoadButtonReference(){return this.loadButton; }
-    public Button getSaveButtonReference(){return this.saveButton; }
-    public Button getSaveDirectoryReference() { return this.saveDirectory;}
-    public Button getLoadDirectoryReference() { return this.loadDirectory;}
-    public TextField getLoadFieldReference() { return this.loadField; }
+    public File showDirectoryChoose(String title, File defaultDirectory){
+        directoryPicker.setTitle(title);
+        directoryPicker.setDirectory(defaultDirectory);
+        return directoryPicker.launchDirectoryChooser();
+    }
+
+    public void updateLoadList(ObservableList<String> items){
+        this.loadList.setItems(items);
+    }
+    public void updateSaveList(ObservableList<String> items){
+        this.saveList.setItems(items);
+    }
+
+    public void addEventFilterToLoadButton(EventHandler filter){
+        this.loadButton.addEventFilter(MouseEvent.MOUSE_CLICKED, filter);
+    }
+    public void addEventFilterToSaveButton(EventHandler filter){
+        this.saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, filter);
+    }
+    public void addEventFilterToSaveDirectory(EventHandler filter){
+        this.saveDirectory.addEventFilter(MouseEvent.MOUSE_CLICKED, filter);
+    }
+    public void addEventFilterToLoadDirectory(EventHandler filter){
+        this.loadDirectory.addEventFilter(MouseEvent.MOUSE_CLICKED, filter);
+    }
+
     public TextField getSaveFieldReference() { return this.saveField; }
 
 
