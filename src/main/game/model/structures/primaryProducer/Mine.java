@@ -3,7 +3,6 @@ package game.model.structures.primaryProducer;
 import game.model.resources.Gold;
 import game.model.resources.Iron;
 import game.model.resources.Resource;
-import game.model.resources.Trunks;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,30 +27,33 @@ public class Mine extends ResourceDropper {
         Map<Resource, Integer> resource = new HashMap<>();
 
         Random random = new Random();
-        int chosen = random.nextInt(1);
+        int chosen = random.nextInt(2);
 
         switch(chosen) {
             case 1:
                 if (currentGoldCount != 0) {
                     resource.put(new Gold(), 1);
-                    currentGoldCount -= currentGoldCount;
-                } else {
-                    resource.put(new Iron(), 1);
-                    currentIronCount -= currentIronCount;
+                    --currentGoldCount;
                 }
+                else if (currentIronCount != 0) {
+                    resource.put(new Iron(), 1);
+                    --currentIronCount;
+                }
+                break;
             case 0:
                 if (currentIronCount != 0) {
                     resource.put(new Iron(), 1);
-                    currentIronCount -= currentIronCount;
-                } else {
-                    resource.put(new Gold(), 1);
-                    currentGoldCount -= currentGoldCount;
+                    --currentIronCount;
                 }
+                else if (currentGoldCount != 0) {
+                    resource.put(new Gold(), 1);
+                    --currentGoldCount;
+                }
+                break;
         }
 
         return resource;
     }
-
 
     public void addShaft() {
         replenishMine();
@@ -77,7 +79,7 @@ public class Mine extends ResourceDropper {
 
     private void setIronCount(int ironCount) {
         this.initialIronCount = ironCount;
-        this.currentGoldCount = ironCount;
+        this.currentIronCount = ironCount;
     }
 
 }

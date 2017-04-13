@@ -12,11 +12,11 @@ public class OilRig extends ResourceHolder {
         super(resourceManager);
     }
 
-    public void store(Resource resource, int amount) {
+    public void storeResource(Resource resource, int amount) {
         addToResourceManager(resource, amount);
     }
 
-    public void take(Resource resource, int amount) {
+    public void takeResource(Resource resource, int amount) {
         removeFromResourceManager(resource, amount);
     }
 

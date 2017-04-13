@@ -13,4 +13,5 @@ public class ClayPitTest {
         Integer resourceNum = clayPit.produce().get(new Clay());
         assertEquals(resourceNum, new Integer(1));
     }
+
 }

@@ -19,4 +19,17 @@ public class Goose extends Resource implements Livestock{
         return 0;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Goose)) {
+            return false;
+        }
+        return true;
+    }
+
 }
