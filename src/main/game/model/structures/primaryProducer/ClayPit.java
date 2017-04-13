@@ -1,7 +1,6 @@
 package game.model.structures.primaryProducer;
 
-import game.model.resources.Clay;
-import game.model.resources.Resource;
+import game.model.resources.ResourceType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,9 +12,9 @@ public class ClayPit extends ResourceDropper {
     }
 
     @Override
-    public Map<Resource, Integer> produce() {
-        Map<Resource, Integer> resource = new HashMap<>();
-        resource.put(new Clay(), 1);
+    public Map<ResourceType, Integer> produce() {
+        Map<ResourceType, Integer> resource = new HashMap<>();
+        resource.put(ResourceType.CLAY, 1);
         return resource;
     }
 

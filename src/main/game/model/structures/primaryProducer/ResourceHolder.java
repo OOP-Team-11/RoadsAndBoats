@@ -1,6 +1,6 @@
 package game.model.structures.primaryProducer;
 
-import game.model.resources.Resource;
+import game.model.resources.ResourceType;
 import game.model.resources.ResourceManager;
 
 public abstract class ResourceHolder extends PrimaryProducer {
@@ -11,12 +11,12 @@ public abstract class ResourceHolder extends PrimaryProducer {
         this.resourceManager = resourceManager;
     }
 
-    protected void addToResourceManager(Resource resource, Integer amount) {
-        resourceManager.addResource(resource, amount);
+    protected void addToResourceManager(ResourceType resourceType, Integer amount) {
+        resourceManager.addResource(resourceType, amount);
     }
 
-    protected void removeFromResourceManager(Resource resource, Integer amount) {
-        resourceManager.removeResource(resource, amount);
+    protected void removeFromResourceManager(ResourceType resourceType, Integer amount) {
+        resourceManager.removeResource(resourceType, amount);
     }
 
 }
