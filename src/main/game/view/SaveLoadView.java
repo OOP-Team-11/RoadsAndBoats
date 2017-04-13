@@ -10,8 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.DirectoryChooser;
-
 import java.io.File;
 
 
@@ -155,7 +153,6 @@ public class SaveLoadView extends View {
     }
 
     public TextField getSaveFieldReference() { return this.saveField; }
-
 
     @Override
     public void render() {
