@@ -12,6 +12,6 @@ public class Exportable {
     }
 
     public String getExportValue() {
-        return "( " + location.getX() + " " + location.getY() + " " + location.getZ() + " ) " + exportString;
+        return location.getExportString() + " " + exportString;
     }
 }

@@ -1,11 +1,13 @@
 package game.model.resources;
 
 
+import game.model.gameImporter.Serializable;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ResourceManager {
+public class ResourceManager implements Serializable {
     private Map<ResourceType, Integer> resourceTypeIntegerMap;
 
     public ResourceManager(){
