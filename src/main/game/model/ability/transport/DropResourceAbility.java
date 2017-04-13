@@ -1,8 +1,13 @@
 package game.model.ability.transport;
 
+import game.controller.MainViewController;
 import game.model.ability.Ability;
 
-public class DropResourceAbility implements Ability {
+public class DropResourceAbility extends Ability {
+    public DropResourceAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 

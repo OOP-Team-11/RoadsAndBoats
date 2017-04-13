@@ -24,6 +24,6 @@ public class MoveAbility extends Ability {
     }
     @Override
     public String getDisplayString() {
-        return "TINY RICK";
+        return "Move";
     }
 }
