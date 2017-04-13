@@ -1,7 +1,7 @@
 package model.gameImporter;
 
 import game.model.direction.Location;
-import game.model.gameImporter.MalformedMapFileException;
+import game.utilities.exceptions.MalformedMapFileException;
 import game.model.gameImporter.MapImporter;
 import game.model.map.RBMap;
 import game.model.tile.Terrain;

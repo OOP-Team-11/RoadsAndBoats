@@ -1,12 +1,15 @@
 package game.view;
 
+import game.view.utilities.DirectoryPicker;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class ViewHandler {
 
+    private Stage primaryStage;
     private Scene scene;
     private MainView mainView;
     private OptionsView optionsView;
@@ -26,17 +29,24 @@ public class ViewHandler {
     private AnchorPane saveLoadAnchor;
     private AnchorPane transportAnchor;
     private AnchorPane wonderAnchor;
+    private DirectoryPicker directoryPicker;
 
 
-    public ViewHandler(Scene scene){
-            setScene(scene);
+    public ViewHandler(Stage primaryStage){
+            setStage(primaryStage);
+            setupDirectoryPicker();
             setUpGameWindow();
             setUpNavigationBar();
             initializeGameLoop();
     }
 
-    private void setScene(Scene scene){
-        this.scene = scene;
+    private void setStage(Stage primaryStage){
+        this.primaryStage = primaryStage;
+        this.scene = this.primaryStage.getScene();
+    }
+
+    private void setupDirectoryPicker(){
+        this.directoryPicker = new DirectoryPicker(primaryStage);
     }
 
     private void setUpGameWindow(){
@@ -54,7 +64,7 @@ public class ViewHandler {
         this.transportView = new TransportView(transportAnchor);
         this.researchView = new ResearchView(researchViewAnchor);
         this.wonderView = new WonderView(wonderAnchor);
-        this.saveLoadView = new SaveLoadView(saveLoadAnchor);
+        this.saveLoadView = new SaveLoadView(saveLoadAnchor, directoryPicker);
     }
 
     public void jumpToMainView(){
@@ -103,6 +113,19 @@ public class ViewHandler {
         this.hbox.setSpacing(0.0);
         // at the start of the game mainView is active
     }
+
+    public MainView getMainViewReference(){
+        return this.mainView;
+    }
+    public TransportView getTransportViewReference(){
+        return this.transportView;
+    }
+    public OptionsView getOptionsViewReference(){
+        return this.optionsView;
+    }
+    public ResearchView getResearchViewReference(){return this.researchView;}
+    public WonderView getWonderViewReference(){ return this.wonderView; }
+    public SaveLoadView getSaveLoadViewReference() { return this.saveLoadView; }
 
     private void initializeGameLoop(){
         animationTimer = new AnimationTimer()
