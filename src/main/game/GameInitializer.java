@@ -4,12 +4,12 @@ import game.controller.ControllerManager;
 import game.view.ViewHandler;
 import javafx.scene.Scene;
 
-public class Game {
+public class GameInitializer {
 
     private ViewHandler viewHandler;
     private ControllerManager controllerManager;
 
-    public Game(String gameFile, String player1Name, String player2Name, Scene scene){
+    public GameInitializer(String gameFile, String player1Name, String player2Name, Scene scene){
         // TODO
         System.out.println("New Game has started");
         viewHandler = new ViewHandler(scene);
