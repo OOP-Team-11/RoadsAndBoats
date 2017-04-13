@@ -1,6 +1,8 @@
 package game.model.ability.transport;
 
-public class ResearchAbility implements TransportAbility {
+import game.model.ability.Ability;
+
+public class ResearchAbility implements Ability {
     @Override
     public void perform() {
 
@@ -11,7 +13,6 @@ public class ResearchAbility implements TransportAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
     }

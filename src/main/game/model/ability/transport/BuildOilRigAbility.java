@@ -1,6 +1,8 @@
 package game.model.ability.transport;
 
-public class BuildOilRigAbility implements TransportAbility {
+import game.model.ability.Ability;
+
+public class BuildOilRigAbility implements Ability {
     @Override
     public void perform() {
 
@@ -11,7 +13,6 @@ public class BuildOilRigAbility implements TransportAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
     }

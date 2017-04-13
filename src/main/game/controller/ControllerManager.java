@@ -46,4 +46,8 @@ public class ControllerManager {
     private void setupOptionsViewController(){
         this.optionsViewController = new OptionsViewController(viewHandler.getOptionsViewReference());
     }
+
+    public MainViewController getMainViewController() {
+        return mainViewController;
+    }
 }

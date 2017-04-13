@@ -31,4 +31,7 @@ public class GooseLocation {
     public TileCompartmentDirection getTileCompartmentDirection() {
         return tileCompartmentDirection;
     }
+    public void setTileCompartmentDirection(TileCompartmentDirection tcd) {
+        this.tileCompartmentDirection = tcd;
+    }
 }

@@ -1,6 +1,8 @@
 package game.model.ability.transport;
 
-public class BuildNewShaftAbility implements TransportAbility {
+import game.model.ability.Ability;
+
+public class BuildNewShaftAbility implements Ability {
     @Override
     public void perform() {
 
@@ -11,7 +13,6 @@ public class BuildNewShaftAbility implements TransportAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
     }

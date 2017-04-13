@@ -1,6 +1,8 @@
 package game.model.ability.transportProducer;
 
-public class ProduceTransportAbility implements TransportProducerAbility {
+import game.model.ability.Ability;
+
+public class ProduceTransportAbility implements Ability {
     @Override
     public void perform() {
 
@@ -11,7 +13,6 @@ public class ProduceTransportAbility implements TransportProducerAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
     }
