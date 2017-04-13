@@ -13,9 +13,8 @@ public class Player {
 
     public Player(TransportAbilityManager transportAbilityManager) {
         this.playerId = new PlayerId();
-        this.transportManager = new TransportManager(this);
+        this.transportManager = new TransportManager(this, transportAbilityManager);
         this.transportProducerManager = new TransportProducerManager(this);
-        this.transportAbilityManager = transportAbilityManager;
     }
 
     public PlayerId getPlayerId() {

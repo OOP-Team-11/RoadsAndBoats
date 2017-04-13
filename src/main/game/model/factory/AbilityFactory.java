@@ -13,7 +13,7 @@ public class AbilityFactory {
     }
 
     public Ability getMoveAbility() { return new MoveAbility(mainViewController); }
-    public Ability getFollowAbility() { return new FollowAbility(mainViewController); }
+    public FollowAbility getFollowAbility() { return new FollowAbility(mainViewController); }
 
 
 }

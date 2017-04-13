@@ -4,6 +4,9 @@ import game.model.Player;
 import game.model.PlayerId;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
+import game.model.direction.TileCompartmentLocation;
+import game.model.map.RBMap;
+import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
 import game.model.transport.TransportLocation;
@@ -13,12 +16,12 @@ import java.util.*;
 public class TransportManager {
 
     private Player player;
-    private GooseManager gooseManager;
     private TransportAbilityManager transportAbilityManager;
-    private Map<Location, List<TransportLocation>> transports;
-    public TransportManager(Player player) {
+    private Map<TileCompartmentLocation, List<Transport>> transports;
+    public TransportManager(Player player, TransportAbilityManager transportAbilityManager) {
         this.player = player;
-        this.transports = new HashMap<Location, List<TransportLocation>>();
+        this.transports = new HashMap<TileCompartmentLocation, List<Transport>>();
+        this.transportAbilityManager = transportAbilityManager;
     }
 
     public PlayerId getPlayerId() {
@@ -27,38 +30,38 @@ public class TransportManager {
 
     public void addTransport(Transport transport, Location location, TileCompartmentDirection tileCompartmentDirection) {
         // TODO: enforce transport type limits
-        TransportLocation tl = new TransportLocation(transport, tileCompartmentDirection);
-        if (transports.containsKey(location)) {
-            List<TransportLocation> transportLocations = transports.get(location);
-            transportLocations.add(tl);
+        TileCompartmentLocation tileCompartmentLocation = new TileCompartmentLocation(location, tileCompartmentDirection);
+        if (transports.containsKey(tileCompartmentLocation)) {
+            List<Transport> transportList = transports.get(tileCompartmentLocation);
+            transportList.add(transport);
         } else {
-            List<TransportLocation> tls = new ArrayList<>();
-            tls.add(tl);
-            transports.put(location, tls);
+            List<Transport> transportList = new ArrayList<>();
+            transportList.add(transport);
+            transports.put(tileCompartmentLocation, transportList);
         }
     }
 
     public boolean moveTransport(Transport transport, Location location, TileCompartmentDirection tileCompartmentDirection) {
-        Location oldLocation = null;
-        TransportLocation transportLocation = null;
+        boolean foundTransport = false;
+        TileCompartmentLocation tileCompartmentLocation = new TileCompartmentLocation(location, tileCompartmentDirection);
         Iterator it = transports.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
-            Location mapLocation = (Location) pair.getKey();
-            List<TransportLocation> mapTransportLocation = transports.get(mapLocation);
+            TileCompartmentLocation mapLocation = (TileCompartmentLocation) pair.getKey();
+            List<Transport> mapTransportLocation = transports.get(tileCompartmentLocation);
 
-            Iterator tlIterator = mapTransportLocation.iterator();
-            while (tlIterator.hasNext()) {
-                TransportLocation tl = (TransportLocation) tlIterator.next();
-                if (tl.getTransport().equals(transport)) {
-                    tlIterator.remove();
-                    transportLocation = tl;
+            Iterator transportIterator = mapTransportLocation.iterator();
+            while (transportIterator.hasNext()) {
+                Transport iteratorTransport = (Transport) transportIterator.next();
+                if (transportIterator.equals(transport)) {
+                    transportIterator.remove();
+                    foundTransport = true;
                     break;
                 }
             }
         }
 
-        if (transportLocation == null) return false; // could not find transport
+        if (!foundTransport) return false; // could not find transport
 
         addTransport(transport, location, tileCompartmentDirection);
         return true;
@@ -69,7 +72,11 @@ public class TransportManager {
         return null;
     }
 
-    public Map<Location, List<TransportLocation>> getTransports() {
+    public Map<TileCompartmentLocation, List<Transport>> getTransports() {
         return this.transports;
+    }
+
+    public void addAbilities(TileCompartmentLocation tileCompartmentLocation, Transport transport) {
+        this.transportAbilityManager.addAbilities(tileCompartmentLocation, transport);
     }
 }

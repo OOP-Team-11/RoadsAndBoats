@@ -3,6 +3,7 @@ package game.model.gameImporter;
 import game.model.Game;
 import game.model.Player;
 import game.model.direction.Location;
+import game.model.direction.TileCompartmentLocation;
 import game.model.map.RBMap;
 import game.model.structures.Structure;
 import game.model.tile.RiverConfiguration;
@@ -39,14 +40,14 @@ public class GameInfoAdapter {
         List<Transport> transports = new ArrayList<>();
         List<Exportable> exportables = new ArrayList<>();
         for (Player player : players) {
-            Map<Location, List<TransportLocation>> transportMap = player.getTransportManager().getTransports();
+            Map<TileCompartmentLocation, List<Transport>> transportMap = player.getTransportManager().getTransports();
             Iterator it = transportMap.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();
-                Location location = (Location) pair.getKey();
-                List<TransportLocation> transportLocationList = transportMap.get(location);
-                for (TransportLocation transportLocation : transportLocationList) {
-                    Exportable exportable = new Exportable(location, transportLocation.getTransport().getExportString());
+                TileCompartmentLocation tileCompartmentLocation = (TileCompartmentLocation) pair.getKey();
+                List<Transport> transportList = transportMap.get(tileCompartmentLocation);
+                for (Transport transport : transportList) {
+                    Exportable exportable = new Exportable(tileCompartmentLocation.getLocation(), transport.getExportString());
                     exportables.add(exportable);
                 }
             }
