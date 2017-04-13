@@ -2035,7 +2035,7 @@ Iterates through secondary producers to initiate
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 PrimaryProducer
 --
-+produce() : resource
++produce() : model.resource
 --
 this class defines the
 interface for primary
@@ -2054,7 +2054,7 @@ resources from nothing.</panel_attributes>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 SecondaryProducer
 --
-+ produce(resource :Resource) : Resource
++ produce(model.resource :Resource) : Resource
 --
 this class defines the interface for secondary
 producers to produce resources from
@@ -2138,7 +2138,7 @@ input resources.</panel_attributes>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 TransportProducer
 --
-+Produce(pid: PlayerId, resource: Resource): Transport</panel_attributes>
++Produce(pid: PlayerId, model.resource: Resource): Transport</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

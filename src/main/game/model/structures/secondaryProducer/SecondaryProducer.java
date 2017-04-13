@@ -1,7 +1,9 @@
 package game.model.structures.secondaryProducer;
 
-import game.model.resources.ResourceType;
+import game.model.resources.Resource;
 import game.model.structures.Structure;
+
+import java.util.Map;
 
 public abstract class SecondaryProducer extends Structure {
 
@@ -9,8 +11,6 @@ public abstract class SecondaryProducer extends Structure {
 
     }
 
-//    public ResourceType produce(ResourceType reource) {
-//
-//    }
+    public abstract Map<Resource, Integer> produce(Resource resource);
 
 }

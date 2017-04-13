@@ -1,11 +1,12 @@
 package game.model.resources;
 
+
 import java.util.Objects;
 
-public class StockBond extends Resource {
+public class Trunks extends Resource {
     @Override
     public int getWealthPoint() {
-        return 120;
+        return 0;
     }
 
     @Override
@@ -15,7 +16,7 @@ public class StockBond extends Resource {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof StockBond)) {
+        if (!(object instanceof Trunks)) {
             return false;
         }
         return true;

@@ -1,4 +1,4 @@
-package game;
+package model.gameImporter;
 
 import game.model.direction.Location;
 import game.model.gameImporter.MalformedMapFileException;
