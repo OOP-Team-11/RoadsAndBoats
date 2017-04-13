@@ -12,11 +12,11 @@ public class Game {
     private Player currentPlayer;
     private RBMap map;
 
-    public Game(Player player1, Player player2) {
+    public Game(RBMap map, Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = player1;
-        this.map = new RBMap();
+        this.map = map;
     }
 
     // TODO

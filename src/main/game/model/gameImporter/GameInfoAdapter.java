@@ -29,5 +29,4 @@ public class GameInfoAdapter {
         return transports;
     }
 
-    public List<>
 }
