@@ -119,6 +119,7 @@ public class Assets {
     public Image TRUCK_RESEARCH;
     public Image BRIGHT_IDEA_RESEARCH;
     public Image RESEARCH_TABLE;
+    public Image GLASS_STONE;
 
     // wonder
     public Image WONDER;
@@ -239,6 +240,7 @@ public class Assets {
             TRUCK_RESEARCH = new Image(this.getClass().getResourceAsStream("/research/truck_research.png"));
             BRIGHT_IDEA_RESEARCH = new Image(this.getClass().getResourceAsStream("/research/bright_idea.png"));
             RESEARCH_TABLE = new Image(this.getClass().getResourceAsStream("/research/research_table.png"));
+            GLASS_STONE = new Image(this.getClass().getResourceAsStream("/research/glassSmall.png"));
 
             WONDER = new Image(this.getClass().getResourceAsStream("/wonder/wonder.png"));
             WONDERBRICK_BLUE = new Image(this.getClass().getResourceAsStream("/wonder/wonderbrick_blue.jpg"));
