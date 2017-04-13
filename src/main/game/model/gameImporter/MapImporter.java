@@ -159,7 +159,7 @@ public class MapImporter {
         // each match: group 1 is resource string, group 2 is amount
         Pattern locationPattern = Pattern.compile("([A-Z]*):([0-9]*)");
         Matcher m = locationPattern.matcher(tileString);
-        if (m.find()) {
+        while (m.find()) {
             String resourceString = m.group(1);
             String amountString = m.group(2);
 
