@@ -16,4 +16,8 @@ public class BuildClayPitAbility implements Ability {
     public void attachToController() {
 
     }
+    @Override
+    public String getDisplayString() {
+        return "TINY RICK";
+    }
 }

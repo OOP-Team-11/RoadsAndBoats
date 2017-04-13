@@ -16,4 +16,8 @@ public class AddNewMineShaftAbility implements Ability {
     public void attachToController() {
 
     }
+    @Override
+    public String getDisplayString() {
+        return "String";
+    }
 }

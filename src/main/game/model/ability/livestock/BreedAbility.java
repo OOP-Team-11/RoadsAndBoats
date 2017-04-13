@@ -16,4 +16,8 @@ public class BreedAbility implements Ability {
 
     }
 
+    @Override
+    public String getDisplayString() {
+        return "String";
+    }
 }

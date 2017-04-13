@@ -16,4 +16,9 @@ public class BuildbigMineAbility implements Ability {
     public void attachToController() {
 
     }
+
+    @Override
+    public String getDisplayString() {
+        return "String";
+    }
 }

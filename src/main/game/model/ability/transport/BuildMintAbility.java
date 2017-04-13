@@ -16,4 +16,8 @@ public class BuildMintAbility implements Ability {
     public void attachToController() {
 
     }
+    @Override
+    public String getDisplayString() {
+        return "TINY RICK";
+    }
 }

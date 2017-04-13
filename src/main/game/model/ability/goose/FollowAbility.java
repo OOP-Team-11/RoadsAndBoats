@@ -37,6 +37,8 @@ public class FollowAbility implements Ability {
         this.transportId = transportId;
         this.transportManager = transManager;
         this.gooseCount = gooseCount;
+        KeyCode kc = KeyCode.getKeyCode("Digit"+gooseCount);
+        mainViewController.attachControl(kc, this);
 
     }
 }
