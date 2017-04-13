@@ -1,6 +1,6 @@
 package startApplication;
 
-import game.Game;
+import game.GameInitializer;
 import game.view.MapMaker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -129,7 +129,7 @@ public class WelcomeViewController {
             String player1Name = welcomeView.getPlayer1Name();
             String player2Name = welcomeView.getPlayer2Name();
             if(gameFile != null){
-                new Game(gameFile,player1Name ,player2Name ,primaryStage);
+                new GameInitializer(gameFile,player1Name ,player2Name ,primaryStage);
             } else {
                 // no file has been selected
             }
@@ -144,7 +144,7 @@ public class WelcomeViewController {
         this.changeDirectoryButton.setOnMouseClicked(event -> {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             if(startOrLoad){
-                directoryChooser.setTitle("Choose mmMap");
+                directoryChooser.setTitle("Choose Map");
                 directoryChooser.setInitialDirectory(startGameDirectory);
                 startGameDirectory = directoryChooser.showDialog(primaryStage);
                 updateNewGameDirectoryContents();

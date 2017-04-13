@@ -29,6 +29,17 @@ public class RiverConfiguration {
         if (side2 < side1) throw new IllegalArgumentException("Side2 must be less than side1");
 
         int sideDifference = side2 - side1;
+        if (sideDifference == 4) {
+            sideDifference = 2;
+            this.rotationAmount = Math.max(side1, side2) - 1;
+        }
+        else if (sideDifference == 5) {
+            sideDifference = 1;
+            this.rotationAmount = Math.max(side1, side2) - 1;
+        } else {
+            this.rotationAmount = Math.min(side1, side2) - 1;
+        }
+
         switch (sideDifference) {
             case 1:
                 this.riverMap = getAdjacentFacesMap();
@@ -41,7 +52,6 @@ public class RiverConfiguration {
                 break;
         }
 
-        this.rotationAmount = side1 - 1;
     }
 
     public RiverConfiguration(int side1, int side2, int side3) {
