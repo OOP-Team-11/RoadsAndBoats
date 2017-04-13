@@ -11,7 +11,7 @@ public class SteamShipTransport extends WaterTransport {
     }
 
     public String getExportString() {
-        return this.getPlayerId().getPlayerIdNumber() + " STEAMSHIP" + getResourceManager().getExportString();
+        return this.getPlayerId().getPlayerIdNumber() + " STEAMSHIP " + getResourceManager().getExportString();
     }
 
 }

@@ -12,7 +12,7 @@ public class DonkeyTransport extends LandTransport implements Livestock {
     }
 
     public String getExportString() {
-        return this.getPlayerId().getPlayerIdNumber() + " DONKEY" + getResourceManager().getExportString();
+        return this.getPlayerId().getPlayerIdNumber() + " DONKEY " + getResourceManager().getExportString();
     }
 
 //    public void breed() {

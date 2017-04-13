@@ -5,13 +5,14 @@ import game.model.gameImporter.Serializable;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ResourceManager implements Serializable {
     private Map<ResourceType, Integer> resourceTypeIntegerMap;
 
     public ResourceManager(){
-        this.resourceTypeIntegerMap = new HashMap<>();
+        this.resourceTypeIntegerMap = new LinkedHashMap<>();
     }
 
     public int getWealthPoints(){
@@ -32,12 +33,12 @@ public class ResourceManager implements Serializable {
         }
     }
 
-    public void removeResource(ResourceType type, Integer integer){
-        if (resourceTypeIntegerMap.get(type) - integer >= 0) {
-            resourceTypeIntegerMap.replace(type, resourceTypeIntegerMap.get(type) - integer);
-        }
-        else{
-           resourceTypeIntegerMap.remove(type);
+    public boolean removeResource(ResourceType type, Integer amount){
+        if (resourceTypeIntegerMap.containsKey(type) && resourceTypeIntegerMap.get(type) >= amount) {
+            resourceTypeIntegerMap.replace(type, resourceTypeIntegerMap.get(type) - amount);
+            return true;
+        } else{
+           return false;
         }
     }
 
@@ -59,7 +60,6 @@ public class ResourceManager implements Serializable {
     public String getExportString() {
         Iterator it = resourceTypeIntegerMap.entrySet().iterator();
         StringBuilder sb = new StringBuilder();
-        sb.append(" ");
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             ResourceType resource = (ResourceType) pair.getKey();
