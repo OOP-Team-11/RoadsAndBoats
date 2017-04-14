@@ -74,11 +74,11 @@ public class TransportManager {
         return this.transports;
     }
 
-    public void addAbilities(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    public void onTransportSelected(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         this.transportAbilityManager.addAbilities(transport, tileCompartmentLocation);
     }
 
-    public void removeAbilities() {
+    public void onTransportUnselected() {
         this.transportAbilityManager.removeAbilities();
     }
 

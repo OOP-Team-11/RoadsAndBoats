@@ -36,7 +36,7 @@ public class AbilityTest {
         gooseManager.addGoose(location, new Goose(new GooseId()));
         gooseManager.addGoose(location, new Goose(new GooseId()));
         player1.getTransportManager().addTransport(donkey, location);
-        player1.getTransportManager().addAbilities(donkey, location);
+        player1.getTransportManager().onTransportSelected(donkey, location);
         assertEquals(2, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
 }
