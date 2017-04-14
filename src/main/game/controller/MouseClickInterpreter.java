@@ -23,9 +23,9 @@ public class MouseClickInterpreter {
         this.cameraOffsetX = offsetX;
         this.cameraOffsetY = offSetY;
     }
-    public void updateCanvasDimensions(int canvasX, int canvasY){
-        this.canvasWidth = canvasX;
-        this.canvasHeight = canvasY;
+    public void updateImageDimensions(int assetX, int assetY){
+        this.assetWidth = assetX;
+        this.assetHeight = assetY;
     }
 
     public Location interpretMouseClick(double x, double y){

@@ -31,6 +31,7 @@ public class MainViewController {
         addMouseClickEventToMap();
         initializeMouseClickInterpreter();
         notifyViewCamera();
+        addSlideEventHanlder();
     }
 
     private void setMainView(MainView mainView){
@@ -52,6 +53,19 @@ public class MainViewController {
         this.mainView.updateCameraInfo(cameraInfo);
     }
 
+    private void addSlideEventHanlder(){
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                int value = (int)mainView.getZoomSliderValue();
+                mainView.setZoom(128*(value), 114*(value), (value-1)*-7);
+                mouseClickInterpreter.updateImageDimensions(128*value, 114*value);
+            }
+        };
+        mainView.addEventFilterToZoomSlider(MouseEvent.MOUSE_CLICKED, eventHandler);
+        mainView.addEventFilterToZoomSlider(MouseEvent.MOUSE_RELEASED, eventHandler);
+    }
+
+
     private void addMouseClickEventToMap(){
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -66,7 +80,7 @@ public class MainViewController {
                 }
             }
         };
-        mainView.addEventFilterToMainCanvas(MouseEvent.MOUSE_CLICKED,eventHandler);
+        mainView.addEventFilterToMainView(MouseEvent.MOUSE_CLICKED,eventHandler);
     }
 
     private void attachViewKeyboardEvent(){
@@ -78,7 +92,7 @@ public class MainViewController {
                 }
             }
         };
-        this.mainView.addEventFilterToMainCanvas(KeyEvent.ANY,eventHandler);
+        this.mainView.addEventFilterToMainView(KeyEvent.ANY,eventHandler);
     }
 
 
@@ -105,7 +119,7 @@ public class MainViewController {
                 }
             }
         };
-        mainView.addEventFilterToMainCanvas(KeyEvent.ANY,eventHandler);
+        mainView.addEventFilterToMainView(KeyEvent.ANY,eventHandler);
     }
 
     public void addControl(KeyCode keyCode, Ability ability) {
