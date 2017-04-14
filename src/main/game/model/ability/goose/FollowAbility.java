@@ -26,7 +26,6 @@ public class FollowAbility extends Ability {
     @Override
     public void detachFromController() {
         this.mainViewController.removeControl(this.keyCode);
-        transport.removeFollowers();
     }
 
     @Override
