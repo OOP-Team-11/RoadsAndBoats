@@ -83,4 +83,12 @@ public class TransportManager {
     }
 
     public TransportAbilityManager getTransportAbilityManager() { return this.transportAbilityManager; }
+
+    private Transport getTransport(TransportId transportId, TileCompartmentLocation tcl) {
+        for(Transport transport : this.transports.get(tcl)) {
+            if(transport.getTransportId() == transportId)
+                return transport;
+        }
+        return null;
+    }
 }

@@ -31,9 +31,7 @@ public class TransportAbilityManager {
         this.map = map;
     }
 
-    public RBMap getMap() {
-        return map;
-    }
+    public RBMap getMap() { return map; }
 
     public int getAbilityCount() { return this.abilities.size(); }
 

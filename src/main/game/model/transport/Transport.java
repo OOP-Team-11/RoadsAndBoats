@@ -40,6 +40,7 @@ public abstract class Transport {
     public PlayerId getPlayerId() {
         return this.playerId;
     }
+    public TransportId getTransportId() { return this.transportId; }
 
     public ResourceManager getResourceManager() {
         return this.resourceManager;
