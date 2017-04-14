@@ -1,14 +1,15 @@
 package game.model.structures.secondaryProducer;
 
+import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Sawmill extends SecondaryProducer {
 
-    private static final int LIMIT = 6;
-    private static final int TRUNKS_REQ = 1;
+    private static final int LIMIT = 6;         // limit of uses per turn
+
+    private static final int TRUNKS_REQ = 1;    // 1 Trunks input requirement
+
+    private static final int BOARDS_AMT = 2;    // 2 Boards output amount
 
     private int productionLimit;
 
@@ -18,19 +19,29 @@ public class Sawmill extends SecondaryProducer {
 
     // 2 Boards <= 1 Trunk
     @Override
-    public Map<ResourceType, Integer> produce(Map<ResourceType, Integer> inputResources) {
+    public boolean produce(ResourceManager resourceManager) {
+        if (canProduceBoards(resourceManager)) {
+            resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ);
+            resourceManager.addResource(ResourceType.BOARDS, BOARDS_AMT);
 
-        if (canProduce(inputResources)) {
-            inputResources.put(ResourceType.TRUNKS, inputResources.get(ResourceType.TRUNKS) - TRUNKS_REQ);
+            decrementProductionLimit();
 
-            Map<ResourceType, Integer> outputResource = new HashMap<>();
-            outputResource.put(ResourceType.BOARDS, 2);
-            --productionLimit;
-
-            return outputResource;
+            return true;
         }
+        return false;
+    }
 
-        return null;
+    private boolean canProduceBoards(ResourceManager resourceManager) {
+        if (resourceManager.getResource(ResourceType.TRUNKS) != null) {
+            if (resourceManager.getResource(ResourceType.TRUNKS) >= TRUNKS_REQ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void decrementProductionLimit() {
+        --productionLimit;
     }
 
     public void resetProductionLimit() {
@@ -39,18 +50,6 @@ public class Sawmill extends SecondaryProducer {
 
     public int getProductionLimit() {
         return productionLimit;
-    }
-
-    private boolean canProduce(Map<ResourceType, Integer> inputResources) {
-        if (productionLimit != 0) {
-            if (inputResources.containsKey(ResourceType.TRUNKS)) {
-                if (inputResources.get(ResourceType.TRUNKS) >= TRUNKS_REQ) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 
 }

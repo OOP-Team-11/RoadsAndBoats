@@ -1,14 +1,15 @@
 package game.model.structures.secondaryProducer;
 
+import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class StoneFactory extends SecondaryProducer {
 
-    private static final int LIMIT = 6;
-    private static final int CLAY_REQ = 1;
+    private static final int LIMIT = 6;         // limit of uses per turn
+
+    private static final int CLAY_REQ = 1;      // 1 Clay input requirement
+
+    private static final int STONE_AMT = 2;     // 2 Stone output amount
 
     private int productionLimit;
 
@@ -18,17 +19,31 @@ public class StoneFactory extends SecondaryProducer {
 
     // 2 Stone <= 1 Clay
     @Override
-    public Map<ResourceType, Integer> produce(Map<ResourceType, Integer> inputResources) {
-        if (canProduce(inputResources)) {
-            inputResources.put(ResourceType.CLAY, inputResources.get(ResourceType.CLAY) - CLAY_REQ);
+    public boolean produce(ResourceManager resourceManager) {
+        if (canProduceStone(resourceManager)) {
+            resourceManager.removeResource(ResourceType.CLAY, CLAY_REQ);
+            resourceManager.addResource(ResourceType.STONE, STONE_AMT);
 
-            Map<ResourceType, Integer> outputResource = new HashMap<>();
-            outputResource.put(ResourceType.STONE, 2);
-            --productionLimit;
+            decrementProductionLimit();
 
-            return outputResource;
+            return true;
         }
-        return null;
+        return false;
+    }
+
+    private boolean canProduceStone(ResourceManager resourceManager) {
+        if (productionLimit != 0) {
+            if (resourceManager.getResource(ResourceType.CLAY) != null) {
+                if (resourceManager.getResource(ResourceType.CLAY) >= CLAY_REQ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void decrementProductionLimit() {
+        --productionLimit;
     }
 
     public void resetProductionLimit() {
@@ -37,18 +52,6 @@ public class StoneFactory extends SecondaryProducer {
 
     public int getProductionLimit() {
         return  productionLimit;
-    }
-
-    private boolean canProduce(Map<ResourceType, Integer> inputResources) {
-        if (productionLimit != 0) {
-            if (inputResources.containsKey(ResourceType.CLAY)) {
-                if (inputResources.get(ResourceType.CLAY) >= CLAY_REQ) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 
 }

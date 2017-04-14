@@ -1,65 +1,57 @@
 package model.structures.secondaryProducer;
 
+import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.secondaryProducer.Mint;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class MintTest {
 
     @Test
     public void produceOnce() {
         Mint mint = new Mint();
-        Map<ResourceType, Integer> resourceInput = new HashMap<>();
-        resourceInput.put(ResourceType.FUEL, 1);
-        resourceInput.put(ResourceType.GOLD, 2);
-        Integer resourceNum = mint.produce(resourceInput).get(ResourceType.COINS);
-        assertEquals(resourceNum, new Integer(1));
+        ResourceManager rm = new ResourceManager();
+        rm.addResource(ResourceType.FUEL, 1);
+        rm.addResource(ResourceType.GOLD, 2);
+        assertTrue(mint.produce(rm));
+        assertEquals(rm.getResource(ResourceType.COINS), new Integer(1));
     }
 
     @Test
     public void produceNone() {
         Mint mint = new Mint();
-        Map<ResourceType, Integer> resourceInput = new HashMap<>();
-        resourceInput.put(ResourceType.FUEL, 1);
-        resourceInput.put(ResourceType.GOLD, 1);
-        assertNull(mint.produce(resourceInput));
+        ResourceManager rm = new ResourceManager();
+        rm.addResource(ResourceType.FUEL, 0);
+        rm.addResource(ResourceType.GOLD, 0);
+        assertFalse(mint.produce(rm));
+        assertNull(rm.getResource(ResourceType.COINS));
     }
 
     @Test
     public void produceMany() {
         Mint mint = new Mint();
-        Map<ResourceType, Integer> resourceInput = new HashMap<>();
-        Map<ResourceType, Integer> resourceOutput = new HashMap<>();
-        Map<ResourceType, Integer> mintOutput;
-
-        resourceInput.put(ResourceType.FUEL, 3);
-        resourceInput.put(ResourceType.GOLD, 6);
+        ResourceManager rm = new ResourceManager();
+        rm.addResource(ResourceType.FUEL, 3);
+        rm.addResource(ResourceType.GOLD, 6);
 
         for (int i = 0; i < 3; ++i) {
-            mintOutput = mint.produce(resourceInput);
-
-            if (resourceOutput.get(ResourceType.COINS) == null) {
-                resourceOutput.put(ResourceType.COINS, mintOutput.get(ResourceType.COINS));
-            } else {
-                resourceOutput.put(ResourceType.COINS, mintOutput.get(ResourceType.COINS) + resourceOutput.get(ResourceType.COINS));
-            }
+            mint.produce(rm);
         }
 
-        assertEquals(resourceOutput.get(ResourceType.COINS), new Integer(3));
+        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(0));
+        assertEquals(rm.getResource(ResourceType.GOLD), new Integer(0));
+        assertEquals(rm.getResource(ResourceType.COINS), new Integer(3));
     }
 
     @Test
     public void produceInvalid() {
         Mint mint = new Mint();
-        Map<ResourceType, Integer> resourceInput = new HashMap<>();
-        resourceInput.put(ResourceType.GOOSE, 5);
-        assertNull(mint.produce(resourceInput));
+        ResourceManager rm = new ResourceManager();
+        rm.addResource(ResourceType.GOOSE, 5);
+        assertFalse(mint.produce(rm));
+        assertNull(rm.getResource(ResourceType.COINS));
     }
 
 }

@@ -1,14 +1,14 @@
 package game.model.structures.secondaryProducer;
 
+import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Mint extends SecondaryProducer {
 
-    private static final int FUEL_REQ = 1;
-    private static final int GOLD_REQ = 2;
+    private static final int FUEL_REQ = 1;      // 1 Fuel input requirement
+    private static final int GOLD_REQ = 2;      // 2 Gold input requirement
+
+    private static final int COINS_AMT = 1;     // 1 Coins output amount
 
     public Mint() {
 
@@ -16,26 +16,23 @@ public class Mint extends SecondaryProducer {
 
     // 1 Coins <= 1 Fuel + 2 Gold
     @Override
-    public Map<ResourceType, Integer> produce(Map<ResourceType, Integer> inputResources) {
-        if (canProduce(inputResources)) {
-            inputResources.put(ResourceType.FUEL, inputResources.get(ResourceType.FUEL) - FUEL_REQ);
-            inputResources.put(ResourceType.GOLD, inputResources.get(ResourceType.GOLD) - GOLD_REQ);
+    public boolean produce(ResourceManager resourceManager) {
+        if (canProduceCoins(resourceManager)) {
+            resourceManager.removeResource(ResourceType.FUEL, FUEL_REQ);
+            resourceManager.removeResource(ResourceType.GOLD, GOLD_REQ);
+            resourceManager.addResource(ResourceType.COINS, COINS_AMT);
 
-            Map<ResourceType, Integer> outputResource = new HashMap<>();
-            outputResource.put(ResourceType.COINS, 1);
-            return outputResource;
+            return true;
         }
-
-        return null;
+        return false;
     }
 
-    private boolean canProduce(Map<ResourceType, Integer> inputResources) {
-        if (inputResources.containsKey(ResourceType.FUEL) && inputResources.containsKey(ResourceType.GOLD)) {
-            if ((inputResources.get(ResourceType.FUEL) >= FUEL_REQ) && (inputResources.get(ResourceType.GOLD) >= GOLD_REQ)) {
+    private boolean canProduceCoins(ResourceManager resourceManager) {
+        if ((resourceManager.getResource(ResourceType.FUEL) != null) && (resourceManager.getResource(ResourceType.GOLD) != null)) {
+            if ((resourceManager.getResource(ResourceType.GOLD) >= FUEL_REQ) && (resourceManager.getResource(ResourceType.GOLD) >= GOLD_REQ)) {
                 return true;
             }
         }
-
         return false;
     }
 

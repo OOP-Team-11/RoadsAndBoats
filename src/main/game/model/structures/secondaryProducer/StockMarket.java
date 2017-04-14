@@ -1,15 +1,16 @@
 package game.model.structures.secondaryProducer;
 
+import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class StockMarket extends SecondaryProducer {
 
-    private static final int LIMIT = 6;
-    private static final int PAPER_REQ = 1;
-    private static final int COINS_REQ = 2;
+    private static final int LIMIT = 6;             // limit of uses per turn
+
+    private static final int PAPER_REQ = 1;         // 1 Paper input requirement
+    private static final int COINS_REQ = 2;         // 2 Coins input requirement
+
+    private static final int STOCKBOND_AMT = 1;     // 1 Stockbond output amount
 
     private int productionLimit;
 
@@ -19,19 +20,32 @@ public class StockMarket extends SecondaryProducer {
 
     // 1 Stock <= 1 Paper + 2 Coins
     @Override
-    public Map<ResourceType, Integer> produce(Map<ResourceType, Integer> inputResources) {
-        if (canProduce(inputResources)) {
-            inputResources.put(ResourceType.PAPER, inputResources.get(ResourceType.PAPER) - PAPER_REQ);
-            inputResources.put(ResourceType.COINS, inputResources.get(ResourceType.COINS) - COINS_REQ);
+    public boolean produce(ResourceManager resourceManager) {
+        if (canProduceStock(resourceManager)) {
+            resourceManager.removeResource(ResourceType.PAPER, PAPER_REQ);
+            resourceManager.removeResource(ResourceType.COINS, COINS_REQ);
+            resourceManager.addResource(ResourceType.STOCKBOND, STOCKBOND_AMT);
 
-            Map<ResourceType, Integer> outputResource = new HashMap<>();
-            outputResource.put(ResourceType.STOCKBOND, 1);
-            --productionLimit;
+            decrementProductionLimit();
 
-            return outputResource;
+            return true;
         }
+        return false;
+    }
 
-        return null;
+    private boolean canProduceStock(ResourceManager resourceManager) {
+        if (productionLimit != 0) {
+            if ((resourceManager.getResource(ResourceType.PAPER) != null) && (resourceManager.getResource(ResourceType.COINS) != null)) {
+                if ((resourceManager.getResource(ResourceType.PAPER) >= PAPER_REQ) && ((resourceManager.getResource(ResourceType.COINS) >= COINS_REQ))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void decrementProductionLimit() {
+        --productionLimit;
     }
 
     public void resetProductionLimit() {
@@ -40,18 +54,6 @@ public class StockMarket extends SecondaryProducer {
 
     public int getProductionLimit() {
         return  productionLimit;
-    }
-
-    private boolean canProduce(Map<ResourceType, Integer> inputResources) {
-        if (productionLimit != 0) {
-            if (inputResources.containsKey(ResourceType.PAPER) && inputResources.containsKey(ResourceType.COINS)) {
-                if ((inputResources.get(ResourceType.PAPER) >= PAPER_REQ) && (inputResources.get(ResourceType.COINS) >= COINS_REQ)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 
 }

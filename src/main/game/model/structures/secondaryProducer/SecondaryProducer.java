@@ -1,9 +1,7 @@
 package game.model.structures.secondaryProducer;
 
-import game.model.resources.ResourceType;
+import game.model.resources.ResourceManager;
 import game.model.structures.Structure;
-
-import java.util.Map;
 
 public abstract class SecondaryProducer extends Structure {
 
@@ -11,6 +9,6 @@ public abstract class SecondaryProducer extends Structure {
 
     }
 
-    public abstract Map<ResourceType, Integer> produce(Map<ResourceType, Integer> inputResources);
+    public abstract boolean produce(ResourceManager resourceManager);
 
 }
