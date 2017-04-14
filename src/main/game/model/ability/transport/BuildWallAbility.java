@@ -1,6 +1,13 @@
 package game.model.ability.transport;
 
-public class BuildWallAbility implements TransportAbility {
+import game.controller.MainViewController;
+import game.model.ability.Ability;
+
+public class BuildWallAbility extends Ability {
+    public BuildWallAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 
@@ -11,8 +18,11 @@ public class BuildWallAbility implements TransportAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
+    }
+    @Override
+    public String getDisplayString() {
+        return "TINY RICK";
     }
 }

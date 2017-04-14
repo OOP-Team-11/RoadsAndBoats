@@ -1,6 +1,13 @@
 package game.model.ability.transport;
 
-public class BuildPapermillAbility implements TransportAbility {
+import game.controller.MainViewController;
+import game.model.ability.Ability;
+
+public class BuildPapermillAbility extends Ability {
+    public BuildPapermillAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 
@@ -10,9 +17,11 @@ public class BuildPapermillAbility implements TransportAbility {
     public void detachFromController() {
 
     }
-
-    @Override
     public void attachToController() {
 
+    }
+    @Override
+    public String getDisplayString() {
+        return "TINY RICK";
     }
 }

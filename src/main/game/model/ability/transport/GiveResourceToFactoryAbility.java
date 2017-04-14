@@ -1,6 +1,13 @@
 package game.model.ability.transport;
 
-public class GiveResourceToFactoryAbility implements TransportAbility {
+import game.controller.MainViewController;
+import game.model.ability.Ability;
+
+public class GiveResourceToFactoryAbility extends Ability {
+    public GiveResourceToFactoryAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 
@@ -11,8 +18,11 @@ public class GiveResourceToFactoryAbility implements TransportAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
+    }
+    @Override
+    public String getDisplayString() {
+        return "TINY RICK";
     }
 }

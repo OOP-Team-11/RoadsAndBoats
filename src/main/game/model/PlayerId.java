@@ -1,15 +1,15 @@
 package game.model;
 
 public class PlayerId {
-    private int playerId;
-    // intentionally does nothing
-//    PlayerId() {};
+    private static int currentPlayerId = 1;
 
-    public int getPlayerId() {
-        return playerId;
+    private int playerId;
+    PlayerId() {
+        this.playerId = currentPlayerId;
+        currentPlayerId++;
     }
 
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
+    public int getPlayerIdNumber() {
+        return playerId;
     }
 }

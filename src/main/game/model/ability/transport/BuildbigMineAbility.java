@@ -1,6 +1,14 @@
 package game.model.ability.transport;
 
-public class BuildbigMineAbility implements TransportAbility {
+import game.controller.MainViewController;
+import game.model.ability.Ability;
+
+public class BuildbigMineAbility extends Ability {
+
+    public BuildbigMineAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 
@@ -11,8 +19,12 @@ public class BuildbigMineAbility implements TransportAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
+    }
+
+    @Override
+    public String getDisplayString() {
+        return "String";
     }
 }

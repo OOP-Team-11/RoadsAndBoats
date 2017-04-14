@@ -2,11 +2,11 @@ package game.view;
 
 import game.utilities.observer.WonderRenderInfoObserver;
 import game.view.render.WonderRenderInfo;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -61,18 +61,32 @@ public class WonderView extends View implements WonderRenderInfoObserver{
         });
     }
 
+    private void drawNetualBrick(){ // TODO hook up later
+        this.gc.drawImage(assets.WONDERBRICK_NEUTRAL, brickX, brickY, 50, 20);
+        this.brickCount++;
+    }
+
+    private void drawRedBrick(){ // TOdo hook up later
+        this.gc.drawImage(assets.WONDERBRICK_RED, brickX, brickY, 50, 20);
+        this.brickCount++;
+
+    }
+    private void drawBlueBrick(){ // TODO hook up later
+        this.gc.drawImage(assets.WONDERBRICK_BLUE, brickX, brickY, 50, 20);
+        this.brickCount++;
+    }
+
     private void drawNextBrick(){
-        this.gc.setFill(Color.RED);
-        this.gc.fillRect(brickX,brickY,50,20);
+        // Just for testing atm
+        this.gc.drawImage(assets.WONDERBRICK_BLUE, brickX, brickY, 50, 20);
         this.brickCount++;
     }
 
     private void incrementBrickCoordinates(){
 
-        if(brickCount < 83){
+        if(brickCount < 62){
             this.brickX += 66;
         }
-
         if(brickCount % 4 == 0 && brickCount < 9){
             this.brickY -= 34;
             this.brickX -= (4*66);
@@ -89,17 +103,14 @@ public class WonderView extends View implements WonderRenderInfoObserver{
         } else if (brickCount == 38 || brickCount == 44 || brickCount == 50 || brickCount == 56){
             this.brickY -= 34;
             this.brickX -= (6*66);
-        } else if (brickCount == 62){
-            this.brickY -= 34;
-            this.brickX -= (6.5*66);
-        } else if (brickCount == 69 || brickCount == 76){
-            this.brickY -= 34;
-            this.brickX -= (7*66);
-        } else if (brickCount == 83){
+        } else if (brickCount == 62) {
             // end game
         }
     }
 
+    public void addEventFilterToAddBrickButton(EventHandler filter){
+        this.testButton.addEventFilter(MouseEvent.MOUSE_CLICKED, filter);
+    }
 
     @Override
     public void render() {

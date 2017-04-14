@@ -1,6 +1,13 @@
 package game.model.ability.transport;
 
-public class BuildBridgeAbility implements TransportAbility {
+import game.controller.MainViewController;
+import game.model.ability.Ability;
+
+public class BuildBridgeAbility extends Ability {
+    public BuildBridgeAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 
@@ -11,8 +18,11 @@ public class BuildBridgeAbility implements TransportAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
+    }
+    @Override
+    public String getDisplayString() {
+        return "String";
     }
 }

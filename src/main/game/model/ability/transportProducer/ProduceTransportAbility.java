@@ -1,6 +1,13 @@
 package game.model.ability.transportProducer;
 
-public class ProduceTransportAbility implements TransportProducerAbility {
+import game.controller.MainViewController;
+import game.model.ability.Ability;
+
+public class ProduceTransportAbility extends Ability {
+    public ProduceTransportAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 
@@ -11,8 +18,11 @@ public class ProduceTransportAbility implements TransportProducerAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
+    }
+    @Override
+    public String getDisplayString() {
+        return "TINY RICK";
     }
 }

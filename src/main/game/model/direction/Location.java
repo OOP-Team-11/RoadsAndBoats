@@ -1,9 +1,12 @@
 package game.model.direction;
 
 
+import game.model.gameImporter.Exportable;
+import game.model.gameImporter.Serializable;
+
 import java.util.Arrays;
 
-public class Location {
+public class Location implements Serializable {
 
     private int x;
     private int y;
@@ -49,6 +52,10 @@ public class Location {
 
     public String getLocationString() {
         return String.valueOf(x) + " " + String.valueOf(y) + " " + String.valueOf(z);
+    }
+
+    public String getExportString() {
+        return "( " + this.getX() + " " + this.getY() + " " + this.getZ() + " )";
     }
 }
 

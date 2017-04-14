@@ -1,6 +1,13 @@
 package game.model.ability.transport;
 
-public class BuildSteamshipFactoryAbility implements TransportAbility {
+import game.controller.MainViewController;
+import game.model.ability.Ability;
+
+public class BuildSteamshipFactoryAbility extends Ability {
+    public BuildSteamshipFactoryAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 
@@ -11,8 +18,11 @@ public class BuildSteamshipFactoryAbility implements TransportAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
+    }
+    @Override
+    public String getDisplayString() {
+        return "TINY RICK";
     }
 }

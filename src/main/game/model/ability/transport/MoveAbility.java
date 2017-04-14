@@ -1,6 +1,14 @@
 package game.model.ability.transport;
 
-public class MoveAbility implements TransportAbility {
+import game.controller.MainViewController;
+import game.model.ability.Ability;
+
+public class MoveAbility extends Ability {
+
+    public MoveAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 
@@ -11,8 +19,11 @@ public class MoveAbility implements TransportAbility {
 
     }
 
-    @Override
     public void attachToController() {
 
+    }
+    @Override
+    public String getDisplayString() {
+        return "Move";
     }
 }
