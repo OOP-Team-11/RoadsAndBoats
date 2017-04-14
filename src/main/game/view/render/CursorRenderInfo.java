@@ -1,20 +1,29 @@
 package game.view.render;
 
+import game.model.direction.Location;
+
 public class CursorRenderInfo {
 
-    // camera offset information
-    private int cameraX;
-    private int cameraY;
+    // location offset information
+    private double clickX;
+    private double clickY;
+    private boolean menuClicked;
+    // currently clicked cursor location
+    private Location cursorLocation;
 
-    public CursorRenderInfo(int cameraX, int cameraY){
-        this.cameraX = cameraX;
-        this.cameraY = cameraY;
+    public CursorRenderInfo(double clickX, double clickY, Location cursorLocation, boolean menuClicked){
+        this.clickX = clickX;
+        this.clickY = clickY;
+        this.cursorLocation = cursorLocation;
+        this.menuClicked = menuClicked;
     }
 
-    public int getCameraX(){
-        return this.cameraX;
+    public boolean isMenuClicked() { return this.menuClicked; }
+    public Location getCursorLocation() { return this.cursorLocation; }
+    public double getClickX(){
+        return this.clickX;
     }
-    public int getCameraY(){
-        return this.cameraY;
+    public double getClickY(){
+        return this.clickY;
     }
 }

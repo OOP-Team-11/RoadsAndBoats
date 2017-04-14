@@ -6,10 +6,13 @@ import game.model.tile.Terrain;
 import game.utilities.observer.*;
 import game.view.render.*;
 import game.view.utilities.RenderToImageConverter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -35,6 +38,7 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     private GraphicsContext selectGC;
     private Boolean newData;
     private RenderToImageConverter renderToImageConverter;
+    private ListView overlayMenu;
     private int cameraX;
     private int cameraY;
     private int imageX;
@@ -44,6 +48,7 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         setAnchorPane(anchorPane);
         initializeRenderConverter();
         initailizeCanvas();
+        initializeOverlay();
     }
     private void setAnchorPane(AnchorPane anchorPane){
         this.anchorPane = anchorPane;
@@ -68,6 +73,12 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         this.anchorPane.getChildren().add(mapCanvas);
         this.anchorPane.setLeftAnchor(mapCanvas,0.0);
     }
+    private void initializeOverlay(){
+        this.overlayMenu = new ListView();
+        this.overlayMenu.setPrefWidth(120);
+        this.overlayMenu.setPrefHeight(150);
+        this.overlayMenu.setStyle(" -fx-font-size: 12pt");
+    }
 
     private void setupSelectorCanvas(){
         // color temporary, just for testing to see if properly divided
@@ -82,6 +93,24 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     private void initializeRenderConverter(){
         this.renderToImageConverter = new RenderToImageConverter(assets.getInstance());
     }
+
+    private void updateSidePanel(){
+        if(cursorRenderInfo != null){
+            drawLargeSelectedTileOnSide(cursorRenderInfo.getCursorLocation());
+        }
+    }
+
+    private void drawLargeSelectedTileOnSide(Location location){
+        Terrain terrainType = mapRenderInfo.getTerrainMap().get(location);
+        Image image = this.renderToImageConverter.getTerrainImage(terrainType);
+        selectGC.drawImage(image, 50, 70, 250,220);
+        RiverConfiguration riverConfiguration = mapRenderInfo.getRiverConfigurationMap().get(location);
+        Image riverImage = this.renderToImageConverter.getRiverImage(riverConfiguration);
+        if(!terrainType.equals(Terrain.SEA)){
+            selectGC.drawImage(riverImage, 50, 70, 250,220);
+        }
+    }
+
 
     private void drawImage(Image image, int x, int y, int z){
         // first thing we want to do is get the axial coordinates
@@ -99,13 +128,38 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         }
     }
 
+    private void displayOverlaySelect(double xLocation, double yLocation){
+        this.anchorPane.getChildren().add(overlayMenu);
+        this.anchorPane.setLeftAnchor(overlayMenu, xLocation);
+        this.anchorPane.setTopAnchor(overlayMenu, yLocation);
+    }
+
+    private void closeOverlaySelect(){
+        this.anchorPane.getChildren().remove(overlayMenu);
+    }
+
+    private void checkForOverlay(){
+        if(cursorRenderInfo != null && cursorRenderInfo.isMenuClicked()){
+            closeOverlaySelect();
+            setOverLayOptions();
+            displayOverlaySelect(cursorRenderInfo.getClickX(), cursorRenderInfo.getClickY());
+        } else {
+            closeOverlaySelect();
+        }
+    }
+
+    private void setOverLayOptions(){
+        // TODO, for the moment just random options, hook up later to actual options
+        String[] data = {"Transport1", "Transport2", "Transport3", "Goose1"};
+        ObservableList<String> items = FXCollections.observableArrayList(data);
+        this.overlayMenu.setItems(items);
+    }
+
     private void drawMap(){
 
         if(mapRenderInfo == null){
             // no information yet
         } else {
-
-
             for (Map.Entry<Location, Terrain> entry : mapRenderInfo.getTerrainMap().entrySet())
             {
                 // first time around we just render the terrain
@@ -114,7 +168,6 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
                     drawImage(image, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
                 }
             }
-
             for (Map.Entry<Location, RiverConfiguration> entry : mapRenderInfo.getRiverConfigurationMap().entrySet())
             {
                 // second time around we draw the rivers
@@ -123,12 +176,11 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
                     drawImage(riverImage, entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
                 }
             }
-
-
-
-
-
-
+        }
+    }
+    private void drawCursor(){
+        if(cursorRenderInfo != null){
+            drawImage(assets.GREEN_CURSOR,cursorRenderInfo.getCursorLocation().getX(), cursorRenderInfo.getCursorLocation().getY(), cursorRenderInfo.getCursorLocation().getZ());
         }
     }
 
@@ -141,6 +193,7 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         this.cameraX = cameraInfo.getCameraX();
         this.cameraY = cameraInfo.getCameraY();
         this.newData = true;
+        this.anchorPane.getChildren().remove(overlayMenu); // close in case it might be open and we move camera
     }
     private void clearMapCanvas(){
         this.mapGC.clearRect(0,0,950, 800);
@@ -156,6 +209,9 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
             clearMapCanvas();
             drawMap();
             clearNewDataFlag();
+            drawCursor();
+            checkForOverlay();
+            updateSidePanel();
         } else {
             // nothing to update
         }
@@ -177,10 +233,8 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     }
     @Override
     public void updateMapInfo(MapRenderInfo mapRenderInfo) {
-        System.out.println("map info coming in");
         this.mapRenderInfo = mapRenderInfo;
         this.newData = true;
-        drawMap();
     }
     @Override
     public void updateRoadInfo(RoadRenderInfo roadRenderInfo) {
