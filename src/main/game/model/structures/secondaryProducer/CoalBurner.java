@@ -17,7 +17,7 @@ public class CoalBurner extends SecondaryProducer {
     private int productionLimit;
 
     public CoalBurner() {
-        productionLimit = LIMIT;
+        this.productionLimit = LIMIT;
     }
 
     // 1 Fuel <= 2 Trunks

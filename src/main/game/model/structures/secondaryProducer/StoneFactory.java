@@ -14,7 +14,7 @@ public class StoneFactory extends SecondaryProducer {
     private int productionLimit;
 
     public StoneFactory() {
-        productionLimit = LIMIT;
+        this.productionLimit = LIMIT;
     }
 
     // 2 Stone <= 1 Clay

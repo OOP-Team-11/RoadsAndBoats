@@ -14,7 +14,7 @@ public class Sawmill extends SecondaryProducer {
     private int productionLimit;
 
     public Sawmill() {
-        productionLimit = LIMIT;
+        this.productionLimit = LIMIT;
     }
 
     // 2 Boards <= 1 Trunk

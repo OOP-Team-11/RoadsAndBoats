@@ -15,7 +15,7 @@ public class StockMarket extends SecondaryProducer {
     private int productionLimit;
 
     public StockMarket() {
-        productionLimit = LIMIT;
+        this.productionLimit = LIMIT;
     }
 
     // 1 Stock <= 1 Paper + 2 Coins
