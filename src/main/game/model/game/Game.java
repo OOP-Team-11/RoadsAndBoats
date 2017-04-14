@@ -51,6 +51,10 @@ public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservab
         return this.currentPlayer;
     }
 
+    public String getCurrentPhaseName() {
+        return this.phase.getCurrentPhaseName();
+    }
+
     public List<Player> getAllPlayers() {
         List<Player> players = new ArrayList<>();
         players.add(player1);
