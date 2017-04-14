@@ -40,11 +40,13 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     private Canvas selectCanvas;
     private GraphicsContext mapGC;
     private GraphicsContext selectGC;
-    private Boolean newData;
+    private Boolean refresh;
     private RenderToImageConverter renderToImageConverter;
     private ListView overlayMenu;
     private Slider zoomSlider;
     private Button finishTurn;
+    private int[] compartmentX = {30,68,10,90,30,68}; // for scaling resources/structures in compartments
+    private int[] compartmentY = {10,10,45,45,80,80};
     private int cameraX;
     private int cameraY;
     private int imageX;
@@ -58,9 +60,7 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         initializeOverlay();
         setZoomSlider();
         placeFinishButton();
-        // TODO later add somewhere else, for testing atm, hook up to renderInfo
-        drawPlayerName("Player1");
-        drawCurrentPhase("Implementation");
+
     }
     private void setAnchorPane(AnchorPane anchorPane){
         this.anchorPane = anchorPane;
@@ -81,7 +81,6 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         // color temporary, just for testing to see if properly divided
         this.mapCanvas = new Canvas(950,800);
         this.mapGC = this.mapCanvas.getGraphicsContext2D();
-        this.mapGC.setFill(Color.BLACK);
         this.mapGC.fillRect(0,0,950,800);
         this.anchorPane.getChildren().add(mapCanvas);
         this.anchorPane.setLeftAnchor(mapCanvas,0.0);
@@ -131,21 +130,6 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         return false;
     }
 
-    private void drawLargeSelectedTileOnSide(Location location){
-        Terrain terrainType = mapRenderInfo.getTerrainMap().get(location);
-        if(checkForNullTerrain(terrainType)){
-            // white area selected
-        } else {
-            Image image = this.renderToImageConverter.getTerrainImage(terrainType);
-            selectGC.drawImage(image, 45, 100, 250,220);
-            RiverConfiguration riverConfiguration = mapRenderInfo.getRiverConfigurationMap().get(location);
-            Image riverImage = this.renderToImageConverter.getRiverImage(riverConfiguration);
-            if(!terrainType.equals(Terrain.SEA)){
-                selectGC.drawImage(riverImage, 45, 100, 250,220);
-            }
-        }
-    }
-
     private void drawCurrentPhase(String phase){
         this.selectGC.setFont(new Font(20));
         this.selectGC.setLineWidth(2.0);
@@ -172,7 +156,7 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         this.imageX = dimensionX;
         this.imageY = dimensionY;
         this.verticalOffset = verticalOffset;
-        this.newData = true;
+        this.refresh = true;
     }
 
 
@@ -189,6 +173,40 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
             double offset = imageX*0.50;
             double offsetVertical = imageY*((xx-1)/2)-7;
             mapGC.drawImage(image,imageX*xx*0.75+cameraX,(imageY*((yy)) + offset +offsetVertical + cameraY + verticalOffset ), imageX,imageY); // x, y
+        }
+    }
+
+    private void drawCompartmentImage(Image image, int x, int y, int z, int compartment){
+        // first thing we want to do is get the axial coordinates
+        int xx = x;
+        int yy = z;
+        int sliderZ = (int)this.zoomSlider.getValue();
+        if(xx%2 == 0){ // even
+            double offsetHorizontal = imageX*xx*0.25;
+            double offsetVertical = imageY*(xx/2);
+            mapGC.drawImage(image,imageX*xx-offsetHorizontal+cameraX + compartmentX[compartment-1]*sliderZ,imageY*yy+offsetVertical+cameraY + compartmentY[compartment-1]*sliderZ, imageX/5,imageY/5); // x, y
+        } else {
+            double offset = imageX*0.50;
+            double offsetVertical = imageY*((xx-1)/2)-7;
+            mapGC.drawImage(image,imageX*xx*0.75+cameraX + compartmentX[compartment-1]*sliderZ,(imageY*((yy)) + offset +offsetVertical + cameraY + verticalOffset + compartmentY[compartment-1]*sliderZ), imageX/5,imageY/5); // x, y
+        }
+    }
+    private void drawSideCompartmentImage( Image image, int x, int y, int z, int compartment){
+        selectGC.drawImage(image, 30+compartmentX[compartment-1]*2.3, 100+compartmentY[compartment-1]*2.3, 280/5,250/5);
+    }
+
+    private void drawLargeSelectedTileOnSide(Location location){
+        Terrain terrainType = mapRenderInfo.getTerrainMap().get(location);
+        if(checkForNullTerrain(terrainType)){
+            // white area selected
+        } else {
+            Image image = this.renderToImageConverter.getTerrainImage(terrainType);
+            selectGC.drawImage(image, 30, 100, 280,250);
+            RiverConfiguration riverConfiguration = mapRenderInfo.getRiverConfigurationMap().get(location);
+            Image riverImage = this.renderToImageConverter.getRiverImage(riverConfiguration);
+            if(!terrainType.equals(Terrain.SEA)){
+                selectGC.drawImage(riverImage, 30, 100, 280,250);
+            }
         }
     }
 
@@ -264,19 +282,43 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     public void updateCameraInfo(CameraInfo cameraInfo){
         this.cameraX = cameraInfo.getCameraX();
         this.cameraY = cameraInfo.getCameraY();
-        this.newData = true;
+        this.refresh = true;
         this.anchorPane.getChildren().remove(overlayMenu); // close in case it might be open and we move camera
     }
     private void clearMapCanvas(){
         this.mapGC.clearRect(0,0,950, 800);
+        this.mapGC.setFill(Color.LIGHTGREY);
+        this.mapGC.fillRect(0,0,950,800);
     }
     private void clearNewDataFlag(){
-        this.newData = false;
+        this.refresh = false;
     }
+
+    private void TESTINGREMOVELATER(){
+
+        drawPlayerName("Player1");
+        drawCurrentPhase("Implementation");
+
+        // FOR TESTING Tile compartments
+        drawCompartmentImage(assets.CLAY_GOODS,0,0,0,1);
+        drawCompartmentImage(assets.CLAY_GOODS,0,0,0,2);
+        drawCompartmentImage(assets.CLAY_GOODS,0,0,0,3);
+        drawCompartmentImage(assets.CLAY_GOODS,0,0,0,4);
+        drawCompartmentImage(assets.CLAY_GOODS,0,0,0,5);
+        drawCompartmentImage(assets.CLAY_GOODS,0,0,0,6);
+
+        drawSideCompartmentImage(assets.CLAY_GOODS,0,0,0,1);
+        drawSideCompartmentImage(assets.CLAY_GOODS,0,0,0,2);
+        drawSideCompartmentImage(assets.CLAY_GOODS,0,0,0,3);
+        drawSideCompartmentImage(assets.CLAY_GOODS,0,0,0,4);
+        drawSideCompartmentImage(assets.CLAY_GOODS,0,0,0,5);
+        drawSideCompartmentImage(assets.CLAY_GOODS,0,0,0,6);
+    }
+
 
     @Override
     public void render() {
-        if(newData){
+        if(refresh){
             // new data coming in
             clearMapCanvas();
             drawMap();
@@ -284,6 +326,7 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
             drawCursor();
             checkForOverlay();
             updateSidePanel();
+            TESTINGREMOVELATER();
         } else {
             // nothing to update
         }
@@ -291,42 +334,42 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     @Override
     public void updateTransportInfo(TransportRenderInfo transportRenderInfo) {
         this.transportRenderInfo = transportRenderInfo;
-        this.newData = true;
+        this.refresh = true;
     }
     @Override
     public void updateStructureInfo(StructureRenderInfo structureRenderInfo) {
         this.structureRenderInfo = structureRenderInfo;
-        this.newData = true;
+        this.refresh = true;
     }
     @Override
     public void updateResourceInfo(ResourceRenderInfo resourceRenderInfo) {
         this.resourceRenderInfo = resourceRenderInfo;
-        this.newData = true;
+        this.refresh = true;
     }
     @Override
     public void updateMapInfo(MapRenderInfo mapRenderInfo) {
         this.mapRenderInfo = mapRenderInfo;
-        this.newData = true;
+        this.refresh = true;
     }
     @Override
     public void updateRoadInfo(RoadRenderInfo roadRenderInfo) {
         this.roadRenderInfo = roadRenderInfo;
-        this.newData = true;
+        this.refresh = true;
     }
     @Override
     public void updateWallInfo(WallRenderInfo wallRenderInfo) {
         this.wallRenderInfo = wallRenderInfo;
-        this.newData = true;
+        this.refresh = true;
     }
     @Override
     public void updateCursorInfo(CursorRenderInfo cursorRenderInfo) {
         this.cursorRenderInfo = cursorRenderInfo;
-        this.newData = true;
+        this.refresh = true;
     }
     @Override
     public void updateCamera(CameraInfo cameraInfo) {
         this.cameraX = cameraInfo.getCameraX();
         this.cameraY = cameraInfo.getCameraY();
-        this.newData = true;
+        this.refresh = true;
     }
 }
