@@ -9,10 +9,9 @@ public class Player {
     private PlayerId playerId;
     private TransportManager transportManager;
     private TransportProducerManager transportProducerManager;
-    private TransportAbilityManager transportAbilityManager;
 
-    public Player(TransportAbilityManager transportAbilityManager) {
-        this.playerId = new PlayerId();
+    public Player(TransportAbilityManager transportAbilityManager, PlayerId playerId) {
+        this.playerId = playerId;
         this.transportManager = new TransportManager(this, transportAbilityManager);
         this.transportProducerManager = new TransportProducerManager(this);
     }
