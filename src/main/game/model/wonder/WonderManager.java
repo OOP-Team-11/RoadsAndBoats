@@ -1,5 +1,6 @@
 package game.model.wonder;
 
+import game.model.Player;
 import game.model.PlayerId;
 
 public class WonderManager {
@@ -12,6 +13,9 @@ public class WonderManager {
 //
     public void turnDesertToPasture() {
 
+    }
+    public int getWealthPoints(PlayerId playerId){
+        return wonder.getWealthPoints(playerId);
     }
 
 }
