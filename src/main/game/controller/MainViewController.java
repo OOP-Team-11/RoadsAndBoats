@@ -31,7 +31,7 @@ public class MainViewController {
         addMouseClickEventToMap();
         initializeMouseClickInterpreter();
         notifyViewCamera();
-        addSlideEventHanlder();
+        addSlideEventHandler();
     }
 
     private void setMainView(MainView mainView){
@@ -53,7 +53,7 @@ public class MainViewController {
         this.mainView.updateCameraInfo(cameraInfo);
     }
 
-    private void addSlideEventHanlder(){
+    private void addSlideEventHandler(){
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 int value = (int)mainView.getZoomSliderValue();

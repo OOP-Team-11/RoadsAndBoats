@@ -89,13 +89,10 @@ public class MouseClickInterpreter {
         } else {
             // Zone #5
         }
-        Location location = null;
-        try{
-            // convert from axial to cube
-            location = new Location(xx,-xx-yy ,yy);
-        } catch(Exception e){
-            e.printStackTrace();
-        }
+        
+        // convert from axial to cube
+        Location location = new Location(xx,-xx-yy ,yy);
+
         return location;
     }
 
