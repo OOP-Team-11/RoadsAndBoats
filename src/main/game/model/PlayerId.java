@@ -4,7 +4,7 @@ public class PlayerId {
     private static int currentPlayerId = 1;
 
     private int playerId;
-    PlayerId() {
+    public void PlayerId() {
         this.playerId = currentPlayerId;
         currentPlayerId++;
     }
