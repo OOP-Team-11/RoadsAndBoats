@@ -12,8 +12,8 @@ public class WonderTest {
     @Test
     public void addBrick(){
         Wonder wonder = new Wonder();
-        PlayerId player1 = new PlayerId();
-        PlayerId player2 = new PlayerId();
+        PlayerId player1 = new PlayerId(1);
+        PlayerId player2 = new PlayerId(2);
         wonder.addBrick(player1);
         assertEquals(wonder.getBrickCost(player1), 2);
         assertEquals(wonder.getBrickCost(player1), 2);
