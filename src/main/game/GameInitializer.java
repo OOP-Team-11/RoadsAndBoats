@@ -3,8 +3,10 @@ package game;
 import game.controller.ControllerManager;
 import game.model.Game;
 import game.model.Player;
+import game.model.PlayerId;
 import game.model.factory.AbilityFactory;
 import game.model.gameImporter.MapImporter;
+import game.model.managers.GooseManager;
 import game.model.managers.TransportAbilityManager;
 import game.model.map.RBMap;
 import game.utilities.exceptions.MalformedMapFileException;
@@ -19,7 +21,7 @@ public class GameInitializer {
 
     private ViewHandler viewHandler;
     private ControllerManager controllerManager;
-    private TransportAbilityManager transportAbilityManager;
+    private GooseManager gooseManager;
     private AbilityFactory abilityFactory;
 
     public GameInitializer(String gameFile, String player1Name, String player2Name, Stage primaryStage){
@@ -28,7 +30,8 @@ public class GameInitializer {
         System.out.println("New Game has started");
         viewHandler = new ViewHandler(primaryStage);
         controllerManager = new ControllerManager(viewHandler);
-        transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController());
+        GooseManager gooseManager = new GooseManager();
+        TransportAbilityManager transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController(), gooseManager);
         MapImporter mapImporter = new MapImporter();
         try {
             BufferedReader br = new BufferedReader(new FileReader("map/" + gameFile));
@@ -36,9 +39,9 @@ public class GameInitializer {
             transportAbilityManager.setMap(map);
             map.attach(viewHandler.getMainViewReference());
             mapImporter.importMapFromFile(map, br);
-            Player player1 = new Player(transportAbilityManager);
-            Player player2 = new Player(transportAbilityManager);
-            Game game = new Game(map, player1, player2);
+            Player player1 = new Player(transportAbilityManager, new PlayerId(1));
+            Player player2 = new Player(transportAbilityManager, new PlayerId(2));
+            Game game = new Game(map, player1, player2, gooseManager);
         } catch (MalformedMapFileException e) {
             //TODO handle malformed part
             System.out.println(e);
