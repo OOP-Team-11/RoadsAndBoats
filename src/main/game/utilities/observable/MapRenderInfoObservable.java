@@ -1,4 +1,4 @@
-package game.model.map;
+package game.utilities.observable;
 
 import game.utilities.observer.MapRenderInfoObserver;
 

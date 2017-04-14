@@ -1,13 +1,9 @@
 package game.model.gameImporter;
 
-import game.model.Game;
+import game.model.game.Game;
 import game.model.Player;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
-import game.model.gameImporter.Exportable;
-import game.model.gameImporter.GameInfoAdapter;
-import game.model.gameImporter.MapImporter;
-import game.model.managers.TransportAbilityManager;
 import game.model.managers.TransportManager;
 import game.model.map.RBMap;
 import game.model.resources.ResourceType;
@@ -17,11 +13,9 @@ import game.model.tile.Tile;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
 import game.model.transport.WagonTransport;
-import game.utilities.exceptions.MalformedMapFileException;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

@@ -7,6 +7,7 @@ import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
 import game.model.tile.TileEdge;
+import game.utilities.observable.MapRenderInfoObservable;
 import game.utilities.observer.MapRenderInfoObserver;
 import game.view.render.MapRenderInfo;
 

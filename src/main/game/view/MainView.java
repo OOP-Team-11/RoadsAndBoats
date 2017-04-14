@@ -26,7 +26,17 @@ import javafx.scene.text.Font;
 import java.awt.image.ImageConsumer;
 import java.util.Map;
 
-public class MainView extends View implements TransportRenderInfoObserver, StructureRenderInfoObserver, ResourceRenderInfoObserver, MapRenderInfoObserver, CursorRenderInfoObserver, RoadRenderInfoObserver, WallRenderInfoObserver, CameraObserver{
+public class MainView extends View
+        implements TransportRenderInfoObserver,
+        StructureRenderInfoObserver,
+        ResourceRenderInfoObserver,
+        MapRenderInfoObserver,
+        CursorRenderInfoObserver,
+        RoadRenderInfoObserver,
+        WallRenderInfoObserver,
+        CameraObserver,
+        PlayerRenderInfoObserver,
+        PhaseRenderInfoObserver {
 
     private AnchorPane anchorPane;
     private TransportRenderInfo transportRenderInfo;
@@ -58,9 +68,6 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         initializeOverlay();
         setZoomSlider();
         placeFinishButton();
-        // TODO later add somewhere else, for testing atm, hook up to renderInfo
-        drawPlayerName("Player1");
-        drawCurrentPhase("Implementation");
     }
     private void setAnchorPane(AnchorPane anchorPane){
         this.anchorPane = anchorPane;
@@ -149,13 +156,13 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     private void drawCurrentPhase(String phase){
         this.selectGC.setFont(new Font(20));
         this.selectGC.setLineWidth(2.0);
-        this.selectGC.strokeText("Phase: " +phase, 25, 80);
+        this.selectGC.strokeText(phase, 25, 80);
     }
 
     private void drawPlayerName(String name){
         this.selectGC.setFont(new Font(30));
         this.selectGC.setLineWidth(2.0);
-        this.selectGC.strokeText("Player: " +name, 25, 40);
+        this.selectGC.strokeText(name, 25, 40);
     }
 
     private void placeFinishButton(){
@@ -267,6 +274,7 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         this.newData = true;
         this.anchorPane.getChildren().remove(overlayMenu); // close in case it might be open and we move camera
     }
+
     private void clearMapCanvas(){
         this.mapGC.clearRect(0,0,950, 800);
     }
@@ -329,4 +337,17 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         this.cameraY = cameraInfo.getCameraY();
         this.newData = true;
     }
+
+    @Override
+    public void updatePlayerInfo(PlayerRenderInfo playerRenderInfo) {
+        System.out.println("player render info updated");
+        this.drawPlayerName(playerRenderInfo.getName());
+    }
+
+    @Override
+    public void updatePhaseInfo(PhaseRenderInfo phaseRenderInfo) {
+        System.out.println("phase render info updated");
+        this.drawCurrentPhase(phaseRenderInfo.getName());
+    }
+
 }

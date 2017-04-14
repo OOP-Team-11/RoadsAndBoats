@@ -1,7 +1,7 @@
 package game;
 
 import game.controller.ControllerManager;
-import game.model.Game;
+import game.model.game.Game;
 import game.model.Player;
 import game.model.factory.AbilityFactory;
 import game.model.gameImporter.MapImporter;
@@ -39,6 +39,10 @@ public class GameInitializer {
             Player player1 = new Player(transportAbilityManager);
             Player player2 = new Player(transportAbilityManager);
             Game game = new Game(map, player1, player2);
+            game.attachPlayerInfoObserver(viewHandler.getMainViewReference());
+            game.attachPhaseInfoObserver(viewHandler.getMainViewReference());
+            game.attachPlayerInfoObserver(viewHandler.getResearchViewReference());
+            game.attachPhaseInfoObserver(viewHandler.getResearchViewReference());
         } catch (MalformedMapFileException e) {
             //TODO handle malformed part
             System.out.println(e);
@@ -49,6 +53,5 @@ public class GameInitializer {
 
         // TODO initialize other stuff
         viewHandler.startGameLoop();
-
     }
 }
