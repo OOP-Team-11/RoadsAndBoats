@@ -46,13 +46,6 @@ public class ResourceManager implements Serializable {
         return resourceTypeIntegerMap.get(resourceType);
     }
 
-    public Map<ResourceType, Integer> giveResource(ResourceType resourceType, Integer integer) {
-        Map<ResourceType, Integer> resourceMap = new HashMap<>();
-        resourceMap.put(resourceType, integer);
-        removeResource(resourceType, integer);
-        return resourceMap;
-    }
-
     public boolean hasResource() {
         return resourceTypeIntegerMap.size()>0;
     }

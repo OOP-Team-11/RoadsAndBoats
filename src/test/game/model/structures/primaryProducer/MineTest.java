@@ -2,6 +2,7 @@ package model.structures.primaryProducer;
 
 import game.model.resources.ResourceType;
 import game.model.structures.primaryProducer.Mine;
+import game.model.structures.secondaryProducer.Mint;
 import org.junit.Test;
 
 import java.util.HashMap;

@@ -40,7 +40,7 @@ public class CoalBurner extends SecondaryProducer {
     }
 
     public void resetProductionLimit() {
-        this.productionLimit = LIMIT;
+        productionLimit = LIMIT;
     }
 
     public int getProductionLimit() {
