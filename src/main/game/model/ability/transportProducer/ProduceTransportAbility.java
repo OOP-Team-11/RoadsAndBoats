@@ -1,8 +1,13 @@
 package game.model.ability.transportProducer;
 
+import game.controller.MainViewController;
 import game.model.ability.Ability;
 
-public class ProduceTransportAbility implements Ability {
+public class ProduceTransportAbility extends Ability {
+    public ProduceTransportAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 
