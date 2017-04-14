@@ -6,6 +6,11 @@ public class NeutralBrick extends WonderBrick {
 
     }
 
+    @Override
+    public boolean isNeutral() {
+        return true;
+    }
+
 //    public boolean isNeutral() {
 //        return true;
 //    }

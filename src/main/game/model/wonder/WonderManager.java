@@ -1,17 +1,17 @@
 package game.model.wonder;
 
+import game.model.PlayerId;
+
 public class WonderManager {
 
-    WonderManager() {
+
+    private Wonder wonder;
+    public int getBrickCost(PlayerId playerId){
+        return wonder.getBrickCost(playerId);
+    }
+//
+    public void turnDesertToPasture() {
 
     }
-
-//    public int getBrickCost() {
-//
-//    }
-//
-//    public void turnDesertToPasture() {
-//
-//    }
 
 }
