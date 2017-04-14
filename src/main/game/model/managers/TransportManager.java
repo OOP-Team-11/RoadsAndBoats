@@ -28,9 +28,8 @@ public class TransportManager {
         return this.player.getPlayerId();
     }
 
-    public void addTransport(Transport transport, Location location, TileCompartmentDirection tileCompartmentDirection) {
+    public void addTransport(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         // TODO: enforce transport type limits
-        TileCompartmentLocation tileCompartmentLocation = new TileCompartmentLocation(location, tileCompartmentDirection);
         if (transports.containsKey(tileCompartmentLocation)) {
             List<Transport> transportList = transports.get(tileCompartmentLocation);
             transportList.add(transport);
@@ -41,9 +40,8 @@ public class TransportManager {
         }
     }
 
-    public boolean moveTransport(Transport transport, Location location, TileCompartmentDirection tileCompartmentDirection) {
+    public boolean moveTransport(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         boolean foundTransport = false;
-        TileCompartmentLocation tileCompartmentLocation = new TileCompartmentLocation(location, tileCompartmentDirection);
         Iterator it = transports.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
@@ -63,7 +61,7 @@ public class TransportManager {
 
         if (!foundTransport) return false; // could not find transport
 
-        addTransport(transport, location, tileCompartmentDirection);
+        addTransport(transport, tileCompartmentLocation);
         return true;
     }
 
@@ -76,7 +74,13 @@ public class TransportManager {
         return this.transports;
     }
 
-    public void addAbilities(TileCompartmentLocation tileCompartmentLocation, Transport transport) {
-        this.transportAbilityManager.addAbilities(tileCompartmentLocation, transport);
+    public void onTransportSelected(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        this.transportAbilityManager.addAbilities(transport, tileCompartmentLocation);
     }
+
+    public void onTransportUnselected() {
+        this.transportAbilityManager.removeAbilities();
+    }
+
+    public TransportAbilityManager getTransportAbilityManager() { return this.transportAbilityManager; }
 }

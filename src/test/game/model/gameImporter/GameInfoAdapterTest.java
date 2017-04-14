@@ -1,9 +1,14 @@
-package game.model.gameImporter;
+package model.gameImporter;
 
+import game.model.direction.TileCompartmentLocation;
 import game.model.game.Game;
 import game.model.Player;
+import game.model.PlayerId;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
+import game.model.gameImporter.Exportable;
+import game.model.gameImporter.GameInfoAdapter;
+import game.model.managers.GooseManager;
 import game.model.managers.TransportManager;
 import game.model.map.RBMap;
 import game.model.resources.ResourceType;
@@ -29,13 +34,13 @@ public class GameInfoAdapterTest {
     @Before
     public void setUp() {
         map = new RBMap();
-        Player player1 = new Player(null);
-        Player player2 = new Player(null);
+        Player player1 = new Player(null, new PlayerId(1));
+        Player player2 = new Player(null, new PlayerId(2));
         TransportManager transportManager = player1.getTransportManager();
         Transport transport = new WagonTransport(player1.getPlayerId(), new TransportId(), 1, 1);
         transport.getResourceManager().addResource(ResourceType.GOLD, 2);
-        transportManager.addTransport(transport, new Location(0,0,0), TileCompartmentDirection.getNorth());
-        game = new Game(map, player1, player2);
+        transportManager.addTransport(transport, new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth()));
+        game = new Game(map, player1, player2, new GooseManager());
     }
 
     @Test

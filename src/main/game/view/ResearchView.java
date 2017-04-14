@@ -63,7 +63,6 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
         initializeCanvas();
         drawHeadingTitle();
         drawResearchTable();
-        drawPhase();
         drawTransportList();
         initializeButtons();
         // just for testing atm, later depending on render info these will be added/removed dynamically
@@ -366,10 +365,13 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
     @Override
     public void updatePlayerInfo(PlayerRenderInfo playerRenderInfo) {
         this.currentPlayerRenderInfo = playerRenderInfo;
+        this.newData = true;
     }
 
     @Override
     public void updatePhaseInfo(PhaseRenderInfo phaseRenderInfo) {
         this.currentPhaseRenderInfo = phaseRenderInfo;
+        this.newData = true;
+        drawPhase();
     }
 }

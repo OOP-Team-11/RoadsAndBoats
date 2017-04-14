@@ -1,12 +1,17 @@
 package model.game;
 
+import game.controller.MainViewController;
 import game.model.Player;
+import game.model.PlayerId;
 import game.model.game.Game;
+import game.model.managers.GooseManager;
+import game.model.managers.TransportAbilityManager;
 import game.model.map.RBMap;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class GameTest {
 
@@ -17,9 +22,10 @@ public class GameTest {
     @Before
     public void setUp() {
         RBMap map = new RBMap();
-        player1 = new Player(1);
-        player2 = new Player(2);
-        this.game = new Game(map, player1, player2);
+        TransportAbilityManager transportAbilityManager = new TransportAbilityManager(mock(MainViewController.class), mock(GooseManager.class));
+        player1 = new Player(transportAbilityManager, new PlayerId(1));
+        player2 = new Player(transportAbilityManager, new PlayerId(2));
+        this.game = new Game(map, player1, player2, mock(GooseManager.class));
     }
 
     @Test

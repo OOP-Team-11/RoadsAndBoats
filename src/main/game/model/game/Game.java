@@ -32,7 +32,7 @@ public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservab
     private List<PhaseRenderInfoObserver> phaseRenderInfoObservers;
     private int turnCount;
 
-    public Game(RBMap map, Player player1, Player player2) {
+    public Game(RBMap map, Player player1, Player player2, GooseManager gooseManager) {
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = player1;
@@ -45,6 +45,7 @@ public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservab
         playerIds.add(player1.getPlayerId());
         playerIds.add(player2.getPlayerId());
         prayerManager=new PrayerManager(playerIds);
+        this.gooseManager = gooseManager;
     }
 
     public Player getCurrentPlayer() {

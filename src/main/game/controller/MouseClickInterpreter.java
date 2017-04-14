@@ -89,7 +89,7 @@ public class MouseClickInterpreter {
         } else {
             // Zone #5
         }
-        
+
         // convert from axial to cube
         Location location = new Location(xx,-xx-yy ,yy);
 
