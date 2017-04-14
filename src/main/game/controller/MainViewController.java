@@ -24,6 +24,9 @@ public class MainViewController {
         setCameraValues();
     }
 
+//    CONSTRUCTOR JUST FOR TESTING
+    public MainViewController(){ this.controls = new HashMap<KeyCode, Ability>(); };
+
     private void setMainView(MainView mainView){
         this.mainView = mainView;
         this.controls = new HashMap<>();
@@ -68,12 +71,14 @@ public class MainViewController {
     }
 
     public void addControl(KeyCode keyCode, Ability ability) {
-        controls.put(keyCode, ability);
+        this.controls.put(keyCode, ability);
     }
 
     public void removeControl(KeyCode keyCode) {
         controls.remove(keyCode);
     }
+
+    public Map<KeyCode, Ability> getControls() { return controls; }
 
     private void executeControl(Ability ability) {
         ability.perform();

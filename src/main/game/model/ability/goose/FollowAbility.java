@@ -2,17 +2,17 @@ package game.model.ability.goose;
 
 import game.controller.MainViewController;
 import game.model.ability.Ability;
-import game.model.managers.TransportManager;
+import game.model.resources.Goose;
 import game.model.transport.Transport;
-import game.model.transport.TransportId;
 import javafx.scene.input.KeyCode;
-
-import java.awt.event.KeyListener;
+import java.util.Vector;
 
 public class FollowAbility extends Ability {
-    private MainViewController mainViewController;
+//    private MainViewController mainViewController;
     private Transport transport;
     private int gooseCount;
+    private KeyCode keyCode;
+    private Vector<Goose> availableGeese;
 
     public FollowAbility(MainViewController mainViewController) {
         super(mainViewController);
@@ -20,12 +20,13 @@ public class FollowAbility extends Ability {
     }
     @Override
     public void perform() {
-
+        transport.addFollowers(availableGeese);
     }
 
     @Override
     public void detachFromController() {
-
+        this.mainViewController.removeControl(this.keyCode);
+        transport.removeFollowers();
     }
 
     @Override
@@ -33,11 +34,12 @@ public class FollowAbility extends Ability {
         return ("Get "+gooseCount+" followers.");
     }
 
-    public void attachToController(Transport transport, int gooseCount) {
+    public void attachToController(Transport transport, int gooseCount, Vector<Goose> availableGeese) {
         this.transport = transport;
         this.gooseCount = gooseCount;
-        KeyCode kc = KeyCode.getKeyCode("Digit"+gooseCount);
-        mainViewController.addControl(kc, this);
+        this.availableGeese = availableGeese;
+        this.keyCode = KeyCode.getKeyCode(Integer.toString(gooseCount));
+        this.mainViewController.addControl(this.keyCode, this);
 
     }
 }

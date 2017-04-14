@@ -18,12 +18,12 @@ public class Game {
     private PrayerManager prayerManager;
     private GooseManager gooseManager;
 
-    public Game(RBMap map, Player player1, Player player2) {
+    public Game(RBMap map, Player player1, Player player2, GooseManager gooseManager) {
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = player1;
         this.map = map;
-        this.gooseManager = new GooseManager();
+        this.gooseManager = gooseManager;
         ArrayList<PlayerId> playerIds=new ArrayList<PlayerId>();
         playerIds.add(player1.getPlayerId());
         playerIds.add(player2.getPlayerId());
