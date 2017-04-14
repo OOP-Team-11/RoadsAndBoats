@@ -1,6 +1,8 @@
 package game.model.resources;
 
-public enum ResourceType {
+import game.model.gameImporter.Serializable;
+
+public enum ResourceType implements Serializable {
 
     TRUNKS("TRUNKS", 0),
     BOARDS("BOARDS", 0),
@@ -28,6 +30,10 @@ public enum ResourceType {
 
     public String getName() {
         return name;
+    }
+
+    public String getExportString() {
+        return getName();
     }
 
 }

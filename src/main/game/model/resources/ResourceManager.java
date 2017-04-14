@@ -64,7 +64,7 @@ public class ResourceManager implements Serializable {
             Map.Entry pair = (Map.Entry)it.next();
             ResourceType resource = (ResourceType) pair.getKey();
             Integer resourceCount = (Integer) pair.getValue();
-            sb.append(resource.getName())
+            sb.append(resource.getExportString())
                     .append(":")
                     .append(resourceCount)
                     .append(" ");
