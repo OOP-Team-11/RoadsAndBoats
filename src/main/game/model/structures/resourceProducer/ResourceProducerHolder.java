@@ -1,13 +1,13 @@
-package game.model.structures.primaryProducer;
+package game.model.structures.resourceProducer;
 
-import game.model.resources.ResourceType;
 import game.model.resources.ResourceManager;
+import game.model.resources.ResourceType;
 
-public abstract class ResourceHolder extends PrimaryProducer {
+public abstract class ResourceProducerHolder extends ResourceProducer {
 
     private ResourceManager resourceManager;
 
-    ResourceHolder(ResourceManager resourceManager) {
+    protected ResourceProducerHolder(ResourceManager resourceManager) {
         this.resourceManager = resourceManager;
     }
 

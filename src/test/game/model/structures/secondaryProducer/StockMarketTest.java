@@ -2,7 +2,7 @@ package model.structures.secondaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
-import game.model.structures.secondaryProducer.StockMarket;
+import game.model.structures.resourceProducer.secondaryProducer.StockMarket;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

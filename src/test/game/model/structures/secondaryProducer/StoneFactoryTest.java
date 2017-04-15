@@ -2,11 +2,8 @@ package model.structures.secondaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
-import game.model.structures.secondaryProducer.StoneFactory;
+import game.model.structures.resourceProducer.secondaryProducer.StoneFactory;
 import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 

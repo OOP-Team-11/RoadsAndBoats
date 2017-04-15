@@ -1,11 +1,10 @@
-package game.model.structures.primaryProducer;
+package game.model.structures.resourceProducer.primaryProducer;
 
 import game.model.resources.ResourceType;
 import game.model.resources.ResourceManager;
+import game.model.structures.resourceProducer.ResourceProducerHolder;
 
-import java.util.Map;
-
-public class OilRig extends ResourceHolder {
+public class OilRig extends ResourceProducerHolder {
 
     public OilRig(ResourceManager resourceManager) {
         super(resourceManager);
@@ -19,10 +18,9 @@ public class OilRig extends ResourceHolder {
         removeFromResourceManager(resourceType, amount);
     }
 
-    @Override
-    public Map<ResourceType, Integer> produce() {
-        addToResourceManager(ResourceType.FUEL, 1);
-        return null;
-    }
 
+    @Override
+    public boolean produce(ResourceManager resourceManager) {
+        return false;
+    }
 }

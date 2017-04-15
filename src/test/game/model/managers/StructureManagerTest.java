@@ -4,8 +4,8 @@ import game.model.Player;
 import game.model.PlayerId;
 import game.model.direction.Location;
 import game.model.resources.ResourceManager;
-import game.model.structures.primaryProducer.Mine;
-import game.model.structures.primaryProducer.OilRig;
+import game.model.structures.resourceProducer.primaryProducer.Mine;
+import game.model.structures.resourceProducer.primaryProducer.OilRig;
 import org.junit.Before;
 import org.junit.Test;
 

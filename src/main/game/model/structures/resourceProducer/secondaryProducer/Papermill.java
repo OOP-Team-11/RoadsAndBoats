@@ -1,9 +1,10 @@
-package game.model.structures.secondaryProducer;
+package game.model.structures.resourceProducer.secondaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
+import game.model.structures.resourceProducer.ResourceProducer;
 
-public class Papermill extends SecondaryProducer {
+public class Papermill extends ResourceProducer {
 
     private static final int TRUNKS_REQ2 = 2;   // 2 Trunks input requirement
     private static final int BOARDS_REQ2 = 2;   // 2 Boards input requirement

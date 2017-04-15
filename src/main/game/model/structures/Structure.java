@@ -1,7 +1,6 @@
 package game.model.structures;
 
 import game.model.ability.Ability;
-import game.model.direction.Angle;
 
 import java.util.Vector;
 

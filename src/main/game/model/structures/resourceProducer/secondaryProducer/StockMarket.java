@@ -1,9 +1,10 @@
-package game.model.structures.secondaryProducer;
+package game.model.structures.resourceProducer.secondaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
+import game.model.structures.resourceProducer.ResourceProducer;
 
-public class StockMarket extends SecondaryProducer {
+public class StockMarket extends ResourceProducer {
 
     private static final int LIMIT = 6;             // limit of uses per turn
 
