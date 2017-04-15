@@ -5,6 +5,7 @@ import game.model.Player;
 import game.model.PlayerId;
 import game.model.game.Game;
 import game.model.managers.GooseManager;
+import game.model.managers.StructureManager;
 import game.model.managers.TransportAbilityManager;
 import game.model.map.RBMap;
 import org.junit.Before;
@@ -23,9 +24,9 @@ public class GameTest {
     public void setUp() {
         RBMap map = new RBMap();
         TransportAbilityManager transportAbilityManager = new TransportAbilityManager(mock(MainViewController.class), mock(GooseManager.class));
-        player1 = new Player(transportAbilityManager, new PlayerId(1));
-        player2 = new Player(transportAbilityManager, new PlayerId(2));
-        this.game = new Game(map, player1, player2, mock(GooseManager.class));
+        player1 = new Player(transportAbilityManager, new PlayerId(1), "gavin");
+        player2 = new Player(transportAbilityManager, new PlayerId(2), "not gavin");
+        this.game = new Game(map, player1, player2, mock(GooseManager.class), mock(StructureManager.class));
     }
 
     @Test

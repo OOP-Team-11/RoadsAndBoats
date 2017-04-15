@@ -9,11 +9,13 @@ public class Player {
     private PlayerId playerId;
     private TransportManager transportManager;
     private TransportProducerManager transportProducerManager;
+    private String name;
 
-    public Player(TransportAbilityManager transportAbilityManager, PlayerId playerId) {
+    public Player(TransportAbilityManager transportAbilityManager, PlayerId playerId, String name) {
         this.playerId = playerId;
         this.transportManager = new TransportManager(this, transportAbilityManager);
         this.transportProducerManager = new TransportProducerManager(this);
+        this.name = name;
     }
 
     public PlayerId getPlayerId() {
@@ -26,5 +28,9 @@ public class Player {
 
     public TransportProducerManager getTransportProducerManager() {
         return this.transportProducerManager;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

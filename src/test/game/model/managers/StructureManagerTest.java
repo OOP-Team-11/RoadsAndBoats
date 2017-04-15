@@ -3,7 +3,6 @@ package game.model.managers;
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.direction.Location;
-import game.model.resources.ResourceManager;
 import game.model.structures.resourceProducer.primaryProducer.Mine;
 import game.model.structures.resourceProducer.primaryProducer.OilRig;
 import org.junit.Before;
@@ -20,9 +19,8 @@ public class StructureManagerTest
     @Before
     public void setUp()
     {
-        player = new Player(null, new PlayerId(1));
         abilityManager=new StructureAbilityManager(null);
-        structureManager=new StructureManager(player, abilityManager);
+        structureManager=new StructureManager(abilityManager);
     }
 
     @Test

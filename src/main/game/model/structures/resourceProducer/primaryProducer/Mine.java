@@ -2,6 +2,7 @@ package game.model.structures.resourceProducer.primaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
+import game.model.structures.StructureType;
 import game.model.structures.resourceProducer.ResourceDropper;
 
 import java.util.Random;
@@ -99,4 +100,14 @@ public class Mine extends ResourceDropper {
         this.currentIronCount = ironCount;
     }
 
+    @Override
+    public StructureType getType() {
+        return StructureType.MINE;
+    }
+
+    @Override
+    public String getExportString() {
+        // TODO add other things?
+        return this.getType().toString();
+    }
 }

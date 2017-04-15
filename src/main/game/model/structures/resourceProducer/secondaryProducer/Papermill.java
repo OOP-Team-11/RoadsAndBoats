@@ -2,6 +2,7 @@ package game.model.structures.resourceProducer.secondaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
+import game.model.structures.StructureType;
 import game.model.structures.resourceProducer.ResourceDropper;
 
 public class Papermill extends ResourceDropper {
@@ -48,5 +49,16 @@ public class Papermill extends ResourceDropper {
     private boolean canProducePaperWithBoth(ResourceManager resourceManager) {
         return (resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ1)
                 && resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ1));
+    }
+
+    @Override
+    public StructureType getType() {
+        return StructureType.PAPERMILL;
+    }
+
+    @Override
+    public String getExportString() {
+        // TODO add other things?
+        return this.getType().toString();
     }
 }

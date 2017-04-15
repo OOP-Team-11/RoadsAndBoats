@@ -9,6 +9,7 @@ import game.model.direction.TileCompartmentDirection;
 import game.model.gameImporter.Exportable;
 import game.model.gameImporter.GameInfoAdapter;
 import game.model.managers.GooseManager;
+import game.model.managers.StructureManager;
 import game.model.managers.TransportManager;
 import game.model.map.RBMap;
 import game.model.resources.ResourceType;
@@ -24,6 +25,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class GameInfoAdapterTest {
 
@@ -34,13 +36,13 @@ public class GameInfoAdapterTest {
     @Before
     public void setUp() {
         map = new RBMap();
-        Player player1 = new Player(null, new PlayerId(1));
-        Player player2 = new Player(null, new PlayerId(2));
+        Player player1 = new Player(null, new PlayerId(1), "gavin");
+        Player player2 = new Player(null, new PlayerId(2), "not gavin");
         TransportManager transportManager = player1.getTransportManager();
         Transport transport = new WagonTransport(player1.getPlayerId(), new TransportId(), 1, 1);
         transport.getResourceManager().addResource(ResourceType.GOLD, 2);
         transportManager.addTransport(transport, new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth()));
-        game = new Game(map, player1, player2, new GooseManager());
+        game = new Game(map, player1, player2, new GooseManager(), mock(StructureManager.class));
     }
 
     @Test

@@ -2,6 +2,7 @@ package game.model.structures.resourceProducer.secondaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
+import game.model.structures.StructureType;
 import game.model.structures.resourceProducer.ResourceDropper;
 
 public class StockMarket extends ResourceDropper {
@@ -48,4 +49,14 @@ public class StockMarket extends ResourceDropper {
         return  productionLimit;
     }
 
+    @Override
+    public StructureType getType() {
+        return StructureType.STOCK_MARKET;
+    }
+
+    @Override
+    public String getExportString() {
+        // TODO add other things?
+        return this.getType().toString();
+    }
 }
