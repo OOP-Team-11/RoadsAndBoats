@@ -1,7 +1,7 @@
 package game;
 
 import game.controller.ControllerManager;
-import game.model.game.Game;
+import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.factory.AbilityFactory;

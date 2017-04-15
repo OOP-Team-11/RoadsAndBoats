@@ -1,7 +1,7 @@
 package model.gameImporter;
 
 import game.model.direction.TileCompartmentLocation;
-import game.model.game.Game;
+import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.direction.Location;
