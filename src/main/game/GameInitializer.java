@@ -1,10 +1,11 @@
 package game;
 
 import game.controller.ControllerManager;
-import game.model.gameImportExport.GameExporter;
+import game.model.managers.*;
 import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.PlayerId;
+import game.model.gameImportExport.GameExporter;
 import game.model.gameImportExport.MapImporter;
 import game.model.managers.GooseManager;
 import game.model.managers.StructureAbilityManager;
@@ -29,7 +30,7 @@ public class GameInitializer {
         System.out.println("New Game has started");
         viewHandler = new ViewHandler(primaryStage);
         controllerManager = new ControllerManager(viewHandler);
-        GooseManager gooseManager = new GooseManager();
+
         MapImporter mapImporter = new MapImporter();
         GameExporter gameExporter;
         try {
@@ -37,13 +38,15 @@ public class GameInitializer {
             RBMap map = new RBMap();
             map.attach(viewHandler.getMainViewReference());
             mapImporter.importMapFromFile(map, br);
-
+            GooseManager gooseManager = new GooseManager(new GooseAbilityManager(controllerManager.getMainViewController(), map));
             TransportAbilityManager transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController(), gooseManager, map);
-
             Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name);
             player1.attach(viewHandler.getMainViewReference());
             Player player2 = new Player(transportAbilityManager, new PlayerId(2), player2Name);
             player2.attach(viewHandler.getMainViewReference());
+
+            gooseManager.addTransportManager(player1.getTransportManager());
+            gooseManager.addTransportManager(player2.getTransportManager());
 
             StructureAbilityManager structureAbilityManager = new StructureAbilityManager(controllerManager.getMainViewController());
             StructureManager structureManager = new StructureManager(structureAbilityManager);

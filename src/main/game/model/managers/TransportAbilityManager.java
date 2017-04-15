@@ -33,12 +33,13 @@ public class TransportAbilityManager {
     }
 
     public RBMap getMap() { return map; }
+    public GooseManager getGooseManager() { return this.gooseManager; }
 
     public int getAbilityCount() { return this.abilities.size(); }
 
     public void addAbilities(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports) {
         this.addFollowAbility(transport, tileCompartmentLocation);
-        this.addReproduceAbility(transport, tileCompartmentLocation, tileTransports);
+        this.addTransportReproduceAbility(transport, tileCompartmentLocation, tileTransports);
 //        fill out with reset of abilities --> "add_____Ability(loc, transport, tcd)"
     }
 
@@ -60,7 +61,7 @@ public class TransportAbilityManager {
         }
     }
 
-    public void addReproduceAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports) {
+    public void addTransportReproduceAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports) {
         if (!transport.canReproduce())
             return;
         else {

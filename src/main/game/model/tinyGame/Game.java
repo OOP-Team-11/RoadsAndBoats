@@ -45,7 +45,6 @@ public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservab
         playerIds.add(player1.getPlayerId());
         playerIds.add(player2.getPlayerId());
         prayerManager=new PrayerManager(playerIds);
-        this.gooseManager = gooseManager;
     }
 
     public Player getCurrentPlayer() {
