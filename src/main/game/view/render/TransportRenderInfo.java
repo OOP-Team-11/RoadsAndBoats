@@ -10,6 +10,7 @@ public class TransportRenderInfo
 {
     public final HashMap<TileCompartmentLocation, List<Transport>> transports;
 
+
     public TransportRenderInfo(HashMap<TileCompartmentLocation, List<Transport>> transports)
     {
         this.transports = transports;
