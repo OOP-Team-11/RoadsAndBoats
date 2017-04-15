@@ -50,12 +50,4 @@ public class ResourceManager {
                 0
         );
     }
-
-    //  wtf even is this
-//    public Map<ResourceType, Integer> giveResource(ResourceType resourceType, Integer integer) {
-//        Map<ResourceType, Integer> resourceMap = new HashMap<>();
-//        resourceMap.put(resourceType, integer);
-//        removeResource(resourceType, integer);
-//        return resourceMap;
-//    }
 }
