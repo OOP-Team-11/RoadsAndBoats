@@ -2,6 +2,7 @@ package game.model.structures.resourceProducer.secondaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
+import game.model.structures.StructureType;
 import game.model.structures.resourceProducer.ResourceDropper;
 
 public class Mint extends ResourceDropper {
@@ -28,6 +29,17 @@ public class Mint extends ResourceDropper {
     private boolean canProduceCoins(ResourceManager resourceManager) {
         return (resourceManager.removeResource(ResourceType.FUEL, FUEL_REQ)
                 && resourceManager.removeResource(ResourceType.GOLD, GOLD_REQ));
+    }
+
+    @Override
+    public StructureType getType() {
+        return StructureType.MINT;
+    }
+
+    @Override
+    public String getExportString() {
+        // TODO add other things?
+        return this.getType().toString();
     }
 
 }
