@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class MainView extends View
         implements TransportRenderInfoObserver,
-        StructureRenderInfoObserver,
+        MapStructureRenderInfoObserver,
         ResourceRenderInfoObserver,
         MapRenderInfoObserver,
         CursorRenderInfoObserver,
@@ -40,7 +40,7 @@ public class MainView extends View
 
     private AnchorPane anchorPane;
     private TransportRenderInfo transportRenderInfo;
-    private StructureRenderInfo structureRenderInfo;
+    private MapStructureRenderInfo mapStructureRenderInfo;
     private ResourceRenderInfo resourceRenderInfo;
     private PlayerRenderInfo playerRenderInfo;
     private PhaseRenderInfo phaseRenderInfo;
@@ -543,8 +543,8 @@ public class MainView extends View
         this.refresh = true;
     }
     @Override
-    public void updateStructureInfo(StructureRenderInfo structureRenderInfo) {
-        this.structureRenderInfo = structureRenderInfo;
+    public void updateMapStructureInfo(MapStructureRenderInfo mapStructureRenderInfo) {
+        this.mapStructureRenderInfo = mapStructureRenderInfo;
         this.refresh = true;
     }
     @Override

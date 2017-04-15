@@ -6,8 +6,8 @@ public class TruckTransport extends LandTransport {
 
 //    private Vector<Ability> abilities;
 
-    public TruckTransport(PlayerId playerId, TransportId transportId, int moveCapacity, int carryCapacity) {
-        super(playerId, transportId, moveCapacity, carryCapacity);
+    public TruckTransport(PlayerId playerId, TransportId transportId) {
+        super(playerId, transportId, 4, 6);
     }
 
     public String getExportString() {
