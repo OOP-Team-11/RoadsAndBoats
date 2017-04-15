@@ -28,7 +28,6 @@ public class GameInitializer {
 
     public GameInitializer(String gameFile, String player1Name, String player2Name, Stage primaryStage){
 
-        // TODO
         System.out.println("New Game has started");
         viewHandler = new ViewHandler(primaryStage);
         controllerManager = new ControllerManager(viewHandler);
@@ -43,7 +42,9 @@ public class GameInitializer {
             mapImporter.importMapFromFile(map, br);
 
             Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name);
+            player1.attach(viewHandler.getMainViewReference());
             Player player2 = new Player(transportAbilityManager, new PlayerId(2), player2Name);
+            player2.attach(viewHandler.getMainViewReference());
 
             StructureAbilityManager structureAbilityManager = new StructureAbilityManager(controllerManager.getMainViewController());
             StructureManager structureManager = new StructureManager(structureAbilityManager);

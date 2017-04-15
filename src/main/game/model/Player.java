@@ -3,8 +3,10 @@ package game.model;
 import game.model.managers.TransportAbilityManager;
 import game.model.managers.TransportManager;
 import game.model.managers.TransportProducerManager;
+import game.utilities.observable.MapTransportRenderInfoObservable;
+import game.utilities.observer.MapTransportRenderInfoObserver;
 
-public class Player {
+public class Player implements MapTransportRenderInfoObservable{
 
     private PlayerId playerId;
     private TransportManager transportManager;
@@ -32,5 +34,15 @@ public class Player {
 
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public void attach(MapTransportRenderInfoObserver observer) {
+        this.transportManager.attach(observer);
+    }
+
+    @Override
+    public void detach(MapTransportRenderInfoObserver observer) {
+        this.transportManager.detach(observer);
     }
 }
