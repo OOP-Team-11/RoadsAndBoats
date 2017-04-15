@@ -78,7 +78,7 @@ public class TransportAbilityManager {
                     break;
                 }
             }
-            if(!(noResources && noGoose && noStructure && tile.getTerrain() == Terrain.PASTURE))
+            if(!(noResources && noGoose && noStructure && tile.getTerrain().canReproduce()))
                 return;
 
 //            Check there is only 1 other transport that can reproduce on the tile
