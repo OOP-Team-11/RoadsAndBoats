@@ -67,7 +67,7 @@ public class GooseAbilityManager {
             if(tileCompartmentGeese.get(currentTileCompartment) == null)
                 tileCompartmentGeese.put(currentTileCompartment, tileGeese.get(d));
         }
-//            Make sure only the tileCompartment our transport is located in has another transport and theres only 1 other
+//            Make sure only the tileCompartment our goose is located in has another goose and theres only 1 other
         if(tileCompartmentGeese.size() == 1
                 && tileCompartmentGeese.get(tile.getTileCompartment(gooseCompartmentDirection)).size() == 2) {
             GooseReproduceAbility gooseReproduceAbility = abilityFactory.getGooseReproduceAbility();

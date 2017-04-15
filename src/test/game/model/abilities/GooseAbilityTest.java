@@ -94,6 +94,7 @@ public class GooseAbilityTest {
         gooseManager.addGoose(location, goose2);
 //        Add a transport to the tile so gooses cant reproduce
         player1.getTransportManager().addTransport(new WagonTransport(player1.getPlayerId(), new TransportId()), location);
+        gooseManager.addTransportManager(player1.getTransportManager());
         gooseManager.onGooseSelected(goose1, location);
         assertEquals(0, gooseManager.getGooseAbilityManager().getAbilityCount());
     }

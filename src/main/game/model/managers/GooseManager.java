@@ -1,5 +1,6 @@
 package game.model.managers;
 
+import game.controller.MainViewController;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.map.RBMap;
@@ -17,8 +18,11 @@ public class GooseManager {
         this.gooseAbilityManager = gooseAbilityManager;
     }
 
-    public GooseManager() {}
-
+//    ONLY FOR TESTING PURPOSES
+    public GooseManager() {
+        this.gooseAbilityManager = new GooseAbilityManager(new MainViewController(), new RBMap());
+        this.mapGeese = new HashMap<>();
+    }
     public Map<TileCompartmentLocation, ArrayList<Goose>> getMapGeese() {
         return this.mapGeese;
     }

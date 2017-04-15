@@ -35,11 +35,13 @@ public class GameInitializer {
             mapImporter.importMapFromFile(map, br);
             GooseManager gooseManager = new GooseManager(new GooseAbilityManager(controllerManager.getMainViewController(), map));
             TransportAbilityManager transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController(), gooseManager, map);
-
             Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name);
             player1.attach(viewHandler.getMainViewReference());
             Player player2 = new Player(transportAbilityManager, new PlayerId(2), player2Name);
             player2.attach(viewHandler.getMainViewReference());
+
+            gooseManager.addTransportManager(player1.getTransportManager());
+            gooseManager.addTransportManager(player2.getTransportManager());
 
             StructureAbilityManager structureAbilityManager = new StructureAbilityManager(controllerManager.getMainViewController());
             StructureManager structureManager = new StructureManager(structureAbilityManager);
