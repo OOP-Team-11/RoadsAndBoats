@@ -1,6 +1,6 @@
 package game.view.render;
 
-import game.model.game.Phase;
+import game.model.tinyGame.Phase;
 
 public class PhaseRenderInfo {
 

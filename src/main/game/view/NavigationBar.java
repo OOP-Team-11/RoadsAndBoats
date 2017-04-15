@@ -96,23 +96,23 @@ public class NavigationBar {
 
         // TODO replace images, make them look like icons or something
         this.mainViewButton.setImage(assets.NAVIGATION_BAR_1);
-        this.transportViewButton.setImage(assets.NAVIGATION_BAR_1);
-        this.researchViewButton.setImage(assets.NAVIGATION_BAR_1);
-        this.wonderViewButton.setImage(assets.NAVIGATION_BAR_1);
-        this.saveLoadButton.setImage(assets.NAVIGATION_BAR_1);
-        this.optionsViewButton.setImage(assets.NAVIGATION_BAR_1);
-        this.mainViewButton.setFitHeight(75);
-        this.mainViewButton.setFitWidth(75);
-        this.transportViewButton.setFitWidth(75);
-        this.transportViewButton.setFitHeight(75);
-        this.researchViewButton.setFitHeight(75);
-        this.researchViewButton.setFitWidth(75);
-        this.wonderViewButton.setFitHeight(75);
-        this.wonderViewButton.setFitWidth(75);
-        this.saveLoadButton.setFitHeight(75);
-        this.saveLoadButton.setFitWidth(75);
-        this.optionsViewButton.setFitWidth(75);
-        this.optionsViewButton.setFitHeight(75);
+        this.transportViewButton.setImage(assets.NAVIGATION_BAR_2);
+        this.researchViewButton.setImage(assets.NAVIGATION_BAR_3);
+        this.wonderViewButton.setImage(assets.NAVIGATION_BAR_4);
+        this.saveLoadButton.setImage(assets.NAVIGATION_BAR_5);
+        this.optionsViewButton.setImage(assets.NAVIGATION_BAR_6);
+        this.mainViewButton.setFitHeight(55);
+        this.mainViewButton.setFitWidth(55);
+        this.transportViewButton.setFitWidth(55);
+        this.transportViewButton.setFitHeight(55);
+        this.researchViewButton.setFitHeight(55);
+        this.researchViewButton.setFitWidth(55);
+        this.wonderViewButton.setFitHeight(55);
+        this.wonderViewButton.setFitWidth(55);
+        this.saveLoadButton.setFitHeight(55);
+        this.saveLoadButton.setFitWidth(55);
+        this.optionsViewButton.setFitWidth(55);
+        this.optionsViewButton.setFitHeight(55);
         this.anchorPane.setPrefWidth(80);
         this.anchorPane.setMaxWidth(80);
         this.anchorPane.setMinWidth(80);
@@ -121,22 +121,22 @@ public class NavigationBar {
         this.anchorPane.getChildren().add(canvas);
         this.anchorPane.getChildren().add(mainViewButton);
         this.anchorPane.setTopAnchor(mainViewButton,50.0);
-        this.anchorPane.setLeftAnchor(mainViewButton,2.5);
+        this.anchorPane.setLeftAnchor(mainViewButton,12.5);
         this.anchorPane.getChildren().add(transportViewButton);
-        this.anchorPane.setTopAnchor(transportViewButton,150.0);
-        this.anchorPane.setLeftAnchor(transportViewButton,2.5);
+        this.anchorPane.setTopAnchor(transportViewButton,175.0);
+        this.anchorPane.setLeftAnchor(transportViewButton,15.0);
         this.anchorPane.getChildren().add(researchViewButton);
-        this.anchorPane.setTopAnchor(researchViewButton,250.0);
-        this.anchorPane.setLeftAnchor(researchViewButton,2.5);
+        this.anchorPane.setTopAnchor(researchViewButton,300.0);
+        this.anchorPane.setLeftAnchor(researchViewButton,12.5);
         this.anchorPane.getChildren().add(wonderViewButton);
-        this.anchorPane.setTopAnchor(wonderViewButton,350.0);
-        this.anchorPane.setLeftAnchor(wonderViewButton,2.5);
+        this.anchorPane.setTopAnchor(wonderViewButton,425.0);
+        this.anchorPane.setLeftAnchor(wonderViewButton,12.5);
         this.anchorPane.getChildren().add(saveLoadButton);
-        this.anchorPane.setTopAnchor(saveLoadButton,450.0);
-        this.anchorPane.setLeftAnchor(saveLoadButton,2.5);
+        this.anchorPane.setTopAnchor(saveLoadButton,550.0);
+        this.anchorPane.setLeftAnchor(saveLoadButton,12.5);
         this.anchorPane.getChildren().add(optionsViewButton);
-        this.anchorPane.setTopAnchor(optionsViewButton,550.0);
-        this.anchorPane.setLeftAnchor(optionsViewButton, 2.5);
+        this.anchorPane.setTopAnchor(optionsViewButton,675.0);
+        this.anchorPane.setLeftAnchor(optionsViewButton, 12.5);
 
     }
 }

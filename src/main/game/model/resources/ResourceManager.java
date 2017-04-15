@@ -3,11 +3,9 @@ package game.model.resources;
 
 import game.model.gameImporter.Serializable;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class ResourceManager implements Serializable {
     private Map<ResourceType, Integer> resourceTypeIntegerMap;
@@ -31,14 +29,14 @@ public class ResourceManager implements Serializable {
     }
 
     public boolean removeResource(ResourceType type, Integer numberToRemove){
-        int oldCount = resourceTypeIntegerMap.get(type);
-        //If there are even enough of that resource to remove the specified amount,
-        if(oldCount - numberToRemove >= 0){
-            resourceTypeIntegerMap.replace(type, oldCount - numberToRemove);
-            return true;
+        if (resourceTypeIntegerMap.containsKey(type)) {
+            int oldCount = resourceTypeIntegerMap.get(type);
+            //If there are even enough of that resource to remove the specified amount,
+            if (oldCount - numberToRemove >= 0) {
+                resourceTypeIntegerMap.replace(type, oldCount - numberToRemove);
+                return true;
+            } else return false;
         } else return false;
-
-
     }
 
     public boolean hasResource(ResourceType wellDoesIt) {

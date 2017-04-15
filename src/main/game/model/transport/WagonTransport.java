@@ -6,12 +6,17 @@ public class WagonTransport extends LandTransport {
 
 //    private Vector<Ability> abilities;
 
-    public WagonTransport(PlayerId playerId, TransportId transportId, int moveCapacity, int carryCapacity) {
-        super(playerId, transportId, moveCapacity, carryCapacity);
+    public WagonTransport(PlayerId playerId, TransportId transportId) {
+        super(playerId, transportId, 3, 3);
     }
 
     public String getExportString() {
-        return this.getPlayerId().getPlayerIdNumber() + " WAGON " + getResourceManager().getExportString();
+        return this.getPlayerId().getPlayerIdNumber() + " " + this.getType().getName() + " " + getResourceManager().getExportString();
+    }
+
+    @Override
+    public TransportType getType() {
+        return TransportType.WAGON;
     }
 
     @Override

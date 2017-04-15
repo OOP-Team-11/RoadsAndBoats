@@ -1,12 +1,14 @@
 package game;
 
 import game.controller.ControllerManager;
-import game.model.game.Game;
+import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.factory.AbilityFactory;
 import game.model.gameImporter.MapImporter;
 import game.model.managers.GooseManager;
+import game.model.managers.StructureAbilityManager;
+import game.model.managers.StructureManager;
 import game.model.managers.TransportAbilityManager;
 import game.model.map.RBMap;
 import game.utilities.exceptions.MalformedMapFileException;
@@ -24,7 +26,6 @@ public class GameInitializer {
 
     public GameInitializer(String gameFile, String player1Name, String player2Name, Stage primaryStage){
 
-        // TODO
         System.out.println("New Game has started");
         viewHandler = new ViewHandler(primaryStage);
         controllerManager = new ControllerManager(viewHandler);
@@ -35,23 +36,29 @@ public class GameInitializer {
             RBMap map = new RBMap();
             map.attach(viewHandler.getMainViewReference());
             mapImporter.importMapFromFile(map, br);
+
             TransportAbilityManager transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController(), gooseManager, map);
-            Player player1 = new Player(transportAbilityManager, new PlayerId(1));
-            Player player2 = new Player(transportAbilityManager, new PlayerId(2));
-            Game game = new Game(map, player1, player2, gooseManager);
+
+            Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name);
+            player1.attach(viewHandler.getMainViewReference());
+            Player player2 = new Player(transportAbilityManager, new PlayerId(2), player2Name);
+            player2.attach(viewHandler.getMainViewReference());
+
+            StructureAbilityManager structureAbilityManager = new StructureAbilityManager(controllerManager.getMainViewController());
+            StructureManager structureManager = new StructureManager(structureAbilityManager);
+            structureManager.attach(viewHandler.getMainViewReference());
+
+            Game game = new Game(map, player1, player2, gooseManager, structureManager);
+
             game.attachPlayerInfoObserver(viewHandler.getMainViewReference());
             game.attachPhaseInfoObserver(viewHandler.getMainViewReference());
             game.attachPlayerInfoObserver(viewHandler.getResearchViewReference());
             game.attachPhaseInfoObserver(viewHandler.getResearchViewReference());
-        } catch (MalformedMapFileException e) {
-            //TODO handle malformed part
+        } catch (MalformedMapFileException|IOException e) {
             System.out.println(e);
-        } catch (IOException e) {
-            // TODO handle io exception
-            System.out.println(e);
+            System.exit(1);
         }
 
-        // TODO initialize other stuff
         viewHandler.startGameLoop();
     }
 }

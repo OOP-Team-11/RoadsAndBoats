@@ -6,12 +6,17 @@ public class SteamShipTransport extends WaterTransport {
 
 //    private Vector<Ability> abilities;
 
-    public SteamShipTransport(PlayerId playerId, TransportId transportId, int moveCapacity, int carryCapacity) {
-        super(playerId, transportId, moveCapacity, carryCapacity);
+    public SteamShipTransport(PlayerId playerId, TransportId transportId) {
+        super(playerId, transportId, 6, 8);
     }
 
     public String getExportString() {
-        return this.getPlayerId().getPlayerIdNumber() + " STEAMSHIP " + getResourceManager().getExportString();
+        return this.getPlayerId().getPlayerIdNumber() + " " + this.getType().getName() + " " + getResourceManager().getExportString();
+    }
+
+    @Override
+    public TransportType getType() {
+        return TransportType.STEAMSHIP;
     }
 
     @Override

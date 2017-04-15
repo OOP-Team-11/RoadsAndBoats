@@ -1,11 +1,13 @@
-package game.model.managers;
+package model.managers;
 
 import game.model.Player;
-import game.model.PlayerId;
 import game.model.direction.Location;
-import game.model.resources.ResourceManager;
-import game.model.structures.primaryProducer.Mine;
-import game.model.structures.primaryProducer.OilRig;
+import game.model.direction.TileCompartmentDirection;
+import game.model.direction.TileCompartmentLocation;
+import game.model.managers.StructureAbilityManager;
+import game.model.managers.StructureManager;
+import game.model.structures.resourceProducer.primaryProducer.Mine;
+import game.model.structures.resourceProducer.primaryProducer.OilRig;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,19 +18,20 @@ public class StructureManagerTest
     private StructureManager structureManager;
     private Player player;
     private StructureAbilityManager abilityManager;
+    private TileCompartmentLocation tileCompartmentLocation;
 
     @Before
     public void setUp()
     {
-        player = new Player(null, new PlayerId(1));
         abilityManager=new StructureAbilityManager(null);
-        structureManager=new StructureManager(player, abilityManager);
+        structureManager=new StructureManager(abilityManager);
+        tileCompartmentLocation = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
     }
 
     @Test
     public void addStructure_OneAdded_SuccessfullyAddedExactlyOne()
     {
-        structureManager.addStructure(new Location(0,0,0),
+        structureManager.addStructure(tileCompartmentLocation,
                 new Mine(0, 0));
 
         assertEquals(1, structureManager.getStructures().size());
@@ -38,11 +41,11 @@ public class StructureManagerTest
     public void getStructure_byLocation_correctlyFound()
     {
         Mine mine = new Mine(0, 0);
-
-        structureManager.addStructure(new Location(0,-1,1),
+        TileCompartmentLocation tcl = new TileCompartmentLocation(new Location(0,-1,1), TileCompartmentDirection.getNorth());
+        structureManager.addStructure(tcl,
                 mine);
 
-        assertEquals(mine, structureManager.getStructure(new Location(0,-1,1)));
+        assertEquals(mine, structureManager.getStructure(tcl));
     }
 
     @Test
@@ -50,7 +53,7 @@ public class StructureManagerTest
     {
         Mine mine = new Mine(0, 0);
 
-        structureManager.addStructure(new Location(0,0,0),
+        structureManager.addStructure(tileCompartmentLocation,
                 mine);
 
         assertEquals(mine, structureManager.getStructure(mine.getId()));
@@ -59,11 +62,13 @@ public class StructureManagerTest
     @Test
     public void addStructure_TwoAdded_SuccessfullyAddedExactlyTwo()
     {
-        structureManager.addStructure(new Location(0,0,0),
+        structureManager.addStructure(tileCompartmentLocation,
                 new Mine(0, 0));
 
-        structureManager.addStructure(new Location(3,-1,-2),
-                new OilRig(new ResourceManager()));
+        TileCompartmentLocation tcl = new TileCompartmentLocation(new Location(0,-1,1), TileCompartmentDirection.getNorth());
+
+        structureManager.addStructure(tcl,
+                new OilRig());
 
         assertEquals(2, structureManager.getStructures().size());
     }

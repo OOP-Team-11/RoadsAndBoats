@@ -6,12 +6,17 @@ public class RaftTransport extends WaterTransport {
 
 //    private Vector<Ability> abilities;
 
-    public RaftTransport(PlayerId playerId, TransportId transportId, int moveCapacity, int carryCapacity) {
-        super(playerId, transportId, moveCapacity, carryCapacity);
+    public RaftTransport(PlayerId playerId, TransportId transportId) {
+        super(playerId, transportId, 3, 3);
     }
 
     public String getExportString() {
-        return this.getPlayerId().getPlayerIdNumber() + " RAFT " + getResourceManager().getExportString();
+        return this.getPlayerId().getPlayerIdNumber() + " " + this.getType().getName() + " " + getResourceManager().getExportString();
+    }
+
+    @Override
+    public TransportType getType() {
+        return TransportType.RAFT;
     }
 
     @Override

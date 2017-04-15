@@ -1,6 +1,6 @@
 package model.game;
 
-import game.model.game.Phase;
+import game.model.tinyGame.Phase;
 import org.junit.Before;
 import org.junit.Test;
 
