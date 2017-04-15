@@ -7,5 +7,4 @@ public interface MapRenderInfoObservable {
 
     void attach(MapRenderInfoObserver observer);
     void detach(MapRenderInfoObserver observer);
-    void notify(MapRenderInfo mapRenderInfo);
 }
