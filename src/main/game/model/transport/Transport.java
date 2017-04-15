@@ -1,6 +1,7 @@
 package game.model.transport;
 
 import game.model.PlayerId;
+import game.model.managers.TransportAbilityManager;
 import game.model.resources.Goose;
 import game.model.resources.ResourceManager;
 
@@ -14,6 +15,7 @@ public abstract class Transport {
     private PlayerId playerId;
     private TransportId transportId;
     private ResourceManager resourceManager;
+    private TransportAbilityManager transportAbilityManager;
     private int moveCapacity;
     private int carryCapacity;
 
