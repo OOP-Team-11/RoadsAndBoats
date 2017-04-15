@@ -4,8 +4,8 @@ import game.model.Player;
 import game.model.PlayerId;
 import game.model.direction.Location;
 import game.model.resources.ResourceManager;
-import game.model.structures.primaryProducer.Mine;
-import game.model.structures.primaryProducer.OilRig;
+import game.model.structures.resourceProducer.primaryProducer.Mine;
+import game.model.structures.resourceProducer.primaryProducer.OilRig;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -63,7 +63,7 @@ public class StructureManagerTest
                 new Mine(0, 0));
 
         structureManager.addStructure(new Location(3,-1,-2),
-                new OilRig(new ResourceManager()));
+                new OilRig());
 
         assertEquals(2, structureManager.getStructures().size());
     }
