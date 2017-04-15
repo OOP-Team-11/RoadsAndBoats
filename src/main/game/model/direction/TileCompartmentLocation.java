@@ -20,13 +20,13 @@ public class TileCompartmentLocation {
 
     @Override
     public int hashCode() {
-        return hash(this.location);
+        return hash(this.location, this.tileCompartmentDirection);
     }
 
     @Override
     public boolean equals(Object object) {
         return (object instanceof TileCompartmentLocation) &&
-                ((TileCompartmentLocation) object).getLocation() == this.location &&
-                ((TileCompartmentLocation) object).getTileCompartmentDirection() == this.getTileCompartmentDirection();
+                ((TileCompartmentLocation) object).getLocation().equals(this.location) &&
+                ((TileCompartmentLocation) object).getTileCompartmentDirection().equals(this.getTileCompartmentDirection());
     }
 }

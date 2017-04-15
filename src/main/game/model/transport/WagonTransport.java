@@ -14,4 +14,9 @@ public class WagonTransport extends LandTransport {
         return this.getPlayerId().getPlayerIdNumber() + " WAGON " + getResourceManager().getExportString();
     }
 
+    @Override
+    public boolean canReproduce() {
+        return false;
+    }
+
 }

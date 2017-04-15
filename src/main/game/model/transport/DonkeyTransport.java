@@ -15,6 +15,11 @@ public class DonkeyTransport extends LandTransport implements Livestock {
         return this.getPlayerId().getPlayerIdNumber() + " DONKEY " + getResourceManager().getExportString();
     }
 
+    @Override
+    public boolean canReproduce() {
+        return true;
+    }
+
 //    public void breed() {
 //
 //    }

@@ -14,4 +14,9 @@ public class SteamShipTransport extends WaterTransport {
         return this.getPlayerId().getPlayerIdNumber() + " STEAMSHIP " + getResourceManager().getExportString();
     }
 
+    @Override
+    public boolean canReproduce() {
+        return false;
+    }
+
 }

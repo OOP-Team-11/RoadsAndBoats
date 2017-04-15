@@ -15,7 +15,6 @@ public abstract class Transport {
     private PlayerId playerId;
     private TransportId transportId;
     private ResourceManager resourceManager;
-    private TransportAbilityManager transportAbilityManager;
     private int moveCapacity;
     private int carryCapacity;
 
@@ -38,6 +37,7 @@ public abstract class Transport {
     }
 
     public abstract String getExportString();
+    public abstract boolean canReproduce();
 
     public PlayerId getPlayerId() {
         return this.playerId;

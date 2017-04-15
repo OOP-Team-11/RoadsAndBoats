@@ -14,4 +14,9 @@ public class TruckTransport extends LandTransport {
         return this.getPlayerId().getPlayerIdNumber() + " TRUCK " + getResourceManager().getExportString();
     }
 
+    @Override
+    public boolean canReproduce() {
+        return false;
+    }
+
 }

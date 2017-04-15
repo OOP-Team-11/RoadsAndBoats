@@ -8,7 +8,6 @@ import javafx.scene.input.KeyCode;
 import java.util.Vector;
 
 public class FollowAbility extends Ability {
-//    private MainViewController mainViewController;
     private Transport transport;
     private int gooseCount;
     private KeyCode keyCode;
