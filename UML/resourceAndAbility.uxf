@@ -1,0 +1,3415 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>11</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3201</x>
+      <y>1606</y>
+      <w>220</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Goose
+--
+abilities: Vector&lt;Ability&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4114</x>
+      <y>2288</y>
+      <w>297</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BreedAbility
+--
++attachToController(LiveStock)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4928</x>
+      <y>2277</y>
+      <w>297</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>ProduceTransportAbility
+--
+--
+attachToController(TransportProducer)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3300</x>
+      <y>1529</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3905</x>
+      <y>1980</y>
+      <w>33</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4521</x>
+      <y>1573</y>
+      <w>297</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>MainGameController
+--
+-activeKeyListeners: Set&lt;KeyListener&gt;
+--
++attachKeyListener(KL)
++detachKeyListener(KL)
++attachMouseEventListener(MEL)
++detachMouseEventListener(MEL)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>3322</x>
+      <y>1749</y>
+      <w>440</w>
+      <h>275</h>
+    </coordinates>
+    <panel_attributes>Example...
+
+bg=blue
+--
+BreedAbility
+--
+livestock: Livestock
+--
++perform() {
+     this.livestock.breed();
+	}
++attachToController(Livestock L) {
+   this.livestock = L;
+   init KeyListener;
+   controller.attach(KeyListener);
+}
++detachFromController() {}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2783</x>
+      <y>1430</y>
+      <w>275</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>/LandTransport/
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2937</x>
+      <y>1584</y>
+      <w>198</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Donkey
+--
+-abilities:Vector&lt;Ability&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4521</x>
+      <y>2288</y>
+      <w>297</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>FollowAbility
+--
+--
++attachToController(Goose)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>2761</y>
+      <w>308</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>MoveAbility
+--
+--
++attachToController(Transport)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3102</x>
+      <y>1485</y>
+      <w>154</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+</panel_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3839</x>
+      <y>1892</y>
+      <w>264</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Ability
+--
+/+perform(): void/
++detachFromController(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3256</x>
+      <y>1474</y>
+      <w>121</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Livestock
+--
+/+breed():void/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>2838</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>DropTransportAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>2519</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>DropResourceAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2673</x>
+      <y>1584</y>
+      <w>198</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Truck
+--
+-abilities:Vector&lt;Ability&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2816</x>
+      <y>1661</y>
+      <w>198</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Wagon
+--
+-abilities:Vector&lt;Ability&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2893</x>
+      <y>1474</y>
+      <w>33</w>
+      <h>209</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2893</x>
+      <y>1595</y>
+      <w>66</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2860</x>
+      <y>1595</y>
+      <w>66</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1760</x>
+      <y>1441</y>
+      <w>297</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>Road
+--
+-myLocation: Location
+-tcd: TileCompartmentDirection
+-ted: TileEdgeDirection
+-destination: TileCompartment
+--
++transport(lt: LandTransport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1397</x>
+      <y>1441</y>
+      <w>308</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>River
+--
+-myLocation: Location
+-tcd: TileCompartmentDirection
+-ted: TileEdgeDirection
+-destination: TileCompartment
+--
++transport(wt: WaterTransport)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2310</x>
+      <y>1683</y>
+      <w>198</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Rowboat
+--
+-abilities:Vector&lt;Ability&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2178</x>
+      <y>1584</y>
+      <w>198</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Raft
+--
+-abilities:Vector&lt;Ability&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2442</x>
+      <y>1573</y>
+      <w>198</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>SteamShip
+--
+-abilities:Vector&lt;Ability&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2398</x>
+      <y>1595</y>
+      <w>66</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2365</x>
+      <y>1595</y>
+      <w>66</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2398</x>
+      <y>1463</y>
+      <w>33</w>
+      <h>242</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2288</x>
+      <y>1419</y>
+      <w>275</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>/WaterTransport/
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2574</x>
+      <y>1155</y>
+      <w>275</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>/Transport/
+--
+-playerId: PlayerId
+-transportId: int
+-moveCapactiy: int
+-carryCapacity: int
+--
++move(newLocation: loc): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2398</x>
+      <y>1276</y>
+      <w>319</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>270.0;10.0;270.0;100.0;10.0;100.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2684</x>
+      <y>1276</y>
+      <w>242</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;200.0;100.0;200.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1672</x>
+      <y>1342</y>
+      <w>33</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1771</x>
+      <y>1342</y>
+      <w>33</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2904</x>
+      <y>1738</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Donkey overides move() to change behavior
+depending on if there is a Road
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3102</x>
+      <y>1628</y>
+      <w>55</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;30.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>3146</y>
+      <w>308</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>CarryTransportAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3542</x>
+      <y>572</y>
+      <w>231</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>PlayerId
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3069</x>
+      <y>572</y>
+      <w>363</w>
+      <h>209</h>
+    </coordinates>
+    <panel_attributes>Player
+--
+-transportCollection: Collection&lt;Transport&gt;
+-playerId: PlayerId
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3421</x>
+      <y>572</y>
+      <w>143</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>2431</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BuildWoodcutterAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>2354</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BuildPapermillAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>2607</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BuildClaypitAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>2684</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BuildStoneFactoryAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>2915</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BuildQuarryAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>2277</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BuildCoalBurnerAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>2992</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BuildWallAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1562</x>
+      <y>1166</y>
+      <w>308</w>
+      <h>187</h>
+    </coordinates>
+    <panel_attributes>TileCompartment
+--
+-transportCollection: Collection&lt;Transport&gt;
+-roadCollection: Collection&lt;Road&gt;
+-riverCollection: Collection&lt;River&gt;
+-resourceCollection: Collection&lt;Resource&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1859</x>
+      <y>1177</y>
+      <w>737</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;650.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1485</x>
+      <y>858</y>
+      <w>242</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>TileEdge
+--
+-wall: Wall
+-canConnectRiver: boolean
+--
++canConnectRiver()
++canCross(pid: PlayerId)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5335</x>
+      <y>2277</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>AddShaftAbility
+--
+--
++attachToController(MineShaft)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1815</x>
+      <y>880</y>
+      <w>176</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>/Wall/
+--
++isNeutral(): bool
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2189</x>
+      <y>957</y>
+      <w>253</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>NeutralWall
+--
+-strength: int
+--
++strengthen(pid: PlayerId): bool
++getStrengthenCost(): int
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2189</x>
+      <y>715</y>
+      <w>253</w>
+      <h>209</h>
+    </coordinates>
+    <panel_attributes>PlayerWall
+--
+-playerId: playerId
+-strength: int
+--
++canCross(pid: PlayerId): bool
++strengthen(pid: PlayerId): bool
++demolish(pid: PlayerId): bool
++getDemolishCost(): int
++getStrengthenCost(): int
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1716</x>
+      <y>924</y>
+      <w>121</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1980</x>
+      <y>913</y>
+      <w>231</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0;120.0;110.0;190.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1980</x>
+      <y>781</y>
+      <w>231</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;130.0;120.0;130.0;120.0;10.0;190.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2530</x>
+      <y>2442</y>
+      <w>231</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>PrayerManager
+--
++getFirstPlayer():PlayerId
++cashInPiety(PlayerId): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2200</x>
+      <y>2442</y>
+      <w>231</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>Game
+--
++getCurrentPhase(): something
++goToNextPhase(): void
++getCurrentPlayer(): PlayerId
+--
+determines whose turn it is,
+and what phase we're in
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2420</x>
+      <y>2464</y>
+      <w>132</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1133</x>
+      <y>979</y>
+      <w>165</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>Tile</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1287</x>
+      <y>902</y>
+      <w>220</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;120.0;100.0;120.0;10.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1287</x>
+      <y>1001</y>
+      <w>297</w>
+      <h>297</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0;120.0;250.0;250.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3542</x>
+      <y>2068</y>
+      <w>143</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3410</x>
+      <y>2156</y>
+      <w>297</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+TransportAbility
+--
+/+attachToController(Transport): void/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3542</x>
+      <y>2068</y>
+      <w>33</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3652</x>
+      <y>2068</y>
+      <w>286</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>240.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4136</x>
+      <y>2156</y>
+      <w>363</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+LivestockAbility
+--
+/+attachToController(Livestock): void/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3905</x>
+      <y>2068</y>
+      <w>429</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>370.0;80.0;370.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4532</x>
+      <y>2156</y>
+      <w>363</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+GooseAbility
+--
+/+attachToController(Goose): void/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4301</x>
+      <y>2068</y>
+      <w>429</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>370.0;80.0;370.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4917</x>
+      <y>2156</y>
+      <w>363</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+TransportProducerAbility
+--
+/+attachToController(TransportProducer): void/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4697</x>
+      <y>2068</y>
+      <w>429</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>370.0;80.0;370.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3674</x>
+      <y>2211</y>
+      <w>33</w>
+      <h>1771</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;1590.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>2299</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>2376</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>2442</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>2530</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>2618</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>2937</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>2849</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>2783</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>2706</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>3069</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BuildSawmillAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>3014</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>3091</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>3168</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5214</x>
+      <y>2211</y>
+      <w>55</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30.0;10.0;30.0;90.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4400</x>
+      <y>2211</y>
+      <w>88</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>60.0;10.0;60.0;100.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4807</x>
+      <y>2211</y>
+      <w>88</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>60.0;10.0;60.0;100.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5324</x>
+      <y>2156</y>
+      <w>363</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+MineAbility
+--
+/+attachToController(Mine): void/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5632</x>
+      <y>2211</y>
+      <w>55</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30.0;10.0;30.0;90.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5093</x>
+      <y>2068</y>
+      <w>429</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>370.0;80.0;370.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3850</x>
+      <y>550</y>
+      <w>506</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>TransportManager
+--
+playerId
+--
++addTransport(Transport, Location, TileCompartmentDirection)
++moveTransport(Transport, Location, TileCompartmentDirection)
++getTransport(TransportId)
+
+--
+Manages transporters for a
+player.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3839</x>
+      <y>1012</y>
+      <w>462</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>TransportFactory
+--
+--
++createTransport(transportType:Enum)
+
+--
+Creates transport objects of the
+passed in type.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4455</x>
+      <y>561</y>
+      <w>231</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>TransportId
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4345</x>
+      <y>550</y>
+      <w>132</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4455</x>
+      <y>605</y>
+      <w>506</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>TransportRenderInfo
+--
+Location
+TileCompartmentDirection
+TransportId
+--
+--
+Holds render information for a transport.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3828</x>
+      <y>792</y>
+      <w>506</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>TransportProducerManager
+--
+playerId
+--
++getTransportProducer(Location)
++addTransportProducer(Location, TransportProducer)
+
+
+--
+Manages transport producers
+for a player.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4455</x>
+      <y>792</y>
+      <w>231</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>Location
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4323</x>
+      <y>792</y>
+      <w>154</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4323</x>
+      <y>847</y>
+      <w>154</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4455</x>
+      <y>847</y>
+      <w>231</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>TransportProducer
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4059</x>
+      <y>946</y>
+      <w>33</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4345</x>
+      <y>660</y>
+      <w>132</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3421</x>
+      <y>660</y>
+      <w>451</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>390.0;10.0;90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3421</x>
+      <y>726</y>
+      <w>429</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>370.0;120.0;290.0;120.0;290.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>3223</y>
+      <w>308</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>BuildMineAbility
+--
+--
++attachToController(Mine)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>3245</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>3311</y>
+      <w>308</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>BuildRowboatFactoryAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>3333</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>3399</y>
+      <w>308</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>BuildTruckFactoryAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>3421</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>3487</y>
+      <w>308</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>BuildSteamshipFactoryAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>3509</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>3575</y>
+      <w>308</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>BuildOilRigAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>3597</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>3663</y>
+      <w>308</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>BuildGoldMineAbility
+--
+--
++attachToController(Mine)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>3685</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>3751</y>
+      <w>308</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>BuildIronMineAbility
+--
+--
++attachToController(Mine)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>3773</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>3839</y>
+      <w>308</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>BuildBigMineAbility
+--
+--
++attachToController(Mine)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>3861</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3311</x>
+      <y>3927</y>
+      <w>308</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>BuildNewShaftAbility
+--
+--
++attachToController(Mine)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3608</x>
+      <y>3949</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>3091</x>
+      <y>3300</y>
+      <w>737</w>
+      <h>781</h>
+    </coordinates>
+    <panel_attributes>Unlocked through research
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3674</x>
+      <y>2530</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3751</x>
+      <y>2508</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BuildMintAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3751</x>
+      <y>2596</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BuildStockExchangeAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3674</x>
+      <y>2618</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3674</x>
+      <y>2706</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3751</x>
+      <y>2684</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>DropTransportAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3674</x>
+      <y>2783</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3751</x>
+      <y>2761</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>CarryResourceAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3674</x>
+      <y>2849</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3751</x>
+      <y>2827</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BuildBridgeAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3674</x>
+      <y>2937</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3751</x>
+      <y>2915</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>BuildRoadAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3674</x>
+      <y>3014</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3751</x>
+      <y>2992</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>GiveResourceToFactoryAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2860</x>
+      <y>253</y>
+      <w>297</w>
+      <h>209</h>
+    </coordinates>
+    <panel_attributes>ResourceManager
+--
+-Map&lt;ResourceTypeEnum, Integer&gt;
+--
+getWealthPoints(): int
+addResource(ResourceType, int)
+removeResource(ResourceType, int)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3256</x>
+      <y>253</y>
+      <w>209</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>ResourceType
+&lt;&lt;Enum&gt;&gt;
+--
+BOARD(0)
+PAPER(0)
+TRUNK(0)
+CLAY(0)
+STONE(0)
+IRON(0)
+FUEL(0)
+GOLD(10)
+COINS(40)
+STOCKBOND(120)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3146</x>
+      <y>352</y>
+      <w>132</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2761</x>
+      <y>341</y>
+      <w>121</w>
+      <h>836</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;740.0;10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1199</x>
+      <y>308</y>
+      <w>1683</w>
+      <h>693</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;610.0;10.0;10.0;1510.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3674</x>
+      <y>3091</y>
+      <w>99</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3751</x>
+      <y>3069</y>
+      <w>308</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>ResearchAbility
+--
+--
++attachToController(Transport)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2354</x>
+      <y>2893</y>
+      <w>407</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>PrimaryProductionManager
+--
+
+--
+doProduction()
+addProducer(PrimaryProducer)
+removeProducer(PrimaryProducer)
+
+--
+Iterates through primary producers to initiate
+production.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1881</x>
+      <y>2893</y>
+      <w>374</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>SecondaryProductionManager
+--
+
+--
+doProduction()
+addProducer(SecondaryProducer)
+removeProducer(SecondaryProducer)
+
+
+--
+Iterates through secondary producers to initiate
+ production.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2068</x>
+      <y>2563</y>
+      <w>220</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;120.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2376</x>
+      <y>2563</y>
+      <w>176</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>140.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>902</x>
+      <y>2013</y>
+      <w>220</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>Structure
+&lt;&lt;Abstract&gt;&gt;
+--
+-abilities: Vector&lt;Abiltity&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>792</x>
+      <y>2255</y>
+      <w>187</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+PrimaryProducer
+--
++produce() : resource
+--
+this class defines the
+interface for primary
+producers to produce
+resources from nothing.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1045</x>
+      <y>2255</y>
+      <w>352</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+SecondaryProducer
+--
++ produce(resource :Resource) : Resource
+--
+this class defines the interface for secondary
+producers to produce resources from
+input resources.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1001</x>
+      <y>2079</y>
+      <w>209</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;170.0;80.0;170.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>847</x>
+      <y>2079</y>
+      <w>187</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;150.0;80.0;10.0;80.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>594</x>
+      <y>2893</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>WoodCutters</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>396</x>
+      <y>2530</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>OilRig</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>594</x>
+      <y>2662</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>Mine</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>594</x>
+      <y>2750</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>ClayPit</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1419</x>
+      <y>2255</y>
+      <w>440</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+TransportProducer
+--
++Produce(pid: PlayerId, resource: Resource): Transport</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1001</x>
+      <y>2079</y>
+      <w>517</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;450.0;80.0;450.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>594</x>
+      <y>2827</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>StoneQuary</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1023</x>
+      <y>2442</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>Mint</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1023</x>
+      <y>2508</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>PaperMill</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1023</x>
+      <y>2574</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>SawMill</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1023</x>
+      <y>2640</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>StoneFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1023</x>
+      <y>2706</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>CoalBurner</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1023</x>
+      <y>2772</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>StockMarket</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1386</x>
+      <y>2442</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>WagonFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1386</x>
+      <y>2508</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>TruckFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1386</x>
+      <y>2585</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>RaftFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1386</x>
+      <y>2640</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>RowBoatFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1386</x>
+      <y>2706</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>SteamerFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>693</x>
+      <y>2607</y>
+      <w>242</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;200.0;280.0;10.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>495</x>
+      <y>2530</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>693</x>
+      <y>2607</y>
+      <w>242</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;200.0;60.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>693</x>
+      <y>2607</y>
+      <w>242</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;200.0;140.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>693</x>
+      <y>2607</y>
+      <w>242</w>
+      <h>253</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;200.0;210.0;10.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1122</x>
+      <y>2387</y>
+      <w>132</w>
+      <h>418</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;360.0;10.0;360.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1122</x>
+      <y>2387</y>
+      <w>132</w>
+      <h>363</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;310.0;10.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1122</x>
+      <y>2387</y>
+      <w>132</w>
+      <h>297</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;250.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1122</x>
+      <y>2387</y>
+      <w>132</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;190.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1122</x>
+      <y>2387</y>
+      <w>132</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;120.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1122</x>
+      <y>2387</y>
+      <w>132</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;60.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1485</x>
+      <y>2321</y>
+      <w>132</w>
+      <h>297</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;250.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1485</x>
+      <y>2321</y>
+      <w>132</w>
+      <h>363</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;310.0;10.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1485</x>
+      <y>2321</y>
+      <w>132</w>
+      <h>429</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;370.0;10.0;370.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1485</x>
+      <y>2321</y>
+      <w>132</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;180.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1485</x>
+      <y>2321</y>
+      <w>132</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;120.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>99</x>
+      <y>1386</y>
+      <w>440</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>Wonder
+--
++getWonderBricks(): Vector&lt;Vector&lt;WonderBrick&gt;&gt;
++getWonderSize(): int
++addBrick(PlayerId): void
++getBrickCost(): int
+--
+/Responsibilities/
+On turn end, reset wonderBrick</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>242</x>
+      <y>1617</y>
+      <w>220</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>/WonderBrick/
+--
++isNeutral(): bool</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>341</x>
+      <y>1661</y>
+      <w>33</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>154</x>
+      <y>1793</y>
+      <w>132</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>NeutralBrick</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>363</x>
+      <y>1793</y>
+      <w>209</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>PlayerBrick
+--
++PlayerBrick(pid: PlayerId)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>297</x>
+      <y>1738</y>
+      <w>198</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0;160.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>198</x>
+      <y>1738</y>
+      <w>132</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>341</x>
+      <y>1540</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>528</x>
+      <y>1474</y>
+      <w>143</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>649</x>
+      <y>1441</y>
+      <w>440</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>WonderManager
+--
++getBrickCost(): int
++turnDessertToPasture(): void
+--
+Responsibilities
+-Will hold the base brick cost and
+the # of bricks boughten by the player
+in that turn. Reset to 0 after end of turn
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>1177</y>
+      <w>341</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+TurnObserver
+--
++onTurnEnded(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>759</x>
+      <y>1177</y>
+      <w>341</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+TurnObservable
+--
++notify(): void
++attach(turnObserver): void
++detach(turnObserver): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>363</x>
+      <y>1287</y>
+      <w>33</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>550</x>
+      <y>1221</y>
+      <w>231</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;190.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>583</x>
+      <y>2475</y>
+      <w>176</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>ResourceHolder
+&lt;&lt;Abstract&gt;&gt;
+--
+--
+categorize primary
+producers that hold
+resources after they
+have been produced.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>2475</y>
+      <w>220</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>ResourceDropper
+&lt;&lt;Abstract&gt;&gt;
+--
+--
+categorize primary
+producers that place
+resources on a mmTile after
+they have been produced. </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>649</x>
+      <y>2310</y>
+      <w>165</w>
+      <h>187</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>869</x>
+      <y>2387</y>
+      <w>33</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>2211</y>
+      <w>209</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>ResourceType
+&lt;&lt;Enum&gt;&gt;
+--
+BOARD(0)
+PAPER(0)
+TRUNK(0)
+CLAY(0)
+STONE(0)
+IRON(0)
+FUEL(0)
+GOLD(10)
+COINS(40)
+STOCKBOND(120)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>198</x>
+      <y>2310</y>
+      <w>121</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>297</x>
+      <y>2222</y>
+      <w>297</w>
+      <h>209</h>
+    </coordinates>
+    <panel_attributes>ResourceManager
+--
+-Map&lt;ResourceTypeEnum, Integer&gt;
+--
+getWealthPoints(): int
+addResource(ResourceType, int)
+removeResource(ResourceType, int)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>418</x>
+      <y>2420</y>
+      <w>187</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>150.0;70.0;10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1870</x>
+      <y>2695</y>
+      <w>418</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+SecondaryProductionObserver
+--
+--
+notify(SecondaryProducer)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2365</x>
+      <y>2695</y>
+      <w>330</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+PrimaryProductionObserver
+--
+--
+notify(PrimaryProducer)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2057</x>
+      <y>2772</y>
+      <w>33</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2552</x>
+      <y>2772</y>
+      <w>33</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3058</x>
+      <y>1155</y>
+      <w>319</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>PrimaryProducerFactory
+--
+--
+createPrimaryProducer(Enum): PrimaryProducer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3058</x>
+      <y>1309</y>
+      <w>319</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>SecondaryProducerFactory
+--
+--
+createPrimaryProducer(Enum): SecondaryProducer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2838</x>
+      <y>1166</y>
+      <w>242</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2805</x>
+      <y>1276</y>
+      <w>275</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>230.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2816</x>
+      <y>902</y>
+      <w>286</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>SecondaryProducerObservable
+--
+--
+attach(SecondaryProducerObserver)
+detach(SecondaryProducerObserver)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2464</x>
+      <y>902</y>
+      <w>264</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>PrimaryProducerObservable
+--
+--
+attach(PrimaryProducerObserver)
+detach(PrimaryProducerObserver)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2717</x>
+      <y>946</y>
+      <w>99</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0;70.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2783</x>
+      <y>946</y>
+      <w>55</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30.0;10.0;10.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4092</x>
+      <y>1661</y>
+      <w>451</w>
+      <h>286</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>390.0;10.0;330.0;10.0;330.0;240.0;10.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2255</x>
+      <y>1826</y>
+      <w>638</w>
+      <h>286</h>
+    </coordinates>
+    <panel_attributes>SaveFileImporter
+--
+
+--
+_+importMap(fileName:String):Map_
+--
+Resposibilities
+-- The getMap method delegates to
+private methods different behaviors.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2255</x>
+      <y>2134</y>
+      <w>638</w>
+      <h>253</h>
+    </coordinates>
+    <panel_attributes>SaveFileExporter
+--
+
+--
+_+exportMap(fileName:String):Map_
+--
+Resposibilities
+-- The saveMap method delegates to
+private methods different behaviors</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5181</x>
+      <y>583</y>
+      <w>506</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+RoadProducerObserver
+--
+
+--
++notify(Road)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5192</x>
+      <y>858</y>
+      <w>506</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>RoadProducerManager
+--
+
+--
+
+--
+Manages the roads produced.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5775</x>
+      <y>583</y>
+      <w>506</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+RoadProducerObservable
+--
+
+--
+attach(RoadProducerObserver)
+detach(RoadProducerObserver)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5423</x>
+      <y>737</y>
+      <w>33</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5676</x>
+      <y>627</y>
+      <w>121</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5995</x>
+      <y>792</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>/Transport/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>6039</x>
+      <y>737</y>
+      <w>33</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5786</x>
+      <y>858</y>
+      <w>506</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+RoadInfoObservable
+--
+
+--
+attach(RoadInfoOberserver)
+detach(RoadInfoOberserver)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5687</x>
+      <y>902</y>
+      <w>121</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5192</x>
+      <y>1122</y>
+      <w>506</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+WallProducerObserver
+--
+
+--
++notify(Wall)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5203</x>
+      <y>1397</y>
+      <w>506</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>WallProducerManager
+--
+
+--
+
+--
+Manages the walls produced.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5786</x>
+      <y>1122</y>
+      <w>506</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+WallProducerObservable
+--
+
+--
+attach(WallProducerObserver)
+detach(WallProducerObserver)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5434</x>
+      <y>1276</y>
+      <w>33</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5687</x>
+      <y>1166</y>
+      <w>121</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>6006</x>
+      <y>1331</y>
+      <w>110</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>/Wall/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>6050</x>
+      <y>1276</y>
+      <w>33</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5797</x>
+      <y>1397</y>
+      <w>506</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+WallInfoObservable
+--
+
+--
+attach(WallInfoOberserver)
+detach(WallInfoOberserver)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5698</x>
+      <y>1441</y>
+      <w>121</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4928</x>
+      <y>1199</y>
+      <w>154</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>Game
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5071</x>
+      <y>913</y>
+      <w>143</w>
+      <h>319</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;270.0;60.0;270.0;60.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5071</x>
+      <y>1199</y>
+      <w>154</w>
+      <h>308</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;260.0;120.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4389</x>
+      <y>1320</y>
+      <w>352</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>Map
+--
+-tiles:HashMap&lt;Location, Tile&gt;
+--
+getTile(mmLocation: Location): Tile
+placeTile(mmLocation: Location, mmTile: Tile): void
+recenter(): void
+getAllLocations(): Location
+updateTerrain(mmLocation: Location)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4510</x>
+      <y>1166</y>
+      <w>33</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4389</x>
+      <y>1045</y>
+      <w>253</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+MapRenderInfoObservable
+--
+
+--
+attach(MapRenderInfoObserver)
+detach(MapRenderInfoObserver)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2860</x>
+      <y>0</y>
+      <w>297</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+ResourceObservable
+--
+
+--
+attach(ResourceObserver)
+detach(ResourceObserver)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2992</x>
+      <y>110</y>
+      <w>33</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>902</x>
+      <y>1782</y>
+      <w>220</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+StructureObservable
+--
+
+--
+attach(StructureObserver)
+detach(StructureObserver)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1001</x>
+      <y>1892</y>
+      <w>33</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3839</x>
+      <y>264</y>
+      <w>506</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+TransportRenderInfoObservable
+--
+
+--
+attach(TransportInfoObserver)
+detach(TransportInfoObserver)
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4081</x>
+      <y>429</y>
+      <w>33</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4906</x>
+      <y>1595</y>
+      <w>242</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>CursorManager
+--
+
+--
+moveCursor(dir: Direction)
+setCursorLocation(loc: Location)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4983</x>
+      <y>1221</y>
+      <w>33</w>
+      <h>396</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;340.0</additional_attributes>
+  </element>
+</diagram>
