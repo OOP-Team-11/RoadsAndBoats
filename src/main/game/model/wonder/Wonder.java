@@ -113,13 +113,17 @@ public class Wonder implements TurnObserver {
     private int getWealthPointFromTable(int current, int other, int neutral){
         int points = 0;
         if(other>0 && current>0){
-            points = (6-other-neutral)*10/(current+other);
+            points = (current)*10/(current+other);
         }
         else if(current>0) {
             points = 10;
         }
         return points;
     }
+    public Vector<WonderBrick> getPlayerBricks(PlayerId playerId){
+        return playerIdVectorHashMap.get(playerId);
+    }
+
 
 }
 
