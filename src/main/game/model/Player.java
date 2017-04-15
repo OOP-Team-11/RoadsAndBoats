@@ -18,6 +18,7 @@ public class Player implements MapTransportRenderInfoObservable{
         this.transportManager = new TransportManager(this, transportAbilityManager);
         this.transportProducerManager = new TransportProducerManager(this);
         this.name = name;
+        transportAbilityManager.getGooseManager().addTransportManager(this.transportManager);
     }
 
     public PlayerId getPlayerId() {

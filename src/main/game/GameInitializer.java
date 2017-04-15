@@ -1,15 +1,12 @@
 package game;
 
 import game.controller.ControllerManager;
+import game.model.managers.*;
 import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.factory.AbilityFactory;
 import game.model.gameImporter.MapImporter;
-import game.model.managers.GooseManager;
-import game.model.managers.StructureAbilityManager;
-import game.model.managers.StructureManager;
-import game.model.managers.TransportAbilityManager;
 import game.model.map.RBMap;
 import game.utilities.exceptions.MalformedMapFileException;
 import game.view.ViewHandler;
@@ -29,14 +26,14 @@ public class GameInitializer {
         System.out.println("New Game has started");
         viewHandler = new ViewHandler(primaryStage);
         controllerManager = new ControllerManager(viewHandler);
-        GooseManager gooseManager = new GooseManager();
+
         MapImporter mapImporter = new MapImporter();
         try {
             BufferedReader br = new BufferedReader(new FileReader("map/" + gameFile));
             RBMap map = new RBMap();
             map.attach(viewHandler.getMainViewReference());
             mapImporter.importMapFromFile(map, br);
-
+            GooseManager gooseManager = new GooseManager(new GooseAbilityManager(controllerManager.getMainViewController(), map));
             TransportAbilityManager transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController(), gooseManager, map);
 
             Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name);
