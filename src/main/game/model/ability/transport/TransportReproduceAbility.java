@@ -23,7 +23,7 @@ public class TransportReproduceAbility extends Ability {
     @Override
     public void perform() {
 //        TODO: Need a visitor/observer of some sort to get the new Transport that has been produced
-        DonkeyTransport newDonkey = new DonkeyTransport(transport.getPlayerId(), new TransportId(), 2, 2);
+        DonkeyTransport newDonkey = new DonkeyTransport(transport.getPlayerId(), new TransportId());
         System.out.println("Reproduced!");
             return;
     }
