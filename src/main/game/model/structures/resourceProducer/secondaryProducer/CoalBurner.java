@@ -27,64 +27,37 @@ public class CoalBurner extends ResourceProducer {
     @Override
     public boolean produce(ResourceManager resourceManager) {
         if (canProduceCoalWithTrunks(resourceManager)) {
-            resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ2);
             resourceManager.addResource(ResourceType.FUEL, FUEL_AMT);
-
             decrementProductionLimit();
-
             return true;
         }
         else if (canProduceCoalWithBoth(resourceManager)) {
-            resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ1);
-            resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ1);
             resourceManager.addResource(ResourceType.FUEL, FUEL_AMT);
-
             decrementProductionLimit();
-
             return true;
         }
         else if (canProduceCoalWithBoards(resourceManager)) {
-            resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ2);
             resourceManager.addResource(ResourceType.FUEL, FUEL_AMT);
-
             decrementProductionLimit();
-
             return true;
         }
         return false;
     }
 
     private boolean canProduceCoalWithTrunks(ResourceManager resourceManager) {
-        if (productionLimit != 0) {
-            if (resourceManager.getResource(ResourceType.TRUNKS) != null) {
-                if (resourceManager.getResource(ResourceType.TRUNKS) >= TRUNKS_REQ2) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return ((productionLimit != 0)
+                && resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ2));
     }
 
     private boolean canProduceCoalWithBoards(ResourceManager resourceManager) {
-        if (productionLimit != 0) {
-            if (resourceManager.getResource(ResourceType.BOARDS) != null) {
-                if (resourceManager.getResource(ResourceType.BOARDS) >= BOARDS_REQ2) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return ((productionLimit != 0)
+                && resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ2));
     }
 
     private boolean canProduceCoalWithBoth(ResourceManager resourceManager) {
-        if (productionLimit != 0) {
-            if ((resourceManager.getResource(ResourceType.TRUNKS) != null) && (resourceManager.getResource(ResourceType.BOARDS) != null)) {
-                if ((resourceManager.getResource(ResourceType.TRUNKS) >= TRUNKS_REQ1) && (resourceManager.getResource(ResourceType.BOARDS) >= BOARDS_REQ1)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return ((productionLimit != 0)
+                && resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ1)
+                && resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ1));
     }
 
     private void decrementProductionLimit() {

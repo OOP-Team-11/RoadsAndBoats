@@ -23,26 +23,17 @@ public class StockMarket extends ResourceProducer {
     @Override
     public boolean produce(ResourceManager resourceManager) {
         if (canProduceStock(resourceManager)) {
-            resourceManager.removeResource(ResourceType.PAPER, PAPER_REQ);
-            resourceManager.removeResource(ResourceType.COINS, COINS_REQ);
             resourceManager.addResource(ResourceType.STOCKBOND, STOCKBOND_AMT);
-
             decrementProductionLimit();
-
             return true;
         }
         return false;
     }
 
     private boolean canProduceStock(ResourceManager resourceManager) {
-        if (productionLimit != 0) {
-            if ((resourceManager.getResource(ResourceType.PAPER) != null) && (resourceManager.getResource(ResourceType.COINS) != null)) {
-                if ((resourceManager.getResource(ResourceType.PAPER) >= PAPER_REQ) && ((resourceManager.getResource(ResourceType.COINS) >= COINS_REQ))) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return ((productionLimit != 0)
+                && resourceManager.removeResource(ResourceType.PAPER, PAPER_REQ)
+                && resourceManager.removeResource(ResourceType.COINS, COINS_REQ));
     }
 
     private void decrementProductionLimit() {

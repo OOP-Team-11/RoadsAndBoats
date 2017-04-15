@@ -837,7 +837,7 @@ public class MapImporterTest {
             Location location = new Location(0,0,0);
             mapImporter.importMapFromFile(map, br);
             assertNotNull(map.getTiles().get(location));
-            assertEquals(map.getTiles().get(location).getResourceManager().getResource(ResourceType.GOLD), new Integer(2));
+            assertEquals(map.getTiles().get(location).getResourceManager().getResourceCount(ResourceType.GOLD), 2);
         } catch (MalformedMapFileException |IOException e) {
             fail();
         }
@@ -859,9 +859,9 @@ public class MapImporterTest {
             Location location = new Location(0,0,0);
             mapImporter.importMapFromFile(map, br);
             assertNotNull(map.getTiles().get(location));
-            assertEquals(map.getTiles().get(location).getResourceManager().getResource(ResourceType.GOLD), new Integer(2));
-            assertEquals(map.getTiles().get(location).getResourceManager().getResource(ResourceType.BOARDS), new Integer(4));
-            assertEquals(map.getTiles().get(location).getResourceManager().getResource(ResourceType.CLAY), new Integer(1));
+            assertEquals(map.getTiles().get(location).getResourceManager().getResourceCount(ResourceType.GOLD), 2);
+            assertEquals(map.getTiles().get(location).getResourceManager().getResourceCount(ResourceType.BOARDS), 4);
+            assertEquals(map.getTiles().get(location).getResourceManager().getResourceCount(ResourceType.CLAY), 1);
 
         } catch (MalformedMapFileException |IOException e) {
             fail();

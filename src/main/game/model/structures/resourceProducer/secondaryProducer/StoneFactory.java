@@ -22,25 +22,16 @@ public class StoneFactory extends ResourceProducer {
     @Override
     public boolean produce(ResourceManager resourceManager) {
         if (canProduceStone(resourceManager)) {
-            resourceManager.removeResource(ResourceType.CLAY, CLAY_REQ);
             resourceManager.addResource(ResourceType.STONE, STONE_AMT);
-
             decrementProductionLimit();
-
             return true;
         }
         return false;
     }
 
     private boolean canProduceStone(ResourceManager resourceManager) {
-        if (productionLimit != 0) {
-            if (resourceManager.getResource(ResourceType.CLAY) != null) {
-                if (resourceManager.getResource(ResourceType.CLAY) >= CLAY_REQ) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return ((productionLimit != 0)
+                && resourceManager.removeResource(ResourceType.CLAY, CLAY_REQ));
     }
 
     private void decrementProductionLimit() {

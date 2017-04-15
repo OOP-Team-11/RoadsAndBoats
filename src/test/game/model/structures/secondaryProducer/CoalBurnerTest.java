@@ -1,4 +1,4 @@
-package model.structures.secondaryProducer;
+package game.model.structures.secondaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
@@ -15,7 +15,7 @@ public class CoalBurnerTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.TRUNKS, 2);
         assertTrue(coalBurner.produce(rm));
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(1));
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 1);
     }
 
     @Test
@@ -24,7 +24,7 @@ public class CoalBurnerTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.BOARDS, 2);
         assertTrue(coalBurner.produce(rm));
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(1));
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 1);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class CoalBurnerTest {
         rm.addResource(ResourceType.BOARDS, 1);
         rm.addResource(ResourceType.TRUNKS, 1);
         assertTrue(coalBurner.produce(rm));
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(1));
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 1);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class CoalBurnerTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.TRUNKS, 0);
         assertFalse(coalBurner.produce(rm));
-        assertNull(rm.getResource(ResourceType.FUEL));
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 0);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class CoalBurnerTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.BOARDS, 0);
         assertFalse(coalBurner.produce(rm));
-        assertNull(rm.getResource(ResourceType.FUEL));
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 0);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class CoalBurnerTest {
         rm.addResource(ResourceType.BOARDS, 0);
         rm.addResource(ResourceType.TRUNKS, 0);
         assertFalse(coalBurner.produce(rm));
-        assertNull(rm.getResource(ResourceType.FUEL));
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 0);
     }
 
     @Test
@@ -75,8 +75,8 @@ public class CoalBurnerTest {
             coalBurner.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.TRUNKS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(3));
+        assertEquals(rm.getResourceCount(ResourceType.TRUNKS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 3);
     }
 
     @Test
@@ -89,8 +89,8 @@ public class CoalBurnerTest {
             coalBurner.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(3));
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 3);
     }
 
     @Test
@@ -104,9 +104,9 @@ public class CoalBurnerTest {
             coalBurner.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.TRUNKS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(6));
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(3));
+        assertEquals(rm.getResourceCount(ResourceType.TRUNKS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 6);
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 3);
     }
 
     @Test
@@ -119,8 +119,8 @@ public class CoalBurnerTest {
             coalBurner.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.TRUNKS), new Integer(8));
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(6));
+        assertEquals(rm.getResourceCount(ResourceType.TRUNKS), 8);
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 6);
         assertEquals(coalBurner.getProductionLimit(), 0);
     }
 
@@ -134,8 +134,8 @@ public class CoalBurnerTest {
             coalBurner.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(8));
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(6));
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 8);
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 6);
         assertEquals(coalBurner.getProductionLimit(), 0);
     }
 
@@ -150,9 +150,9 @@ public class CoalBurnerTest {
             coalBurner.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.TRUNKS), new Integer(8));
-        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(20));
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(6));
+        assertEquals(rm.getResourceCount(ResourceType.TRUNKS), 8);
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 20);
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 6);
         assertEquals(coalBurner.getProductionLimit(), 0);
     }
 
@@ -172,8 +172,8 @@ public class CoalBurnerTest {
             coalBurner.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.TRUNKS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(12));
+        assertEquals(rm.getResourceCount(ResourceType.TRUNKS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 12);
         assertEquals(coalBurner.getProductionLimit(), 0);
     }
 
@@ -193,8 +193,8 @@ public class CoalBurnerTest {
             coalBurner.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(12));
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 12);
         assertEquals(coalBurner.getProductionLimit(), 0);
     }
 
@@ -215,9 +215,9 @@ public class CoalBurnerTest {
             coalBurner.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.TRUNKS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(12));
+        assertEquals(rm.getResourceCount(ResourceType.TRUNKS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 12);
         assertEquals(coalBurner.getProductionLimit(), 0);
     }
 
@@ -227,7 +227,7 @@ public class CoalBurnerTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.GOOSE, 0);
         assertFalse(coalBurner.produce(rm));
-        assertNull(rm.getResource(ResourceType.FUEL));
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 0);
     }
 
 }

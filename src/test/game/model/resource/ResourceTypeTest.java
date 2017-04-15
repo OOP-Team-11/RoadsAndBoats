@@ -1,5 +1,4 @@
-package model.resource;
-
+package game.model.resource;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
@@ -15,14 +14,14 @@ public class ResourceTypeTest {
         ResourceManager resourceManager = new ResourceManager();
         resourceManager.addResource(ResourceType.GOLD, 2);
         resourceManager.addResource(ResourceType.GOLD, 4);
-        assertTrue(resourceManager.hasResource());
+        assertTrue(resourceManager.hasResource(ResourceType.GOLD));
     }
     @Test
     public void decrementResource(){
         ResourceManager resourceManager = new ResourceManager();
         resourceManager.addResource(ResourceType.GOLD, 2);
         resourceManager.addResource(ResourceType.GOLD, 4);
-        assertTrue(resourceManager.hasResource());
+        assertTrue(resourceManager.hasResource(ResourceType.GOLD));
     }
     @Test
     public void removeResource(){
@@ -30,7 +29,10 @@ public class ResourceTypeTest {
         resourceManager.addResource(ResourceType.GOLD, 2);
         resourceManager.addResource(ResourceType.GOLD, 4);
         assertFalse(resourceManager.removeResource(ResourceType.GOLD, 8));
-        assertEquals(resourceManager.getResource(ResourceType.GOLD), new Integer(6));
+        assertTrue(resourceManager.hasResource(ResourceType.GOLD));
+        assertTrue(resourceManager.removeResource(ResourceType.GOLD, 6));
+        assertTrue(!resourceManager.hasResource(ResourceType.GOLD));
+
     }
 
     @Test

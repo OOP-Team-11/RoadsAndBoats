@@ -15,7 +15,7 @@ public class SawmillTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.TRUNKS, 1);
         assertTrue(sawmill.produce(rm));
-        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(2));
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 2);
     }
 
     @Test
@@ -24,7 +24,7 @@ public class SawmillTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.TRUNKS, 0);
         assertFalse(sawmill.produce(rm));
-        assertNull(rm.getResource(ResourceType.BOARDS));
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 0);
     }
 
     @Test
@@ -37,8 +37,8 @@ public class SawmillTest {
             sawmill.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.TRUNKS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(6));
+        assertEquals(rm.getResourceCount(ResourceType.TRUNKS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 6);
     }
 
     @Test
@@ -51,8 +51,8 @@ public class SawmillTest {
             sawmill.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.TRUNKS), new Integer(4));
-        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(12));
+        assertEquals(rm.getResourceCount(ResourceType.TRUNKS), 4);
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 12);
         assertEquals(sawmill.getProductionLimit(), 0);
     }
 
@@ -72,8 +72,8 @@ public class SawmillTest {
             sawmill.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.TRUNKS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(24));
+        assertEquals(rm.getResourceCount(ResourceType.TRUNKS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 24);
         assertEquals(sawmill.getProductionLimit(), 0);
     }
 
@@ -83,6 +83,6 @@ public class SawmillTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.GOOSE, 5);
         assertFalse(sawmill.produce(rm));
-        assertNull(rm.getResource(ResourceType.BOARDS));
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 0);
     }
 }

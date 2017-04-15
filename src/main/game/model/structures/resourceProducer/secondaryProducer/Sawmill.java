@@ -22,23 +22,15 @@ public class Sawmill extends ResourceProducer {
     @Override
     public boolean produce(ResourceManager resourceManager) {
         if (canProduceBoards(resourceManager)) {
-            resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ);
             resourceManager.addResource(ResourceType.BOARDS, BOARDS_AMT);
-
             decrementProductionLimit();
-
             return true;
         }
         return false;
     }
 
     private boolean canProduceBoards(ResourceManager resourceManager) {
-        if (resourceManager.getResource(ResourceType.TRUNKS) != null) {
-            if (resourceManager.getResource(ResourceType.TRUNKS) >= TRUNKS_REQ) {
-                return true;
-            }
-        }
-        return false;
+        return resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ);
     }
 
     private void decrementProductionLimit() {

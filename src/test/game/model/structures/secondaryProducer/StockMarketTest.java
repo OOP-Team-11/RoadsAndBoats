@@ -16,7 +16,7 @@ public class StockMarketTest {
         rm.addResource(ResourceType.PAPER, 1);
         rm.addResource(ResourceType.COINS, 2);
         assertTrue(stockMarket.produce(rm));
-        assertEquals(rm.getResource(ResourceType.STOCKBOND), new Integer(1));
+        assertEquals(rm.getResourceCount(ResourceType.STOCKBOND), 1);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class StockMarketTest {
         rm.addResource(ResourceType.PAPER, 0);
         rm.addResource(ResourceType.COINS, 0);
         assertFalse(stockMarket.produce(rm));
-        assertNull(rm.getResource(ResourceType.STOCKBOND));
+        assertEquals(rm.getResourceCount(ResourceType.STOCKBOND), 0);
     }
 
     @Test
@@ -41,9 +41,9 @@ public class StockMarketTest {
             stockMarket.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.PAPER), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.COINS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.STOCKBOND), new Integer(3));
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 0);
+        assertEquals(rm.getResourceCount(ResourceType.COINS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.STOCKBOND), 3);
     }
 
     @Test
@@ -58,9 +58,9 @@ public class StockMarketTest {
             stockMarket.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.PAPER), new Integer(4));
-        assertEquals(rm.getResource(ResourceType.COINS), new Integer(8));
-        assertEquals(rm.getResource(ResourceType.STOCKBOND), new Integer(6));
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 4);
+        assertEquals(rm.getResourceCount(ResourceType.COINS), 8);
+        assertEquals(rm.getResourceCount(ResourceType.STOCKBOND), 6);
         assertEquals(stockMarket.getProductionLimit(), 0);
     }
 
@@ -82,9 +82,9 @@ public class StockMarketTest {
             stockMarket.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.PAPER), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.COINS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.STOCKBOND), new Integer(12));
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 0);
+        assertEquals(rm.getResourceCount(ResourceType.COINS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.STOCKBOND), 12);
         assertEquals(stockMarket.getProductionLimit(), 0);
     }
 
@@ -94,6 +94,6 @@ public class StockMarketTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.GOOSE, 5);
         assertFalse(stockMarket.produce(rm));
-        assertNull(rm.getResource(ResourceType.STOCKBOND));
+        assertEquals(rm.getResourceCount(ResourceType.STOCKBOND), 0);
     }
 }

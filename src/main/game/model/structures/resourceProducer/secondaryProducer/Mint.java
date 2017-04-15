@@ -19,22 +19,15 @@ public class Mint extends ResourceProducer {
     @Override
     public boolean produce(ResourceManager resourceManager) {
         if (canProduceCoins(resourceManager)) {
-            resourceManager.removeResource(ResourceType.FUEL, FUEL_REQ);
-            resourceManager.removeResource(ResourceType.GOLD, GOLD_REQ);
             resourceManager.addResource(ResourceType.COINS, COINS_AMT);
-
             return true;
         }
         return false;
     }
 
     private boolean canProduceCoins(ResourceManager resourceManager) {
-        if ((resourceManager.getResource(ResourceType.FUEL) != null) && (resourceManager.getResource(ResourceType.GOLD) != null)) {
-            if ((resourceManager.getResource(ResourceType.GOLD) >= FUEL_REQ) && (resourceManager.getResource(ResourceType.GOLD) >= GOLD_REQ)) {
-                return true;
-            }
-        }
-        return false;
+        return (resourceManager.removeResource(ResourceType.FUEL, FUEL_REQ)
+                && resourceManager.removeResource(ResourceType.GOLD, GOLD_REQ));
     }
 
 }

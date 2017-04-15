@@ -16,7 +16,7 @@ public class MintTest {
         rm.addResource(ResourceType.FUEL, 1);
         rm.addResource(ResourceType.GOLD, 2);
         assertTrue(mint.produce(rm));
-        assertEquals(rm.getResource(ResourceType.COINS), new Integer(1));
+        assertEquals(rm.getResourceCount(ResourceType.COINS), 1);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class MintTest {
         rm.addResource(ResourceType.FUEL, 0);
         rm.addResource(ResourceType.GOLD, 0);
         assertFalse(mint.produce(rm));
-        assertNull(rm.getResource(ResourceType.COINS));
+        assertEquals(rm.getResourceCount(ResourceType.COINS), 0);
     }
 
     @Test
@@ -40,9 +40,9 @@ public class MintTest {
             mint.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.FUEL), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.GOLD), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.COINS), new Integer(3));
+        assertEquals(rm.getResourceCount(ResourceType.FUEL), 0);
+        assertEquals(rm.getResourceCount(ResourceType.GOLD), 0);
+        assertEquals(rm.getResourceCount(ResourceType.COINS), 3);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class MintTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.GOOSE, 5);
         assertFalse(mint.produce(rm));
-        assertNull(rm.getResource(ResourceType.COINS));
+        assertEquals(rm.getResourceCount(ResourceType.COINS), 0);
     }
 
 }

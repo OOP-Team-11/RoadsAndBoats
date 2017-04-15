@@ -15,7 +15,7 @@ public class StoneFactoryTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.CLAY, 1);
         assertTrue(stoneFactory.produce(rm));
-        assertEquals(rm.getResource(ResourceType.STONE), new Integer(2));
+        assertEquals(rm.getResourceCount(ResourceType.STONE), 2);
     }
 
     @Test
@@ -24,7 +24,7 @@ public class StoneFactoryTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.CLAY, 0);
         assertFalse(stoneFactory.produce(rm));
-        assertNull(rm.getResource(ResourceType.STONE));
+        assertEquals(rm.getResourceCount(ResourceType.STONE), 0);
     }
 
     @Test
@@ -38,8 +38,8 @@ public class StoneFactoryTest {
             stoneFactory.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.CLAY), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.STONE), new Integer(6));
+        assertEquals(rm.getResourceCount(ResourceType.CLAY), 0);
+        assertEquals(rm.getResourceCount(ResourceType.STONE), 6);
     }
 
     @Test
@@ -53,8 +53,8 @@ public class StoneFactoryTest {
             stoneFactory.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.CLAY), new Integer(4));
-        assertEquals(rm.getResource(ResourceType.STONE), new Integer(12));
+        assertEquals(rm.getResourceCount(ResourceType.CLAY), 4);
+        assertEquals(rm.getResourceCount(ResourceType.STONE), 12);
         assertEquals(stoneFactory.getProductionLimit(), 0);
     }
 
@@ -75,8 +75,8 @@ public class StoneFactoryTest {
             stoneFactory.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.CLAY), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.STONE), new Integer(24));
+        assertEquals(rm.getResourceCount(ResourceType.CLAY), 0);
+        assertEquals(rm.getResourceCount(ResourceType.STONE), 24);
         assertEquals(stoneFactory.getProductionLimit(), 0);
 
     }
@@ -87,6 +87,6 @@ public class StoneFactoryTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.GOOSE, 5);
         assertFalse(stoneFactory.produce(rm));
-        assertNull(rm.getResource(ResourceType.STONE));
+        assertEquals(rm.getResourceCount(ResourceType.STONE), 0);
     }
 }

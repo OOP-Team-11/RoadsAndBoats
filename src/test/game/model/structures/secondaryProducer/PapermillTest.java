@@ -15,7 +15,7 @@ public class PapermillTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.TRUNKS, 2);
         assertTrue(papermill.produce(rm));
-        assertEquals(rm.getResource(ResourceType.PAPER), new Integer(1));
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 1);
     }
 
     @Test
@@ -24,7 +24,7 @@ public class PapermillTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.BOARDS, 2);
         assertTrue(papermill.produce(rm));
-        assertEquals(rm.getResource(ResourceType.PAPER), new Integer(1));
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 1);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class PapermillTest {
         rm.addResource(ResourceType.BOARDS, 1);
         rm.addResource(ResourceType.TRUNKS, 1);
         assertTrue(papermill.produce(rm));
-        assertEquals(rm.getResource(ResourceType.PAPER), new Integer(1));
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 1);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class PapermillTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.TRUNKS, 0);
         assertFalse(papermill.produce(rm));
-        assertNull(rm.getResource(ResourceType.PAPER));
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 0);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class PapermillTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.BOARDS, 0);
         assertFalse(papermill.produce(rm));
-        assertNull(rm.getResource(ResourceType.PAPER));
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 0);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class PapermillTest {
         rm.addResource(ResourceType.BOARDS, 0);
         rm.addResource(ResourceType.TRUNKS, 0);
         assertFalse(papermill.produce(rm));
-        assertNull(rm.getResource(ResourceType.PAPER));
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 0);
     }
 
     @Test
@@ -75,8 +75,8 @@ public class PapermillTest {
             papermill.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.TRUNKS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.PAPER), new Integer(3));
+        assertEquals(rm.getResourceCount(ResourceType.TRUNKS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 3);
     }
 
     @Test
@@ -89,8 +89,8 @@ public class PapermillTest {
             papermill.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.PAPER), new Integer(3));
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 3);
     }
 
     @Test
@@ -104,9 +104,9 @@ public class PapermillTest {
             papermill.produce(rm);
         }
 
-        assertEquals(rm.getResource(ResourceType.TRUNKS), new Integer(0));
-        assertEquals(rm.getResource(ResourceType.BOARDS), new Integer(6));
-        assertEquals(rm.getResource(ResourceType.PAPER), new Integer(3));
+        assertEquals(rm.getResourceCount(ResourceType.TRUNKS), 0);
+        assertEquals(rm.getResourceCount(ResourceType.BOARDS), 6);
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 3);
     }
 
     @Test
@@ -115,7 +115,7 @@ public class PapermillTest {
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.GOOSE, 0);
         assertFalse(papermill.produce(rm));
-        assertNull(rm.getResource(ResourceType.PAPER));
+        assertEquals(rm.getResourceCount(ResourceType.PAPER), 0);
     }
 
 }
