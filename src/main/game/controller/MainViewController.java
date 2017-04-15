@@ -118,19 +118,19 @@ public class MainViewController {
             public void handle(KeyEvent e) {
 
                 if(e.getCharacter().equals("w")){
-                    cameraY += 5;
+                    cameraY += 15;
                     mouseClickInterpreter.updateCameraOffsetValues(cameraX,cameraY);
                     notifyViewCamera();
                 } else if(e.getCharacter().equals("a")){
-                    cameraX += 5;
+                    cameraX += 15;
                     mouseClickInterpreter.updateCameraOffsetValues(cameraX,cameraY);
                     notifyViewCamera();
                 } else if (e.getCharacter().equals("s")){
-                    cameraY -= 5;
+                    cameraY -= 15;
                     mouseClickInterpreter.updateCameraOffsetValues(cameraX,cameraY);
                     notifyViewCamera();
                 } else if (e.getCharacter().equals("d")){
-                    cameraX -= 5;
+                    cameraX -= 15;
                     mouseClickInterpreter.updateCameraOffsetValues(cameraX,cameraY);
                     notifyViewCamera();
                 }
