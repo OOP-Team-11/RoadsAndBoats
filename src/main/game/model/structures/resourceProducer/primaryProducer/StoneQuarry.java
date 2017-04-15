@@ -1,9 +1,12 @@
 package game.model.structures.resourceProducer.primaryProducer;
 
 import game.model.resources.ResourceManager;
-import game.model.structures.resourceProducer.ResourceProducer;
+import game.model.resources.ResourceType;
+import game.model.structures.resourceProducer.ResourceDropper;
 
-public class StoneQuarry extends ResourceProducer {
+public class StoneQuarry extends ResourceDropper {
+
+    private static final int STONE_AMT = 1;
 
     public StoneQuarry() {
 
@@ -11,15 +14,8 @@ public class StoneQuarry extends ResourceProducer {
 
     @Override
     public boolean produce(ResourceManager resourceManager) {
-        return false;
+        resourceManager.addResource(ResourceType.STONE, STONE_AMT);
+        return true;
     }
-
-
-//    @Override
-//    public Map<ResourceType, Integer> produce() {
-//        Map<ResourceType, Integer> resource = new HashMap<>();
-//        resource.put(ResourceType.STONE, 1);
-//        return resource;
-//    }
 
 }

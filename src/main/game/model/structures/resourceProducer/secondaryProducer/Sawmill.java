@@ -2,9 +2,9 @@ package game.model.structures.resourceProducer.secondaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
-import game.model.structures.resourceProducer.ResourceProducer;
+import game.model.structures.resourceProducer.ResourceDropper;
 
-public class Sawmill extends ResourceProducer {
+public class Sawmill extends ResourceDropper {
 
     private static final int LIMIT = 6;         // limit of uses per turn
 

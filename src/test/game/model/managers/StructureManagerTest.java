@@ -63,7 +63,7 @@ public class StructureManagerTest
                 new Mine(0, 0));
 
         structureManager.addStructure(new Location(3,-1,-2),
-                new OilRig(new ResourceManager()));
+                new OilRig());
 
         assertEquals(2, structureManager.getStructures().size());
     }

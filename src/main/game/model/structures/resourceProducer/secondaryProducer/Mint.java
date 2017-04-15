@@ -2,9 +2,9 @@ package game.model.structures.resourceProducer.secondaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
-import game.model.structures.resourceProducer.ResourceProducer;
+import game.model.structures.resourceProducer.ResourceDropper;
 
-public class Mint extends ResourceProducer {
+public class Mint extends ResourceDropper {
 
     private static final int FUEL_REQ = 1;      // 1 Fuel input requirement
     private static final int GOLD_REQ = 2;      // 2 Gold input requirement

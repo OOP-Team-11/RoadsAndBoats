@@ -1,26 +1,37 @@
 package game.model.structures.resourceProducer.primaryProducer;
 
 import game.model.resources.ResourceType;
-import game.model.resources.ResourceManager;
-import game.model.structures.resourceProducer.ResourceProducerHolder;
+import game.model.structures.resourceProducer.ResourceHolder;
 
-public class OilRig extends ResourceProducerHolder {
+public class OilRig extends ResourceHolder {
 
-    public OilRig(ResourceManager resourceManager) {
-        super(resourceManager);
+    private static final int FUEL_AMT = 1;
+
+    public OilRig() {
+
+    }
+
+    @Override
+    public boolean produce() {
+        storeResource(ResourceType.FUEL, FUEL_AMT);
+        return true;
     }
 
     public void storeResource(ResourceType resourceType, int amount) {
         addToResourceManager(resourceType, amount);
     }
 
-    public void takeResource(ResourceType resourceType, int amount) {
-        removeFromResourceManager(resourceType, amount);
+    public boolean takeResource(ResourceType resourceType, int amount) {
+        return removeFromResourceManager(resourceType, amount);
+    }
+
+    public boolean hasResource(ResourceType resourceType) {
+        return hasResourceInResourceManager(resourceType);
+    }
+
+    public int getResourceCount(ResourceType resourceType) {
+        return getResourceCountFromResourceManager(resourceType);
     }
 
 
-    @Override
-    public boolean produce(ResourceManager resourceManager) {
-        return false;
-    }
 }

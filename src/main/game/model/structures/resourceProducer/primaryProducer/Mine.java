@@ -1,9 +1,15 @@
 package game.model.structures.resourceProducer.primaryProducer;
 
 import game.model.resources.ResourceManager;
-import game.model.structures.resourceProducer.ResourceProducer;
+import game.model.resources.ResourceType;
+import game.model.structures.resourceProducer.ResourceDropper;
 
-public class Mine extends ResourceProducer {
+import java.util.Random;
+
+public class Mine extends ResourceDropper {
+
+    private static final int GOLD_AMT = 1;
+    private static final int IRON_AMT = 1;
 
     private int initialGoldCount;
     private int initialIronCount;
@@ -19,41 +25,36 @@ public class Mine extends ResourceProducer {
 
     @Override
     public boolean produce(ResourceManager resourceManager) {
+        Random random = new Random();
+        int chosen = random.nextInt(2);
+
+        switch (chosen) {
+            // Gold is picked
+            case 1:
+                if (checkCurrentGoldCount()) {
+                    resourceManager.addResource(ResourceType.GOLD, GOLD_AMT);
+                    decrementGoldCount();
+                }
+                else if (checkCurrentIronCount()) {
+                    resourceManager.addResource(ResourceType.IRON, IRON_AMT);
+                    decrementIronCount();
+                }
+                return true;
+            // Iron is picked
+            case 2:
+                if (checkCurrentIronCount()) {
+                    resourceManager.addResource(ResourceType.IRON, IRON_AMT);
+                    decrementIronCount();
+                }
+                else if (checkCurrentGoldCount()) {
+                    resourceManager.addResource(ResourceType.GOLD, GOLD_AMT);
+                    decrementGoldCount();
+                }
+                return true;
+        }
+
         return false;
     }
-
-//    @Override
-//    public Map<ResourceType, Integer> produce() {
-//        Map<ResourceType, Integer> resource = new HashMap<>();
-//
-//        Random random = new Random();
-//        int chosen = random.nextInt(2);
-//
-//        switch(chosen) {
-//            case 1:
-//                if (currentGoldCount != 0) {
-//                    resource.put(ResourceType.GOLD, 1);
-//                    --currentGoldCount;
-//                }
-//                else if (currentIronCount != 0) {
-//                    resource.put(ResourceType.IRON, 1);
-//                    --currentIronCount;
-//                }
-//                break;
-//            case 0:
-//                if (currentIronCount != 0) {
-//                    resource.put(ResourceType.IRON, 1);
-//                    --currentIronCount;
-//                }
-//                else if (currentGoldCount != 0) {
-//                    resource.put(ResourceType.GOLD, 1);
-//                    --currentGoldCount;
-//                }
-//                break;
-//        }
-//
-//        return resource;
-//    }
 
     public void addShaft() {
         replenishMine();
@@ -70,6 +71,22 @@ public class Mine extends ResourceProducer {
 
     public int getCurrentIronCount() {
         return currentIronCount;
+    }
+
+    private boolean checkCurrentGoldCount() {
+        return (currentGoldCount != 0);
+    }
+
+    private boolean checkCurrentIronCount() {
+        return (currentIronCount != 0);
+    }
+
+    private void decrementGoldCount() {
+        --currentGoldCount;
+    }
+
+    private void decrementIronCount() {
+        --currentIronCount;
     }
 
     private void setGoldCount(int goldCount) {

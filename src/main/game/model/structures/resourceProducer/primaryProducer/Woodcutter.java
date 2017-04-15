@@ -1,9 +1,12 @@
 package game.model.structures.resourceProducer.primaryProducer;
 
 import game.model.resources.ResourceManager;
-import game.model.structures.resourceProducer.ResourceProducer;
+import game.model.resources.ResourceType;
+import game.model.structures.resourceProducer.ResourceDropper;
 
-public class Woodcutter extends ResourceProducer {
+public class Woodcutter extends ResourceDropper {
+
+    private static final int TRUNKS_AMT = 1;
 
     public Woodcutter() {
 
@@ -11,15 +14,8 @@ public class Woodcutter extends ResourceProducer {
 
     @Override
     public boolean produce(ResourceManager resourceManager) {
-        return false;
+        resourceManager.addResource(ResourceType.TRUNKS, TRUNKS_AMT);
+        return true;
     }
-
-
-//    @Override
-//    public Map<ResourceType, Integer> produce() {
-//        Map<ResourceType, Integer> resource = new HashMap<>();
-//        resource.put(ResourceType.TRUNKS, 1);
-//        return resource;
-//    }
 
 }

@@ -1,10 +1,13 @@
 package game.model.structures.resourceProducer.primaryProducer;
 
 import game.model.resources.ResourceManager;
-import game.model.structures.resourceProducer.ResourceProducer;
+import game.model.resources.ResourceType;
+import game.model.structures.resourceProducer.ResourceDropper;
 
 
-public class ClayPit extends ResourceProducer {
+public class ClayPit extends ResourceDropper {
+
+    private static final int CLAY_AMT = 1;
 
     public ClayPit() {
 
@@ -12,7 +15,8 @@ public class ClayPit extends ResourceProducer {
 
     @Override
     public boolean produce(ResourceManager resourceManager) {
-        return false;
+        resourceManager.addResource(ResourceType.CLAY, CLAY_AMT);
+        return true;
     }
 
 
