@@ -6,8 +6,8 @@ public class WagonTransport extends LandTransport {
 
 //    private Vector<Ability> abilities;
 
-    public WagonTransport(PlayerId playerId, TransportId transportId, int moveCapacity, int carryCapacity) {
-        super(playerId, transportId, moveCapacity, carryCapacity);
+    public WagonTransport(PlayerId playerId, TransportId transportId) {
+        super(playerId, transportId, 3, 3);
     }
 
     public String getExportString() {

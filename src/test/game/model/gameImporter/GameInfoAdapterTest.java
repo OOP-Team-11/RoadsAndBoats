@@ -39,7 +39,7 @@ public class GameInfoAdapterTest {
         Player player1 = new Player(null, new PlayerId(1), "gavin");
         Player player2 = new Player(null, new PlayerId(2), "not gavin");
         TransportManager transportManager = player1.getTransportManager();
-        Transport transport = new WagonTransport(player1.getPlayerId(), new TransportId(), 1, 1);
+        Transport transport = new WagonTransport(player1.getPlayerId(), new TransportId());
         transport.getResourceManager().addResource(ResourceType.GOLD, 2);
         transportManager.addTransport(transport, new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth()));
         game = new Game(map, player1, player2, new GooseManager(), mock(StructureManager.class));
