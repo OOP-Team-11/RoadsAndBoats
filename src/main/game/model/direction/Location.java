@@ -1,8 +1,7 @@
 package game.model.direction;
 
 
-import game.model.gameImporter.Exportable;
-import game.model.gameImporter.Serializable;
+import game.model.gameImportExport.Serializable;
 
 import java.util.Arrays;
 

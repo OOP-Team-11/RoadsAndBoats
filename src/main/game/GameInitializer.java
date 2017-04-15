@@ -5,8 +5,12 @@ import game.model.managers.*;
 import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.PlayerId;
-import game.model.factory.AbilityFactory;
-import game.model.gameImporter.MapImporter;
+import game.model.gameImportExport.GameExporter;
+import game.model.gameImportExport.MapImporter;
+import game.model.managers.GooseManager;
+import game.model.managers.StructureAbilityManager;
+import game.model.managers.StructureManager;
+import game.model.managers.TransportAbilityManager;
 import game.model.map.RBMap;
 import game.utilities.exceptions.MalformedMapFileException;
 import game.view.ViewHandler;
@@ -28,6 +32,7 @@ public class GameInitializer {
         controllerManager = new ControllerManager(viewHandler);
 
         MapImporter mapImporter = new MapImporter();
+        GameExporter gameExporter;
         try {
             BufferedReader br = new BufferedReader(new FileReader("map/" + gameFile));
             RBMap map = new RBMap();
@@ -53,6 +58,9 @@ public class GameInitializer {
             game.attachPhaseInfoObserver(viewHandler.getMainViewReference());
             game.attachPlayerInfoObserver(viewHandler.getResearchViewReference());
             game.attachPhaseInfoObserver(viewHandler.getResearchViewReference());
+
+            //TODO: Add a controller and view element to trigger this gameExporter's exportGameToPath()
+            gameExporter = new GameExporter(game);
         } catch (MalformedMapFileException|IOException e) {
             System.out.println(e);
             System.exit(1);
