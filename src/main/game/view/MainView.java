@@ -36,11 +36,13 @@ public class MainView extends View
         WallRenderInfoObserver,
         CameraObserver,
         PlayerRenderInfoObserver,
-        PhaseRenderInfoObserver {
+        PhaseRenderInfoObserver,
+        MapTransportRenderInfoObserver {
 
     private AnchorPane anchorPane;
     private TransportRenderInfo transportRenderInfo;
     private MapStructureRenderInfo mapStructureRenderInfo;
+    private MapTransportRenderInfo mapTransportRenderInfo;
     private ResourceRenderInfo resourceRenderInfo;
     private PlayerRenderInfo playerRenderInfo;
     private PhaseRenderInfo phaseRenderInfo;
@@ -613,4 +615,9 @@ public class MainView extends View
         this.refresh = true;
     }
 
+    @Override
+    public void updateMapTransportInfo(MapTransportRenderInfo mapTransportRenderInfo) {
+        this.mapTransportRenderInfo = mapTransportRenderInfo;
+        this.refresh = true;
+    }
 }

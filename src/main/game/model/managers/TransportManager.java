@@ -6,21 +6,31 @@ import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.map.RBMap;
+import game.model.structures.Structure;
 import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
 import game.model.transport.TransportLocation;
+import game.utilities.observable.MapTransportRenderInfoObservable;
+import game.utilities.observer.MapStructureRenderInfoObserver;
+import game.utilities.observer.MapTransportRenderInfoObserver;
+import game.view.render.MapStructureRenderInfo;
+import game.view.render.MapTransportRenderInfo;
+import game.view.render.StructureRenderInfo;
+import game.view.render.TransportRenderInfo;
 
 import java.util.*;
 
-public class TransportManager {
+public class TransportManager implements MapTransportRenderInfoObservable{
 
     private Player player;
     private TransportAbilityManager transportAbilityManager;
     private Map<TileCompartmentLocation, List<Transport>> transports;
+    private List<MapTransportRenderInfoObserver> mapTransportRenderInfoObservers;
     public TransportManager(Player player, TransportAbilityManager transportAbilityManager) {
         this.player = player;
         this.transports = new HashMap<TileCompartmentLocation, List<Transport>>();
+        this.mapTransportRenderInfoObservers = new Vector<>();
         this.transportAbilityManager = transportAbilityManager;
     }
 
@@ -38,6 +48,8 @@ public class TransportManager {
             transportList.add(transport);
             transports.put(tileCompartmentLocation, transportList);
         }
+
+        notifyMapTransportRenderInfoObservers();
     }
 
     public boolean moveTransport(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
@@ -62,6 +74,7 @@ public class TransportManager {
         if (!foundTransport) return false; // could not find transport
 
         addTransport(transport, tileCompartmentLocation);
+        notifyMapTransportRenderInfoObservers();
         return true;
     }
 
@@ -83,4 +96,31 @@ public class TransportManager {
     }
 
     public TransportAbilityManager getTransportAbilityManager() { return this.transportAbilityManager; }
+
+
+    public void notifyMapTransportRenderInfoObservers() {
+        Map<TileCompartmentLocation, TransportRenderInfo> transportRenderInfoMap = new HashMap<>();
+        Iterator it = transports.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            TileCompartmentLocation tcl = (TileCompartmentLocation) pair.getKey();
+            Transport transport = (Transport) pair.getValue();
+            TransportRenderInfo transportRenderInfo = new TransportRenderInfo(transport);
+            transportRenderInfoMap.put(tcl, transportRenderInfo);
+        }
+        MapTransportRenderInfo mapTransportRenderInfo = new MapTransportRenderInfo(transportRenderInfoMap);
+        for (MapTransportRenderInfoObserver observer : this.mapTransportRenderInfoObservers) {
+            observer.updateMapTransportInfo(mapTransportRenderInfo);
+        }
+    }
+
+    @Override
+    public void attach(MapTransportRenderInfoObserver observer) {
+        this.mapTransportRenderInfoObservers.add(observer);
+    }
+
+    @Override
+    public void detach(MapTransportRenderInfoObserver observer) {
+        this.mapTransportRenderInfoObservers.remove(observer);
+    }
 }

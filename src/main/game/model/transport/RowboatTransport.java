@@ -11,7 +11,12 @@ public class RowboatTransport extends WaterTransport {
     }
 
     public String getExportString() {
-        return this.getPlayerId().getPlayerIdNumber() + " ROWBOAT " + getResourceManager().getExportString();
+        return this.getPlayerId().getPlayerIdNumber() + " " + this.getType().getName() + " " + getResourceManager().getExportString();
+    }
+
+    @Override
+    public TransportType getType() {
+        return TransportType.ROWBOAT;
     }
 
 }
