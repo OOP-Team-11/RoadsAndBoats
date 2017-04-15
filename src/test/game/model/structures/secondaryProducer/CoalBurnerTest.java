@@ -1,4 +1,4 @@
-package model.structures.secondaryProducer;
+package game.model.structures.secondaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
@@ -12,7 +12,7 @@ public class CoalBurnerTest {
         CoalBurner coalBurner = new CoalBurner();
         ResourceManager rm = new ResourceManager();
         rm.addResource(ResourceType.TRUNKS, 5);
-        coalBurner.produce(rm.giveResource(ResourceType.TRUNKS, 2));
+//        coalBurner.produce(rm.addResource(ResourceType.TRUNKS, 2));
     }
 
 }
