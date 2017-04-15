@@ -14,20 +14,20 @@ import java.util.*;
 public class StructureManager implements MapStructureRenderInfoObservable
 {
     private StructureAbilityManager structureAbilityManager;
-    private Map<Location, Structure> structures;
+    private Map<TileCompartmentLocation, Structure> structures;
     private List<MapStructureRenderInfoObserver> structureRenderInfoObservers;
 
     public StructureManager(StructureAbilityManager structureAbilityManager)
     {
-        this.structures = new HashMap<Location, Structure>();
+        this.structures = new HashMap<>();
         this.structureRenderInfoObservers = new ArrayList<>();
         this.structureAbilityManager = structureAbilityManager;
     }
 
-    public void addStructure(Location loc, Structure structure)
+    public void addStructure(TileCompartmentLocation tcl, Structure structure)
     {
         // TODO: enforce structure type limits
-        structures.put(loc, structure);
+        structures.put(tcl, structure);
         notifyStructureRenderInfoObservers();
     }
 
@@ -44,12 +44,12 @@ public class StructureManager implements MapStructureRenderInfoObservable
         return null;
     }
 
-    public Structure getStructure(Location loc)
+    public Structure getStructure(TileCompartmentLocation tcl)
     {
-        return structures.get(loc);
+        return structures.get(tcl);
     }
 
-    public Map<Location, Structure> getStructures()
+    public Map<TileCompartmentLocation, Structure> getStructures()
     {
         return this.structures;
     }
@@ -60,14 +60,14 @@ public class StructureManager implements MapStructureRenderInfoObservable
     }
 
     private void notifyStructureRenderInfoObservers() {
-        Map<Location, StructureRenderInfo> structureRenderInfoMap = new HashMap<>();
+        Map<TileCompartmentLocation, StructureRenderInfo> structureRenderInfoMap = new HashMap<>();
         Iterator it = structures.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
-            Location location = (Location) pair.getKey();
+            TileCompartmentLocation tcl = (TileCompartmentLocation) pair.getKey();
             Structure structure = (Structure) pair.getValue();
             StructureRenderInfo structureRenderInfo = new StructureRenderInfo(structure);
-            structureRenderInfoMap.put(location, structureRenderInfo);
+            structureRenderInfoMap.put(tcl, structureRenderInfo);
         }
         MapStructureRenderInfo mapStructureRenderInfo = new MapStructureRenderInfo(structureRenderInfoMap);
         for (MapStructureRenderInfoObserver observer : this.structureRenderInfoObservers) {

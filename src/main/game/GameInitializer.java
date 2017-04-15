@@ -61,8 +61,4 @@ public class GameInitializer {
 
         viewHandler.startGameLoop();
     }
-
-    private void initializeStructureManager() {
-
-    }
 }
