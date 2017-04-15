@@ -1,5 +1,6 @@
-package game.model.gameImporter;
+package game.model.gameImporter.importer;
 
+import game.model.gameImporter.exporter.Exportable;
 import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.direction.Location;

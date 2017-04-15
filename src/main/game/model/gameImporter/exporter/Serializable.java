@@ -1,4 +1,4 @@
-package game.model.gameImporter;
+package game.model.gameImporter.exporter;
 
 public interface Serializable {
 

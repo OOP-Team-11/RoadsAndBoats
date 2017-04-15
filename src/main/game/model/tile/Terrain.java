@@ -1,6 +1,6 @@
 package game.model.tile;
 
-import game.model.gameImporter.Serializable;
+import game.model.gameImporter.exporter.Serializable;
 
 public enum Terrain implements Serializable
 {

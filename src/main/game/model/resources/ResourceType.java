@@ -1,6 +1,6 @@
 package game.model.resources;
 
-import game.model.gameImporter.Serializable;
+import game.model.gameImporter.exporter.Serializable;
 
 public enum ResourceType implements Serializable {
 

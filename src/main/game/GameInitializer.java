@@ -5,7 +5,7 @@ import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.factory.AbilityFactory;
-import game.model.gameImporter.MapImporter;
+import game.model.gameImporter.importer.MapImporter;
 import game.model.managers.GooseManager;
 import game.model.managers.StructureAbilityManager;
 import game.model.managers.StructureManager;
