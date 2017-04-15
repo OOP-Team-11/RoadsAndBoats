@@ -1,11 +1,10 @@
-package game.model.game;
+package game.model.tinyGame;
 
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.PrayerManager;
 import game.model.managers.GooseManager;
 import game.model.managers.StructureManager;
-import game.model.managers.TransportAbilityManager;
 import game.model.map.RBMap;
 import game.model.wonder.TurnObserver;
 import game.utilities.observable.PhaseRenderInfoObservable;
@@ -17,8 +16,6 @@ import game.view.render.PlayerRenderInfo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservable, TurnObserver {
 
