@@ -108,4 +108,5 @@ public class WonderTest {
         wonder.onTurnEnded();
         assertEquals(wonder.getWonderSize(), 3);
     }
+
 }

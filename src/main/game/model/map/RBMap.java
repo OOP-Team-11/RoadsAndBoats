@@ -159,7 +159,7 @@ public class RBMap implements MapRenderInfoObservable
             terrainMap.put(location, tile.getTerrain());
             riverConfigurationMap.put(location, tile.getRiverConfiguration());
         }
-        return new MapRenderInfo(terrainMap, riverConfigurationMap);
+        return new MapRenderInfo(terrainMap, riverConfigurationMap, this);
     }
 
     public void attach(MapRenderInfoObserver observer) {

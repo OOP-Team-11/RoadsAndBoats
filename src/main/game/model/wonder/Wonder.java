@@ -1,7 +1,9 @@
 package game.model.wonder;
 import game.model.Player;
 import game.model.PlayerId;
+import game.model.direction.Location;
 import game.model.tile.Terrain;
+import game.model.tile.Tile;
 import game.utilities.observable.MapRenderInfoObservable;
 import game.utilities.observer.MapRenderInfoObserver;
 import game.view.render.MapRenderInfo;
@@ -136,11 +138,10 @@ public class Wonder implements TurnObserver, MapRenderInfoObserver {
 
     @Override
     public void updateMapInfo(MapRenderInfo mapRenderInfo) {
-        for (Terrain terrain : mapRenderInfo.getTerrainMap().values()) {
-            if (terrain.getExportString().equalsIgnoreCase("DESERT")) {
-                terrain.changeToPasture();
+        for (Tile tile : mapRenderInfo.getRbMap().getTiles().values()) {
+            if(tile.getTerrain() == Terrain.DESERT){
+                tile.setTerrain(Terrain.PASTURE);
             }
-
         }
     }
 }
