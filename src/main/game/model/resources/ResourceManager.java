@@ -1,14 +1,19 @@
 package game.model.resources;
 
+
+import game.model.gameImporter.Serializable;
+
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class ResourceManager {
+public class ResourceManager implements Serializable {
     private Map<ResourceType, Integer> resourceTypeIntegerMap;
 
     public ResourceManager(){
-        this.resourceTypeIntegerMap = new HashMap<>();
+        this.resourceTypeIntegerMap = new LinkedHashMap<>();
     }
 
     public int getWealthPoints(){
@@ -49,5 +54,20 @@ public class ResourceManager {
                 resourceTypeIntegerMap.get(desiredType) :
                 0
         );
+    }
+
+    public String getExportString() {
+        Iterator it = resourceTypeIntegerMap.entrySet().iterator();
+        StringBuilder sb = new StringBuilder();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            ResourceType resource = (ResourceType) pair.getKey();
+            Integer resourceCount = (Integer) pair.getValue();
+            sb.append(resource.getExportString())
+                    .append(":")
+                    .append(resourceCount)
+                    .append(" ");
+        }
+        return sb.toString();
     }
 }

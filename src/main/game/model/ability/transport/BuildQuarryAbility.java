@@ -1,8 +1,13 @@
 package game.model.ability.transport;
 
+import game.controller.MainViewController;
 import game.model.ability.Ability;
 
-public class BuildQuarryAbility implements Ability {
+public class BuildQuarryAbility extends Ability {
+    public BuildQuarryAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     @Override
     public void perform() {
 

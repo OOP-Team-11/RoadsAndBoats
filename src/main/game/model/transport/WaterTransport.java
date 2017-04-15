@@ -1,9 +1,12 @@
 package game.model.transport;
 
-public class WaterTransport extends Transport {
+import game.model.PlayerId;
 
-    WaterTransport() {
+public abstract class WaterTransport extends Transport {
 
+    public WaterTransport(PlayerId playerId, TransportId transportId, int moveCapacity, int carryCapacity) {
+        super(playerId, transportId, moveCapacity, carryCapacity);
     }
 
+    public abstract String getExportString();
 }

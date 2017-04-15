@@ -2,12 +2,11 @@ package game.model.tile;
 
 
 import game.model.direction.TileEdgeDirection;
+import game.model.gameImporter.Serializable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
-public class RiverConfiguration {
+public class RiverConfiguration implements Serializable {
 
     private Map<TileEdgeDirection, Boolean> riverMap;
     private int rotationAmount;
@@ -209,5 +208,56 @@ public class RiverConfiguration {
     public boolean canConnect(TileEdgeDirection dir)
     {
         return riverMap.get(dir);
+    }
+
+    private int getNumRivers() {
+        int numRivers = 0;
+        for (Boolean hasRiver : riverMap.values()) {
+            if (hasRiver) numRivers++;
+        }
+        return numRivers;
+    }
+
+    private int getSideNumberForTileEdgeDirection(TileEdgeDirection tileEdgeDirection) {
+        if (tileEdgeDirection.equals(TileEdgeDirection.getNorth())) {
+            return 1;
+        } else if (tileEdgeDirection.equals(TileEdgeDirection.getNorthEast())) {
+            return 2;
+        } else if (tileEdgeDirection.equals(TileEdgeDirection.getSouthEast())) {
+            return 3;
+        } else if (tileEdgeDirection.equals(TileEdgeDirection.getSouth())) {
+            return 4;
+        } else if (tileEdgeDirection.equals(TileEdgeDirection.getSouthWest())) {
+            return 5;
+        } else if (tileEdgeDirection.equals(TileEdgeDirection.getNorthWest())) {
+            return 6;
+        } else {
+            throw new RuntimeException("Invalid TileEdgeDirection.");
+        }
+    }
+
+    public String getExportString() {
+        StringBuilder sb = new StringBuilder();
+        if (getNumRivers() == 0) return "";
+
+        sb.append("( ");
+
+        Iterator it = riverMap.entrySet().iterator();
+        List<Integer> riverConnections = new ArrayList<>();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            TileEdgeDirection tileEdgeDirection = (TileEdgeDirection) pair.getKey();
+            Boolean hasRiver = (Boolean) pair.getValue();
+            if (hasRiver) {
+                riverConnections.add(getSideNumberForTileEdgeDirection(tileEdgeDirection));
+            }
+        }
+
+        Collections.sort(riverConnections);
+        for (Integer side : riverConnections) {
+            sb.append(side).append(" ");
+        }
+        sb.append(")");
+        return sb.toString();
     }
 }

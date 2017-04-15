@@ -1,18 +1,20 @@
 package game.model.resources;
 
-public enum ResourceType {
+import game.model.gameImporter.Serializable;
 
-    TRUNKS("Trunks", 0),
-    BOARDS("Boards", 0),
-    PAPER("Paper", 0),
-    GOOSE("Goose", 0),
-    CLAY("Clay", 0),
-    STONE("Stone", 0),
-    FUEL("Fuel", 0),
-    IRON("Iron", 0),
-    GOLD("Gold", 10),
-    COINS("Coins", 40),
-    STOCKBOND("Stockbond", 120);
+public enum ResourceType implements Serializable {
+
+    TRUNKS("TRUNKS", 0),
+    BOARDS("BOARDS", 0),
+    PAPER("PAPER", 0),
+    GOOSE("GOOSE", 0),
+    CLAY("CLAY", 0),
+    STONE("STONE", 0),
+    FUEL("FUEL", 0),
+    IRON("IRON", 0),
+    GOLD("GOLD", 10),
+    COINS("COINS", 40),
+    STOCKBOND("STOCKBOND", 120);
 
     private String name;
     private int wealthPoints;
@@ -28,6 +30,10 @@ public enum ResourceType {
 
     public String getName() {
         return name;
+    }
+
+    public String getExportString() {
+        return getName();
     }
 
 }

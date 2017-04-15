@@ -1,10 +1,14 @@
 package game.model.transport;
 
 
-public class LandTransport extends Transport {
+import game.model.PlayerId;
+import game.model.gameImporter.Serializable;
 
-    LandTransport() {
+public abstract class LandTransport extends Transport {
 
+    public LandTransport(PlayerId playerId, TransportId transportId, int moveCapacity, int carryCapacity) {
+        super(playerId, transportId, moveCapacity, carryCapacity);
     }
 
+    public abstract String getExportString();
 }

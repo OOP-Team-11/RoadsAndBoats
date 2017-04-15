@@ -2,30 +2,30 @@ package game.model.ability.goose;
 
 import game.controller.MainViewController;
 import game.model.ability.Ability;
-import game.model.managers.TransportManager;
-import game.model.transport.TransportId;
+import game.model.resources.Goose;
+import game.model.transport.Transport;
 import javafx.scene.input.KeyCode;
+import java.util.Vector;
 
-import java.awt.event.KeyListener;
-
-public class FollowAbility implements Ability {
-    private MainViewController mainViewController;
-    private TransportId transportId;
-    private TransportManager transportManager;
+public class FollowAbility extends Ability {
+//    private MainViewController mainViewController;
+    private Transport transport;
     private int gooseCount;
+    private KeyCode keyCode;
+    private Vector<Goose> availableGeese;
 
     public FollowAbility(MainViewController mainViewController) {
-        this.mainViewController = mainViewController;
+        super(mainViewController);
 
     }
     @Override
     public void perform() {
-
+        transport.addFollowers(availableGeese);
     }
 
     @Override
     public void detachFromController() {
-
+        this.mainViewController.removeControl(this.keyCode);
     }
 
     @Override
@@ -33,12 +33,12 @@ public class FollowAbility implements Ability {
         return ("Get "+gooseCount+" followers.");
     }
 
-    public void attachToController(TransportId transportId, TransportManager transManager, int gooseCount) {
-        this.transportId = transportId;
-        this.transportManager = transManager;
+    public void attachToController(Transport transport, int gooseCount, Vector<Goose> availableGeese) {
+        this.transport = transport;
         this.gooseCount = gooseCount;
-        KeyCode kc = KeyCode.getKeyCode("Digit"+gooseCount);
-        mainViewController.attachControl(kc, this);
+        this.availableGeese = availableGeese;
+        this.keyCode = KeyCode.getKeyCode(Integer.toString(gooseCount));
+        this.mainViewController.addControl(this.keyCode, this);
 
     }
 }

@@ -1,6 +1,12 @@
 package game.model;
 
 public class PlayerId {
-    // intentionally does nothing
-    PlayerId() {};
+    private int playerId;
+    public PlayerId(int id) {
+        this.playerId = id;
+    }
+
+    public int getPlayerIdNumber() {
+        return playerId;
+    }
 }

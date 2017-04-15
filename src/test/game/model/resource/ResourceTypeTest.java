@@ -5,6 +5,7 @@ import game.model.resources.ResourceType;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ResourceTypeTest {
@@ -29,7 +30,9 @@ public class ResourceTypeTest {
         resourceManager.addResource(ResourceType.GOLD, 4);
         resourceManager.removeResource(ResourceType.GOLD, 8);
         assertTrue(!resourceManager.hasResource(ResourceType.GOLD));
+
     }
+
     @Test
     public void getWealthPoints(){
         ResourceManager resourceManager = new ResourceManager();

@@ -1,8 +1,13 @@
 package game.model.ability.livestock;
 
+import game.controller.MainViewController;
 import game.model.ability.Ability;
 
-public class BreedAbility implements Ability {
+public class BreedAbility extends Ability {
+    public BreedAbility(MainViewController mainViewController) {
+        super(mainViewController);
+    }
+
     public void attachToController() {
 
     }

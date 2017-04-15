@@ -1,5 +1,7 @@
+package model.gameImporter;
 
 import game.model.direction.Location;
+import game.model.resources.ResourceType;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Tile;
 import game.utilities.exceptions.MalformedMapFileException;
@@ -814,6 +816,53 @@ public class MapImporterTest {
             assertTrue(placedTile.getRiverConfiguration().canConnectSouth());
             assertFalse(placedTile.getRiverConfiguration().canConnectSouthwest());
             assertTrue(placedTile.getRiverConfiguration().canConnectNorthwest());
+        } catch (MalformedMapFileException |IOException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void tile_resource() {
+        try {
+            fw.write("( 0 0 0 ) SEA GOLD:2");
+            fw.write(System.lineSeparator());
+            fw.write("END MAP");
+            fw.write(System.lineSeparator());
+            fw.close();
+        } catch (IOException e) {
+            fail();
+        }
+
+        try {
+            Location location = new Location(0,0,0);
+            mapImporter.importMapFromFile(map, br);
+            assertNotNull(map.getTiles().get(location));
+            assertEquals(map.getTiles().get(location).getResourceManager().getResource(ResourceType.GOLD), new Integer(2));
+        } catch (MalformedMapFileException |IOException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void tile_resource_2() {
+        try {
+            fw.write("( 0 0 0 ) SEA GOLD:2 BOARDS:4 CLAY:1");
+            fw.write(System.lineSeparator());
+            fw.write("END MAP");
+            fw.write(System.lineSeparator());
+            fw.close();
+        } catch (IOException e) {
+            fail();
+        }
+
+        try {
+            Location location = new Location(0,0,0);
+            mapImporter.importMapFromFile(map, br);
+            assertNotNull(map.getTiles().get(location));
+            assertEquals(map.getTiles().get(location).getResourceManager().getResource(ResourceType.GOLD), new Integer(2));
+            assertEquals(map.getTiles().get(location).getResourceManager().getResource(ResourceType.BOARDS), new Integer(4));
+            assertEquals(map.getTiles().get(location).getResourceManager().getResource(ResourceType.CLAY), new Integer(1));
+
         } catch (MalformedMapFileException |IOException e) {
             fail();
         }
