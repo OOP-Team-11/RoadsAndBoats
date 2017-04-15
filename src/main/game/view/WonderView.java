@@ -28,6 +28,7 @@ public class WonderView extends View implements WonderRenderInfoObserver{
     public WonderView(AnchorPane anchorPane){
         setAnchorPane(anchorPane);
         setUpCanvas();
+        setCanvasBackground();
         drawHeadingTitle();
         drawWonderImage();
         placeAddButton();
@@ -59,6 +60,11 @@ public class WonderView extends View implements WonderRenderInfoObserver{
             drawNextBrick();
             incrementBrickCoordinates();
         });
+    }
+
+    private void setCanvasBackground(){
+        this.gc.setFill(Color.LIGHTGREY);
+        this.gc.fillRect(0,0,1300,800);
     }
 
     private void drawNetualBrick(){ // TODO hook up later

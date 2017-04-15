@@ -198,12 +198,9 @@ public class WelcomeView {
             this.overlayAnchorPane.getChildren().remove(i);
         }
     }
-    public String getPlayer1Name(){
-        return this.player1NameInput.getPromptText();
-    }
-
+    public String getPlayer1Name(){return this.player1NameInput.getText();}
     public String getPlayer2Name(){
-        return  this.player2NameInput.getPromptText();
+        return  this.player2NameInput.getText();
     }
 
     public String getListViewSelectedItem(){
