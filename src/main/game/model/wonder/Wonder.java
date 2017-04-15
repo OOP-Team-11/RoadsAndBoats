@@ -123,7 +123,5 @@ public class Wonder implements TurnObserver {
     public Vector<WonderBrick> getPlayerBricks(PlayerId playerId){
         return playerIdVectorHashMap.get(playerId);
     }
-
-
 }
 

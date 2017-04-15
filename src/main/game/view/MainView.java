@@ -26,7 +26,17 @@ import javafx.scene.text.Font;
 import java.awt.image.ImageConsumer;
 import java.util.Map;
 
-public class MainView extends View implements TransportRenderInfoObserver, StructureRenderInfoObserver, ResourceRenderInfoObserver, MapRenderInfoObserver, CursorRenderInfoObserver, RoadRenderInfoObserver, WallRenderInfoObserver, CameraObserver{
+public class MainView extends View
+        implements TransportRenderInfoObserver,
+        StructureRenderInfoObserver,
+        ResourceRenderInfoObserver,
+        MapRenderInfoObserver,
+        CursorRenderInfoObserver,
+        RoadRenderInfoObserver,
+        WallRenderInfoObserver,
+        CameraObserver,
+        PlayerRenderInfoObserver,
+        PhaseRenderInfoObserver {
 
     private AnchorPane anchorPane;
     private TransportRenderInfo transportRenderInfo;
@@ -60,7 +70,6 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         initializeOverlay();
         setZoomSlider();
         placeFinishButton();
-
     }
     private void setAnchorPane(AnchorPane anchorPane){
         this.anchorPane = anchorPane;
@@ -133,13 +142,13 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     private void drawCurrentPhase(String phase){
         this.selectGC.setFont(new Font(20));
         this.selectGC.setLineWidth(2.0);
-        this.selectGC.strokeText("Phase: " +phase, 25, 80);
+        this.selectGC.strokeText(phase, 25, 80);
     }
 
     private void drawPlayerName(String name){
         this.selectGC.setFont(new Font(30));
         this.selectGC.setLineWidth(2.0);
-        this.selectGC.strokeText("Player: " +name, 25, 40);
+        this.selectGC.strokeText(name, 25, 40);
     }
 
     private void placeFinishButton(){
@@ -285,6 +294,7 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         this.refresh = true;
         this.anchorPane.getChildren().remove(overlayMenu); // close in case it might be open and we move camera
     }
+
     private void clearMapCanvas(){
         this.mapGC.clearRect(0,0,950, 800);
         this.mapGC.setFill(Color.LIGHTGREY);
@@ -295,9 +305,6 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     }
 
     private void TESTINGREMOVELATER(){
-
-        drawPlayerName("Player1");
-        drawCurrentPhase("Implementation");
 
         // FOR TESTING Tile compartments
         drawCompartmentImage(assets.CLAY_GOODS,0,0,0,1);
@@ -372,4 +379,17 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         this.cameraY = cameraInfo.getCameraY();
         this.refresh = true;
     }
+
+    @Override
+    public void updatePlayerInfo(PlayerRenderInfo playerRenderInfo) {
+        this.drawPlayerName(playerRenderInfo.getName());
+        this.refresh = true;
+    }
+
+    @Override
+    public void updatePhaseInfo(PhaseRenderInfo phaseRenderInfo) {
+        this.drawCurrentPhase(phaseRenderInfo.getName());
+        this.refresh = true;
+    }
+
 }

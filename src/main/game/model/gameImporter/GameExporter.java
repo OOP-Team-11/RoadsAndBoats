@@ -1,6 +1,6 @@
 package game.model.gameImporter;
 
-import game.model.Game;
+import game.model.game.Game;
 
 public class GameExporter {
 
