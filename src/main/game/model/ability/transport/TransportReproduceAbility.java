@@ -25,7 +25,6 @@ public class TransportReproduceAbility extends Ability {
 //        TODO: Need a visitor/observer of some sort to get the new Transport that has been produced
         DonkeyTransport newDonkey = new DonkeyTransport(transport.getPlayerId(), new TransportId());
         System.out.println("Reproduced!");
-            return;
     }
 
     @Override
@@ -35,6 +34,6 @@ public class TransportReproduceAbility extends Ability {
 
     @Override
     public String getDisplayString() {
-        return "String";
+        return "Breed";
     }
 }

@@ -110,7 +110,7 @@ public class WonderView extends View implements WonderRenderInfoObserver{
             this.brickY -= 34;
             this.brickX -= (6*66);
         } else if (brickCount == 62) {
-            // end game
+            // end tinyGame
         }
     }
 
