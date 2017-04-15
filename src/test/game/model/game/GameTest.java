@@ -3,7 +3,7 @@ package model.game;
 import game.controller.MainViewController;
 import game.model.Player;
 import game.model.PlayerId;
-import game.model.game.Game;
+import game.model.tinyGame.Game;
 import game.model.managers.GooseManager;
 import game.model.managers.StructureManager;
 import game.model.managers.TransportAbilityManager;
