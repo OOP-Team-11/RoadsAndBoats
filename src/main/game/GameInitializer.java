@@ -35,29 +35,29 @@ public class GameInitializer {
         GooseManager gooseManager = new GooseManager();
         TransportAbilityManager transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController(), gooseManager);
         MapImporter mapImporter = new MapImporter();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("map/" + gameFile));
-            RBMap map = new RBMap();
-            transportAbilityManager.setMap(map);
-            map.attach(viewHandler.getMainViewReference());
-            mapImporter.importMapFromFile(map, br);
-
-            Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name);
-            Player player2 = new Player(transportAbilityManager, new PlayerId(2), player2Name);
-
-            StructureAbilityManager structureAbilityManager = new StructureAbilityManager(controllerManager.getMainViewController());
-            StructureManager structureManager = new StructureManager(structureAbilityManager);
-            structureManager.attach(viewHandler.getMainViewReference());
-
-            Game game = new Game(map, player1, player2, gooseManager, structureManager);
-            game.attachPlayerInfoObserver(viewHandler.getMainViewReference());
-            game.attachPhaseInfoObserver(viewHandler.getMainViewReference());
-            game.attachPlayerInfoObserver(viewHandler.getResearchViewReference());
-            game.attachPhaseInfoObserver(viewHandler.getResearchViewReference());
-        } catch (MalformedMapFileException|IOException e) {
-            System.out.println(e);
-            System.exit(1);
-        }
+//        try {
+//            BufferedReader br = new BufferedReader(new FileReader("map/" + gameFile));
+//            RBMap map = new RBMap();
+//            transportAbilityManager.setMap(map);
+//            map.attach(viewHandler.getMainViewReference());
+//            mapImporter.importMapFromFile(map, br);
+//
+//            Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name);
+//            Player player2 = new Player(transportAbilityManager, new PlayerId(2), player2Name);
+//
+//            StructureAbilityManager structureAbilityManager = new StructureAbilityManager(controllerManager.getMainViewController());
+//            StructureManager structureManager = new StructureManager(structureAbilityManager);
+//            structureManager.attach(viewHandler.getMainViewReference());
+//
+//            Game game = new Game(map, player1, player2, gooseManager, structureManager);
+//            game.attachPlayerInfoObserver(viewHandler.getMainViewReference());
+//            game.attachPhaseInfoObserver(viewHandler.getMainViewReference());
+//            game.attachPlayerInfoObserver(viewHandler.getResearchViewReference());
+//            game.attachPhaseInfoObserver(viewHandler.getResearchViewReference());
+//        } catch (MalformedMapFileException|IOException e) {
+//            System.out.println(e);
+//            System.exit(1);
+//        }
 
         viewHandler.startGameLoop();
     }

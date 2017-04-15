@@ -3,8 +3,6 @@ package game.model.tile;
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
 
-import java.util.HashMap;
-
 public class TileCompartment {
     private boolean hasWater;
     private ResourceManager resourceManager;
@@ -16,21 +14,28 @@ public class TileCompartment {
     public boolean hasWater() {
         return this.hasWater;
     }
+
     public void setHasWater(boolean hasWater) {
         this.hasWater = hasWater;
     }
 
-    //Increments the TileCompartment's count of the specified resource by 1
-    public void incrementResource(ResourceType resource){
-        this.resourceManager.addResource(resource,1);
+    public int getWealthPoints() {
+        return resourceManager.getWealthPoints();
     }
 
-    //Decrement the TileCompartment's count of the specified resource by 1
-    public void decrementResource(ResourceType resource){
-        this.resourceManager.removeResource(resource,1);
+    public void storeResource(ResourceType type, Integer numberToRemove) {
+        resourceManager.addResource(type, numberToRemove);
     }
 
-    public int getResourceCount(ResourceType rt){
-        return resourceManager.getResourceCount(rt);
+    public boolean takeResource(ResourceType type, Integer numberToRemove) {
+        return resourceManager.removeResource(type, numberToRemove);
+    }
+
+    public boolean hasResource(ResourceType wellDoesIt) {
+        return resourceManager.hasResource(wellDoesIt);
+    }
+
+    public int getResourceCount(ResourceType desiredType) {
+        return resourceManager.getResourceCount(desiredType);
     }
 }

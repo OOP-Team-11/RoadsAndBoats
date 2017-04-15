@@ -27,10 +27,8 @@ public class GameInfoAdapter {
             Tile tile = map.getTile(location);
             Terrain terrain = tile.getTerrain();
             RiverConfiguration riverConfiguration = tile.getRiverConfiguration();
-            ResourceManager resourceManager = tile.getResourceManager();
-            Exportable exportable = new Exportable(location, terrain.getExportString()
-                    + " " + riverConfiguration.getExportString() + " " + tile.getResourceManager().getExportString());
-            exportables.add(exportable);
+//            Exportable exportable = new Exportable(location, terrain.getExportString()
+//                    + " " + riverConfiguration.getExportString() + " " + exportables.add(exportable));
         }
         return exportables;
     }

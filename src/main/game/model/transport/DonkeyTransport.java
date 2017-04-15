@@ -5,9 +5,12 @@ import game.model.livestock.Livestock;
 
 public class DonkeyTransport extends LandTransport implements Livestock {
 
+    private static final int MOVE_CAP = 2;
+    private static final int CARRY_CAP = 2;
+
 //    private Vector<Ability> abilities;
     public DonkeyTransport(PlayerId playerId, TransportId transportId) {
-        super(playerId, transportId, 2, 2);
+        super(playerId, transportId, MOVE_CAP, CARRY_CAP);
     }
 
     public String getExportString() {
