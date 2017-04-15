@@ -25,22 +25,19 @@ public class ResourceManager implements Serializable {
         return points;
     }
 
-    public void addResource(ResourceType type, Integer integer){
+    public void addResource(ResourceType type, Integer numberToRemove){
         resourceTypeIntegerMap.putIfAbsent(type,0); // Initialize the entry to 0 if it doesn't exist
-        resourceTypeIntegerMap.replace(type, resourceTypeIntegerMap.get(type)+integer); //Add the specified number
+        resourceTypeIntegerMap.replace(type, resourceTypeIntegerMap.get(type)+numberToRemove); //Add the specified number
     }
 
-    public boolean removeResource(ResourceType type, Integer integer){
+    public boolean removeResource(ResourceType type, Integer numberToRemove){
         int oldCount = resourceTypeIntegerMap.get(type);
-        resourceTypeIntegerMap.replace(type, (
-                (resourceTypeIntegerMap.get(type) - integer >= 0)   ?
-                        resourceTypeIntegerMap.get(type) - integer  :
-                        resourceTypeIntegerMap.get(type)
-        ));
+        //If there are even enough of that resource to remove the specified amount,
+        if(oldCount - numberToRemove >= 0){
+            resourceTypeIntegerMap.replace(type, oldCount - numberToRemove);
+            return true;
+        } else return false;
 
-        int newCount = resourceTypeIntegerMap.get(type);
-
-        return (1 == oldCount-newCount);
 
     }
 

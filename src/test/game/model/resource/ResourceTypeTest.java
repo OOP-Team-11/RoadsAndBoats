@@ -28,7 +28,9 @@ public class ResourceTypeTest {
         ResourceManager resourceManager = new ResourceManager();
         resourceManager.addResource(ResourceType.GOLD, 2);
         resourceManager.addResource(ResourceType.GOLD, 4);
-        resourceManager.removeResource(ResourceType.GOLD, 8);
+        assertFalse(resourceManager.removeResource(ResourceType.GOLD, 8));
+        assertTrue(resourceManager.hasResource(ResourceType.GOLD));
+        assertTrue(resourceManager.removeResource(ResourceType.GOLD, 6));
         assertTrue(!resourceManager.hasResource(ResourceType.GOLD));
 
     }

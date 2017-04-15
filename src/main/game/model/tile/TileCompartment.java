@@ -21,20 +21,16 @@ public class TileCompartment {
     }
 
     //Increments the TileCompartment's count of the specified resource by 1
-    public void addResource(ResourceType resource){
+    public void incrementResource(ResourceType resource){
         this.resourceManager.addResource(resource,1);
     }
 
     //Decrement the TileCompartment's count of the specified resource by 1
-    public void removeResource(ResourceType resource){
+    public void decrementResource(ResourceType resource){
         this.resourceManager.removeResource(resource,1);
     }
 
-    public HashMap<ResourceType, Integer> getResourceCount(){
-        HashMap<ResourceType, Integer> resMap = new HashMap<>();
-
-
-
-        return resMap;
+    public int getResourceCount(ResourceType rt){
+        return resourceManager.getResourceCount(rt);
     }
 }
