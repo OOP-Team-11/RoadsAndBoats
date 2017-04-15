@@ -6,7 +6,6 @@ import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.map.RBMap;
-import game.model.structures.Structure;
 import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
@@ -88,7 +87,15 @@ public class TransportManager implements MapTransportRenderInfoObservable{
     }
 
     public void onTransportSelected(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
-        this.transportAbilityManager.addAbilities(transport, tileCompartmentLocation);
+        Map<TileCompartmentDirection, List<Transport>> tileTransports = new HashMap<TileCompartmentDirection, List<Transport>>();
+        for(TileCompartmentDirection d : TileCompartmentDirection.getAllDirections()) {
+            TileCompartmentLocation tilesCompartment = new TileCompartmentLocation(tileCompartmentLocation.getLocation(), d);
+//            Check that there is an index for the tileCompartmentLocation as well as exisiting transports
+            if(transports.get(tilesCompartment) != null && (transports.get(tilesCompartment).size() > 0)) {
+                tileTransports.put(d, transports.get(tilesCompartment));
+            }
+        }
+        this.transportAbilityManager.addAbilities(transport, tileCompartmentLocation, tileTransports);
     }
 
     public void onTransportUnselected() {
@@ -97,6 +104,13 @@ public class TransportManager implements MapTransportRenderInfoObservable{
 
     public TransportAbilityManager getTransportAbilityManager() { return this.transportAbilityManager; }
 
+    private Transport getTransport(TransportId transportId, TileCompartmentLocation tcl) {
+        for (Transport transport : this.transports.get(tcl)) {
+            if (transport.getTransportId() == transportId)
+                return transport;
+        }
+        return null;
+    }
 
     public void notifyMapTransportRenderInfoObservers() {
         Map<TileCompartmentLocation, TransportRenderInfo> transportRenderInfoMap = new HashMap<>();

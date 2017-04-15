@@ -4,7 +4,7 @@ import game.model.structures.StructureType;
 
 public class WagonFactory extends TransportProducer {
 
-    WagonFactory() {
+    public WagonFactory() {
 
     }
 

@@ -19,6 +19,11 @@ public class DonkeyTransport extends LandTransport implements Livestock {
         return TransportType.DONKEY;
     }
 
+    @Override
+    public boolean canReproduce() {
+        return true;
+    }
+
 //    public void breed() {
 //
 //    }

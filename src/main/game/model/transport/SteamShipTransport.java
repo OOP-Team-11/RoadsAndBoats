@@ -19,4 +19,9 @@ public class SteamShipTransport extends WaterTransport {
         return TransportType.STEAMSHIP;
     }
 
+    @Override
+    public boolean canReproduce() {
+        return false;
+    }
+
 }

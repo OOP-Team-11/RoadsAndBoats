@@ -4,7 +4,7 @@ import game.model.structures.StructureType;
 
 public class RaftFactory extends TransportProducer {
 
-    RaftFactory() {
+    public RaftFactory() {
 
     }
 

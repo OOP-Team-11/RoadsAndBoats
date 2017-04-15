@@ -19,4 +19,9 @@ public class RowboatTransport extends WaterTransport {
         return TransportType.ROWBOAT;
     }
 
+    @Override
+    public boolean canReproduce() {
+        return false;
+    }
+
 }

@@ -1,16 +1,14 @@
-package game.model.ability.livestock;
+package game.model.ability.goose;
 
 import game.controller.MainViewController;
 import game.model.ability.Ability;
 
-public class BreedAbility extends Ability {
-    public BreedAbility(MainViewController mainViewController) {
+public class GooseReproduceAbility extends Ability {
+
+    public GooseReproduceAbility(MainViewController mainViewController) {
         super(mainViewController);
     }
 
-    public void attachToController() {
-
-    }
     @Override
     public void perform() {
 
@@ -23,6 +21,6 @@ public class BreedAbility extends Ability {
 
     @Override
     public String getDisplayString() {
-        return "String";
+        return null;
     }
 }

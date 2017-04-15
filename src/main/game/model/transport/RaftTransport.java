@@ -19,4 +19,9 @@ public class RaftTransport extends WaterTransport {
         return TransportType.RAFT;
     }
 
+    @Override
+    public boolean canReproduce() {
+        return false;
+    }
+
 }

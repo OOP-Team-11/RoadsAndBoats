@@ -19,4 +19,9 @@ public class WagonTransport extends LandTransport {
         return TransportType.WAGON;
     }
 
+    @Override
+    public boolean canReproduce() {
+        return false;
+    }
+
 }

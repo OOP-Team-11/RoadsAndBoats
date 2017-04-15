@@ -1,5 +1,8 @@
 package game.model.direction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TileCompartmentDirection {
 
     private Angle mmAngle;
@@ -60,6 +63,23 @@ public class TileCompartmentDirection {
         return new TileCompartmentDirection(CompassAngles.SOUTH_SOUTHEAST.getMmAngle());
     }
 
+    public static  List<TileCompartmentDirection> getAllDirections() {
+        List<TileCompartmentDirection> compartments = new ArrayList<TileCompartmentDirection>();
+        compartments.add(getEast());
+        compartments.add(getNorthEast());
+        compartments.add(getNorthNorthEast());
+        compartments.add(getNorth());
+        compartments.add(getNorthNorthWest());
+        compartments.add(getNorthWest());
+        compartments.add(getWest());
+        compartments.add(getSouthWest());
+        compartments.add(getSouthSouthWest());
+        compartments.add(getSouth());
+        compartments.add(getSouthEast());
+        compartments.add(getSouthSouthEast());
+
+        return compartments;
+    }
     @Override
     public int hashCode() {
         return this.mmAngle.getDegrees();

@@ -23,8 +23,6 @@ public class GameInitializer {
 
     private ViewHandler viewHandler;
     private ControllerManager controllerManager;
-    private GooseManager gooseManager;
-    private AbilityFactory abilityFactory;
 
     public GameInitializer(String gameFile, String player1Name, String player2Name, Stage primaryStage){
 
@@ -32,14 +30,14 @@ public class GameInitializer {
         viewHandler = new ViewHandler(primaryStage);
         controllerManager = new ControllerManager(viewHandler);
         GooseManager gooseManager = new GooseManager();
-        TransportAbilityManager transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController(), gooseManager);
         MapImporter mapImporter = new MapImporter();
         try {
             BufferedReader br = new BufferedReader(new FileReader("map/" + gameFile));
             RBMap map = new RBMap();
-            transportAbilityManager.setMap(map);
             map.attach(viewHandler.getMainViewReference());
             mapImporter.importMapFromFile(map, br);
+
+            TransportAbilityManager transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController(), gooseManager, map);
 
             Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name);
             player1.attach(viewHandler.getMainViewReference());
@@ -51,6 +49,7 @@ public class GameInitializer {
             structureManager.attach(viewHandler.getMainViewReference());
 
             Game game = new Game(map, player1, player2, gooseManager, structureManager);
+
             game.attachPlayerInfoObserver(viewHandler.getMainViewReference());
             game.attachPhaseInfoObserver(viewHandler.getMainViewReference());
             game.attachPlayerInfoObserver(viewHandler.getResearchViewReference());

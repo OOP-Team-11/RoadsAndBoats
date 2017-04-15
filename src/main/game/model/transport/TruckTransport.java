@@ -15,6 +15,10 @@ public class TruckTransport extends LandTransport {
     }
 
     @Override
+    public boolean canReproduce() {
+        return false;
+    }
+
     public TransportType getType() {
         return TransportType.TRUCK;
     }

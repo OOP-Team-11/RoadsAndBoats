@@ -36,10 +36,12 @@ public abstract class Transport implements Serializable {
     }
 
     public abstract String getExportString();
+    public abstract boolean canReproduce();
 
     public PlayerId getPlayerId() {
         return this.playerId;
     }
+    public TransportId getTransportId() { return this.transportId; }
 
     public ResourceManager getResourceManager() {
         return this.resourceManager;
