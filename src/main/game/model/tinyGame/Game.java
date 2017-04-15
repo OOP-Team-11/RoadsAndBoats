@@ -1,10 +1,10 @@
-package game.model.game;
+package game.model.tinyGame;
 
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.PrayerManager;
 import game.model.managers.GooseManager;
-import game.model.managers.TransportAbilityManager;
+import game.model.managers.StructureManager;
 import game.model.map.RBMap;
 import game.model.wonder.TurnObserver;
 import game.utilities.observable.PhaseRenderInfoObservable;
@@ -16,8 +16,6 @@ import game.view.render.PlayerRenderInfo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservable, TurnObserver {
 
@@ -28,16 +26,18 @@ public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservab
     private RBMap map;
     private PrayerManager prayerManager;
     private GooseManager gooseManager;
+    private StructureManager structureManager;
     private List<PlayerRenderInfoObserver> playerRenderInfoObservers;
     private List<PhaseRenderInfoObserver> phaseRenderInfoObservers;
     private int turnCount;
 
-    public Game(RBMap map, Player player1, Player player2, GooseManager gooseManager) {
+    public Game(RBMap map, Player player1, Player player2, GooseManager gooseManager, StructureManager structureManager) {
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = player1;
         this.map = map;
-        this.gooseManager = new GooseManager();
+        this.gooseManager = gooseManager;
+        this.structureManager = structureManager;
         this.phase = new Phase();
         this.playerRenderInfoObservers = new ArrayList<>();
         this.phaseRenderInfoObservers = new ArrayList<>();

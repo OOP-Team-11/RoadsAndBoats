@@ -73,6 +73,11 @@ public class Assets {
     public Image BACKGROUND;
 
     public Image NAVIGATION_BAR_1;
+    public Image NAVIGATION_BAR_2;
+    public Image NAVIGATION_BAR_3;
+    public Image NAVIGATION_BAR_4;
+    public Image NAVIGATION_BAR_5;
+    public Image NAVIGATION_BAR_6;
 
     // primary
     public Image CLAY_PIT_BUILDING;
@@ -145,6 +150,30 @@ public class Assets {
     public Image TRUCK_BLUE;
     public Image WAGON_BLUE;
 
+    // neutral wall
+    public Image WALL_NEUTRAL_NORTH;
+    public Image WALL_NEUTRAL_NORTHEAST;
+    public Image WALL_NEUTRAL_SOUTHEAST;
+    public Image WALL_NEUTRAL_SOUTH;
+    public Image WALL_NEUTRAL_SOUTHWEST;
+    public Image WALL_NEUTRAL_NORTHWEST;
+
+    // red wall
+    public Image WALL_RED_NORTH;
+    public Image WALL_RED_NORTHEAST;
+    public Image WALL_RED_SOUTHEAST;
+    public Image WALL_RED_SOUTH;
+    public Image WALL_RED_SOUTHWEST;
+    public Image WALL_RED_NORTHWEST;
+
+    // blue wall
+    public Image WALL_BLUE_NORTH;
+    public Image WALL_BLUE_NORTHEAST;
+    public Image WALL_BLUE_SOUTHEAST;
+    public Image WALL_BLUE_SOUTH;
+    public Image WALL_BLUE_SOUTHWEST;
+    public Image WALL_BLUE_NORTHWEST;
+
     public boolean loadAssets(){
         try{
             // tiles
@@ -199,6 +228,11 @@ public class Assets {
             BACKGROUND = new Image(this.getClass().getResourceAsStream("/misc/WelcomeImage.png"));
 
             NAVIGATION_BAR_1 = new Image(this.getClass().getResourceAsStream("/buttons/mainViewButton.png"));
+            NAVIGATION_BAR_2 = new Image(this.getClass().getResourceAsStream("/buttons/transportViewButton.png"));
+            NAVIGATION_BAR_3 = new Image(this.getClass().getResourceAsStream("/buttons/researchViewButton.png"));
+            NAVIGATION_BAR_4 = new Image(this.getClass().getResourceAsStream("/buttons/wonderViewButton.png"));
+            NAVIGATION_BAR_5 = new Image(this.getClass().getResourceAsStream("/buttons/saveViewButton.png"));
+            NAVIGATION_BAR_6 = new Image(this.getClass().getResourceAsStream("/buttons/settingsViewButton.png"));
 
             CLAY_PIT_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/clay_pit.png"));
             OIL_RIG_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/oil_rig.png"));
@@ -263,6 +297,29 @@ public class Assets {
             STEAMSHIP_BLUE = new Image(this.getClass().getResourceAsStream("/player/steamship_blue.png"));
             TRUCK_BLUE = new Image(this.getClass().getResourceAsStream("/player/truck_blue.png"));
             WAGON_BLUE = new Image(this.getClass().getResourceAsStream("/player/wagon_blue.png"));
+
+            //TODO other Walls
+            WALL_NEUTRAL_NORTH = new Image(this.getClass().getResourceAsStream("/walls/neutralWall/neutralwall_N.png"));
+//            WALL_NEUTRAL_NORTHEAST = new Image(this.getClass().getResourceAsStream("/"));
+//            WALL_NEUTRAL_SOUTHEAST = new Image(this.getClass().getResourceAsStream("/"));
+            WALL_NEUTRAL_SOUTH = new Image(this.getClass().getResourceAsStream("/walls/neutralWall/neutralwall_S.png"));
+//            WALL_NEUTRAL_SOUTHWEST = new Image(this.getClass().getResourceAsStream("/"));
+//            WALL_NEUTRAL_NORTHWEST = new Image(this.getClass().getResourceAsStream("/"));
+
+            WALL_RED_NORTH = new Image(this.getClass().getResourceAsStream("/walls/redWall/redwall_N.png"));
+//            WALL_RED_NORTHEAST = new Image(this.getClass().getResourceAsStream("/"));
+//            WALL_RED_SOUTHEAST = new Image(this.getClass().getResourceAsStream("/"));
+            WALL_RED_SOUTH = new Image(this.getClass().getResourceAsStream("/walls/redWall/redwall_S.png"));
+//            WALL_RED_SOUTHWEST = new Image(this.getClass().getResourceAsStream("/"));
+//            WALL_RED_NORTHWEST = new Image(this.getClass().getResourceAsStream("/"));
+
+            WALL_BLUE_NORTH = new Image(this.getClass().getResourceAsStream("/walls/blueWall/bluewall_N.png"));
+//            WALL_BLUE_NORTHEAST = new Image(this.getClass().getResourceAsStream("/"));
+//            WALL_BLUE_SOUTHEAST = new Image(this.getClass().getResourceAsStream("/"));
+            WALL_BLUE_SOUTH = new Image(this.getClass().getResourceAsStream("/walls/blueWall/bluewall_S.png"));
+//            WALL_BLUE_SOUTHWEST = new Image(this.getClass().getResourceAsStream("/"));
+//            WALL_BLUE_NORTHWEST = new Image(this.getClass().getResourceAsStream("/"));
+
 
         } catch(Exception e){
             e.printStackTrace();
