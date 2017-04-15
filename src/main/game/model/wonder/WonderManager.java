@@ -2,6 +2,7 @@ package game.model.wonder;
 
 import game.model.Player;
 import game.model.PlayerId;
+import game.view.render.MapRenderInfo;
 
 public class WonderManager {
 
@@ -11,8 +12,8 @@ public class WonderManager {
         return wonder.getBrickCost(playerId);
     }
 //
-    public void turnDesertToPasture() {
-
+    public void turnDesertToPasture(MapRenderInfo mapRenderInfo) {
+        wonder.updateMapInfo(mapRenderInfo);
     }
     public int getWealthPoints(PlayerId playerId){
         return wonder.getWealthPoints(playerId);

@@ -1,22 +1,28 @@
 package game.model.wonder;
 import game.model.Player;
 import game.model.PlayerId;
+import game.model.tile.Terrain;
+import game.utilities.observable.MapRenderInfoObservable;
+import game.utilities.observer.MapRenderInfoObserver;
+import game.view.render.MapRenderInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class Wonder implements TurnObserver {
+public class Wonder implements TurnObserver, MapRenderInfoObserver {
     private Vector<WonderBrick> player1;
     private Vector<WonderBrick> player2;
     private Vector<Vector<WonderBrick>> wonderbricks;
     private HashMap<PlayerId, Vector<WonderBrick>> playerIdVectorHashMap;
     private ArrayList<Integer> wealthPointRowList;
-    public Wonder(){
+
+    public Wonder() {
         wonderbricks = new Vector<Vector<WonderBrick>>();
         wonderbricks.add(new Vector<WonderBrick>());
         playerIdVectorHashMap = new HashMap<>();
     }
+
     @Override
     public void onTurnEnded() {
         for (Vector<WonderBrick> wonderBricks : wonderbricks) {
@@ -29,27 +35,30 @@ public class Wonder implements TurnObserver {
         }
 
     }
+
     public Vector<Vector<WonderBrick>> getWonderBricks() {
         return wonderbricks;
     }
+
     public int getWonderSize() {
         int size = 0;
         for (Vector<WonderBrick> wonderBricks : wonderbricks) {
             {
-               size = size + wonderBricks.size();
+                size = size + wonderBricks.size();
             }
         }
         return size;
     }
+
     public void addBrick(PlayerId pid) {
         boolean isBrickAdded = false;
         PlayerBrick playerbrick = new PlayerBrick(pid);
-        if(!playerIdVectorHashMap.containsKey(pid)){
+        if (!playerIdVectorHashMap.containsKey(pid)) {
             playerIdVectorHashMap.put(pid, new Vector<WonderBrick>());
         }
 
         playerIdVectorHashMap.get(pid).add(playerbrick);
-        if(wonderbricks.size()==0){
+        if (wonderbricks.size() == 0) {
             wonderbricks.add(new Vector<WonderBrick>());
         }
 
@@ -63,23 +72,24 @@ public class Wonder implements TurnObserver {
                 }
             }
         }
-        if(!isBrickAdded){
-            Vector<WonderBrick> wonderBrick= new Vector<>();
+        if (!isBrickAdded) {
+            Vector<WonderBrick> wonderBrick = new Vector<>();
             wonderBrick.add(playerbrick);
             wonderbricks.add(wonderBrick);
         }
     }
+
     public int getBrickCost(PlayerId playerId) {
         return getCost(playerId);
     }
-    private int getCost(PlayerId playerId){
-        int cost=0;
+
+    private int getCost(PlayerId playerId) {
+        int cost = 0;
         //Checking whether the first 4 row is full or not
-        if(wonderbricks.size()<4) {
-                cost = playerIdVectorHashMap.get(playerId).size()+1;
-        }
-        else{
-                cost = playerIdVectorHashMap.get(playerId).size()+2;
+        if (wonderbricks.size() < 4) {
+            cost = playerIdVectorHashMap.get(playerId).size() + 1;
+        } else {
+            cost = playerIdVectorHashMap.get(playerId).size() + 2;
         }
         return cost;
     }
@@ -89,39 +99,49 @@ public class Wonder implements TurnObserver {
         int otherPlayerBrick = 0;
         int points = 0;
         int neutral = 0;
-        if(wealthPointRowList==null){
+        if (wealthPointRowList == null) {
             wealthPointRowList = new ArrayList<>();
         }
         for (Vector<WonderBrick> wonderBricks : wonderbricks) {
-            currentPlayerBrick=neutral=otherPlayerBrick=0;
+            currentPlayerBrick = neutral = otherPlayerBrick = 0;
             for (WonderBrick wonderbrick : wonderBricks) {
                 if (playerIdVectorHashMap.get(playerId).contains(wonderbrick)) {
                     currentPlayerBrick++;
-                }
-                else if(!wonderbrick.isNeutral()){
+                } else if (!wonderbrick.isNeutral()) {
                     otherPlayerBrick++;
-                }
-                else if(wonderbrick.isNeutral()) {
+                } else if (wonderbrick.isNeutral()) {
                     neutral++;
                 }
             }
-            points = points + getWealthPointFromTable(currentPlayerBrick,otherPlayerBrick,neutral);
+            points = points + getWealthPointFromTable(currentPlayerBrick, otherPlayerBrick, neutral);
             wealthPointRowList.add(points);
         }
         return points;
     }
-    private int getWealthPointFromTable(int current, int other, int neutral){
+
+    private int getWealthPointFromTable(int current, int other, int neutral) {
         int points = 0;
-        if(other>0 && current>0){
-            points = (current)*10/(current+other);
-        }
-        else if(current>0) {
+        if (other > 0 && current > 0) {
+            points = (current) * 10 / (current + other);
+        } else if (current > 0) {
             points = 10;
         }
         return points;
     }
-    public Vector<WonderBrick> getPlayerBricks(PlayerId playerId){
+
+    public Vector<WonderBrick> getPlayerBricks(PlayerId playerId) {
         return playerIdVectorHashMap.get(playerId);
+    }
+
+
+    @Override
+    public void updateMapInfo(MapRenderInfo mapRenderInfo) {
+        for (Terrain terrain : mapRenderInfo.getTerrainMap().values()) {
+            if (terrain.getExportString().equalsIgnoreCase("DESERT")) {
+                terrain.changeToPasture();
+            }
+
+        }
     }
 }
 

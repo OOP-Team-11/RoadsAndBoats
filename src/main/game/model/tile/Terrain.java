@@ -12,7 +12,7 @@ public enum Terrain implements Serializable
     MOUNTAIN(false, "MOUNTAIN");
 
     private final boolean canConnectRiver;
-    private final String name;
+    private String name;
 
     Terrain(boolean canConnectRiver, String name)
     {
@@ -28,5 +28,8 @@ public enum Terrain implements Serializable
 
     public String getExportString() {
         return getName();
+    }
+    public void changeToPasture(){
+        this.name = "PASTURE";
     }
 }
