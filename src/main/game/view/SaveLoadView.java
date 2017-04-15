@@ -44,8 +44,11 @@ public class SaveLoadView extends View {
     private void setupPage(){
         this.canvas = new Canvas(1300, 800);
         this.gc = this.canvas.getGraphicsContext2D();
-        this.gc.setFill(Color.TEAL);
+        this.gc.setFill(Color.LIGHTGREY);
         this.gc.fillRect(0,0,1300,800);
+        this.gc.setFill(Color.TEAL);
+        this.gc.fillRoundRect(75,100,565,550,20,20);
+        this.gc.fillRoundRect(675,100,565,550,20,20);
         this.gc.setStroke(Color.BLACK);
         this.gc.setLineWidth(3.0);
         this.gc.setFont(new Font(80));

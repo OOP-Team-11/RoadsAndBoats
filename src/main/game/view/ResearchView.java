@@ -62,10 +62,12 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
         setAnchorPane(anchorPane);
         initializeCanvas();
         setCanvasBackground();
+        drawBackgroundStyling();
         drawHeadingTitle();
         drawResearchTable();
         drawTransportList();
         initializeButtons();
+
 
         // just for testing atm, later depending on render info these will be added/removed dynamically
         addFirst();
@@ -109,6 +111,11 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
     private void setCanvasBackground(){
         this.gc.setFill(Color.LIGHTGREY);
         this.gc.fillRect(0,0,1300,800);
+    }
+
+    private void drawBackgroundStyling(){
+        this.gc.setFill(Color.TEAL);
+        this.gc.fillRoundRect(75,100,1140,400,20,20);
     }
 
     private void drawPhase(){
