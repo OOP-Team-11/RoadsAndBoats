@@ -1,4 +1,4 @@
-package game.model.abilities;
+package model.abilities;
 
 import game.controller.MainViewController;
 import game.model.Player;

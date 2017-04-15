@@ -1,4 +1,4 @@
-package game.model.managers;
+package model.managers;
 
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;

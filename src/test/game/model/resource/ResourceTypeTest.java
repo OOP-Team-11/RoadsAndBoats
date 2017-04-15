@@ -1,4 +1,4 @@
-package game.model.resource;
+package model.resource;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;

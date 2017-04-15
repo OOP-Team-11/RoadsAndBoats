@@ -1,8 +1,9 @@
-package game.model.managers;
+package model.managers;
 
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
+import game.model.managers.GooseManager;
 import game.model.resources.Goose;
 import game.model.resources.GooseId;
 import game.model.tile.Tile;
