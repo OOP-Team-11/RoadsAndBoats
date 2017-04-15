@@ -65,4 +65,8 @@ public class ResourceManager implements Serializable {
         }
         return sb.toString();
     }
+
+    public boolean isEmpty() {
+        return (resourceTypeIntegerMap.size() == 0);
+    }
 }

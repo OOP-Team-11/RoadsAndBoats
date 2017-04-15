@@ -1,4 +1,4 @@
-package model.structures.primaryProducer;
+package game.model.structures.primaryProducer;
 
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;

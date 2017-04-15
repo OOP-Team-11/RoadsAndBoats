@@ -123,19 +123,19 @@ public class NavigationBar {
         this.anchorPane.setTopAnchor(mainViewButton,50.0);
         this.anchorPane.setLeftAnchor(mainViewButton,12.5);
         this.anchorPane.getChildren().add(transportViewButton);
-        this.anchorPane.setTopAnchor(transportViewButton,125.0);
+        this.anchorPane.setTopAnchor(transportViewButton,175.0);
         this.anchorPane.setLeftAnchor(transportViewButton,15.0);
         this.anchorPane.getChildren().add(researchViewButton);
-        this.anchorPane.setTopAnchor(researchViewButton,200.0);
+        this.anchorPane.setTopAnchor(researchViewButton,300.0);
         this.anchorPane.setLeftAnchor(researchViewButton,12.5);
         this.anchorPane.getChildren().add(wonderViewButton);
-        this.anchorPane.setTopAnchor(wonderViewButton,275.0);
+        this.anchorPane.setTopAnchor(wonderViewButton,425.0);
         this.anchorPane.setLeftAnchor(wonderViewButton,12.5);
         this.anchorPane.getChildren().add(saveLoadButton);
-        this.anchorPane.setTopAnchor(saveLoadButton,350.0);
+        this.anchorPane.setTopAnchor(saveLoadButton,550.0);
         this.anchorPane.setLeftAnchor(saveLoadButton,12.5);
         this.anchorPane.getChildren().add(optionsViewButton);
-        this.anchorPane.setTopAnchor(optionsViewButton,425.0);
+        this.anchorPane.setTopAnchor(optionsViewButton,675.0);
         this.anchorPane.setLeftAnchor(optionsViewButton, 12.5);
 
     }

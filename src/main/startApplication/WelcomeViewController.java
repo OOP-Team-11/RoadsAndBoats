@@ -94,14 +94,14 @@ public class WelcomeViewController {
 
     private void initializeEventHandlers(){
 
-        // start game
+        // start tinyGame
         this.newGameButton.setOnMouseClicked(event -> {
              setNewGame();
              updateNewGameDirectoryContents();
              welcomeView.displayStartGameOverlay();
         });
 
-        // load existing game
+        // load existing tinyGame
         this.loadGameButton.setOnMouseClicked(event -> {
             setLoad();
             updateLoadGameDirectoryContents();
@@ -118,12 +118,12 @@ public class WelcomeViewController {
             // TODO maybe if there is time
         });
 
-        // exit game
+        // exit tinyGame
         this.exitButton.setOnMouseClicked(event -> {
             System.exit(0);
         });
 
-        // start game once a file has been chosen
+        // start tinyGame once a file has been chosen
         this.startGameButton.setOnMouseClicked(event -> {
             String gameFile = welcomeView.getListViewSelectedItem();
             String player1Name = welcomeView.getPlayer1Name();
