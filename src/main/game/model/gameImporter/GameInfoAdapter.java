@@ -1,17 +1,15 @@
 package game.model.gameImporter;
 
-import game.model.Game;
+import game.model.game.Game;
 import game.model.Player;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentLocation;
 import game.model.map.RBMap;
 import game.model.resources.ResourceManager;
-import game.model.structures.Structure;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
 import game.model.transport.Transport;
-import game.model.transport.TransportLocation;
 
 import java.util.*;
 

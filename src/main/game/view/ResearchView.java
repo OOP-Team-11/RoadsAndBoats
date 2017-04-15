@@ -1,6 +1,10 @@
 package game.view;
 
+import game.utilities.observer.PhaseRenderInfoObserver;
+import game.utilities.observer.PlayerRenderInfoObserver;
 import game.utilities.observer.TechRenderInfoObserver;
+import game.view.render.PhaseRenderInfo;
+import game.view.render.PlayerRenderInfo;
 import game.view.render.TechRenderInfo;
 import javafx.animation.*;
 import javafx.event.EventHandler;
@@ -18,7 +22,7 @@ import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
-public class ResearchView extends View implements TechRenderInfoObserver{
+public class ResearchView extends View implements TechRenderInfoObserver, PlayerRenderInfoObserver, PhaseRenderInfoObserver {
 
     private AnchorPane anchorPane;
     private TechRenderInfo techRenderInfo;
@@ -50,6 +54,8 @@ public class ResearchView extends View implements TechRenderInfoObserver{
     private PathTransition pathTransition6;
     private PathTransition pathTransition7;
     private PathTransition pathTransition8;
+    private PhaseRenderInfo currentPhaseRenderInfo;
+    private PlayerRenderInfo currentPlayerRenderInfo;
 
 
     public ResearchView(AnchorPane anchorPane){
@@ -57,7 +63,6 @@ public class ResearchView extends View implements TechRenderInfoObserver{
         initializeCanvas();
         drawHeadingTitle();
         drawResearchTable();
-        drawPhase();
         drawTransportList();
         initializeButtons();
         // just for testing atm, later depending on render info these will be added/removed dynamically
@@ -106,7 +111,7 @@ public class ResearchView extends View implements TechRenderInfoObserver{
         this.gc.fillRoundRect(780,520,400,250,20,20);
         this.gc.setLineWidth(1.0);
         this.gc.setFont(new Font(20));
-        this.gc.strokeText("Current Phase: ", 800, 550);
+        this.gc.strokeText("Current Phase: " + currentPhaseRenderInfo.getName(), 800, 550);
     }
 
     private void drawTransportList(){
@@ -355,5 +360,18 @@ public class ResearchView extends View implements TechRenderInfoObserver{
     public void updateTechInfo(TechRenderInfo techRenderInfo) {
         this.techRenderInfo = techRenderInfo;
         this.newData = true;
+    }
+
+    @Override
+    public void updatePlayerInfo(PlayerRenderInfo playerRenderInfo) {
+        this.currentPlayerRenderInfo = playerRenderInfo;
+        this.newData = true;
+    }
+
+    @Override
+    public void updatePhaseInfo(PhaseRenderInfo phaseRenderInfo) {
+        this.currentPhaseRenderInfo = phaseRenderInfo;
+        this.newData = true;
+        drawPhase();
     }
 }
