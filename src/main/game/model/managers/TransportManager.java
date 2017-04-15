@@ -104,9 +104,11 @@ public class TransportManager implements MapTransportRenderInfoObservable{
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             TileCompartmentLocation tcl = (TileCompartmentLocation) pair.getKey();
-            Transport transport = (Transport) pair.getValue();
-            TransportRenderInfo transportRenderInfo = new TransportRenderInfo(transport);
-            transportRenderInfoMap.put(tcl, transportRenderInfo);
+            List<Transport> transportList = this.transports.get(tcl);
+            for (Transport t : transportList) {
+                TransportRenderInfo transportRenderInfo = new TransportRenderInfo(t);
+                transportRenderInfoMap.put(tcl, transportRenderInfo);
+            }
         }
         MapTransportRenderInfo mapTransportRenderInfo = new MapTransportRenderInfo(transportRenderInfoMap);
         for (MapTransportRenderInfoObserver observer : this.mapTransportRenderInfoObservers) {
