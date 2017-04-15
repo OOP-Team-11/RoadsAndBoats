@@ -8,19 +8,21 @@ import game.model.resources.Goose;
 import java.util.*;
 
 public class GooseManager {
-    private Map<TileCompartmentLocation, List<Goose>> mapGeese;
+    private Map<TileCompartmentLocation, ArrayList<Goose>> mapGeese;
 
     public GooseManager() { this.mapGeese = new HashMap<>();}
 
-    public Map<TileCompartmentLocation, List<Goose>> getMapGeese() {
+    public Map<TileCompartmentLocation, ArrayList<Goose>> getMapGeese() {
         return this.mapGeese;
     }
 
     public void addGoose(TileCompartmentLocation tileCompartmentLocation, Goose goose) {
         if(this.mapGeese.get(tileCompartmentLocation) == null)
             this.mapGeese.put(tileCompartmentLocation, new ArrayList<Goose>() {{add(goose);}});
-        else
+        else {
             this.mapGeese.get(tileCompartmentLocation).add(goose);
+//            System.out.println("Added goose");
+        }
     }
 
     public void removeGoose(TileCompartmentLocation tileCompartmentLocation, Goose goose) {

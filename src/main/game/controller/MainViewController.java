@@ -32,7 +32,11 @@ public class MainViewController {
         initializeMouseClickInterpreter();
         notifyViewCamera();
         addSlideEventHandler();
+        addTurnFinishButtonHandler();
     }
+
+//    CONSTRUCTOR JUST FOR TESTING
+    public MainViewController(){ this.controls = new HashMap<KeyCode, Ability>(); };
 
     private void setMainView(MainView mainView){
         this.mainView = mainView;
@@ -65,19 +69,32 @@ public class MainViewController {
         mainView.addEventFilterToZoomSlider(MouseEvent.MOUSE_RELEASED, eventHandler);
     }
 
+    private void addTurnFinishButtonHandler(){
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                // TODO hook up to model to change phase or currently active player
+            }
+        };
+        mainView.addEventFilterToFinishButton(MouseEvent.MOUSE_CLICKED, eventHandler);
+    }
 
     private void addMouseClickEventToMap(){
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                if(event.getButton() == MouseButton.PRIMARY){
-                    // left mouse click
-                    Location clicked = mouseClickInterpreter.interpretMouseClick(event.getX(), event.getY());
-                    mainView.updateCursorInfo(new CursorRenderInfo(event.getX(),event.getY(), clicked, false));
-                } else {
-                    // right mouse click
-                    Location clicked = mouseClickInterpreter.interpretMouseClick(event.getX(), event.getY());
-                    mainView.updateCursorInfo(new CursorRenderInfo(event.getX(),event.getY(), clicked, true));
+                if(event.getX() < 950){ // only click events on the map
+                    if(event.getButton() == MouseButton.PRIMARY){
+                        // left mouse click
+                        Location clicked = mouseClickInterpreter.interpretMouseClick(event.getX(), event.getY());
+                        mainView.updateCursorInfo(new CursorRenderInfo(event.getX(),event.getY(), clicked, false));
+                    } else {
+                        // right mouse click
+                        Location clicked = mouseClickInterpreter.interpretMouseClick(event.getX(), event.getY());
+                        mainView.updateCursorInfo(new CursorRenderInfo(event.getX(),event.getY(), clicked, true));
+                    }
+                } else { // events on right side panel
+
                 }
+
             }
         };
         mainView.addEventFilterToMainView(MouseEvent.MOUSE_CLICKED,eventHandler);
@@ -123,12 +140,14 @@ public class MainViewController {
     }
 
     public void addControl(KeyCode keyCode, Ability ability) {
-        controls.put(keyCode, ability);
+        this.controls.put(keyCode, ability);
     }
 
     public void removeControl(KeyCode keyCode) {
         controls.remove(keyCode);
     }
+
+    public Map<KeyCode, Ability> getControls() { return controls; }
 
     private void executeControl(Ability ability) {
         ability.perform();

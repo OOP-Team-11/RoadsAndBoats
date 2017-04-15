@@ -8,6 +8,10 @@ public class Wonder implements TurnObserver {
 
     }
 
+    public void onTurnEnded() {
+
+    }
+
 //    public Vector<Vector<WonderBrick>> getWonderBricks() {
 //
 //    }

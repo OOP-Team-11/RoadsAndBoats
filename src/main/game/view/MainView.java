@@ -26,12 +26,24 @@ import javafx.scene.text.Font;
 import java.awt.image.ImageConsumer;
 import java.util.Map;
 
-public class MainView extends View implements TransportRenderInfoObserver, StructureRenderInfoObserver, ResourceRenderInfoObserver, MapRenderInfoObserver, CursorRenderInfoObserver, RoadRenderInfoObserver, WallRenderInfoObserver, CameraObserver{
+public class MainView extends View
+        implements TransportRenderInfoObserver,
+        StructureRenderInfoObserver,
+        ResourceRenderInfoObserver,
+        MapRenderInfoObserver,
+        CursorRenderInfoObserver,
+        RoadRenderInfoObserver,
+        WallRenderInfoObserver,
+        CameraObserver,
+        PlayerRenderInfoObserver,
+        PhaseRenderInfoObserver {
 
     private AnchorPane anchorPane;
     private TransportRenderInfo transportRenderInfo;
     private StructureRenderInfo structureRenderInfo;
     private ResourceRenderInfo resourceRenderInfo;
+    private PlayerRenderInfo playerRenderInfo;
+    private PhaseRenderInfo phaseRenderInfo;
     private MapRenderInfo mapRenderInfo;
     private RoadRenderInfo roadRenderInfo;
     private WallRenderInfo wallRenderInfo;
@@ -45,6 +57,8 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     private ListView overlayMenu;
     private Slider zoomSlider;
     private Button finishTurn;
+    private Button resourceButton;
+    private Button buildingButton;
     private int[] compartmentX = {30,68,10,90,30,68}; // for scaling resources/structures in compartments
     private int[] compartmentY = {10,10,45,45,80,80};
     private int cameraX;
@@ -52,6 +66,7 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     private int imageX;
     private int imageY;
     private int verticalOffset;
+    private int currentDisplayState;
 
     public MainView(AnchorPane anchorPane){
         setAnchorPane(anchorPane);
@@ -60,7 +75,7 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         initializeOverlay();
         setZoomSlider();
         placeFinishButton();
-
+        initializeSelectButtons();
     }
     private void setAnchorPane(AnchorPane anchorPane){
         this.anchorPane = anchorPane;
@@ -112,6 +127,7 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         this.selectGC.fillRect(0,0,350,800);
         this.anchorPane.getChildren().add(selectCanvas);
         this.anchorPane.setLeftAnchor(selectCanvas,950.0);
+        this.currentDisplayState = 2;
     }
 
     private void initializeRenderConverter(){
@@ -133,13 +149,13 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     private void drawCurrentPhase(String phase){
         this.selectGC.setFont(new Font(20));
         this.selectGC.setLineWidth(2.0);
-        this.selectGC.strokeText("Phase: " +phase, 25, 80);
+        this.selectGC.strokeText(phase, 25, 80);
     }
 
     private void drawPlayerName(String name){
         this.selectGC.setFont(new Font(30));
         this.selectGC.setLineWidth(2.0);
-        this.selectGC.strokeText("Player: " +name, 25, 40);
+        this.selectGC.strokeText(name, 25, 40);
     }
 
     private void placeFinishButton(){
@@ -261,6 +277,104 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
             }
         }
     }
+    private void displayGoodsOnSidePanel(){
+        this.selectGC.setLineWidth(5.0);
+        this.selectGC.strokeLine(25,370,320,370);
+
+        // first row of goods
+        this.selectGC.drawImage(assets.BOARDS_GOODS,25,430);
+        this.selectGC.drawImage(assets.CLAY_GOODS,25,490);
+        this.selectGC.drawImage(assets.GOLD_GOODS,25,550);
+        this.selectGC.drawImage(assets.COINS_GOODS,25,610);
+        this.selectGC.drawImage(assets.FUEL_GOODS,25,670);
+        this.selectGC.drawImage(assets.GOOSE_GOODS,25,730);
+
+        // second column of goods
+        this.selectGC.drawImage(assets.IRON_GOODS,175,430);
+        this.selectGC.drawImage(assets.PAPER_GOODS,175,490);
+        this.selectGC.drawImage(assets.STOCK_GOODS,175,550);
+        this.selectGC.drawImage(assets.STONE_GOODS,175,610);
+        this.selectGC.drawImage(assets.TRUNKS_GOODS,175,670);
+
+        // display count TODO update values later with actual information
+        this.selectGC.setFont(new Font(17));
+        this.selectGC.setLineWidth(1);
+        this.selectGC.strokeText("Boards: 5",80,460 );
+        this.selectGC.strokeText("Clay: 5",80,520 );
+        this.selectGC.strokeText("Gold: 4",80,580 );
+        this.selectGC.strokeText("Coin: 4",80,640 );
+        this.selectGC.strokeText("Fuel: 4",80,700 );
+        this.selectGC.strokeText("Geese: 4",80,760 );
+
+        // second column of count
+        this.selectGC.strokeText("Iron: 5",230,460 );
+        this.selectGC.strokeText("Paper 5",230,520 );
+        this.selectGC.strokeText("Stock: 4",230,580 );
+        this.selectGC.strokeText("Stone: 4",230,640 );
+        this.selectGC.strokeText("Trunks: 4",230,700 );
+    }
+
+    private void displayBuildingsOnSidePanel(){
+        this.selectGC.setLineWidth(5.0);
+        this.selectGC.strokeLine(25,370,320,370);
+
+        this.selectGC.drawImage(assets.CLAY_PIT_BUILDING,25,430, 52, 52);
+        this.selectGC.drawImage(assets.STONE_FACTORY_BUILDING,25,490,52,52);
+        this.selectGC.drawImage(assets.QUARRY_BUILDING,25,550,52,52);
+        this.selectGC.drawImage(assets.WOODCUTTER_BUILDING,25,610,52,52);
+        this.selectGC.drawImage(assets.SAWMILL_BUILDING,25,670,52,52);
+        this.selectGC.drawImage(assets.COAL_BURNER_BUILDING,25,730,52,52);
+
+
+        this.selectGC.drawImage(assets.PAPERMILL_BUILDING,125,430, 52, 52);
+        this.selectGC.drawImage(assets.MINT_BUILDING,125,490,52,52);
+        this.selectGC.drawImage(assets.STOCK_EXCHANGE_BUILDING,125,550,52,52);
+        this.selectGC.drawImage(assets.OIL_RIG_BUILDING,125,610,52,52);
+        this.selectGC.drawImage(assets.MINE_BUILDING,125,670,52,104);
+
+
+        this.selectGC.drawImage(assets.WAGON_FACTORY,225,430, 52, 52);
+        this.selectGC.drawImage(assets.TRUCK_FACTORY,225,490,52,52);
+        this.selectGC.drawImage(assets.RAFT_FACTORY,225,550,52,52);
+        this.selectGC.drawImage(assets.ROWBOAT_FACTORY,225,610,52,52);
+        this.selectGC.drawImage(assets.STEAMER_FACTORY,225,670,52,52);
+    }
+
+    private void initializeSelectButtons(){
+        this.buildingButton = new Button();
+        this.resourceButton = new Button();
+        this.buildingButton.setText("Buildings");
+        this.buildingButton.setPrefWidth(130.0);
+        this.buildingButton.setFont(new Font(14));
+        this.resourceButton.setText("Goods");
+        this.resourceButton.setPrefWidth(130.0);
+        this.resourceButton.setFont(new Font(14));
+        this.anchorPane.getChildren().add(buildingButton);
+        this.anchorPane.getChildren().add(resourceButton);
+        this.anchorPane.setLeftAnchor(buildingButton, 980.0);
+        this.anchorPane.setLeftAnchor(resourceButton,1130.0);
+        this.anchorPane.setTopAnchor(resourceButton,380.0);
+        this.anchorPane.setTopAnchor(buildingButton,380.0);
+        this.resourceButton.setOnMouseClicked(event ->{
+            this.currentDisplayState = 1;
+            this.refresh = true;
+        });
+
+        this.buildingButton.setOnMouseClicked(event ->{
+            this.currentDisplayState = 2;
+            this.refresh = true;
+        });
+    }
+
+    private void displaySidePanelInformation(){
+        if(currentDisplayState == 1){
+            displayGoodsOnSidePanel();
+        } else if(currentDisplayState == 2){
+            displayBuildingsOnSidePanel();
+        }
+    }
+
+
     private void drawCursor(){
         if(cursorRenderInfo != null){
             drawImage(assets.GREEN_CURSOR,cursorRenderInfo.getCursorLocation().getX(), cursorRenderInfo.getCursorLocation().getY(), cursorRenderInfo.getCursorLocation().getZ());
@@ -268,6 +382,9 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
     }
     public double getZoomSliderValue(){
         return this.zoomSlider.getValue();
+    }
+    public void addEventFilterToFinishButton(EventType eventType, EventHandler filter){
+        this.finishTurn.addEventFilter(eventType, filter);
     }
 
     public void addEventFilterToMainView(EventType eventType, EventHandler filter){
@@ -285,6 +402,18 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         this.refresh = true;
         this.anchorPane.getChildren().remove(overlayMenu); // close in case it might be open and we move camera
     }
+    private void clearRightPanel(){
+        this.selectGC.clearRect(0,0,350,800);
+        this.selectGC.setFill(Color.TEAL);
+        this.selectGC.fillRect(0,0,350,800);
+    }
+    private void drawPlayerName(){
+        this.drawPlayerName(playerRenderInfo.getName());
+    }
+    private void drawCurrentPhase(){
+        this.drawCurrentPhase(phaseRenderInfo.getName());
+    }
+
     private void clearMapCanvas(){
         this.mapGC.clearRect(0,0,950, 800);
         this.mapGC.setFill(Color.LIGHTGREY);
@@ -294,11 +423,10 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         this.refresh = false;
     }
 
-    private void TESTINGREMOVELATER(){
+    private void TESTING_REMOVE_LATER(){
 
-        drawPlayerName("Player1");
-        drawCurrentPhase("Implementation");
-
+        //displayGoodsOnSidePanel();
+        //displayBuildingsOnSidePanel();
         // FOR TESTING Tile compartments
         drawCompartmentImage(assets.CLAY_GOODS,0,0,0,1);
         drawCompartmentImage(assets.CLAY_GOODS,0,0,0,2);
@@ -315,18 +443,21 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         drawSideCompartmentImage(assets.CLAY_GOODS,0,0,0,6);
     }
 
-
     @Override
     public void render() {
         if(refresh){
             // new data coming in
             clearMapCanvas();
+            clearRightPanel();
             drawMap();
-            clearNewDataFlag();
             drawCursor();
             checkForOverlay();
             updateSidePanel();
-            TESTINGREMOVELATER();
+            drawPlayerName();
+            drawCurrentPhase();
+            displaySidePanelInformation();
+            clearNewDataFlag();
+            TESTING_REMOVE_LATER();
         } else {
             // nothing to update
         }
@@ -372,4 +503,17 @@ public class MainView extends View implements TransportRenderInfoObserver, Struc
         this.cameraY = cameraInfo.getCameraY();
         this.refresh = true;
     }
+
+    @Override
+    public void updatePlayerInfo(PlayerRenderInfo playerRenderInfo) {
+        this.playerRenderInfo = playerRenderInfo;
+        this.refresh = true;
+    }
+
+    @Override
+    public void updatePhaseInfo(PhaseRenderInfo phaseRenderInfo) {
+        this.phaseRenderInfo = phaseRenderInfo;
+        this.refresh = true;
+    }
+
 }

@@ -4,6 +4,8 @@ import game.model.PlayerId;
 import game.model.resources.Goose;
 import game.model.resources.ResourceManager;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Vector;
 
@@ -19,7 +21,7 @@ public abstract class Transport {
         this.followers = new Vector<Goose>();
     }
 
-    public void addFollower(Goose goose) { followers.add(goose); }
+    public void addFollowers(Vector<Goose> geese) { this.followers = geese; }
     public void removeFollowers() {
         for(Goose g : followers)
             followers.remove(g);
