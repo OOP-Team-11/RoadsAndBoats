@@ -1,4 +1,4 @@
-package model.game;
+package game.model.tinyGame;
 
 import game.model.tinyGame.Phase;
 import org.junit.Before;

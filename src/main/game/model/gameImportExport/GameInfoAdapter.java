@@ -1,4 +1,4 @@
-package game.model.gameImporter;
+package game.model.gameImportExport;
 
 import game.model.tinyGame.Game;
 import game.model.Player;

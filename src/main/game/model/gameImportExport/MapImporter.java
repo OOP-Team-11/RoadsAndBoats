@@ -1,8 +1,7 @@
-package game.model.gameImporter;
+package game.model.gameImportExport;
 
 import game.model.direction.Location;
 import game.model.map.RBMap;
-import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;

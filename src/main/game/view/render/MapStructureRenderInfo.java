@@ -8,10 +8,14 @@ import java.util.Map;
 
 public class MapStructureRenderInfo {
 
-    public final Map<TileCompartmentLocation, StructureRenderInfo> structures;
+    private final Map<TileCompartmentLocation, StructureRenderInfo> structures;
 
     public MapStructureRenderInfo(Map<TileCompartmentLocation, StructureRenderInfo> structureRenderInfoMap)
     {
         this.structures = structureRenderInfoMap;
+    }
+
+    public Map<TileCompartmentLocation, StructureRenderInfo> getStructures() {
+        return this.structures;
     }
 }

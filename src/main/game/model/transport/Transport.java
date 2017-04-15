@@ -1,16 +1,16 @@
 package game.model.transport;
 
 import game.model.PlayerId;
+import game.model.gameImportExport.Serializable;
 import game.model.resources.Goose;
 import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
 
-public abstract class Transport {
+public abstract class Transport implements Serializable {
     private Vector<Goose> followers;
     private PlayerId playerId;
     private TransportId transportId;
@@ -37,10 +37,12 @@ public abstract class Transport {
     }
 
     public abstract String getExportString();
+    public abstract boolean canReproduce();
 
     public PlayerId getPlayerId() {
         return this.playerId;
     }
+    public TransportId getTransportId() { return this.transportId; }
 
     public ResourceManager getResourceManager() {
         return this.resourceManager;
@@ -88,13 +90,20 @@ public abstract class Transport {
         carryCapacity = carryCapacity + number;
     }
 
-    public int getCarryCapacity() {
-        return carryCapacity;
+    public int getMoveCapacity() {
+        return this.moveCapacity;
     }
 
-    public int getMoveCapacity() {
-        return moveCapacity;
+    public int getCarryCapacity() {
+        return this.carryCapacity;
     }
+
+    public List<Goose> getFollowers() {
+        return this.followers;
+    }
+
+    // use for view drawing and import/export to file ONLY
+    public abstract TransportType getType();
 
     @Override
     public int hashCode() {

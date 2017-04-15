@@ -1,9 +1,8 @@
-package model.game;
+package game.model.tinyGame;
 
 import game.controller.MainViewController;
 import game.model.Player;
 import game.model.PlayerId;
-import game.model.tinyGame.Game;
 import game.model.managers.GooseManager;
 import game.model.managers.StructureManager;
 import game.model.managers.TransportAbilityManager;
@@ -23,7 +22,7 @@ public class GameTest {
     @Before
     public void setUp() {
         RBMap map = new RBMap();
-        TransportAbilityManager transportAbilityManager = new TransportAbilityManager(mock(MainViewController.class), mock(GooseManager.class));
+        TransportAbilityManager transportAbilityManager = new TransportAbilityManager(mock(MainViewController.class), mock(GooseManager.class), map);
         player1 = new Player(transportAbilityManager, new PlayerId(1), "gavin");
         player2 = new Player(transportAbilityManager, new PlayerId(2), "not gavin");
         this.game = new Game(map, player1, player2, mock(GooseManager.class), mock(StructureManager.class));

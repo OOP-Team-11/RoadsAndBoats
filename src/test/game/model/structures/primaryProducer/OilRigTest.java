@@ -1,4 +1,4 @@
-package model.structures.primaryProducer;
+package game.model.structures.primaryProducer;
 
 import game.model.resources.*;
 import game.model.structures.resourceProducer.primaryProducer.OilRig;

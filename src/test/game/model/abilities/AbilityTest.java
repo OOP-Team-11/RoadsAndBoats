@@ -6,6 +6,7 @@ import game.model.PlayerId;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
+import game.model.managers.GooseAbilityManager;
 import game.model.managers.GooseManager;
 import game.model.managers.TransportAbilityManager;
 import game.model.map.RBMap;
@@ -26,11 +27,11 @@ public class AbilityTest {
     @Test
     public void addFollowAbilityTest() {
         TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
-        GooseManager gooseManager = new GooseManager();
         MainViewController mainViewController = new MainViewController();
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager), new PlayerId(2), "gavin");
-        Transport donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         RBMap map = new RBMap();
+        GooseManager gooseManager = new GooseManager(new GooseAbilityManager(mainViewController, map));
+        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "gavin");
+        Transport donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
 //        Add 2 geese to same location that donkey is at so he will have 2 followAbilities. One or both follow.
         gooseManager.addGoose(location, new Goose(new GooseId()));

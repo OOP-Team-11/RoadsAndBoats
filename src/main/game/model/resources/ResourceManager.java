@@ -1,7 +1,7 @@
 package game.model.resources;
 
 
-import game.model.gameImporter.Serializable;
+import game.model.gameImportExport.Serializable;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -64,5 +64,9 @@ public class ResourceManager implements Serializable {
                     .append(" ");
         }
         return sb.toString();
+    }
+
+    public boolean isEmpty() {
+        return (resourceTypeIntegerMap.size() == 0);
     }
 }
