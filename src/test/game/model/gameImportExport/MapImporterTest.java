@@ -1,11 +1,10 @@
-package model.gameImporter;
 
 import game.model.direction.Location;
 import game.model.resources.ResourceType;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Tile;
 import game.utilities.exceptions.MalformedMapFileException;
-import game.model.gameImporter.MapImporter;
+import game.model.gameImportExport.MapImporter;
 import game.model.map.RBMap;
 import game.model.tile.Terrain;
 import org.junit.Before;

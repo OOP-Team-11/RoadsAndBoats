@@ -1,7 +1,7 @@
 package game.model.transport;
 
 import game.model.PlayerId;
-import game.model.gameImporter.Serializable;
+import game.model.gameImportExport.Serializable;
 import game.model.resources.Goose;
 import game.model.resources.ResourceManager;
 
