@@ -2,6 +2,7 @@ package game.model.resources;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ResourceManager {
     private Map<ResourceType, Integer> resourceTypeIntegerMap;
@@ -20,35 +21,41 @@ public class ResourceManager {
     }
 
     public void addResource(ResourceType type, Integer integer){
-        if(resourceTypeIntegerMap.containsKey(type)){
-           resourceTypeIntegerMap.replace(type, resourceTypeIntegerMap.get(type)+integer);
-        }
-        else {
-            resourceTypeIntegerMap.put(type, integer);
-        }
+        resourceTypeIntegerMap.putIfAbsent(type,0); // Initialize the entry to 0 if it doesn't exist
+        resourceTypeIntegerMap.replace(type, resourceTypeIntegerMap.get(type)+integer); //Add the specified number
     }
 
-    public void removeResource(ResourceType type, Integer integer){
-        if (resourceTypeIntegerMap.get(type) - integer >= 0) {
-            resourceTypeIntegerMap.replace(type, resourceTypeIntegerMap.get(type) - integer);
-        }
-        else{
-           resourceTypeIntegerMap.remove(type);
-        }
+    public boolean removeResource(ResourceType type, Integer integer){
+        int oldCount = resourceTypeIntegerMap.get(type);
+        resourceTypeIntegerMap.replace(type, (
+                (resourceTypeIntegerMap.get(type) - integer >= 0)   ?
+                        resourceTypeIntegerMap.get(type) - integer  :
+                        resourceTypeIntegerMap.get(type)
+        ));
+
+        int newCount = resourceTypeIntegerMap.get(type);
+
+        return (1 == oldCount-newCount);
+
     }
 
-    public Integer getResource(ResourceType resourceType) {
-        return resourceTypeIntegerMap.get(resourceType);
+    public boolean hasResource(ResourceType wellDoesIt) {
+        return this.resourceTypeIntegerMap.containsKey(wellDoesIt) && this.resourceTypeIntegerMap.get(wellDoesIt) > 0;
     }
 
-    public Map<ResourceType, Integer> giveResource(ResourceType resourceType, Integer integer) {
-        Map<ResourceType, Integer> resourceMap = new HashMap<>();
-        resourceMap.put(resourceType, integer);
-        removeResource(resourceType, integer);
-        return resourceMap;
+    public int getResourceCount(ResourceType desiredType){
+        return (
+                this.resourceTypeIntegerMap.containsKey(desiredType)?
+                resourceTypeIntegerMap.get(desiredType) :
+                0
+        );
     }
 
-    public boolean hasResource() {
-        return resourceTypeIntegerMap.size()>0;
-    }
+    //  wtf even is this
+//    public Map<ResourceType, Integer> giveResource(ResourceType resourceType, Integer integer) {
+//        Map<ResourceType, Integer> resourceMap = new HashMap<>();
+//        resourceMap.put(resourceType, integer);
+//        removeResource(resourceType, integer);
+//        return resourceMap;
+//    }
 }
