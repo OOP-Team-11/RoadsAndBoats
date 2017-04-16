@@ -1,8 +1,7 @@
-package game.model.gameImportExport;
+package game.model.gameImportExport.importer;
 
 import game.model.direction.Location;
 import game.model.map.RBMap;
-import game.model.resources.ResourceType;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
@@ -14,7 +13,6 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static game.model.resources.ResourceType.*;
 import static game.model.tile.Terrain.*;
 
 public class MapImporter {
@@ -30,7 +28,6 @@ public class MapImporter {
             }
 
             Tile tile = getTileForTileString(line);
-//            addResourcesToTileForTileString(tile, line);
             Location location = getLocationForTileString(line);
             map.placeTile(location, tile);
         }
@@ -127,53 +124,6 @@ public class MapImporter {
         }
 
         return RiverConfiguration.getNoRivers();
-    }
-
-    private ResourceType getResourceByString(String name) {
-        if (TRUNKS.getName().equals(name)) {
-            return TRUNKS;
-        } else if (BOARDS.getName().equals(name)) {
-            return BOARDS;
-        } else if (PAPER.getName().equals(name)) {
-            return PAPER;
-        } else if (GOOSE.getName().equals(name)) {
-            return GOOSE;
-        } else if (CLAY.getName().equals(name)) {
-            return CLAY;
-        } else if (FUEL.getName().equals(name)) {
-            return FUEL;
-        } else if (IRON.getName().equals(name)) {
-            return IRON;
-        } else if (GOLD.getName().equals(name)) {
-            return GOLD;
-        } else if (COINS.getName().equals(name)) {
-            return COINS;
-        } else if (STOCKBOND.getName().equals(name)) {
-            return STOCKBOND;
-        } else return null;
-    }
-
-    private void addResourcesToTileForTileString(Tile tile, String tileString) throws MalformedMapFileException {
-        // ([A-Z]*):([0-9]*)
-        // each match: group 1 is resource string, group 2 is amount
-        Pattern locationPattern = Pattern.compile("([A-Z]*):([0-9]*)");
-        Matcher m = locationPattern.matcher(tileString);
-        while (m.find()) {
-            String resourceString = m.group(1);
-            String amountString = m.group(2);
-
-            try {
-                ResourceType resourceType = getResourceByString(resourceString);
-                if (resourceType == null) {
-                    throw new MalformedMapFileException("Could not parse resource on line: " + tileString);
-                }
-                Integer amount = Integer.parseInt(amountString);
-//                tile.addResource(resourceType, amount);
-            } catch (NumberFormatException e) {
-                throw new MalformedMapFileException("Could not parse amount on line: " + tileString);
-            }
-
-        }
     }
 
     private Tile getTileForTileString(String tileString) throws MalformedMapFileException {

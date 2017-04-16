@@ -1,16 +1,13 @@
 package game;
 
 import game.controller.ControllerManager;
+import game.model.gameImportExport.exporter.GameExporter;
+import game.model.gameImportExport.importer.GameImporter;
 import game.model.managers.*;
 import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.PlayerId;
-import game.model.gameImportExport.GameExporter;
-import game.model.gameImportExport.MapImporter;
-import game.model.managers.GooseManager;
-import game.model.managers.StructureAbilityManager;
-import game.model.managers.StructureManager;
-import game.model.managers.TransportAbilityManager;
+import game.model.gameImportExport.importer.MapImporter;
 import game.model.map.RBMap;
 import game.utilities.exceptions.MalformedMapFileException;
 import game.view.ViewHandler;
@@ -31,13 +28,11 @@ public class GameInitializer {
         viewHandler = new ViewHandler(primaryStage);
         controllerManager = new ControllerManager(viewHandler);
 
-        MapImporter mapImporter = new MapImporter();
         GameExporter gameExporter;
         try {
-            BufferedReader br = new BufferedReader(new FileReader("map/" + gameFile));
             RBMap map = new RBMap();
             map.attach(viewHandler.getMainViewReference());
-            mapImporter.importMapFromFile(map, br);
+
             GooseManager gooseManager = new GooseManager(new GooseAbilityManager(controllerManager.getMainViewController(), map));
             TransportAbilityManager transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController(), gooseManager, map);
             Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name);
@@ -51,6 +46,8 @@ public class GameInitializer {
             StructureAbilityManager structureAbilityManager = new StructureAbilityManager(controllerManager.getMainViewController());
             StructureManager structureManager = new StructureManager(structureAbilityManager);
             structureManager.attach(viewHandler.getMainViewReference());
+
+            importFile(gameFile, map, structureManager);
 
             Game game = new Game(map, player1, player2, gooseManager, structureManager);
 
@@ -67,5 +64,25 @@ public class GameInitializer {
         }
 
         viewHandler.startGameLoop();
+    }
+
+    private void importFile(String filename, RBMap map, StructureManager structureManager) throws IOException, MalformedMapFileException {
+        if (filename.contains(".tinyrick")) {
+            importGame(filename, map, structureManager);
+        } else if (filename.contains(".map")) {
+            importMap(filename, map);
+        }
+    }
+
+    private void importMap(String filename, RBMap map) throws IOException, MalformedMapFileException {
+        BufferedReader br = new BufferedReader(new FileReader("map/" + filename));
+        MapImporter mapImporter = new MapImporter();
+        mapImporter.importMapFromFile(map, br);
+    }
+
+    private void importGame(String filename, RBMap map, StructureManager structureManager) throws IOException, MalformedMapFileException {
+        BufferedReader br = new BufferedReader(new FileReader("savedGames/" + filename));
+        GameImporter gameImporter = new GameImporter();
+        gameImporter.importGameFromFile(map, structureManager, br);
     }
 }

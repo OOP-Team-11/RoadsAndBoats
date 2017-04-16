@@ -1,21 +1,18 @@
-package model.gameImporter;
+package model.gameImportExport;
 
 import game.model.direction.TileCompartmentLocation;
+import game.model.gameImportExport.exporter.Exportable;
+import game.model.gameImportExport.exporter.GameInfoAdapter;
 import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
-import game.model.gameImportExport.Exportable;
-import game.model.gameImportExport.GameInfoAdapter;
 import game.model.managers.GooseManager;
 import game.model.managers.StructureManager;
 import game.model.managers.TransportManager;
 import game.model.map.RBMap;
 import game.model.resources.ResourceType;
-import game.model.tile.RiverConfiguration;
-import game.model.tile.Terrain;
-import game.model.tile.Tile;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
 import game.model.transport.WagonTransport;
