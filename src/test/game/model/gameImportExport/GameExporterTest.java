@@ -20,6 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -32,17 +33,38 @@ public class GameExporterTest {
     BufferedReader br;
     FileWriter fw;
 
+    ArrayList<Location> locations;// = new ArrayList<>();
+    ArrayList<Tile> tiles;// = new ArrayList<>();
+
     GameExporter gameExporter;// = new GameExporter(game);
 
 
     @Before
     public void setUp() {
         map = new RBMap();
-        map.placeTile(new Location(0,0,0),new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
-        map.placeTile(new Location(0,-1,1),new Tile(Terrain.DESERT, RiverConfiguration.getNoRivers()));
-        map.placeTile(new Location(0,1,-1),new Tile(Terrain.SEA, RiverConfiguration.getNoRivers()));
-        map.placeTile(new Location(-2,1,1),new Tile(Terrain.WOODS, RiverConfiguration.getNoRivers()));
-        map.placeTile(new Location(1,0,-1),new Tile(Terrain.MOUNTAIN, RiverConfiguration.getNoRivers()));
+        locations = new ArrayList<>();
+        tiles = new ArrayList<>();
+
+        locations.add(new Location(0,0,0));
+        locations.add(new Location(0,-1,1));
+        locations.add(new Location(0,1,-1));
+        locations.add(new Location(-2,1,1));
+        locations.add(new Location(1,0,-1));
+
+        tiles.add(new Tile(Terrain.PASTURE, RiverConfiguration.getEveryOtherFace()));
+        tiles.add(new Tile(Terrain.DESERT, RiverConfiguration.getAdjacentFaces()));
+        tiles.add(new Tile(Terrain.SEA, RiverConfiguration.getOppositeFaces()));
+        tiles.add(new Tile(Terrain.WOODS, RiverConfiguration.getSkipAFace()));
+        tiles.add(new Tile(Terrain.MOUNTAIN, RiverConfiguration.getNoRivers()));
+
+
+        map.placeTile(locations.get(0),tiles.get(0));
+        map.placeTile(locations.get(1),tiles.get(0));
+        map.placeTile(locations.get(2),tiles.get(0));
+        map.placeTile(locations.get(3),tiles.get(0));
+        map.placeTile(locations.get(4),tiles.get(0));
+
+
         TransportAbilityManager tm = new TransportAbilityManager(new MainViewController(),new GooseManager(), map);
         Game game = new Game(map,
                 new Player(tm, new PlayerId(1),"Player1"),
@@ -54,8 +76,7 @@ public class GameExporterTest {
 
     @Test
     public void printAllLocationsTest(){
-        String s = gameExporter.serializeMap();
-        System.out.println(s);
+        gameExporter.exportGameToPath("");
         assertTrue(true);
     }
 
