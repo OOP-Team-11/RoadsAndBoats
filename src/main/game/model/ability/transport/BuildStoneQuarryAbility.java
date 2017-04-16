@@ -5,24 +5,23 @@ import game.model.ability.Ability;
 import game.model.direction.TileCompartmentLocation;
 import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
-import game.model.structures.resourceProducer.primaryProducer.ClayPit;
+import game.model.structures.resourceProducer.primaryProducer.StoneQuarry;
 import game.model.structures.resourceProducer.primaryProducer.Woodcutter;
-import game.model.transport.Transport;
 import javafx.scene.input.KeyCode;
 
-public class BuildClayPitAbility extends Ability {
+public class BuildStoneQuarryAbility extends Ability {
     private ResourceManager resourceManager;
     private TileCompartmentLocation tileCompartmentLocation;
 
-    public BuildClayPitAbility(MainViewController mainViewController) {
+    public BuildStoneQuarryAbility(MainViewController mainViewController) {
         super(mainViewController);
     }
 
     @Override
     public void perform() {
-        this.resourceManager.removeResource(ResourceType.BOARDS, 1);
-        ClayPit clayPit = new ClayPit();
-//      TODO:  visitor.visit(claypit);
+        this.resourceManager.removeResource(ResourceType.BOARDS, 2);
+        StoneQuarry stoneQuarry = new StoneQuarry();
+//      TODO:  visitor.visit(stoneQuarry)
     }
 
     @Override
@@ -33,10 +32,10 @@ public class BuildClayPitAbility extends Ability {
     public void attachToController(ResourceManager transportRm, TileCompartmentLocation tileCompartmentLocation) {
         this.resourceManager = transportRm;
         this.tileCompartmentLocation = tileCompartmentLocation;
-        mainViewController.addControl(KeyCode.C, this);
+        mainViewController.addControl(KeyCode.S, this);
     }
     @Override
     public String getDisplayString() {
-        return "Build Clay Pit";
+        return "Build Stone Quarry";
     }
 }
