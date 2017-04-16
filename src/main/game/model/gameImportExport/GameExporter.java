@@ -2,6 +2,7 @@ package game.model.gameImportExport;
 
 import game.model.direction.Location;
 import game.model.map.RBMap;
+import game.model.tile.Tile;
 import game.model.tinyGame.Game;
 
 import java.util.Set;
@@ -17,7 +18,7 @@ public class GameExporter {
 
     }
 
-    private String serializeMap(){
+    public String serializeMap(){
         String serializedMap = "";
         RBMap map = game.getMap();
         Set<Location> locSet = map.getAllLocations();
@@ -25,7 +26,15 @@ public class GameExporter {
         locations = locSet.toArray(locations);
 
         for(int i = 0; i < locations.length; i++){
-            System.out.println(locations[i].toString());
+            Tile thisTile = map.getTile(locations[i]);
+
+            serializedMap += locations[i].getExportString() + " ";
+
+            //Terrain
+            serializedMap += thisTile.getTerrain();
+
+
+            serializedMap += "\n";
         }
 
 

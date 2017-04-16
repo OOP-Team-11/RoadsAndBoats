@@ -32,28 +32,31 @@ public class GameExporterTest {
     BufferedReader br;
     FileWriter fw;
 
+    GameExporter gameExporter;// = new GameExporter(game);
+
+
     @Before
     public void setUp() {
-        testFile = new File(filePath);
         map = new RBMap();
-        mapImporter = new MapImporter();
-        try{
-            mapImporter.importMapFromFile(map, br);
-        } catch (Exception e) {
-            fail();
-        }
+        map.placeTile(new Location(0,0,0),new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
+        map.placeTile(new Location(0,-1,1),new Tile(Terrain.DESERT, RiverConfiguration.getNoRivers()));
+        map.placeTile(new Location(0,1,-1),new Tile(Terrain.SEA, RiverConfiguration.getNoRivers()));
+        map.placeTile(new Location(-2,1,1),new Tile(Terrain.WOODS, RiverConfiguration.getNoRivers()));
+        map.placeTile(new Location(1,0,-1),new Tile(Terrain.MOUNTAIN, RiverConfiguration.getNoRivers()));
         TransportAbilityManager tm = new TransportAbilityManager(new MainViewController(),new GooseManager(), map);
         Game game = new Game(map,
                 new Player(tm, new PlayerId(1),"Player1"),
                 new Player(tm, new PlayerId(2),"Player2"),
                 new GooseManager(),
                 new StructureManager(new StructureAbilityManager(new MainViewController())));
-        GameExporter gameExporter = new GameExporter(game);
+        gameExporter = new GameExporter(game);
     }
 
     @Test
     public void printAllLocationsTest(){
-
+        String s = gameExporter.serializeMap();
+        System.out.println(s);
+        assertTrue(true);
     }
 
 
