@@ -478,6 +478,7 @@ public class MainView extends View
         this.selectGC.drawImage(assets.STOCK_EXCHANGE_BUILDING,125,550,52,52);
         this.selectGC.drawImage(assets.OIL_RIG_BUILDING,125,610,52,52);
         this.selectGC.drawImage(assets.MINE_BUILDING,125,670,52,104);
+        this.selectGC.drawImage(assets.MINE_AMOUNT_UNKOWN,125,670,52,18);
 
         // column 3
         this.selectGC.drawImage(assets.WAGON_FACTORY,225,430, 52, 52);
@@ -504,7 +505,6 @@ public class MainView extends View
         this.selectGC.strokeText("1",180,525);
         this.selectGC.strokeText("2",180,585);
         this.selectGC.strokeText("0",180,645);
-        this.selectGC.strokeText("0",180,705);
         this.selectGC.strokeText("1",180,765);
 
         // column 3
