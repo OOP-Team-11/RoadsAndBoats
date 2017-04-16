@@ -81,7 +81,7 @@ public class Wonder implements TurnObserver, MapRenderInfoObserver {
         }
     }
 
-    public int getBrickCost(PlayerId playerId) {
+    public int getCurrentBrickCost(PlayerId playerId) {
         return getCost(playerId);
     }
 
