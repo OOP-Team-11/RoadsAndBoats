@@ -18,7 +18,7 @@ public class Player implements MapTransportRenderInfoObservable{
     private String name;
     private TileCompartmentLocation startingLocation;
 
-    public Player(TransportManager transportManager, PlayerId playerId, String name) {
+    public Player(TransportManager transportManager, PlayerId playerId, String name, TileCompartmentLocation startingLocation) {
         this.playerId = playerId;
         this.transportManager = transportManager;
         this.transportProducerManager = new TransportProducerManager(this);
