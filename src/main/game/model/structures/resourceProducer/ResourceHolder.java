@@ -12,24 +12,24 @@ public abstract class ResourceHolder extends Structure {
         this.resourceManager = new ResourceManager();
     }
 
-    protected int getWealthPoints() {
+    public int getWealthPoints() {
         return resourceManager.getWealthPoints();
     }
 
-    protected void addToResourceManager(ResourceType resourceType, Integer amount) {
-        resourceManager.addResource(resourceType, amount);
+    public void storeResource(ResourceType type, Integer numberToRemove) {
+        resourceManager.addResource(type, numberToRemove);
     }
 
-    protected boolean removeFromResourceManager(ResourceType resourceType, Integer amount) {
-        return resourceManager.removeResource(resourceType, amount);
+    public boolean takeResource(ResourceType type, Integer numberToRemove) {
+        return resourceManager.removeResource(type, numberToRemove);
     }
 
-    protected boolean hasResourceInResourceManager(ResourceType resourceType) {
-        return resourceManager.hasResource(resourceType);
+    public boolean hasResource(ResourceType wellDoesIt) {
+        return resourceManager.hasResource(wellDoesIt);
     }
 
-    protected int getResourceCountFromResourceManager(ResourceType resourceType) {
-        return resourceManager.getResourceCount(resourceType);
+    public int getResourceCount(ResourceType desiredType) {
+        return resourceManager.getResourceCount(desiredType);
     }
 
     public abstract boolean produce();

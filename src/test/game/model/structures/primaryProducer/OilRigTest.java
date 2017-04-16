@@ -1,4 +1,4 @@
-package model.structures.primaryProducer;
+package game.model.structures.primaryProducer;
 
 import game.model.resources.*;
 import game.model.structures.resourceProducer.primaryProducer.OilRig;
@@ -120,6 +120,36 @@ public class OilRigTest {
         assertEquals(oilRig.getResourceCount(ResourceType.STOCKBOND), 0);
         assertEquals(oilRig.getResourceCount(ResourceType.STONE), 0);
         assertEquals(oilRig.getResourceCount(ResourceType.TRUNKS), 0);
+    }
+
+    @Test
+    public void getWealthPointsGold() {
+        OilRig oilRig = new OilRig();
+        oilRig.storeResource(ResourceType.GOLD, 1);
+        assertEquals(oilRig.getWealthPoints(), 10);
+    }
+
+    @Test
+    public void getWealthPointsCoins() {
+        OilRig oilRig = new OilRig();
+        oilRig.storeResource(ResourceType.COINS, 1);
+        assertEquals(oilRig.getWealthPoints(), 40);
+    }
+
+    @Test
+    public void getWealthPointsStockBond() {
+        OilRig oilRig = new OilRig();
+        oilRig.storeResource(ResourceType.STOCKBOND, 1);
+        assertEquals(oilRig.getWealthPoints(), 120);
+    }
+
+    @Test
+    public void getWealthPointsAll() {
+        OilRig oilRig = new OilRig();
+        oilRig.storeResource(ResourceType.GOLD, 1);
+        oilRig.storeResource(ResourceType.COINS, 1);
+        oilRig.storeResource(ResourceType.STOCKBOND, 1);
+        assertEquals(oilRig.getWealthPoints(), 120+40+10);
     }
 
 }

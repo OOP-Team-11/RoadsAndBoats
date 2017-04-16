@@ -1,7 +1,7 @@
 package game.model.structures;
 
 import game.model.ability.Ability;
-import game.model.gameImporter.exporter.Serializable;
+import game.model.gameImportExport.exporter.Serializable;
 
 import java.util.Vector;
 

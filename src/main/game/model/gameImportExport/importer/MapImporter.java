@@ -1,9 +1,7 @@
-package game.model.gameImporter.importer;
+package game.model.gameImportExport.importer;
 
 import game.model.direction.Location;
 import game.model.map.RBMap;
-import game.model.resources.ResourceManager;
-import game.model.resources.ResourceType;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
@@ -15,7 +13,6 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static game.model.resources.ResourceType.*;
 import static game.model.tile.Terrain.*;
 
 public class MapImporter {

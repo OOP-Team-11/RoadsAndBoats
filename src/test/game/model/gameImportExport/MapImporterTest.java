@@ -1,11 +1,10 @@
-package model.gameImporter;
+package model.gameImportExport;
 
 import game.model.direction.Location;
-import game.model.resources.ResourceType;
+import game.model.gameImportExport.importer.MapImporter;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Tile;
 import game.utilities.exceptions.MalformedMapFileException;
-import game.model.gameImporter.importer.MapImporter;
 import game.model.map.RBMap;
 import game.model.tile.Terrain;
 import org.junit.Before;
@@ -821,50 +820,4 @@ public class MapImporterTest {
         }
     }
 
-    @Test
-    public void tile_resource() {
-        try {
-            fw.write("( 0 0 0 ) SEA GOLD:2");
-            fw.write(System.lineSeparator());
-            fw.write("END MAP");
-            fw.write(System.lineSeparator());
-            fw.close();
-        } catch (IOException e) {
-            fail();
-        }
-
-        try {
-            Location location = new Location(0,0,0);
-            mapImporter.importMapFromFile(map, br);
-            assertNotNull(map.getTiles().get(location));
-            assertEquals(map.getTiles().get(location).getResourceManager().getResourceCount(ResourceType.GOLD), 2);
-        } catch (MalformedMapFileException |IOException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void tile_resource_2() {
-        try {
-            fw.write("( 0 0 0 ) SEA GOLD:2 BOARDS:4 CLAY:1");
-            fw.write(System.lineSeparator());
-            fw.write("END MAP");
-            fw.write(System.lineSeparator());
-            fw.close();
-        } catch (IOException e) {
-            fail();
-        }
-
-        try {
-            Location location = new Location(0,0,0);
-            mapImporter.importMapFromFile(map, br);
-            assertNotNull(map.getTiles().get(location));
-            assertEquals(map.getTiles().get(location).getResourceManager().getResourceCount(ResourceType.GOLD), 2);
-            assertEquals(map.getTiles().get(location).getResourceManager().getResourceCount(ResourceType.BOARDS), 4);
-            assertEquals(map.getTiles().get(location).getResourceManager().getResourceCount(ResourceType.CLAY), 1);
-
-        } catch (MalformedMapFileException |IOException e) {
-            fail();
-        }
-    }
 }

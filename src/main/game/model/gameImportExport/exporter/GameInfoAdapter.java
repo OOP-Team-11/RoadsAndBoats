@@ -1,6 +1,5 @@
-package game.model.gameImporter.importer;
+package game.model.gameImportExport.exporter;
 
-import game.model.gameImporter.exporter.Exportable;
 import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.direction.Location;
@@ -28,9 +27,8 @@ public class GameInfoAdapter {
             Tile tile = map.getTile(location);
             Terrain terrain = tile.getTerrain();
             RiverConfiguration riverConfiguration = tile.getRiverConfiguration();
-            ResourceManager resourceManager = tile.getResourceManager();
             Exportable exportable = new Exportable(location, terrain.getExportString()
-                    + " " + riverConfiguration.getExportString() + " " + tile.getResourceManager().getExportString());
+                    + " " + riverConfiguration.getExportString());
             exportables.add(exportable);
         }
         return exportables;

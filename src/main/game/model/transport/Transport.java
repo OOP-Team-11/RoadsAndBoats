@@ -1,15 +1,16 @@
 package game.model.transport;
 
 import game.model.PlayerId;
+import game.model.gameImportExport.exporter.Serializable;
 import game.model.resources.Goose;
 import game.model.resources.ResourceManager;
+import game.model.resources.ResourceType;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
 
-public abstract class Transport {
+public abstract class Transport implements Serializable {
     private Vector<Goose> followers;
     private PlayerId playerId;
     private TransportId transportId;
@@ -36,14 +37,73 @@ public abstract class Transport {
     }
 
     public abstract String getExportString();
+    public abstract boolean canReproduce();
 
     public PlayerId getPlayerId() {
         return this.playerId;
     }
+    public TransportId getTransportId() { return this.transportId; }
 
     public ResourceManager getResourceManager() {
         return this.resourceManager;
     }
+
+    public int getWealthPoints() {
+        return resourceManager.getWealthPoints();
+    }
+
+    public boolean storeResource(ResourceType type, Integer numberToAdd) {
+        if (canStoreResource(numberToAdd)) {
+            lowerCarryCapacity(numberToAdd);
+            resourceManager.addResource(type, numberToAdd);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean takeResource(ResourceType type, Integer numberToRemove) {
+        if (resourceManager.removeResource(type, numberToRemove)) {
+            raiseCarryCapacity(numberToRemove);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasResource(ResourceType wellDoesIt) {
+        return resourceManager.hasResource(wellDoesIt);
+    }
+
+    public int getResourceCount(ResourceType desiredType) {
+        return resourceManager.getResourceCount(desiredType);
+    }
+
+    private boolean canStoreResource(int number) {
+        return (carryCapacity != 0)
+                && (carryCapacity > number);
+    }
+
+    private void lowerCarryCapacity(int number) {
+        carryCapacity = carryCapacity - number;
+    }
+
+    private void raiseCarryCapacity(int number) {
+        carryCapacity = carryCapacity + number;
+    }
+
+    public int getMoveCapacity() {
+        return this.moveCapacity;
+    }
+
+    public int getCarryCapacity() {
+        return this.carryCapacity;
+    }
+
+    public List<Goose> getFollowers() {
+        return this.followers;
+    }
+
+    // use for view drawing and import/export to file ONLY
+    public abstract TransportType getType();
 
     @Override
     public int hashCode() {

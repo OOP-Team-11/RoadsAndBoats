@@ -1,4 +1,4 @@
-package game.model.gameImporter.importer;
+package game.model.gameImportExport.importer;
 
 import game.model.managers.StructureManager;
 import game.model.map.RBMap;

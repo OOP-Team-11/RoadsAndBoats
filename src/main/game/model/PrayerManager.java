@@ -10,7 +10,7 @@ public class PrayerManager
     {
         if(playerIds.size()<2)
         {
-            throw new IllegalArgumentException("At least two players are required for a game.");
+            throw new IllegalArgumentException("At least two players are required for a tinyGame.");
         }
 
         this.playerIds=playerIds;

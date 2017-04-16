@@ -111,7 +111,7 @@ public class ViewHandler {
         this.navigationBarAnchorPane.setMinWidth(80);
         this.hbox.getChildren().add(mainViewAnchor);
         this.hbox.setSpacing(0.0);
-        // at the start of the game mainView is active
+        // at the start of the tinyGame mainView is active
     }
 
     public MainView getMainViewReference(){
