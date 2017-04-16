@@ -1,4 +1,4 @@
-package game.model.abilities;
+package model.abilities;
 
 import game.controller.MainViewController;
 import game.model.Player;
@@ -9,6 +9,7 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.managers.GooseAbilityManager;
 import game.model.managers.GooseManager;
 import game.model.managers.TransportAbilityManager;
+import game.model.managers.TransportManager;
 import game.model.map.RBMap;
 import game.model.resources.Goose;
 import game.model.resources.GooseId;
@@ -31,8 +32,10 @@ public class GooseAbilityTest {
         TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
-        GooseManager gooseManager = new GooseManager(new GooseAbilityManager(mainViewController, map));
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        GooseManager gooseManager = new GooseManager(mainViewController, map);
+        PlayerId playerId = new PlayerId(1);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        Player player1 = new Player(transportManager, playerId, "Morty");
         Goose goose1 = new Goose(new GooseId());
         Goose goose2 = new Goose(new GooseId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
@@ -48,8 +51,10 @@ public class GooseAbilityTest {
         TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
-        GooseManager gooseManager = new GooseManager(new GooseAbilityManager(mainViewController, map));
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        GooseManager gooseManager = new GooseManager(mainViewController, map);
+        PlayerId playerId = new PlayerId(1);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        Player player1 = new Player(transportManager, playerId, "Morty");
         Goose goose1 = new Goose(new GooseId());
         Goose goose2 = new Goose(new GooseId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
@@ -67,8 +72,10 @@ public class GooseAbilityTest {
         TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
-        GooseManager gooseManager = new GooseManager(new GooseAbilityManager(mainViewController, map));
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        GooseManager gooseManager = new GooseManager(mainViewController, map);
+        PlayerId playerId = new PlayerId(1);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        Player player1 = new Player(transportManager, playerId, "Morty");
         Goose goose1 = new Goose(new GooseId());
         Goose goose2 = new Goose(new GooseId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
@@ -85,8 +92,10 @@ public class GooseAbilityTest {
         TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
-        GooseManager gooseManager = new GooseManager(new GooseAbilityManager(mainViewController, map));
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        GooseManager gooseManager = new GooseManager(mainViewController, map);
+        PlayerId playerId = new PlayerId(1);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        Player player1 = new Player(transportManager, playerId, "Morty");
         Goose goose1 = new Goose(new GooseId());
         Goose goose2 = new Goose(new GooseId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));

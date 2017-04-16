@@ -6,6 +6,7 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.factory.AbilityFactory;
 import game.model.map.RBMap;
 import game.model.structures.Structure;
+import game.model.visitors.StructureManagerVisitor;
 
 import java.util.ArrayList;
 
@@ -15,11 +16,13 @@ public class StructureAbilityManager
     private ArrayList<Ability> abilities;
     private RBMap map;
     private MainViewController mainViewController;
+    private StructureManagerVisitor structureManagerVisitor;
 
-    public StructureAbilityManager(MainViewController mainViewController) {
+    public StructureAbilityManager(MainViewController mainViewController, RBMap map, StructureManagerVisitor structureManagerVisitor) {
         this.mainViewController = mainViewController;
         this.abilityFactory = new AbilityFactory(mainViewController);
         this.abilities = new ArrayList<Ability>();
+        this.structureManagerVisitor = structureManagerVisitor;
     }
 
     public void setMap(RBMap map) {

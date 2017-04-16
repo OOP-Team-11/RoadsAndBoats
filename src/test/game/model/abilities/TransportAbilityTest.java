@@ -8,6 +8,7 @@ import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.managers.GooseManager;
 import game.model.managers.TransportAbilityManager;
+import game.model.managers.TransportManager;
 import game.model.map.RBMap;
 import game.model.resources.Goose;
 import game.model.resources.GooseId;
@@ -28,11 +29,13 @@ public class TransportAbilityTest {
     @Test
     public void addFollowAbilityTest() {
         TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
-        GooseManager gooseManager = new GooseManager();
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        GooseManager gooseManager = new GooseManager(mainViewController, map);
+        PlayerId playerId = new PlayerId(1);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        Player player1 = new Player(transportManager, playerId, "Morty");
         Transport donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
 //        Add 2 geese to same location that donkey is at so he will have 2 followAbilities. One or both follow.
         gooseManager.addGoose(location, new Goose(new GooseId()));
@@ -46,10 +49,12 @@ public class TransportAbilityTest {
     @Test
     public void addTransportReproduceAbilityTest() {
         TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
-        GooseManager gooseManager = new GooseManager();
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        GooseManager gooseManager = new GooseManager(mainViewController, map);
+        PlayerId playerId = new PlayerId(1);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        Player player1 = new Player(transportManager, playerId, "Morty");
         Transport donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(),new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
@@ -62,10 +67,12 @@ public class TransportAbilityTest {
     @Test
     public void cantReproduceDueToResourcesTest() {
         TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
-        GooseManager gooseManager = new GooseManager();
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        GooseManager gooseManager = new GooseManager(mainViewController, map);
+        PlayerId playerId = new PlayerId(1);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        Player player1 = new Player(transportManager, playerId, "Morty");
         Transport donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
@@ -79,10 +86,12 @@ public class TransportAbilityTest {
     @Test
     public void cantReproduceDueToStructureTest() {
         TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
-        GooseManager gooseManager = new GooseManager();
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        GooseManager gooseManager = new GooseManager(mainViewController, map);
+        PlayerId playerId = new PlayerId(1);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        Player player1 = new Player(transportManager, playerId, "Morty");
         Transport donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
@@ -97,10 +106,12 @@ public class TransportAbilityTest {
     @Test
     public void cantReproduceDueToGeeseTest() {
         TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
-        GooseManager gooseManager = new GooseManager();
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        GooseManager gooseManager = new GooseManager(mainViewController, map);
+        PlayerId playerId = new PlayerId(1);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        Player player1 = new Player(transportManager, playerId, "Morty");
         Transport donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(),new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
