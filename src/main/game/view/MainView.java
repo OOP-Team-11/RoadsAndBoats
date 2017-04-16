@@ -45,7 +45,8 @@ public class MainView extends View
     private AnchorPane anchorPane;
     private TransportRenderInfo transportRenderInfo;
     private MapStructureRenderInfo mapStructureRenderInfo;
-    private MapTransportRenderInfo mapTransportRenderInfo;
+    private MapTransportRenderInfo mapTransportRenderInfoP1;
+    private MapTransportRenderInfo mapTransportRenderInfoP2;
     private ResourceRenderInfo resourceRenderInfo;
     private PlayerRenderInfo playerRenderInfo;
     private PhaseRenderInfo phaseRenderInfo;
@@ -151,7 +152,8 @@ public class MainView extends View
     private void updateSidePanel(){
         if(cursorRenderInfo != null){
             drawLargeSelectedTileOnSide(cursorRenderInfo.getCursorLocation());
-            drawTransportsOnLargeSideTile(cursorRenderInfo.getCursorLocation());
+            drawTransportsOnLargeSideTile(cursorRenderInfo.getCursorLocation(), mapTransportRenderInfoP1);
+            drawTransportsOnLargeSideTile(cursorRenderInfo.getCursorLocation(), mapTransportRenderInfoP2);
             drawGoodsOnLargeSideTile(cursorRenderInfo.getCursorLocation());
         }
     }
@@ -284,7 +286,7 @@ public class MainView extends View
         }
     }
 
-    private void drawTransportsOnLargeSideTile(Location location){
+    private void drawTransportsOnLargeSideTile(Location location, MapTransportRenderInfo mapTransportRenderInfo){
         if(isNull(mapTransportRenderInfo)){
             // nothing to display
         } else {
@@ -341,15 +343,18 @@ public class MainView extends View
     private void checkForOverlay(){
         if(cursorRenderInfo != null && cursorRenderInfo.isMenuClicked()){
             closeOverlaySelect();
-            setOverLayOptions();
+            if(playerRenderInfo.getPlayerID().getPlayerIdNumber() == 1){
+                setOverLayOptions(mapTransportRenderInfoP1);
+            } else {
+                setOverLayOptions(mapTransportRenderInfoP2);
+            }
             displayOverlaySelect(cursorRenderInfo.getClickX(), cursorRenderInfo.getClickY());
         } else {
             closeOverlaySelect();
         }
     }
 
-    private void setOverLayOptions(){
-
+    private void setOverLayOptions(MapTransportRenderInfo mapTransportRenderInfo){
         // first we get the location of cursor
         Location location = cursorRenderInfo.getCursorLocation();
         ArrayList<String> transporteres = new ArrayList<String>();
@@ -641,7 +646,7 @@ public class MainView extends View
 
     }
 
-    private void displayMapTransportRenderInfo(){
+    private void displayMapTransportRenderInfo(MapTransportRenderInfo mapTransportRenderInfo){
         if(isNull(mapTransportRenderInfo)){
             // nothing to render
         } else {
@@ -712,7 +717,8 @@ public class MainView extends View
             drawPlayerName();
             drawCurrentPhase();
 
-            displayMapTransportRenderInfo();
+            displayMapTransportRenderInfo(mapTransportRenderInfoP1);
+            displayMapTransportRenderInfo(mapTransportRenderInfoP2);
             displayResourceRenderInfo();
             displayStructureRenderInfo();
 
@@ -779,7 +785,12 @@ public class MainView extends View
 
     @Override
     public void updateMapTransportInfo(MapTransportRenderInfo mapTransportRenderInfo) {
-        this.mapTransportRenderInfo = mapTransportRenderInfo;
+
+        if(mapTransportRenderInfo.getPlayerId().getPlayerIdNumber() == 1){
+            this.mapTransportRenderInfoP1 = mapTransportRenderInfo;
+        } else {
+            this.mapTransportRenderInfoP2 = mapTransportRenderInfo;
+        }
         this.refresh = true;
     }
 }
