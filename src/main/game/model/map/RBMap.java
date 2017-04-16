@@ -164,6 +164,7 @@ public class RBMap implements MapRenderInfoObservable
 
     public void attach(MapRenderInfoObserver observer) {
         mapRenderInfoObservers.add(observer);
+        notifyMapRenderInfoObservers();
     }
 
     public void detach(MapRenderInfoObserver observer) {

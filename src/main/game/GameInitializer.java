@@ -1,6 +1,9 @@
 package game;
 
 import game.controller.ControllerManager;
+import game.model.direction.Location;
+import game.model.direction.TileCompartmentDirection;
+import game.model.direction.TileCompartmentLocation;
 import game.model.gameImportExport.exporter.GameExporter;
 import game.model.gameImportExport.importer.GameImporter;
 import game.model.managers.*;
@@ -35,9 +38,13 @@ public class GameInitializer {
 
             GooseManager gooseManager = new GooseManager(new GooseAbilityManager(controllerManager.getMainViewController(), map));
             TransportAbilityManager transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController(), gooseManager, map);
-            Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name);
+
+            TileCompartmentLocation player1StartingLocation = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
+            Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name, player1StartingLocation);
             player1.attach(viewHandler.getMainViewReference());
-            Player player2 = new Player(transportAbilityManager, new PlayerId(2), player2Name);
+
+            TileCompartmentLocation player2StartingLocation = new TileCompartmentLocation(new Location(0,-1,1), TileCompartmentDirection.getNorth());
+            Player player2 = new Player(transportAbilityManager, new PlayerId(2), player2Name, player2StartingLocation);
             player2.attach(viewHandler.getMainViewReference());
 
             gooseManager.addTransportManager(player1.getTransportManager());
