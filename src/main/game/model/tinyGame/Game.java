@@ -2,7 +2,7 @@ package game.model.tinyGame;
 
 import game.model.Player;
 import game.model.PlayerId;
-import game.model.PrayerManager;
+import game.model.managers.PrayerManager;
 import game.model.managers.GooseManager;
 import game.model.managers.StructureManager;
 import game.model.map.RBMap;
@@ -45,7 +45,6 @@ public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservab
         playerIds.add(player1.getPlayerId());
         playerIds.add(player2.getPlayerId());
         prayerManager=new PrayerManager(playerIds);
-        this.gooseManager = gooseManager;
     }
 
     public Player getCurrentPlayer() {

@@ -1,7 +1,8 @@
-package game.model.resources;
+package game.model.managers;
 
 
-import game.model.gameImporter.Serializable;
+import game.model.gameImportExport.exporter.Serializable;
+import game.model.resources.ResourceType;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -23,9 +24,9 @@ public class ResourceManager implements Serializable {
         return points;
     }
 
-    public void addResource(ResourceType type, Integer numberToRemove){
+    public void addResource(ResourceType type, Integer numberToAdd){
         resourceTypeIntegerMap.putIfAbsent(type,0); // Initialize the entry to 0 if it doesn't exist
-        resourceTypeIntegerMap.replace(type, resourceTypeIntegerMap.get(type)+numberToRemove); //Add the specified number
+        resourceTypeIntegerMap.replace(type, resourceTypeIntegerMap.get(type)+numberToAdd); //Add the specified number
     }
 
     public boolean removeResource(ResourceType type, Integer numberToRemove){
@@ -68,5 +69,17 @@ public class ResourceManager implements Serializable {
 
     public boolean isEmpty() {
         return (resourceTypeIntegerMap.size() == 0);
+    }
+
+    public boolean hasNoResources() {
+        Iterator it = resourceTypeIntegerMap.entrySet().iterator();
+        int count = 0;
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            ResourceType resource = (ResourceType) pair.getKey();
+            Integer resourceCount = (Integer) pair.getValue();
+            count += resourceCount;
+        }
+        return (count == 0);
     }
 }

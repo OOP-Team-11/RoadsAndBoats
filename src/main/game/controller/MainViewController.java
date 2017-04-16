@@ -2,6 +2,7 @@ package game.controller;
 
 import game.model.ability.Ability;
 import game.model.direction.Location;
+import game.model.transport.TransportId;
 import game.view.MainView;
 import game.view.render.CursorRenderInfo;
 import javafx.scene.input.KeyCode;
@@ -30,6 +31,7 @@ public class MainViewController {
         attachViewKeyboardEvent();
         addMouseClickEventToMap();
         initializeMouseClickInterpreter();
+        attachEventToRightClickMenu();
         notifyViewCamera();
         addSlideEventHandler();
         addTurnFinishButtonHandler();
@@ -94,10 +96,19 @@ public class MainViewController {
                 } else { // events on right side panel
 
                 }
-
             }
         };
         mainView.addEventFilterToMainView(MouseEvent.MOUSE_CLICKED,eventHandler);
+    }
+
+    private void attachEventToRightClickMenu(){
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent e) {
+                // TODO, hook this up to model and whatnot
+                 TransportId selectedTransport = mainView.getCurrentlySelectedTransportID();
+            }
+        };
+        this.mainView.addEventFilterToRightClickMenu(MouseEvent.MOUSE_CLICKED,eventHandler);
     }
 
     private void attachViewKeyboardEvent(){

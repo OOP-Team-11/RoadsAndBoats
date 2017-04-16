@@ -1,5 +1,6 @@
 package game.model.managers;
 
+import game.controller.MainViewController;
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.direction.Location;
@@ -10,6 +11,8 @@ import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
 import game.model.transport.TransportLocation;
+import game.model.visitors.StructureManagerVisitor;
+import game.model.visitors.TransportManagerVisitor;
 import game.utilities.observable.MapTransportRenderInfoObservable;
 import game.utilities.observer.MapStructureRenderInfoObserver;
 import game.utilities.observer.MapTransportRenderInfoObserver;
@@ -20,21 +23,21 @@ import game.view.render.TransportRenderInfo;
 
 import java.util.*;
 
-public class TransportManager implements MapTransportRenderInfoObservable{
+public class TransportManager implements MapTransportRenderInfoObservable, TransportManagerVisitor {
 
-    private Player player;
+    private PlayerId playerId;
     private TransportAbilityManager transportAbilityManager;
     private Map<TileCompartmentLocation, List<Transport>> transports;
     private List<MapTransportRenderInfoObserver> mapTransportRenderInfoObservers;
-    public TransportManager(Player player, TransportAbilityManager transportAbilityManager) {
-        this.player = player;
+    public TransportManager(PlayerId playerId, MainViewController mainViewController, GooseManager gooseManager, RBMap map, StructureManagerVisitor structureManagerVisitor) {
+        this.playerId = playerId;
         this.transports = new HashMap<TileCompartmentLocation, List<Transport>>();
         this.mapTransportRenderInfoObservers = new Vector<>();
-        this.transportAbilityManager = transportAbilityManager;
+        this.transportAbilityManager = new TransportAbilityManager(mainViewController, gooseManager, map, this, structureManagerVisitor);
     }
 
     public PlayerId getPlayerId() {
-        return this.player.getPlayerId();
+        return this.playerId;
     }
 
     public void addTransport(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
@@ -48,6 +51,13 @@ public class TransportManager implements MapTransportRenderInfoObservable{
             transports.put(tileCompartmentLocation, transportList);
         }
 
+        notifyMapTransportRenderInfoObservers();
+    }
+
+    public void removeTransport(Transport t) {
+        for (List<Transport> transports : this.transports.values()) {
+            transports.removeIf(transport -> transport.equals(t));
+        }
         notifyMapTransportRenderInfoObservers();
     }
 
@@ -133,10 +143,21 @@ public class TransportManager implements MapTransportRenderInfoObservable{
     @Override
     public void attach(MapTransportRenderInfoObserver observer) {
         this.mapTransportRenderInfoObservers.add(observer);
+        notifyMapTransportRenderInfoObservers();
     }
 
     @Override
     public void detach(MapTransportRenderInfoObserver observer) {
         this.mapTransportRenderInfoObservers.remove(observer);
+    }
+
+    @Override
+    public void addTransportVisit(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        this.addTransport(transport, tileCompartmentLocation);
+    }
+
+    @Override
+    public void removeTransportVisit(Transport transport) {
+        this.removeTransport(transport);
     }
 }

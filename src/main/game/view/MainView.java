@@ -1,8 +1,11 @@
 package game.view;
 
 import game.model.direction.Location;
+import game.model.direction.TileCompartmentLocation;
+import game.model.resources.ResourceType;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
+import game.model.transport.TransportId;
 import game.utilities.observer.*;
 import game.view.render.*;
 import game.view.utilities.RenderToImageConverter;
@@ -24,6 +27,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.awt.image.ImageConsumer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class MainView extends View
@@ -69,6 +75,9 @@ public class MainView extends View
     private int imageY;
     private int verticalOffset;
     private int currentDisplayState;
+    private Location rightClickedLocation;
+    private ArrayList<TransportId> transportIds;
+    private double offset;
 
     public MainView(AnchorPane anchorPane){
         setAnchorPane(anchorPane);
@@ -78,6 +87,7 @@ public class MainView extends View
         setZoomSlider();
         placeFinishButton();
         initializeSelectButtons();
+        placeStartingCursor();
     }
     private void setAnchorPane(AnchorPane anchorPane){
         this.anchorPane = anchorPane;
@@ -104,7 +114,7 @@ public class MainView extends View
     }
     private void initializeOverlay(){
         this.overlayMenu = new ListView();
-        this.overlayMenu.setPrefWidth(120);
+        this.overlayMenu.setPrefWidth(125);
         this.overlayMenu.setPrefHeight(150);
         this.overlayMenu.setStyle(" -fx-font-size: 12pt");
     }
@@ -119,6 +129,11 @@ public class MainView extends View
         this.anchorPane.getChildren().add(zoomSlider);
         this.anchorPane.setTopAnchor(zoomSlider,550.0);
         this.anchorPane.setLeftAnchor(zoomSlider,50.0);
+    }
+
+    private void placeStartingCursor(){
+        this.cursorRenderInfo = new CursorRenderInfo(0,0,new Location(0,0,0),false);
+
     }
 
     private void setupSelectorCanvas(){
@@ -141,8 +156,8 @@ public class MainView extends View
             drawLargeSelectedTileOnSide(cursorRenderInfo.getCursorLocation());
         }
     }
-    private boolean checkForNullTerrain(Terrain terrain){
-        if(terrain == null){
+    private boolean isNull(Object object){
+        if(object == null){
             return true;
         }
         return false;
@@ -254,8 +269,9 @@ public class MainView extends View
     }
 
     private void drawLargeSelectedTileOnSide(Location location){
+        if (isNull(mapRenderInfo)) return;
         Terrain terrainType = mapRenderInfo.getTerrainMap().get(location);
-        if(checkForNullTerrain(terrainType)){
+        if(isNull(terrainType)){
             // white area selected
         } else {
             Image image = this.renderToImageConverter.getTerrainImage(terrainType);
@@ -290,15 +306,45 @@ public class MainView extends View
     }
 
     private void setOverLayOptions(){
-        // TODO, for the moment just random options, hook up later to actual options
-        String[] data = {"Transport1", "Transport2", "Transport3", "Goose1"};
-        ObservableList<String> items = FXCollections.observableArrayList(data);
+        // first we get the location of cursor
+        Location location = cursorRenderInfo.getCursorLocation();
+        ArrayList<String> transporteres = new ArrayList<String>();
+        this.transportIds = new ArrayList<>(); // clear
+        if(isNull(location) || isNull(mapTransportRenderInfo)){
+            // not valid location
+        } else {
+            this.rightClickedLocation = location; // saved in case it's changed after right clicking
+            // itterate over transports and see if location matches
+            for (Map.Entry<TileCompartmentLocation, TransportRenderInfo> entry : mapTransportRenderInfo.getTransports().entrySet()) {
+                if(entry.getKey().getLocation().equals(location)){
+                    // same location
+                    transporteres.add(entry.getValue().getTransportType().getName()); // append to options that will be displayed
+                    transportIds.add(entry.getValue().getTransportID()); // append to list that keeps track of IDs to return to model
+                } else {
+                    // nope
+                }
+                entry.getValue();
+            }
+        }
+        if(transporteres.size() == 0){
+            transporteres.add(new String("No Transports"));
+        }
+        ObservableList<String> items = FXCollections.observableArrayList(transporteres);
         this.overlayMenu.setItems(items);
+    }
+
+    public TransportId getCurrentlySelectedTransportID(){
+        int index = this.overlayMenu.getSelectionModel().getSelectedIndex();
+        if(index == 0 && this.overlayMenu.getSelectionModel().getSelectedItems().get(0).equals("No Transports")){
+            return null; // no transporter available on tile
+        } else {
+            return transportIds.get(index); // valid transport has been selected
+        }
     }
 
     private void drawMap(){
 
-        if(mapRenderInfo == null){
+        if(isNull(mapRenderInfo)){
             // no information yet
         } else {
             for (Map.Entry<Location, Terrain> entry : mapRenderInfo.getTerrainMap().entrySet())
@@ -345,6 +391,7 @@ public class MainView extends View
         // display count TODO update values later with actual information
         this.selectGC.setFont(new Font(17));
         this.selectGC.setLineWidth(1);
+
         this.selectGC.strokeText("Boards: 5",80,460 );
         this.selectGC.strokeText("Clay: 5",80,520 );
         this.selectGC.strokeText("Gold: 4",80,580 );
@@ -461,6 +508,7 @@ public class MainView extends View
     public double getZoomSliderValue(){
         return this.zoomSlider.getValue();
     }
+
     public void addEventFilterToFinishButton(EventType eventType, EventHandler filter){
         this.finishTurn.addEventFilter(eventType, filter);
     }
@@ -468,6 +516,9 @@ public class MainView extends View
     public void addEventFilterToMainView(EventType eventType, EventHandler filter){
         this.anchorPane.setFocusTraversable(true);
         this.anchorPane.addEventFilter(eventType, filter);
+    }
+    public void addEventFilterToRightClickMenu(EventType eventType, EventHandler filter){
+        this.overlayMenu.addEventFilter(eventType,filter);
     }
 
     public void addEventFilterToZoomSlider(EventType eventType, EventHandler filter){
@@ -542,6 +593,63 @@ public class MainView extends View
 
     }
 
+    private void displayMapTransportRenderInfo(){
+        if(isNull(mapTransportRenderInfo)){
+            // nothing to render
+        } else {
+            for ( Map.Entry<TileCompartmentLocation, TransportRenderInfo> entry : mapTransportRenderInfo.getTransports().entrySet())
+            {
+                Image image;
+                if(entry.getValue().getOwner().getPlayerIdNumber() == 1){
+                    image = renderToImageConverter.getBlueTransportImage(entry.getValue().getTransportType());
+                } else {
+                    image = renderToImageConverter.getRedTransportImage(entry.getValue().getTransportType());
+                }
+                int x = entry.getKey().getLocation().getX();
+                int y = entry.getKey().getLocation().getY();
+                int z = entry.getKey().getLocation().getZ();
+                // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
+                int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
+                drawCompartmentLargeImage(image,x,y,z,compartment+1);
+            }
+        }
+    }
+
+    private void displayResourceRenderInfo(){
+        if(isNull(resourceRenderInfo)){
+            // nothing to render
+        } else {
+            for ( HashMap.Entry<TileCompartmentLocation, HashMap<ResourceType, Integer>> entry : resourceRenderInfo.resources.entrySet())
+            {
+                int x = entry.getKey().getLocation().getX();
+                int y = entry.getKey().getLocation().getY();
+                int z = entry.getKey().getLocation().getZ();
+                // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
+                int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
+                for ( HashMap.Entry<ResourceType, Integer> entry2 : entry.getValue().entrySet()){
+                    Image image = renderToImageConverter.getResourceImage(entry2.getKey());
+                    drawCompartmentSmallImage(image,x,y,z,compartment+1);
+                }
+            }
+        }
+    }
+    private void displayStructureRenderInfo(){
+        if(isNull(mapStructureRenderInfo)){
+            // nothing to render
+        } else {
+            for ( Map.Entry<TileCompartmentLocation, StructureRenderInfo> entry : mapStructureRenderInfo.getStructures().entrySet())
+            {
+                Image image = renderToImageConverter.getStructureImage(entry.getValue().getStructureType());
+                int x = entry.getKey().getLocation().getX();
+                int y = entry.getKey().getLocation().getY();
+                int z = entry.getKey().getLocation().getZ();
+                // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
+                int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
+                drawCompartmentLargeImage(image,x,y,z,compartment+1);
+            }
+        }
+    }
+
     @Override
     public void render() {
         if(refresh){
@@ -552,15 +660,21 @@ public class MainView extends View
             drawCursor();
             checkForOverlay();
             updateSidePanel();
+            displaySidePanelInformation();
             drawPlayerName();
             drawCurrentPhase();
-            displaySidePanelInformation();
+
+            displayMapTransportRenderInfo();
+            displayResourceRenderInfo();
+            displayStructureRenderInfo();
+
             clearNewDataFlag();
-            TESTING_REMOVE_LATER();
+            //TESTING_REMOVE_LATER();
         } else {
             // nothing to update
         }
     }
+
     @Override
     public void updateTransportInfo(TransportRenderInfo transportRenderInfo) {
         this.transportRenderInfo = transportRenderInfo;

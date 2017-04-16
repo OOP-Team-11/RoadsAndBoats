@@ -1,11 +1,16 @@
 package model.managers;
 
+import game.controller.MainViewController;
 import game.model.Player;
+import game.model.PlayerId;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
+import game.model.managers.GooseManager;
 import game.model.managers.StructureAbilityManager;
 import game.model.managers.StructureManager;
+import game.model.managers.TransportManager;
+import game.model.map.RBMap;
 import game.model.structures.resourceProducer.primaryProducer.Mine;
 import game.model.structures.resourceProducer.primaryProducer.OilRig;
 import org.junit.Before;
@@ -23,8 +28,10 @@ public class StructureManagerTest
     @Before
     public void setUp()
     {
-        abilityManager=new StructureAbilityManager(null);
-        structureManager=new StructureManager(abilityManager);
+        MainViewController mainViewController = new MainViewController();
+        RBMap map = new RBMap();
+        structureManager = new StructureManager(mainViewController, map);
+        abilityManager = new StructureAbilityManager(mainViewController, map, structureManager);
         tileCompartmentLocation = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
     }
 

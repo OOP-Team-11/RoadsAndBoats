@@ -80,6 +80,7 @@ public class TileCompartmentDirection {
 
         return compartments;
     }
+
     @Override
     public int hashCode() {
         return this.mmAngle.getDegrees();

@@ -1,18 +1,10 @@
 package game.model.managers;
 
-import game.model.direction.Location;
-import game.model.direction.TileCompartmentDirection;
-import game.model.resources.Goose;
-import game.model.resources.GooseId;
-import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
-import game.model.tile.Tile;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -74,6 +66,25 @@ public class ResourceManagerTest {
         didRemove = rm.removeResource(ResourceType.BOARDS,1);
         assertTrue(!didRemove);
         assertEquals(0,rm.getResourceCount(ResourceType.BOARDS));
+    }
+
+    @Test
+    public void hasNoResources() {
+        ResourceManager rm2 = new ResourceManager();
+        assertTrue(rm2.hasNoResources());
+    }
+
+    @Test
+    public void hasNoResourcesAfterAdding() {
+        rm.addResource(ResourceType.GOLD, 5);
+        assertFalse(rm.hasNoResources());
+    }
+
+    @Test
+    public void hasNoResourcesAfterAddingRemoving() {
+        rm.addResource(ResourceType.GOLD, 5);
+        rm.removeResource(ResourceType.GOLD, 5);
+        assertFalse(rm.hasNoResources());
     }
 
 }

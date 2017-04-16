@@ -1,8 +1,10 @@
 package game.view.render;
 
+import game.model.PlayerId;
 import game.model.direction.TileCompartmentLocation;
 import game.model.resources.Goose;
 import game.model.transport.Transport;
+import game.model.transport.TransportId;
 import game.model.transport.TransportType;
 
 import java.util.HashMap;
@@ -32,4 +34,10 @@ public class TransportRenderInfo
     public List<Goose> getFollowers() {
         return this.transport.getFollowers();
     }
+
+    public PlayerId getOwner() {
+        return transport.getPlayerId();
+    }
+
+    public TransportId getTransportID() { return transport.getTransportId(); }
 }

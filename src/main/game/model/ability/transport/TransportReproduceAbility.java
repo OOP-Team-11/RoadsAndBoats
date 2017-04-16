@@ -6,13 +6,16 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.transport.DonkeyTransport;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
+import game.model.visitors.TransportManagerVisitor;
 import javafx.scene.input.KeyCode;
 
 public class TransportReproduceAbility extends Ability {
     private Transport transport;
     private TileCompartmentLocation transportLocation;
-    public TransportReproduceAbility(MainViewController mainViewController) {
+    private TransportManagerVisitor transportManagerVisitor;
+    public TransportReproduceAbility(MainViewController mainViewController, TransportManagerVisitor transportManagerVisitor) {
         super(mainViewController);
+        this.transportManagerVisitor = transportManagerVisitor;
     }
 
     public void attachToController(Transport transport, TileCompartmentLocation transportLocation) {
@@ -20,11 +23,11 @@ public class TransportReproduceAbility extends Ability {
         this.transportLocation = transportLocation;
         mainViewController.addControl(KeyCode.R, this);
     }
+
     @Override
     public void perform() {
-//        TODO: Need a visitor/observer of some sort to get the new Transport that has been produced
         DonkeyTransport newDonkey = new DonkeyTransport(transport.getPlayerId(), new TransportId());
-        System.out.println("Reproduced!");
+        transportManagerVisitor.addTransportVisit(newDonkey, transportLocation);
     }
 
     @Override
