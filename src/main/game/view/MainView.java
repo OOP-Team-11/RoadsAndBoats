@@ -20,16 +20,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-import java.awt.image.ImageConsumer;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class MainView extends View
@@ -609,7 +605,7 @@ public class MainView extends View
                 int y = entry.getKey().getLocation().getY();
                 int z = entry.getKey().getLocation().getZ();
                 // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
-                int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
+                int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
                 drawCompartmentLargeImage(image,x,y,z,compartment+1);
             }
         }
@@ -625,7 +621,7 @@ public class MainView extends View
                 int y = entry.getKey().getLocation().getY();
                 int z = entry.getKey().getLocation().getZ();
                 // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
-                int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
+                int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
                 for ( HashMap.Entry<ResourceType, Integer> entry2 : entry.getValue().entrySet()){
                     Image image = renderToImageConverter.getResourceImage(entry2.getKey());
                     drawCompartmentSmallImage(image,x,y,z,compartment+1);
@@ -644,7 +640,7 @@ public class MainView extends View
                 int y = entry.getKey().getLocation().getY();
                 int z = entry.getKey().getLocation().getZ();
                 // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
-                int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
+                int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
                 drawCompartmentLargeImage(image,x,y,z,compartment+1);
             }
         }

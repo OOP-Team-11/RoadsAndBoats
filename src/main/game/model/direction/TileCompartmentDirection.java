@@ -5,62 +5,85 @@ import java.util.List;
 
 public class TileCompartmentDirection {
 
-    private Angle mmAngle;
+    private Angle angle;
 
-    private TileCompartmentDirection(Angle mmAngle) {
-        this.mmAngle = mmAngle;
+    public TileCompartmentDirection(Angle angle) {
+        if(validAngle(angle))
+        {
+            this.angle = angle;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Invalid Angle: " + angle);
+        }
     }
 
-    public Angle getMmAngle() {
-        return this.mmAngle;
+    private boolean validAngle(Angle angle)
+    {
+        return angle.equals(CompassAngles.NORTH.getAngle())
+                || angle.equals(CompassAngles.NORTHEAST.getAngle())
+                || angle.equals(CompassAngles.SOUTHEAST.getAngle())
+                || angle.equals(CompassAngles.SOUTH.getAngle())
+                || angle.equals(CompassAngles.SOUTHWEST.getAngle())
+                || angle.equals(CompassAngles.NORTHWEST.getAngle())
+                || angle.equals(CompassAngles.EAST.getAngle())
+                || angle.equals(CompassAngles.NORTH_NORTHEAST.getAngle())
+                || angle.equals(CompassAngles.SOUTH_SOUTHEAST.getAngle())
+                || angle.equals(CompassAngles.WEST.getAngle())
+                || angle.equals(CompassAngles.SOUTH_SOUTHWEST.getAngle())
+                || angle.equals(CompassAngles.NORTH_NORTHWEST.getAngle());
+    }
+
+    public Angle getAngle() {
+        return this.angle;
     }
 
     public static TileCompartmentDirection getEast() {
-        return new TileCompartmentDirection(CompassAngles.EAST.getMmAngle());
+        return new TileCompartmentDirection(CompassAngles.EAST.getAngle());
     }
 
     public static TileCompartmentDirection getNorthEast() {
-        return new TileCompartmentDirection(CompassAngles.NORTHEAST.getMmAngle());
+        return new TileCompartmentDirection(CompassAngles.NORTHEAST.getAngle());
     }
 
     public static TileCompartmentDirection getNorthNorthEast() {
-        return new TileCompartmentDirection(CompassAngles.NORTH_NORTHEAST.getMmAngle());
+        return new TileCompartmentDirection(CompassAngles.NORTH_NORTHEAST.getAngle());
     }
 
     public static TileCompartmentDirection getNorth() {
-        return new TileCompartmentDirection(CompassAngles.NORTH.getMmAngle());
+        return new TileCompartmentDirection(CompassAngles.NORTH.getAngle());
     }
 
     public static TileCompartmentDirection getNorthNorthWest() {
-        return new TileCompartmentDirection(CompassAngles.NORTH_NORTHWEST.getMmAngle());
+        return new TileCompartmentDirection(CompassAngles.NORTH_NORTHWEST.getAngle());
     }
 
     public static TileCompartmentDirection getNorthWest() {
-        return new TileCompartmentDirection(CompassAngles.NORTHWEST.getMmAngle());
+        return new TileCompartmentDirection(CompassAngles.NORTHWEST.getAngle());
     }
 
     public static TileCompartmentDirection getWest() {
-        return new TileCompartmentDirection(CompassAngles.WEST.getMmAngle());
+        return new TileCompartmentDirection(CompassAngles.WEST.getAngle());
     }
 
     public static TileCompartmentDirection getSouthWest() {
-        return new TileCompartmentDirection(CompassAngles.SOUTHWEST.getMmAngle());
+        return new TileCompartmentDirection(CompassAngles.SOUTHWEST.getAngle());
     }
 
     public static TileCompartmentDirection getSouthSouthWest() {
-        return new TileCompartmentDirection(CompassAngles.SOUTH_SOUTHWEST.getMmAngle());
+        return new TileCompartmentDirection(CompassAngles.SOUTH_SOUTHWEST.getAngle());
     }
 
     public static TileCompartmentDirection getSouth() {
-        return new TileCompartmentDirection(CompassAngles.SOUTH.getMmAngle());
+        return new TileCompartmentDirection(CompassAngles.SOUTH.getAngle());
     }
 
     public static TileCompartmentDirection getSouthEast() {
-        return new TileCompartmentDirection(CompassAngles.SOUTHEAST.getMmAngle());
+        return new TileCompartmentDirection(CompassAngles.SOUTHEAST.getAngle());
     }
 
     public static TileCompartmentDirection getSouthSouthEast() {
-        return new TileCompartmentDirection(CompassAngles.SOUTH_SOUTHEAST.getMmAngle());
+        return new TileCompartmentDirection(CompassAngles.SOUTH_SOUTHEAST.getAngle());
     }
 
     public static  List<TileCompartmentDirection> getAllDirections() {
@@ -83,13 +106,18 @@ public class TileCompartmentDirection {
 
     @Override
     public int hashCode() {
-        return this.mmAngle.getDegrees();
+        return this.angle.getDegrees();
     }
 
     @Override
     public boolean equals(Object object) {
         return (object instanceof TileCompartmentDirection) &&
-                ((TileCompartmentDirection) object).getMmAngle() == this.mmAngle;
+                ((TileCompartmentDirection) object).getAngle().equals(this.angle);
     }
 
+    public TileCompartmentDirection reverse()
+    {
+        int newDegrees = (getAngle().getDegrees()+180) % 360;
+        return new TileCompartmentDirection(new Angle(newDegrees));
+    }
 }

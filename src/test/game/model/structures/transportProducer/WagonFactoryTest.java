@@ -44,7 +44,7 @@ public class WagonFactoryTest {
     @Test
     public void produceUsingTileCompartment() {
         WagonFactory wagonFactory = new WagonFactory();
-        TileCompartment tileCompartment = new TileCompartment(false);
+        TileCompartment tileCompartment = new TileCompartment();
         tileCompartment.storeResource(ResourceType.BOARDS, BOARDS_REQ);
         assertTrue(wagonFactory.produce(tileCompartment));
         assertEquals(tileCompartment.getResourceCount(ResourceType.BOARDS), 0);
@@ -53,7 +53,7 @@ public class WagonFactoryTest {
     @Test
     public void produceNothingUsingTileCompartment() {
         WagonFactory wagonFactory = new WagonFactory();
-        TileCompartment tileCompartment = new TileCompartment(false);
+        TileCompartment tileCompartment = new TileCompartment();
         assertFalse(wagonFactory.produce(tileCompartment));
         assertEquals(tileCompartment.getResourceCount(ResourceType.BOARDS), 0);
     }
