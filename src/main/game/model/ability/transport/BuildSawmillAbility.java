@@ -6,14 +6,17 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.resourceProducer.secondaryProducer.Sawmill;
+import game.model.visitors.StructureManagerVisitor;
 import javafx.scene.input.KeyCode;
 
 public class BuildSawmillAbility extends Ability {
     private ResourceManager resourceManager;
     private TileCompartmentLocation tileCompartmentLocation;
+    private StructureManagerVisitor structureManagerVisitor;
 
-    public BuildSawmillAbility(MainViewController mainViewController) {
+    public BuildSawmillAbility(MainViewController mainViewController, StructureManagerVisitor v) {
         super(mainViewController);
+        this.structureManagerVisitor = v;
     }
 
     @Override
@@ -21,7 +24,7 @@ public class BuildSawmillAbility extends Ability {
         this.resourceManager.removeResource(ResourceType.BOARDS, 2);
         this.resourceManager.removeResource(ResourceType.STONE, 1);
         Sawmill sawmill = new Sawmill();
-//       TODO:  visitor.visit(sawmill);
+        this.structureManagerVisitor.addStructureVisit(sawmill, tileCompartmentLocation);
     }
 
     @Override

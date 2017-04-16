@@ -25,12 +25,11 @@ public class AbilityFactory {
     public GooseReproduceAbility getGooseReproduceAbility(GooseManagerVisitor v) {
         return new GooseReproduceAbility(mainViewController, v); }
     public BuildWoodcutterAbility getBuildWoodcutterAbility(StructureManagerVisitor v) { return new BuildWoodcutterAbility(mainViewController, v); }
-    public BuildClayPitAbility getBuildClayPitAbility() { return new BuildClayPitAbility(mainViewController); }
-    public BuildStoneQuarryAbility getBuildStoneQuarryAbility() { return new BuildStoneQuarryAbility(mainViewController); }
-    public BuildSawmillAbility getBuildSawmillAbility() { return new BuildSawmillAbility(mainViewController); }
-    public BuildPapermillAbility getBuildPapermillAbility() { return new BuildPapermillAbility(mainViewController); }
-    public BuildStoneFactoryAbility getBuildStoneFactoryAbility() { return new BuildStoneFactoryAbility(mainViewController); }
-    public BuildCoalBurnerAbility getBuildCoalBurnerAbility() { return new BuildCoalBurnerAbility(mainViewController); }
-    public BuildMineAbility getBuildMineAbility() { return new BuildMineAbility(mainViewController); }
-    }
+    public BuildClayPitAbility getBuildClayPitAbility(StructureManagerVisitor v) { return new BuildClayPitAbility(mainViewController, v); }
+    public BuildStoneQuarryAbility getBuildStoneQuarryAbility(StructureManagerVisitor v) { return new BuildStoneQuarryAbility(mainViewController, v); }
+    public BuildSawmillAbility getBuildSawmillAbility(StructureManagerVisitor v) { return new BuildSawmillAbility(mainViewController, v); }
+    public BuildPapermillAbility getBuildPapermillAbility(StructureManagerVisitor v) { return new BuildPapermillAbility(mainViewController, v); }
+    public BuildStoneFactoryAbility getBuildStoneFactoryAbility(StructureManagerVisitor v) { return new BuildStoneFactoryAbility(mainViewController, v); }
+    public BuildCoalBurnerAbility getBuildCoalBurnerAbility(StructureManagerVisitor v) { return new BuildCoalBurnerAbility(mainViewController, v); }
+    public BuildMineAbility getBuildMineAbility(StructureManagerVisitor v) { return new BuildMineAbility(mainViewController, v); }
 }

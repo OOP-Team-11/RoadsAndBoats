@@ -6,20 +6,24 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.resourceProducer.secondaryProducer.CoalBurner;
+import game.model.visitors.StructureManagerVisitor;
 import javafx.scene.input.KeyCode;
 
 public class BuildCoalBurnerAbility extends Ability {
     private ResourceManager resourceManager;
     private TileCompartmentLocation tileCompartmentLocation;
-    public BuildCoalBurnerAbility(MainViewController mainViewController) {
+    private StructureManagerVisitor structureManagerVisitor;
+    public BuildCoalBurnerAbility(MainViewController mainViewController, StructureManagerVisitor v) {
         super(mainViewController);
+        this.structureManagerVisitor = v;
     }
 
     @Override
     public void perform() {
         this.resourceManager.removeResource(ResourceType.BOARDS, 3);
         CoalBurner coalBurner = new CoalBurner();
-//        StructureManagerVisitor.addStructureVisit(coalBurner);
+        structureManagerVisitor.addStructureVisit(coalBurner, tileCompartmentLocation);
+
     }
 
     @Override

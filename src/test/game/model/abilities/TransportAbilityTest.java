@@ -33,6 +33,7 @@ public class TransportAbilityTest {
 
 
     private TileCompartmentLocation location;
+    private TileCompartmentLocation startingLocation;
     private MainViewController mainViewController;
     private RBMap map;
     private GooseManager gooseManager;
@@ -44,6 +45,7 @@ public class TransportAbilityTest {
 
     @Before
     public void setUp() {
+        this.startingLocation = new TileCompartmentLocation(new Location(-2,1,1), TileCompartmentDirection.getNorth());
         this.location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
         this.mainViewController = new MainViewController();
         this.map = new RBMap();
@@ -51,7 +53,7 @@ public class TransportAbilityTest {
         this.playerId = new PlayerId(1);
         this.structureManager = new StructureManager(mainViewController, map);
         this.transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
-        this.player1 = new Player(transportManager, playerId, "Morty");
+        this.player1 = new Player(transportManager, playerId, "Morty", startingLocation);
         this.donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
     }
 

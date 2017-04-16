@@ -7,21 +7,24 @@ import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.resourceProducer.primaryProducer.StoneQuarry;
 import game.model.structures.resourceProducer.primaryProducer.Woodcutter;
+import game.model.visitors.StructureManagerVisitor;
 import javafx.scene.input.KeyCode;
 
 public class BuildStoneQuarryAbility extends Ability {
+    private StructureManagerVisitor structureManagerVisitor;
     private ResourceManager resourceManager;
     private TileCompartmentLocation tileCompartmentLocation;
 
-    public BuildStoneQuarryAbility(MainViewController mainViewController) {
+    public BuildStoneQuarryAbility(MainViewController mainViewController, StructureManagerVisitor v) {
         super(mainViewController);
+        this.structureManagerVisitor = v;
     }
 
     @Override
     public void perform() {
         this.resourceManager.removeResource(ResourceType.BOARDS, 2);
         StoneQuarry stoneQuarry = new StoneQuarry();
-//      TODO:  visitor.visit(stoneQuarry)
+        structureManagerVisitor.addStructureVisit(stoneQuarry, tileCompartmentLocation);
     }
 
     @Override

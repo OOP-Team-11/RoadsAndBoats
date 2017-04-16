@@ -31,7 +31,7 @@ public class AbilityTest {
         PlayerId playerId = new PlayerId(2);
         StructureManager structureManager = new StructureManager(mainViewController, map);
         TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
-        Player player1 = new Player(transportManager, new PlayerId(2), "gavin");
+        Player player1 = new Player(transportManager, new PlayerId(2), "gavin", location);
         Transport donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
 //        Add 2 geese to same location that donkey is at so he will have 2 followAbilities. One or both follow.

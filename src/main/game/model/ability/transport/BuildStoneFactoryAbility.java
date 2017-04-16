@@ -6,20 +6,24 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.resourceProducer.secondaryProducer.StoneFactory;
+import game.model.visitors.StructureManagerVisitor;
 import javafx.scene.input.KeyCode;
 
 public class BuildStoneFactoryAbility extends Ability {
     private ResourceManager resourceManager;
     private TileCompartmentLocation tileCompartmentLocation;
-    public BuildStoneFactoryAbility(MainViewController mainViewController) {
+    private StructureManagerVisitor structureManagerVisitor;
+
+    public BuildStoneFactoryAbility(MainViewController mainViewController, StructureManagerVisitor v) {
         super(mainViewController);
+        this.structureManagerVisitor = v;
     }
 
     @Override
     public void perform() {
         this.resourceManager.removeResource(ResourceType.BOARDS, 2);
         StoneFactory stoneFactory = new StoneFactory();
-//      structureManagerVisitor.addStructureVisit(stoneFactory, tileCompartmentLocation);
+        structureManagerVisitor.addStructureVisit(stoneFactory, tileCompartmentLocation);
     }
 
     @Override
