@@ -34,8 +34,9 @@ public class GameTest {
         TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
         PlayerId playerId2 = new PlayerId(2);
         TransportManager transportManager2 = new TransportManager(playerId2, mainViewController, gooseManager, map, structureManager);
-        player1 = new Player(transportManager, playerId, "Morty");
-        player2 = new Player(transportManager, playerId, "Morty");
+        TileCompartmentLocation tileCompartmentLocation = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
+        player1 = new Player(transportManager, playerId, "Morty", tileCompartmentLocation);
+        player2 = new Player(transportManager, playerId, "Morty", tileCompartmentLocation);
         this.game = new Game(map, player1, player2, mock(GooseManager.class), mock(StructureManager.class));
     }
 
