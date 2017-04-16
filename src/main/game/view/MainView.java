@@ -552,8 +552,12 @@ public class MainView extends View
         } else {
             for ( Map.Entry<TileCompartmentLocation, TransportRenderInfo> entry : mapTransportRenderInfo.getTransports().entrySet())
             {
-                // TODO need to know who transport belongs to, right now displaying all red
-                Image image = renderToImageConverter.getRedTransportImage(entry.getValue().getTransportType());
+                Image image;
+                if(entry.getValue().getOwner().getPlayerIdNumber() == 1){
+                    image = renderToImageConverter.getBlueTransportImage(entry.getValue().getTransportType());
+                } else {
+                    image = renderToImageConverter.getRedTransportImage(entry.getValue().getTransportType());
+                }
                 int x = entry.getKey().getLocation().getX();
                 int y = entry.getKey().getLocation().getY();
                 int z = entry.getKey().getLocation().getZ();
