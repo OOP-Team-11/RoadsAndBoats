@@ -1,9 +1,7 @@
 package game.model.tile;
 
-import game.model.resources.ResourceManager;
+import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
-
-import java.util.HashMap;
 
 public class TileCompartment {
     private boolean hasWater;
@@ -11,26 +9,42 @@ public class TileCompartment {
 
     public TileCompartment(boolean hasWater) {
         this.hasWater = hasWater;
+        resourceManager = new ResourceManager();
     }
 
     public boolean hasWater() {
         return this.hasWater;
     }
+
     public void setHasWater(boolean hasWater) {
         this.hasWater = hasWater;
     }
 
-    //Increments the TileCompartment's count of the specified resource by 1
-    public void incrementResource(ResourceType resource){
-        this.resourceManager.addResource(resource,1);
+    public int getWealthPoints() {
+        return resourceManager.getWealthPoints();
     }
 
-    //Decrement the TileCompartment's count of the specified resource by 1
-    public void decrementResource(ResourceType resource){
-        this.resourceManager.removeResource(resource,1);
+    public ResourceManager getResourceManager() {
+        return this.resourceManager;
     }
 
-    public int getResourceCount(ResourceType rt){
-        return resourceManager.getResourceCount(rt);
+    public void storeResource(ResourceType type, Integer numberToAdd) {
+        resourceManager.addResource(type, numberToAdd);
+    }
+
+    public boolean takeResource(ResourceType type, Integer numberToRemove) {
+        return resourceManager.removeResource(type, numberToRemove);
+    }
+
+    public boolean hasResource(ResourceType wellDoesIt) {
+        return resourceManager.hasResource(wellDoesIt);
+    }
+
+    public int getResourceCount(ResourceType desiredType) {
+        return resourceManager.getResourceCount(desiredType);
+    }
+
+    public boolean hasNoResources() {
+        return resourceManager.hasNoResources();
     }
 }

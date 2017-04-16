@@ -3,6 +3,9 @@ package game.model.tinyGame;
 import game.controller.MainViewController;
 import game.model.Player;
 import game.model.PlayerId;
+import game.model.direction.Location;
+import game.model.direction.TileCompartmentDirection;
+import game.model.direction.TileCompartmentLocation;
 import game.model.managers.GooseManager;
 import game.model.managers.StructureManager;
 import game.model.managers.TransportAbilityManager;
@@ -22,9 +25,10 @@ public class GameTest {
     @Before
     public void setUp() {
         RBMap map = new RBMap();
+        TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
         TransportAbilityManager transportAbilityManager = new TransportAbilityManager(mock(MainViewController.class), mock(GooseManager.class), map);
-        player1 = new Player(transportAbilityManager, new PlayerId(1), "gavin");
-        player2 = new Player(transportAbilityManager, new PlayerId(2), "not gavin");
+        player1 = new Player(transportAbilityManager, new PlayerId(1), "gavin", location);
+        player2 = new Player(transportAbilityManager, new PlayerId(2), "not gavin", location);
         this.game = new Game(map, player1, player2, mock(GooseManager.class), mock(StructureManager.class));
     }
 

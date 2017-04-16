@@ -1,6 +1,6 @@
 package game.model.structures.resourceProducer.primaryProducer;
 
-import game.model.resources.ResourceManager;
+import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.structures.resourceProducer.ResourceDropper;
@@ -12,16 +12,23 @@ public class Mine extends ResourceDropper {
     private static final int GOLD_AMT = 1;
     private static final int IRON_AMT = 1;
 
-    private int initialGoldCount;
-    private int initialIronCount;
+    private int maxGoldCount;
+    private int maxIronCount;
     private int currentGoldCount;
     private int currentIronCount;
 
-    public Mine(int initialGoldCount, int initialIronCount) {
-        this.initialGoldCount = initialGoldCount;
-        this.initialIronCount = initialIronCount;
-        this.currentGoldCount = initialGoldCount;
-        this.currentIronCount = initialIronCount;
+    public Mine(int maxGoldCount, int maxIronCount) {
+        this.maxGoldCount = maxGoldCount;
+        this.maxIronCount = maxIronCount;
+        this.currentGoldCount = maxGoldCount;
+        this.currentIronCount = maxIronCount;
+    }
+
+    public Mine(int currentGoldCount, int maxGoldCount, int currentIronCount, int maxIronCount) {
+        this.maxGoldCount = maxGoldCount;
+        this.maxIronCount = maxIronCount;
+        this.currentGoldCount = currentGoldCount;
+        this.currentIronCount = currentIronCount;
     }
 
     @Override
@@ -62,8 +69,8 @@ public class Mine extends ResourceDropper {
     }
 
     private void replenishMine() {
-        setGoldCount(this.initialGoldCount);
-        setIronCount(this.initialIronCount);
+        researchGoldCount(this.maxGoldCount);
+        researchIronCount(this.maxIronCount);
     }
 
     public int getCurrentGoldCount() {
@@ -90,13 +97,13 @@ public class Mine extends ResourceDropper {
         --currentIronCount;
     }
 
-    private void setGoldCount(int goldCount) {
-        this.initialGoldCount = goldCount;
+    private void researchGoldCount(int goldCount) {
+        this.maxGoldCount = goldCount;
         this.currentGoldCount = goldCount;
     }
 
-    private void setIronCount(int ironCount) {
-        this.initialIronCount = ironCount;
+    private void researchIronCount(int ironCount) {
+        this.maxIronCount = ironCount;
         this.currentIronCount = ironCount;
     }
 
