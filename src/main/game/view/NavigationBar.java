@@ -60,7 +60,7 @@ public class NavigationBar {
             viewHandler.jumpToResearchView();
         });
 
-        // jump to wonder view
+        // jump to model.wonder view
         this.wonderViewButton.setOnMouseClicked( event ->{
             viewHandler.jumptToWonderView();
         });

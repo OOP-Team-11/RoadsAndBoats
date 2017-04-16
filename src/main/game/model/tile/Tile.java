@@ -258,4 +258,10 @@ public class Tile
         return this.structure;
     }
 
+    public void changeToPasture() {
+        if (this.terrain.canChangeToPasture()) {
+            this.setTerrain(Terrain.PASTURE);
+        }
+    }
+
 }
