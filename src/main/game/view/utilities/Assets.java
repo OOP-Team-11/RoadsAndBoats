@@ -174,6 +174,8 @@ public class Assets {
     public Image WALL_BLUE_SOUTHWEST;
     public Image WALL_BLUE_NORTHWEST;
 
+    public Image PROCESS_CHART;
+
     public boolean loadAssets(){
         try{
             // tiles
@@ -232,7 +234,7 @@ public class Assets {
             NAVIGATION_BAR_3 = new Image(this.getClass().getResourceAsStream("/buttons/researchViewButton.png"));
             NAVIGATION_BAR_4 = new Image(this.getClass().getResourceAsStream("/buttons/wonderViewButton.png"));
             NAVIGATION_BAR_5 = new Image(this.getClass().getResourceAsStream("/buttons/saveViewButton.png"));
-            NAVIGATION_BAR_6 = new Image(this.getClass().getResourceAsStream("/buttons/settingsViewButton.png"));
+            NAVIGATION_BAR_6 = new Image(this.getClass().getResourceAsStream("/buttons/informationViewButton.png"));
 
             CLAY_PIT_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/clay_pit.png"));
             OIL_RIG_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/oil_rig.png"));
@@ -320,6 +322,7 @@ public class Assets {
 //            WALL_BLUE_SOUTHWEST = new Image(this.getClass().getResourceAsStream("/"));
 //            WALL_BLUE_NORTHWEST = new Image(this.getClass().getResourceAsStream("/"));
 
+            PROCESS_CHART = new Image(this.getClass().getResourceAsStream("/misc/process_chart.jpg"));
 
         } catch(Exception e){
             e.printStackTrace();
