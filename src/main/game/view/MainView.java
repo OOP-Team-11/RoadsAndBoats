@@ -26,6 +26,7 @@ import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainView extends View
@@ -302,6 +303,7 @@ public class MainView extends View
     }
 
     private void setOverLayOptions(){
+
         // first we get the location of cursor
         Location location = cursorRenderInfo.getCursorLocation();
         ArrayList<String> transporteres = new ArrayList<String>();
@@ -310,23 +312,26 @@ public class MainView extends View
             // not valid location
         } else {
             this.rightClickedLocation = location; // saved in case it's changed after right clicking
-            // itterate over transports and see if location matches
-            for (Map.Entry<TileCompartmentLocation, TransportRenderInfo> entry : mapTransportRenderInfo.getTransports().entrySet()) {
-                if(entry.getKey().getLocation().equals(location)){
-                    // same location
-                    transporteres.add(entry.getValue().getTransportType().getName()); // append to options that will be displayed
-                    transportIds.add(entry.getValue().getTransportID()); // append to list that keeps track of IDs to return to model
-                } else {
-                    // nope
+            // itterate over transports and see if location
+                for ( Map.Entry<TileCompartmentLocation, List<TransportRenderInfo>>  entry : mapTransportRenderInfo.getTransports().entrySet())
+                {
+                    for (TransportRenderInfo renderInfo : entry.getValue()) {
+                        if(entry.getKey().getLocation().equals(location)){
+                            // same location
+                            transporteres.add(renderInfo.getTransportType().getName()); // append to options that will be displayed
+                            transportIds.add(renderInfo.getTransportID()); // append to list that keeps track of IDs to return to model
+                        } else {
+                            // nope
+                        }
+                    }
                 }
-                entry.getValue();
-            }
         }
         if(transporteres.size() == 0){
             transporteres.add(new String("No Transports"));
         }
         ObservableList<String> items = FXCollections.observableArrayList(transporteres);
         this.overlayMenu.setItems(items);
+
     }
 
     public TransportId getCurrentlySelectedTransportID(){
@@ -593,20 +598,22 @@ public class MainView extends View
         if(isNull(mapTransportRenderInfo)){
             // nothing to render
         } else {
-            for ( Map.Entry<TileCompartmentLocation, TransportRenderInfo> entry : mapTransportRenderInfo.getTransports().entrySet())
+            for ( Map.Entry<TileCompartmentLocation, List<TransportRenderInfo>>  entry : mapTransportRenderInfo.getTransports().entrySet())
             {
-                Image image;
-                if(entry.getValue().getOwner().getPlayerIdNumber() == 1){
-                    image = renderToImageConverter.getBlueTransportImage(entry.getValue().getTransportType());
-                } else {
-                    image = renderToImageConverter.getRedTransportImage(entry.getValue().getTransportType());
+                for (TransportRenderInfo renderInfo : entry.getValue()) {
+
+                    Image image;
+                    if(renderInfo.getOwner().getPlayerIdNumber() == 1){
+                        image = renderToImageConverter.getBlueTransportImage(renderInfo.getTransportType());
+                    } else {
+                        image = renderToImageConverter.getRedTransportImage(renderInfo.getTransportType());
+                    }
+                    int x = entry.getKey().getLocation().getX();
+                    int y = entry.getKey().getLocation().getY();
+                    int z = entry.getKey().getLocation().getZ();
+                    int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
+                    drawCompartmentLargeImage(image,x,y,z,compartment+1);
                 }
-                int x = entry.getKey().getLocation().getX();
-                int y = entry.getKey().getLocation().getY();
-                int z = entry.getKey().getLocation().getZ();
-                // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
-                int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
-                drawCompartmentLargeImage(image,x,y,z,compartment+1);
             }
         }
     }
