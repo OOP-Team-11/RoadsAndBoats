@@ -21,6 +21,8 @@ public class AbilityFactory {
     public BuildClayPitAbility getBuildClayPitAbility() { return new BuildClayPitAbility(mainViewController); }
     public BuildStoneQuarryAbility getBuildStoneQuarryAbility() { return new BuildStoneQuarryAbility(mainViewController); }
     public BuildSawmillAbility getBuildSawmillAbility() { return new BuildSawmillAbility(mainViewController); }
-    public BuildPapermillAbility getBuildPapermillAbility() { return new BuildPapermillAbility((mainViewController)); }
-
+    public BuildPapermillAbility getBuildPapermillAbility() { return new BuildPapermillAbility(mainViewController); }
+    public BuildStoneFactoryAbility getBuildStoneFactoryAbility() { return new BuildStoneFactoryAbility(mainViewController); }
+    public BuildCoalBurnerAbility getBuildCoalBurnerAbility() { return new BuildCoalBurnerAbility(mainViewController); }
+    public BuildMineAbility getBuildMineAbility() { return new BuildMineAbility(mainViewController); }
 }

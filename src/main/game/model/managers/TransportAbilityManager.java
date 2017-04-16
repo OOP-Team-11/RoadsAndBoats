@@ -48,6 +48,10 @@ public class TransportAbilityManager {
 //        this.addBuildOilRigAbility(transport, tileCompartmentLocation);  TODO: After research is implemented
         this.addBuildSawmillAbility(transport, tileCompartmentLocation);
         this.addBuildPapermillAbility(transport, tileCompartmentLocation);
+        this.addBuildStoneFactoryAbility(transport, tileCompartmentLocation);
+        this.addBuildCoalBurnerAbility(transport, tileCompartmentLocation);
+        this.addBuildMineAbility(transport, tileCompartmentLocation);
+
     }
 
     public void removeAbilities() {
@@ -147,7 +151,7 @@ public class TransportAbilityManager {
         if(tile.getStructure() != null)
             return;
         else {
-            boolean canProduce = (transport.getResourceCount(ResourceType.BOARDS) >= 2) && tile.getTerrain() == Terrain.ROCK;
+            boolean canProduce = (transport.getResourceCount(ResourceType.BOARDS) >= 2 && tile.getTerrain() == Terrain.ROCK);
             if(canProduce) {
                 BuildStoneQuarryAbility buildAbility = abilityFactory.getBuildStoneQuarryAbility();
                 buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
@@ -162,7 +166,8 @@ public class TransportAbilityManager {
             return;
         else {
             boolean canProduce = transport.getResourceCount(ResourceType.BOARDS) >= 2
-                    && transport.getResourceCount(ResourceType.STONE) >= 1;
+                    && transport.getResourceCount(ResourceType.STONE) >= 1
+                    && tile.getTerrain() != Terrain.SEA;
             if(canProduce) {
                 BuildSawmillAbility buildAbility = abilityFactory.getBuildSawmillAbility();
                 buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
@@ -177,9 +182,54 @@ public class TransportAbilityManager {
             return;
         else {
             boolean canProduce = transport.getResourceCount(ResourceType.BOARDS) >= 1
-                    && transport.getResourceCount(ResourceType.STONE) >= 1;
+                    && transport.getResourceCount(ResourceType.STONE) >= 1
+                    && tile.getTerrain() != Terrain.SEA;
             if(canProduce) {
                 BuildPapermillAbility buildAbility = abilityFactory.getBuildPapermillAbility();
+                buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
+                abilities.add(buildAbility);
+            }
+        }
+    }
+
+    private void addBuildStoneFactoryAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        if(tile.getStructure() != null)
+            return;
+        else {
+            boolean canProduce = (transport.getResourceCount(ResourceType.BOARDS) >= 2 && tile.getTerrain() != Terrain.SEA);
+            if(canProduce) {
+                BuildStoneFactoryAbility buildAbility = abilityFactory.getBuildStoneFactoryAbility();
+                buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
+                abilities.add(buildAbility);
+            }
+        }
+    }
+
+    private void addBuildCoalBurnerAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        if(tile.getStructure() != null)
+            return;
+        else {
+            boolean canProduce = (transport.getResourceCount(ResourceType.BOARDS) >= 3 && tile.getTerrain() != Terrain.SEA);
+            if(canProduce) {
+                BuildCoalBurnerAbility buildAbility = abilityFactory.getBuildCoalBurnerAbility();
+                buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
+                abilities.add(buildAbility);
+            }
+        }
+    }
+
+    private void addBuildMineAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        if(tile.getStructure() != null)
+            return;
+        else {
+            boolean canProduce = (transport.getResourceCount(ResourceType.BOARDS) >= 3
+                    && (transport.getResourceCount(ResourceType.STONE) >= 1)
+                    && tile.getTerrain() != Terrain.SEA);
+            if(canProduce) {
+                BuildMineAbility buildAbility = abilityFactory.getBuildMineAbility();
                 buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
                 abilities.add(buildAbility);
             }

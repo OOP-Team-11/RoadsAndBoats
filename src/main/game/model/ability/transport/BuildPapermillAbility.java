@@ -36,6 +36,6 @@ public class BuildPapermillAbility extends Ability {
     }
     @Override
     public String getDisplayString() {
-        return "TINY RICK";
+        return "Build Papermill";
     }
 }
