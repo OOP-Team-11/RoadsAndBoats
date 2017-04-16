@@ -6,13 +6,15 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.resourceProducer.primaryProducer.Woodcutter;
+import game.model.visitors.StructureManagerVisitor;
 import javafx.scene.input.KeyCode;
 
 public class BuildWoodcutterAbility extends Ability {
     private ResourceManager resourceManager;
     private TileCompartmentLocation tileCompartmentLocation;
+    private StructureManagerVisitor structureManagerVisitor;
 
-    public BuildWoodcutterAbility(MainViewController mainViewController) {
+    public BuildWoodcutterAbility(MainViewController mainViewController, StructureManagerVisitor v) {
         super(mainViewController);
     }
 
@@ -20,7 +22,7 @@ public class BuildWoodcutterAbility extends Ability {
     public void perform() {
         this.resourceManager.removeResource(ResourceType.BOARDS, 1);
         Woodcutter woodcutter = new Woodcutter();
-//      TODO:  visitor.visit(wooodcutter)
+        structureManagerVisitor.addStructureVisit(woodcutter, tileCompartmentLocation);
     }
 
     @Override

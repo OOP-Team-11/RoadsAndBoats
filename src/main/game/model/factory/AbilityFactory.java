@@ -23,8 +23,8 @@ public class AbilityFactory {
     public TransportReproduceAbility getTransportReproduceAbility(TransportManagerVisitor v) {
         return new TransportReproduceAbility(mainViewController, v); }
     public GooseReproduceAbility getGooseReproduceAbility(GooseManagerVisitor v) {
-        return new GooseReproduceAbility(mainViewController, v);
-    public BuildWoodcutterAbility getBuildWoodcutterAbility() { return new BuildWoodcutterAbility(mainViewController); }
+        return new GooseReproduceAbility(mainViewController, v); }
+    public BuildWoodcutterAbility getBuildWoodcutterAbility(StructureManagerVisitor v) { return new BuildWoodcutterAbility(mainViewController, v); }
     public BuildClayPitAbility getBuildClayPitAbility() { return new BuildClayPitAbility(mainViewController); }
     public BuildStoneQuarryAbility getBuildStoneQuarryAbility() { return new BuildStoneQuarryAbility(mainViewController); }
     public BuildSawmillAbility getBuildSawmillAbility() { return new BuildSawmillAbility(mainViewController); }
