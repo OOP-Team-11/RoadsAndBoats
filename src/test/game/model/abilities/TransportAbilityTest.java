@@ -40,7 +40,7 @@ public class TransportAbilityTest {
         PlayerId playerId = new PlayerId(1);
         StructureManager structureManager = new StructureManager(mainViewController, map);
         TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
-        Player player1 = new Player(transportManager, playerId, "Morty");
+        Player player1 = new Player(transportManager, playerId, "Morty", location);
         Transport donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
 //        Add 2 geese to same location that donkey is at so he will have 2 followAbilities. One or both follow.
         gooseManager.addGoose(location, new Goose(new GooseId()));
@@ -54,13 +54,14 @@ public class TransportAbilityTest {
     @Test
     public void addTransportReproduceAbilityTest() {
         TileCompartmentLocation placementLocation = new TileCompartmentLocation(new Location(5,-5,0), TileCompartmentDirection.getNorth());
+        TileCompartmentLocation startingLocation = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
         StructureManager structureManager = new StructureManager(mainViewController, map);
         TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
-        Player player1 = new Player(transportManager, playerId, "Morty");
+        Player player1 = new Player(transportManager, playerId, "Morty", startingLocation);
 
         Transport donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(),new TransportId());
@@ -81,7 +82,7 @@ public class TransportAbilityTest {
         PlayerId playerId = new PlayerId(1);
         StructureManager structureManager = new StructureManager(mainViewController, map);
         TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
-        Player player1 = new Player(transportManager, playerId, "Morty");
+        Player player1 = new Player(transportManager, playerId, "Morty", location);
         Transport donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
@@ -101,7 +102,7 @@ public class TransportAbilityTest {
         PlayerId playerId = new PlayerId(1);
         StructureManager structureManager = new StructureManager(mainViewController, map);
         TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
-        Player player1 = new Player(transportManager, playerId, "Morty");
+        Player player1 = new Player(transportManager, playerId, "Morty", location);
         Transport donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
@@ -122,7 +123,7 @@ public class TransportAbilityTest {
         PlayerId playerId = new PlayerId(1);
         StructureManager structureManager = new StructureManager(mainViewController, map);
         TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
-        Player player1 = new Player(transportManager, playerId, "Morty");
+        Player player1 = new Player(transportManager, playerId, "Morty", location);
         Transport donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(),new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
