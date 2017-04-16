@@ -46,7 +46,7 @@ public class SteamerFactoryTest {
     @Test
     public void produceUsingTileCompartment() {
         SteamerFactory steamerFactory = new SteamerFactory();
-        TileCompartment tileCompartment = new TileCompartment(false);
+        TileCompartment tileCompartment = new TileCompartment();
         tileCompartment.storeResource(ResourceType.IRON, IRON_REQ);
         tileCompartment.storeResource(ResourceType.FUEL, FUEL_REQ);
         assertTrue(steamerFactory.produce(tileCompartment));
@@ -57,7 +57,7 @@ public class SteamerFactoryTest {
     @Test
     public void produceNothingUsingTileCompartment() {
         SteamerFactory steamerFactory = new SteamerFactory();
-        TileCompartment tileCompartment = new TileCompartment(false);
+        TileCompartment tileCompartment = new TileCompartment();
         assertFalse(steamerFactory.produce(tileCompartment));
     }
 

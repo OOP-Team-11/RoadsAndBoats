@@ -45,7 +45,7 @@ public class TruckFactoryTest {
     @Test
     public void produceUsingTileCompartment() {
         TruckFactory truckFactory = new TruckFactory();
-        TileCompartment tileCompartment = new TileCompartment(false);
+        TileCompartment tileCompartment = new TileCompartment();
         tileCompartment.storeResource(ResourceType.IRON, IRON_REQ);
         tileCompartment.storeResource(ResourceType.FUEL, FUEL_REQ);
         assertTrue(truckFactory.produce(tileCompartment));
@@ -56,7 +56,7 @@ public class TruckFactoryTest {
     @Test
     public void produceNothingUsingTileCompartment() {
         TruckFactory truckFactory = new TruckFactory();
-        TileCompartment tileCompartment = new TileCompartment(false);
+        TileCompartment tileCompartment = new TileCompartment();
         assertFalse(truckFactory.produce(tileCompartment));
     }
 
