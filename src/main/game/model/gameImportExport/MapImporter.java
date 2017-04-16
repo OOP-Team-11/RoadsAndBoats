@@ -19,25 +19,25 @@ import static game.model.tile.Terrain.*;
 
 public class MapImporter {
 
-//    public RBMap importMapFromFile(RBMap map, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
-//        if (!bufferedReader.readLine().equals("BEGIN MAP"))  throw new MalformedMapFileException("BEGIN MAP not found");
-//
-//        boolean foundEOF = false;
-//        for(String line; (line = bufferedReader.readLine()) != null; ) {
-//            if (line.equals("END MAP")) {
-//                foundEOF = true;
-//                break;
-//            }
-//
-//            Tile tile = getTileForTileString(line);
+    public RBMap importMapFromFile(RBMap map, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
+        if (!bufferedReader.readLine().equals("BEGIN MAP"))  throw new MalformedMapFileException("BEGIN MAP not found");
+
+        boolean foundEOF = false;
+        for(String line; (line = bufferedReader.readLine()) != null; ) {
+            if (line.equals("END MAP")) {
+                foundEOF = true;
+                break;
+            }
+
+            Tile tile = getTileForTileString(line);
 //            addResourcesToTileForTileString(tile, line);
-//            Location location = getLocationForTileString(line);
-//            map.placeTile(location, tile);
-//        }
-//
-//        if (!foundEOF) throw new MalformedMapFileException("END MAP not found");
-//        return map;
-//    }
+            Location location = getLocationForTileString(line);
+            map.placeTile(location, tile);
+        }
+
+        if (!foundEOF) throw new MalformedMapFileException("END MAP not found");
+        return map;
+    }
 
     private Location getLocationForTileString(String tileString) throws MalformedMapFileException {
         Pattern locationPattern = Pattern.compile("(\\([^)]*\\))");
@@ -153,28 +153,28 @@ public class MapImporter {
         } else return null;
     }
 
-//    private void addResourcesToTileForTileString(Tile tile, String tileString) throws MalformedMapFileException {
-//        // ([A-Z]*):([0-9]*)
-//        // each match: group 1 is resource string, group 2 is amount
-//        Pattern locationPattern = Pattern.compile("([A-Z]*):([0-9]*)");
-//        Matcher m = locationPattern.matcher(tileString);
-//        while (m.find()) {
-//            String resourceString = m.group(1);
-//            String amountString = m.group(2);
-//
-//            try {
-//                ResourceType resourceType = getResourceByString(resourceString);
-//                if (resourceType == null) {
-//                    throw new MalformedMapFileException("Could not parse resource on line: " + tileString);
-//                }
-//                Integer amount = Integer.parseInt(amountString);
+    private void addResourcesToTileForTileString(Tile tile, String tileString) throws MalformedMapFileException {
+        // ([A-Z]*):([0-9]*)
+        // each match: group 1 is resource string, group 2 is amount
+        Pattern locationPattern = Pattern.compile("([A-Z]*):([0-9]*)");
+        Matcher m = locationPattern.matcher(tileString);
+        while (m.find()) {
+            String resourceString = m.group(1);
+            String amountString = m.group(2);
+
+            try {
+                ResourceType resourceType = getResourceByString(resourceString);
+                if (resourceType == null) {
+                    throw new MalformedMapFileException("Could not parse resource on line: " + tileString);
+                }
+                Integer amount = Integer.parseInt(amountString);
 //                tile.addResource(resourceType, amount);
-//            } catch (NumberFormatException e) {
-//                throw new MalformedMapFileException("Could not parse amount on line: " + tileString);
-//            }
-//
-//        }
-//    }
+            } catch (NumberFormatException e) {
+                throw new MalformedMapFileException("Could not parse amount on line: " + tileString);
+            }
+
+        }
+    }
 
     private Tile getTileForTileString(String tileString) throws MalformedMapFileException {
         RiverConfiguration tileRiverConfiguration = getRiverConfigurationForTile(tileString);

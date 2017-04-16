@@ -72,7 +72,7 @@ public class TransportAbilityTest {
         player1.getTransportManager().addTransport(donkey, location);
         player1.getTransportManager().addTransport(donkey2, location);
 //        ADD RESOURCES SO THE DONKEYS MAY NOT REPRODUCE
-        map.getTile(new Location(0,0,0)).getResourceManager().addResource(ResourceType.COINS, 10);
+        map.getTile(new Location(0,0,0)).getTileCompartment(TileCompartmentDirection.getNorth()).storeResource(ResourceType.COINS, 10);
         player1.getTransportManager().onTransportSelected(donkey, location);
         assertEquals(0, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }

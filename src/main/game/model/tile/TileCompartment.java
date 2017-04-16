@@ -9,6 +9,7 @@ public class TileCompartment {
 
     public TileCompartment(boolean hasWater) {
         this.hasWater = hasWater;
+        resourceManager = new ResourceManager();
     }
 
     public boolean hasWater() {
@@ -23,8 +24,12 @@ public class TileCompartment {
         return resourceManager.getWealthPoints();
     }
 
-    public void storeResource(ResourceType type, Integer numberToRemove) {
-        resourceManager.addResource(type, numberToRemove);
+    public ResourceManager getResourceManager() {
+        return this.resourceManager;
+    }
+
+    public void storeResource(ResourceType type, Integer numberToAdd) {
+        resourceManager.addResource(type, numberToAdd);
     }
 
     public boolean takeResource(ResourceType type, Integer numberToRemove) {
@@ -37,5 +42,9 @@ public class TileCompartment {
 
     public int getResourceCount(ResourceType desiredType) {
         return resourceManager.getResourceCount(desiredType);
+    }
+
+    public boolean hasNoResources() {
+        return resourceManager.hasNoResources();
     }
 }

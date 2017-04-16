@@ -68,7 +68,7 @@ public class TransportAbilityManager {
             Location loc = tileCompartmentLocation.getLocation();
             TileCompartmentDirection transportCompartmentDirection = tileCompartmentLocation.getTileCompartmentDirection();
             Tile tile = map.getTile(loc);
-            boolean noResources = tile.getResourceManager().isEmpty();
+            boolean noResources = tile.getTileCompartment(transportCompartmentDirection).hasNoResources();
             boolean noStructure = (tile.getStructure() == null);
             boolean noGoose = true;
 //            Check that there's no geese on the tile
