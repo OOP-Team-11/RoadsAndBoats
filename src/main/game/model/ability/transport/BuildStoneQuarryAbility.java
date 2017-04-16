@@ -5,16 +5,17 @@ import game.model.ability.Ability;
 import game.model.direction.TileCompartmentLocation;
 import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
-import game.model.structures.resourceProducer.secondaryProducer.Sawmill;
+import game.model.structures.resourceProducer.primaryProducer.StoneQuarry;
+import game.model.structures.resourceProducer.primaryProducer.Woodcutter;
 import game.model.visitors.StructureManagerVisitor;
 import javafx.scene.input.KeyCode;
 
-public class BuildSawmillAbility extends Ability {
+public class BuildStoneQuarryAbility extends Ability {
+    private StructureManagerVisitor structureManagerVisitor;
     private ResourceManager resourceManager;
     private TileCompartmentLocation tileCompartmentLocation;
-    private StructureManagerVisitor structureManagerVisitor;
 
-    public BuildSawmillAbility(MainViewController mainViewController, StructureManagerVisitor v) {
+    public BuildStoneQuarryAbility(MainViewController mainViewController, StructureManagerVisitor v) {
         super(mainViewController);
         this.structureManagerVisitor = v;
     }
@@ -22,9 +23,8 @@ public class BuildSawmillAbility extends Ability {
     @Override
     public void perform() {
         this.resourceManager.removeResource(ResourceType.BOARDS, 2);
-        this.resourceManager.removeResource(ResourceType.STONE, 1);
-        Sawmill sawmill = new Sawmill();
-        this.structureManagerVisitor.addStructureVisit(sawmill, tileCompartmentLocation);
+        StoneQuarry stoneQuarry = new StoneQuarry();
+        structureManagerVisitor.addStructureVisit(stoneQuarry, tileCompartmentLocation);
     }
 
     @Override
@@ -39,6 +39,6 @@ public class BuildSawmillAbility extends Ability {
     }
     @Override
     public String getDisplayString() {
-        return "Build Sawmill";
+        return "Build Stone Quarry";
     }
 }

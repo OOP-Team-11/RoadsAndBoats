@@ -1,9 +1,12 @@
 package game.model.managers;
 
+import game.controller.MainViewController;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentLocation;
+import game.model.map.RBMap;
 import game.model.structures.Structure;
 import game.model.structures.StructureId;
+import game.model.visitors.StructureManagerVisitor;
 import game.utilities.observable.MapStructureRenderInfoObservable;
 import game.utilities.observer.MapStructureRenderInfoObserver;
 import game.view.render.MapStructureRenderInfo;
@@ -11,17 +14,17 @@ import game.view.render.StructureRenderInfo;
 
 import java.util.*;
 
-public class StructureManager implements MapStructureRenderInfoObservable
+public class StructureManager implements MapStructureRenderInfoObservable, StructureManagerVisitor
 {
     private StructureAbilityManager structureAbilityManager;
     private Map<TileCompartmentLocation, Structure> structures;
     private List<MapStructureRenderInfoObserver> structureRenderInfoObservers;
 
-    public StructureManager(StructureAbilityManager structureAbilityManager)
+    public StructureManager(MainViewController mainViewController, RBMap map)
     {
         this.structures = new HashMap<>();
         this.structureRenderInfoObservers = new ArrayList<>();
-        this.structureAbilityManager = structureAbilityManager;
+        this.structureAbilityManager = new StructureAbilityManager(mainViewController, map, this);
     }
 
     public void addStructure(TileCompartmentLocation tcl, Structure structure)
@@ -84,5 +87,10 @@ public class StructureManager implements MapStructureRenderInfoObservable
     @Override
     public void detach(MapStructureRenderInfoObserver observer) {
         this.structureRenderInfoObservers.remove(observer);
+    }
+
+    @Override
+    public void addStructureVisit(Structure structure, TileCompartmentLocation tileCompartmentLocation) {
+        this.addStructure(tileCompartmentLocation, structure);
     }
 }

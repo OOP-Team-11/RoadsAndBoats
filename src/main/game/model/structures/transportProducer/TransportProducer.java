@@ -12,6 +12,6 @@ public abstract class TransportProducer extends Structure {
 
     public abstract Transport produce(Transport transport);
 
-    public abstract Transport produce(TileCompartment tileCompartment);
+    public abstract boolean produce(TileCompartment tileCompartment);
 
 }

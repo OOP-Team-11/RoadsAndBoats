@@ -41,5 +41,9 @@ public class Angle implements Cloneable{
                 ((Angle) object).getDegrees() == this.getDegrees();
     }
 
-
+    @Override
+    public String toString()
+    {
+        return ""+degrees;
+    }
 }

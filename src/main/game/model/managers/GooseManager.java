@@ -6,23 +6,25 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.map.RBMap;
 import game.model.resources.Goose;
 import game.model.transport.Transport;
+import game.model.visitors.GooseManagerVisitor;
 
 import java.util.*;
 
-public class GooseManager {
+public class GooseManager implements GooseManagerVisitor {
     private Map<TileCompartmentLocation, ArrayList<Goose>> mapGeese;
     private GooseAbilityManager gooseAbilityManager;
 
-    public GooseManager(GooseAbilityManager gooseAbilityManager) {
+    public GooseManager(MainViewController mainViewController, RBMap map) {
         this.mapGeese = new HashMap<>();
-        this.gooseAbilityManager = gooseAbilityManager;
+        this.gooseAbilityManager = new GooseAbilityManager(mainViewController, map, this);
     }
 
 //    ONLY FOR TESTING PURPOSES
     public GooseManager() {
-        this.gooseAbilityManager = new GooseAbilityManager(new MainViewController(), new RBMap());
+        this.gooseAbilityManager = new GooseAbilityManager(new MainViewController(), new RBMap(), this);
         this.mapGeese = new HashMap<>();
     }
+
     public Map<TileCompartmentLocation, ArrayList<Goose>> getMapGeese() {
         return this.mapGeese;
     }
@@ -64,5 +66,10 @@ public class GooseManager {
             }
         }
         this.gooseAbilityManager.addAbilities(goose, tileCompartmentLocation, tileGeese);
+    }
+
+    @Override
+    public void addGooseVisit(Goose goose, TileCompartmentLocation tileCompartmentLocation) {
+        this.addGoose(tileCompartmentLocation, goose);
     }
 }
