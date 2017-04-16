@@ -18,6 +18,7 @@ import static game.model.resources.ResourceType.STOCKBOND;
 
 public class ResourceImporter {
 
+    // POD
     class Resource {
         ResourceType resourceType;
         int amount;
@@ -42,8 +43,7 @@ public class ResourceImporter {
             Resource resource = getResource(line);
             Tile tile = map.getTile(location);
             TileCompartment tileCompartment = tile.getTileCompartment(tcd);
-
-            // TODO: add resource to tile compartment once tony merges his branch
+            tileCompartment.storeResource(resource.resourceType, resource.amount);
         }
 
         if (!foundEOF) throw new MalformedMapFileException("END RESOURCE not found");
@@ -61,7 +61,7 @@ public class ResourceImporter {
             }
             String[] coordinatesString = locationString.split(" ");
             if (coordinatesString.length != 3)
-                throw new MalformedMapFileException("Malformed resource string: " + resourceString);
+                throw new MalformedMapFileException("Malformed location in resource string: " + resourceString);
 
             try {
                 int x = Integer.parseInt(coordinatesString[0]);
@@ -82,42 +82,11 @@ public class ResourceImporter {
         throw new MalformedMapFileException("Could not find location on line: " + resourceString);
     }
 
-    private TileCompartmentDirection getTileCompartmentDirectionForTCDString(String tcdString) {
-        switch (tcdString) {
-            case "E":
-                return TileCompartmentDirection.getEast();
-            case "NE":
-                return TileCompartmentDirection.getNorthEast();
-            case "NNE":
-                return TileCompartmentDirection.getNorthNorthEast();
-            case "N":
-                return TileCompartmentDirection.getNorth();
-            case "NNW":
-                return TileCompartmentDirection.getNorthNorthWest();
-            case "NW":
-                return TileCompartmentDirection.getNorthWest();
-            case "W":
-                return TileCompartmentDirection.getWest();
-            case "SW":
-                return TileCompartmentDirection.getSouthWest();
-            case "SSW":
-                return TileCompartmentDirection.getSouthSouthWest();
-            case "S":
-                return TileCompartmentDirection.getSouth();
-            case "SE":
-                return TileCompartmentDirection.getSouthEast();
-            case "SSE":
-                return TileCompartmentDirection.getSouthSouthEast();
-            default:
-                return null;
-        }
-    }
-
     private TileCompartmentDirection getTileCompartmentDirection(String resourceString) throws MalformedMapFileException {
         Matcher m = getMatcherForPatternInString(resourceString, "\\([^)]*\\) ([A-Z])");
         if (m.find()) {
             String directionString = m.group(1);
-            TileCompartmentDirection tcd = getTileCompartmentDirectionForTCDString(directionString);
+            TileCompartmentDirection tcd = ParseUtilities.getTileCompartmentDirectionForTCDString(directionString);
             if (tcd == null) throw new MalformedMapFileException("Could not parse direction for resource: " + resourceString);
             return tcd;
         }
@@ -125,38 +94,14 @@ public class ResourceImporter {
         throw new MalformedMapFileException("Malformed resource string: " + resourceString);
     }
 
-    private ResourceType getResourceTypeByString(String name) {
-        if (TRUNKS.getName().equals(name)) {
-            return TRUNKS;
-        } else if (BOARDS.getName().equals(name)) {
-            return BOARDS;
-        } else if (PAPER.getName().equals(name)) {
-            return PAPER;
-        } else if (GOOSE.getName().equals(name)) {
-            return GOOSE;
-        } else if (CLAY.getName().equals(name)) {
-            return CLAY;
-        } else if (FUEL.getName().equals(name)) {
-            return FUEL;
-        } else if (IRON.getName().equals(name)) {
-            return IRON;
-        } else if (GOLD.getName().equals(name)) {
-            return GOLD;
-        } else if (COINS.getName().equals(name)) {
-            return COINS;
-        } else if (STOCKBOND.getName().equals(name)) {
-            return STOCKBOND;
-        } else return null;
-    }
-
     private Resource getResource(String resourceString) throws MalformedMapFileException {
-        Matcher m = getMatcherForPatternInString(resourceString, "\\([^)]*\\) [A-Z] (.*)=([1-9][0-9]{0,2})");
+        Matcher m = getMatcherForPatternInString(resourceString, "\\([^)]*\\) [A-Z] (.*)=([0-9]{1,2})");
         if (m.find()) {
             String resourceName = m.group(1);
             String resourceAmount = m.group(2);
 
             try {
-                ResourceType type = getResourceTypeByString(resourceName);
+                ResourceType type = ParseUtilities.getResourceTypeByString(resourceName);
                 if (type == null) throw new MalformedMapFileException("Malformed resource string: " + resourceString);
                 int amount = Integer.parseInt(resourceAmount);
                 return new Resource(type, amount);
