@@ -7,22 +7,22 @@ public class DirectionToLocation {
     }
 
     public static Location getLocation(Location startingLocation, TileEdgeDirection direction) {
-        if (angleIsInRange(direction.getMmAngle(), 0, 60)) {
+        if (angleIsInRange(direction.getAngle(), 0, 60)) {
             return new Location(startingLocation.getX() + 1, startingLocation.getY(), startingLocation.getZ() - 1);
 
-        } else if (angleIsInRange(direction.getMmAngle(), 60, 120)) {
+        } else if (angleIsInRange(direction.getAngle(), 60, 120)) {
             return new Location(startingLocation.getX(), startingLocation.getY() + 1, startingLocation.getZ() - 1);
 
-        } else if (angleIsInRange(direction.getMmAngle(), 120, 180)) {
+        } else if (angleIsInRange(direction.getAngle(), 120, 180)) {
             return new Location(startingLocation.getX() - 1, startingLocation.getY() + 1, startingLocation.getZ());
 
-        } else if (angleIsInRange(direction.getMmAngle(), 180, 240)) {
+        } else if (angleIsInRange(direction.getAngle(), 180, 240)) {
             return new Location(startingLocation.getX() - 1, startingLocation.getY(), startingLocation.getZ() + 1);
 
-        } else if (angleIsInRange(direction.getMmAngle(), 240, 300)) {
+        } else if (angleIsInRange(direction.getAngle(), 240, 300)) {
             return new Location(startingLocation.getX(), startingLocation.getY() - 1, startingLocation.getZ() + 1);
 
-        } else if (angleIsInRange(direction.getMmAngle(), 300, 360)) {
+        } else if (angleIsInRange(direction.getAngle(), 300, 360)) {
             return new Location(startingLocation.getX() + 1, startingLocation.getY() - 1, startingLocation.getZ());
 
         } else {

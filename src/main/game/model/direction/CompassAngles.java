@@ -22,7 +22,7 @@ public enum CompassAngles {
         this.mmAngle = new Angle(degrees);
     }
 
-    public Angle getMmAngle() {
+    public Angle getAngle() {
         return this.mmAngle;
     }
 }
