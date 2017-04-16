@@ -7,10 +7,7 @@ import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.gameImportExport.exporter.GameExporter;
-import game.model.managers.GooseManager;
-import game.model.managers.StructureAbilityManager;
-import game.model.managers.StructureManager;
-import game.model.managers.TransportAbilityManager;
+import game.model.managers.*;
 import game.model.resources.ResourceType;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Tile;
@@ -71,12 +68,31 @@ public class GameExporterTest {
 
 
 
-        TransportAbilityManager tm = new TransportAbilityManager(new MainViewController(),new GooseManager(), map);
-        Game game = new Game(map,
-                new Player(tm, new PlayerId(1),"Player1", new TileCompartmentLocation(locations.get(0), TileCompartmentDirection.getEast())),
-                new Player(tm, new PlayerId(2),"Player2", new TileCompartmentLocation(locations.get(2), TileCompartmentDirection.getNorth())),
-                new GooseManager(),
-                new StructureManager(new StructureAbilityManager(new MainViewController())));
+//        TransportAbilityManager tm = new TransportAbilityManager(
+//                new MainViewController(),
+//                new GooseManager(),
+//                map,
+//                new TransportManager(),
+//                );
+//        Game game = new Game(map,
+//                new Player(tm, new PlayerId(1),"Player1", new TileCompartmentLocation(locations.get(0), TileCompartmentDirection.getEast())),
+//                new Player(tm, new PlayerId(2),"Player2", new TileCompartmentLocation(locations.get(2), TileCompartmentDirection.getNorth())),
+//                new GooseManager(),
+//                new StructureManager(new StructureAbilityManager(new MainViewController())));
+        PlayerId pid1 = new PlayerId(1);
+        PlayerId pid2 = new PlayerId(2);
+        MainViewController mvc = new MainViewController();
+        TransportManager tm1 = new TransportManager(
+                pid1, mvc, new GooseManager(), map, new StructureManager(mvc,map)
+        );
+        TransportManager tm2 = new TransportManager(
+                pid2, mvc, new GooseManager(), map, new StructureManager(mvc,map)
+        );
+
+        Player p1 = new Player(tm1, pid1, "Karl", new TileCompartmentLocation(new Location(0,0,0),TileCompartmentDirection.getNorth()));
+        Player p2 = new Player(tm1, pid1, "Friedrich", new TileCompartmentLocation(new Location(-1,0,1),TileCompartmentDirection.getEast()));
+
+        Game game = new Game(map, p1, p2, new GooseManager(), new StructureManager(mvc,map));
         gameExporter = new GameExporter(game);
     }
 
