@@ -45,11 +45,14 @@ public class MainViewController {
         notifyViewCamera();
         addSlideEventHandler();
         addTurnFinishButtonHandler();
-        transportManagers = new ArrayList<>();
+        this.transportManagers = new ArrayList<TransportManager>();
     }
 
 //    CONSTRUCTOR JUST FOR TESTING
-    public MainViewController(){ this.controls = new HashMap<KeyCode, Ability>(); };
+    public MainViewController(){
+        this.controls = new HashMap<KeyCode, Ability>();
+        this.transportManagers = new ArrayList<TransportManager>();
+    };
 
     private void setMainView(MainView mainView){
         this.mainView = mainView;

@@ -62,7 +62,6 @@ public class TransportAbilityManager {
 
     private void addAbility(Ability a) {
         abilities.add(a);
-        System.out.println("Added ability : " + a.getDisplayString());
     }
 
     public void removeAbilities() {
