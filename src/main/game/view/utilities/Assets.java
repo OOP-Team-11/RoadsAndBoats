@@ -180,6 +180,12 @@ public class Assets {
     public Image MINE_AMOUNT_3;
     public Image MINE_AMOUNT_4;
     public Image MINE_AMOUNT_5;
+    public Image MINE_AMOUNT_6;
+    public Image MINE_AMOUNT_7;
+    public Image MINE_AMOUNT_8;
+    public Image MINE_AMOUNT_9;
+    public Image MINE_AMOUNT_10;
+    public Image MINE_AMOUNT_UNKOWN;
 
     public boolean loadAssets(){
         try{
@@ -333,7 +339,12 @@ public class Assets {
             MINE_AMOUNT_3 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number3.png"));
             MINE_AMOUNT_4 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number4.png"));
             MINE_AMOUNT_5 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number5.png"));
-
+            MINE_AMOUNT_6 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number6.png"));
+            MINE_AMOUNT_7 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number7.png"));
+            MINE_AMOUNT_8 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number8.png"));
+            MINE_AMOUNT_9 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number9.png"));
+            MINE_AMOUNT_10 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number10.png"));
+            MINE_AMOUNT_UNKOWN = new Image(this.getClass().getResourceAsStream("/buildings/mine_unknown.png"));
 
         } catch(Exception e){
             e.printStackTrace();
