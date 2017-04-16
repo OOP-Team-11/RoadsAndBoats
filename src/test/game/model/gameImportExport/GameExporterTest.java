@@ -26,12 +26,8 @@ import static org.junit.Assert.*;
 
 public class GameExporterTest {
 
-    private static final String filePath = "testFiles/example.tinyrick";
-    File testFile;
+    private static final String testingFilePath = "testFiles/GameExportTest.tinyrick";
     RBMap map;
-    MapImporter mapImporter;
-    BufferedReader br;
-    FileWriter fw;
 
     ArrayList<Location> locations;// = new ArrayList<>();
     ArrayList<Tile> tiles;// = new ArrayList<>();
@@ -59,10 +55,10 @@ public class GameExporterTest {
 
 
         map.placeTile(locations.get(0),tiles.get(0));
-        map.placeTile(locations.get(1),tiles.get(0));
-        map.placeTile(locations.get(2),tiles.get(0));
-        map.placeTile(locations.get(3),tiles.get(0));
-        map.placeTile(locations.get(4),tiles.get(0));
+        map.placeTile(locations.get(1),tiles.get(1));
+        map.placeTile(locations.get(2),tiles.get(2));
+        map.placeTile(locations.get(3),tiles.get(3));
+        map.placeTile(locations.get(4),tiles.get(4));
 
 
         TransportAbilityManager tm = new TransportAbilityManager(new MainViewController(),new GooseManager(), map);
@@ -75,9 +71,29 @@ public class GameExporterTest {
     }
 
     @Test
-    public void printAllLocationsTest(){
-        gameExporter.exportGameToPath("");
-        assertTrue(true);
+    public void fileWasActuallyEvenWrittenTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        File f = new File(testingFilePath);
+        assertTrue(f.exists());
+        assertTrue(f.isFile());
+
+    }
+
+    @Test
+    public void fileActuallyHasShitInItTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        File f = new File(testingFilePath);
+        assertTrue(f.exists());
+        assertTrue(f.isFile());
+    }
+
+    @Test
+    public void fileIsOfTheRightLengthTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        File f = new File(testingFilePath);
+        assertTrue(f.exists());
+        assertTrue(f.isFile());
+        assertEquals(f.length(), 160);
     }
 
 

@@ -8,11 +8,15 @@ import game.model.tile.Tile;
 import game.model.tile.TileCompartment;
 import game.model.tinyGame.Game;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
 public class GameExporter {
+
+    File outputFile;
+    FileWriter fw;
 
     private Game game;
     Location[] locations;
@@ -22,8 +26,20 @@ public class GameExporter {
     }
 
     public void exportGameToPath(String filePath) {
+        outputFile = new File(filePath);
+
         String mapSection = serializeMap();
         System.out.println(mapSection);
+
+        try {
+            fw = new FileWriter(outputFile);
+            fw.write(mapSection);
+//            fw.write(System.lineSeparator());
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private String serializeMap(){
