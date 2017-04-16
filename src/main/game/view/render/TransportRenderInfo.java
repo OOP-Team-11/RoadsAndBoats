@@ -1,5 +1,6 @@
 package game.view.render;
 
+import game.model.PlayerId;
 import game.model.direction.TileCompartmentLocation;
 import game.model.resources.Goose;
 import game.model.transport.Transport;
@@ -31,5 +32,9 @@ public class TransportRenderInfo
 
     public List<Goose> getFollowers() {
         return this.transport.getFollowers();
+    }
+
+    public PlayerId getOwner() {
+        return transport.getPlayerId();
     }
 }
