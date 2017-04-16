@@ -1,6 +1,6 @@
 package game.model.tile;
 
-import game.model.resources.ResourceManager;
+import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 
 public class TileCompartment {

@@ -1,7 +1,8 @@
-package game.model.resources;
+package game.model.managers;
 
 
 import game.model.gameImportExport.Serializable;
+import game.model.resources.ResourceType;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;

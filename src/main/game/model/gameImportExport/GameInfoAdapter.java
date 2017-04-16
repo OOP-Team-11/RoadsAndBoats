@@ -5,7 +5,6 @@ import game.model.Player;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentLocation;
 import game.model.map.RBMap;
-import game.model.resources.ResourceManager;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;

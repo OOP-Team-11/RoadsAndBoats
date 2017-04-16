@@ -1,6 +1,6 @@
 package game.model.structures.primaryProducer;
 
-import game.model.resources.ResourceManager;
+import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.resourceProducer.primaryProducer.Mine;
 import org.junit.Test;
