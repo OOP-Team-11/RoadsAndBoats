@@ -1,4 +1,4 @@
-package game.model.abilities;
+package model.abilities;
 
 import game.controller.MainViewController;
 import game.model.Player;
@@ -48,19 +48,21 @@ public class TransportAbilityTest {
 //    Test that the reproduce ability will add with just two donkeys in a pasture
     @Test
     public void addTransportReproduceAbilityTest() {
-        TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
+        TileCompartmentLocation placementLocation = new TileCompartmentLocation(new Location(5,-5,0), TileCompartmentDirection.getNorth());
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
         TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
         Player player1 = new Player(transportManager, playerId, "Morty");
+
         Transport donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(),new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
-        player1.getTransportManager().addTransport(donkey, location);
-        player1.getTransportManager().addTransport(donkey2, location);
-        player1.getTransportManager().onTransportSelected(donkey, location);
+        map.placeTile(new Location(5,-5,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
+        player1.getTransportManager().addTransport(donkey, placementLocation);
+        player1.getTransportManager().addTransport(donkey2, placementLocation);
+        player1.getTransportManager().onTransportSelected(donkey, placementLocation);
         assertEquals(1, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
 

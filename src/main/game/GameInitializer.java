@@ -1,7 +1,6 @@
 package game;
 
 import game.controller.ControllerManager;
-import game.model.factory.AbilityFactory;
 import game.model.gameImportExport.exporter.GameExporter;
 import game.model.gameImportExport.importer.GameImporter;
 import game.model.managers.*;

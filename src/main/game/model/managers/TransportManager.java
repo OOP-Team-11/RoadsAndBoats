@@ -142,6 +142,7 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
     @Override
     public void attach(MapTransportRenderInfoObserver observer) {
         this.mapTransportRenderInfoObservers.add(observer);
+        notifyMapTransportRenderInfoObservers();
     }
 
     @Override
