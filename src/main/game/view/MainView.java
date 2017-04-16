@@ -1,6 +1,8 @@
 package game.view;
 
 import game.model.direction.Location;
+import game.model.direction.TileCompartmentLocation;
+import game.model.resources.ResourceType;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.utilities.observer.*;
@@ -24,6 +26,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.awt.image.ImageConsumer;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class MainView extends View
@@ -141,8 +145,8 @@ public class MainView extends View
             drawLargeSelectedTileOnSide(cursorRenderInfo.getCursorLocation());
         }
     }
-    private boolean checkForNullTerrain(Terrain terrain){
-        if(terrain == null){
+    private boolean isNull(Object object){
+        if(object == null){
             return true;
         }
         return false;
@@ -255,7 +259,7 @@ public class MainView extends View
 
     private void drawLargeSelectedTileOnSide(Location location){
         Terrain terrainType = mapRenderInfo.getTerrainMap().get(location);
-        if(checkForNullTerrain(terrainType)){
+        if(isNull(terrainType)){
             // white area selected
         } else {
             Image image = this.renderToImageConverter.getTerrainImage(terrainType);
@@ -298,7 +302,7 @@ public class MainView extends View
 
     private void drawMap(){
 
-        if(mapRenderInfo == null){
+        if(isNull(mapRenderInfo)){
             // no information yet
         } else {
             for (Map.Entry<Location, Terrain> entry : mapRenderInfo.getTerrainMap().entrySet())
@@ -542,6 +546,59 @@ public class MainView extends View
 
     }
 
+    private void displayMapTransportRenderInfo(){
+        if(isNull(mapTransportRenderInfo)){
+            // nothing to render
+        } else {
+            for ( Map.Entry<TileCompartmentLocation, TransportRenderInfo> entry : mapTransportRenderInfo.getTransports().entrySet())
+            {
+                // TODO need to know who transport belongs to, right now displaying all red
+                Image image = renderToImageConverter.getRedTransportImage(entry.getValue().getTransportType());
+                int x = entry.getKey().getLocation().getX();
+                int y = entry.getKey().getLocation().getY();
+                int z = entry.getKey().getLocation().getZ();
+                // TODO not 100% sure about getting compartment from degrees may crash here
+                int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
+                drawCompartmentLargeImage(image,x,y,z,compartment);
+            }
+        }
+    }
+
+    private void displayResourceRenderInfo(){
+        if(isNull(resourceRenderInfo)){
+            // nothing to render
+        } else {
+            for ( HashMap.Entry<TileCompartmentLocation, HashMap<ResourceType, Integer>> entry : resourceRenderInfo.resources.entrySet())
+            {
+                int x = entry.getKey().getLocation().getX();
+                int y = entry.getKey().getLocation().getY();
+                int z = entry.getKey().getLocation().getZ();
+                // TODO not 100% sure about getting compartment from degrees may crash here
+                int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
+                for ( HashMap.Entry<ResourceType, Integer> entry2 : entry.getValue().entrySet()){
+                    Image image = renderToImageConverter.getResourceImage(entry2.getKey());
+                    drawCompartmentSmallImage(image,x,y,z,compartment);
+                }
+            }
+        }
+    }
+    private void displayStructureRenderInfo(){
+        if(isNull(mapTransportRenderInfo)){
+            // nothing to render
+        } else {
+            for ( Map.Entry<TileCompartmentLocation, StructureRenderInfo> entry : mapStructureRenderInfo.getStructures().entrySet())
+            {
+                Image image = renderToImageConverter.getStructureImage(entry.getValue().getStructureType());
+                int x = entry.getKey().getLocation().getX();
+                int y = entry.getKey().getLocation().getY();
+                int z = entry.getKey().getLocation().getZ();
+                // TODO not 100% sure about getting compartment from degrees may crash here
+                int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
+                drawCompartmentLargeImage(image,x,y,z,compartment);
+            }
+        }
+    }
+
     @Override
     public void render() {
         if(refresh){
@@ -552,9 +609,14 @@ public class MainView extends View
             drawCursor();
             checkForOverlay();
             updateSidePanel();
+            displaySidePanelInformation();
             drawPlayerName();
             drawCurrentPhase();
-            displaySidePanelInformation();
+
+            displayMapTransportRenderInfo();
+            displayResourceRenderInfo();
+            displayStructureRenderInfo();
+
             clearNewDataFlag();
             TESTING_REMOVE_LATER();
         } else {
