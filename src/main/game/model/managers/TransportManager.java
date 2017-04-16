@@ -11,6 +11,7 @@ import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
 import game.model.transport.TransportLocation;
+import game.model.visitors.StructureManagerVisitor;
 import game.model.visitors.TransportManagerVisitor;
 import game.utilities.observable.MapTransportRenderInfoObservable;
 import game.utilities.observer.MapStructureRenderInfoObserver;
@@ -28,11 +29,11 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
     private TransportAbilityManager transportAbilityManager;
     private Map<TileCompartmentLocation, List<Transport>> transports;
     private List<MapTransportRenderInfoObserver> mapTransportRenderInfoObservers;
-    public TransportManager(PlayerId playerId, MainViewController mainViewController, GooseManager gooseManager, RBMap map) {
+    public TransportManager(PlayerId playerId, MainViewController mainViewController, GooseManager gooseManager, RBMap map, StructureManagerVisitor structureManagerVisitor) {
         this.playerId = playerId;
         this.transports = new HashMap<TileCompartmentLocation, List<Transport>>();
         this.mapTransportRenderInfoObservers = new Vector<>();
-        this.transportAbilityManager = new TransportAbilityManager(mainViewController, gooseManager, map, this);
+        this.transportAbilityManager = new TransportAbilityManager(mainViewController, gooseManager, map, this, structureManagerVisitor);
     }
 
     public PlayerId getPlayerId() {

@@ -7,6 +7,7 @@ import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.managers.GooseManager;
+import game.model.managers.StructureManager;
 import game.model.managers.TransportAbilityManager;
 import game.model.managers.TransportManager;
 import game.model.map.RBMap;
@@ -20,11 +21,14 @@ import game.model.tile.Tile;
 import game.model.transport.DonkeyTransport;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class TransportAbilityTest {
+
+    private StructureManager structureManager;
 
     @Test
     public void addFollowAbilityTest() {
@@ -34,7 +38,8 @@ public class TransportAbilityTest {
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        StructureManager structureManager = new StructureManager(mainViewController, map);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
         Player player1 = new Player(transportManager, playerId, "Morty");
         Transport donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
 //        Add 2 geese to same location that donkey is at so he will have 2 followAbilities. One or both follow.
@@ -53,7 +58,8 @@ public class TransportAbilityTest {
         RBMap map = new RBMap();
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        StructureManager structureManager = new StructureManager(mainViewController, map);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
         Player player1 = new Player(transportManager, playerId, "Morty");
 
         Transport donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
@@ -73,7 +79,8 @@ public class TransportAbilityTest {
         RBMap map = new RBMap();
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        StructureManager structureManager = new StructureManager(mainViewController, map);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
         Player player1 = new Player(transportManager, playerId, "Morty");
         Transport donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(), new TransportId());
@@ -92,7 +99,8 @@ public class TransportAbilityTest {
         RBMap map = new RBMap();
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        StructureManager structureManager = new StructureManager(mainViewController, map);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
         Player player1 = new Player(transportManager, playerId, "Morty");
         Transport donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(), new TransportId());
@@ -112,7 +120,8 @@ public class TransportAbilityTest {
         RBMap map = new RBMap();
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        StructureManager structureManager = new StructureManager(mainViewController, map);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
         Player player1 = new Player(transportManager, playerId, "Morty");
         Transport donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(),new TransportId());

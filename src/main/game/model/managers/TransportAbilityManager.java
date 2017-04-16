@@ -14,6 +14,7 @@ import game.model.tile.Terrain;
 import game.model.tile.Tile;
 import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
+import game.model.visitors.StructureManagerVisitor;
 import game.model.visitors.TransportManagerVisitor;
 
 import java.util.*;
@@ -25,14 +26,16 @@ public class TransportAbilityManager {
     private RBMap map;
     private MainViewController mainViewController;
     private TransportManagerVisitor transportManagerVisitor;
+    private StructureManagerVisitor structureManagerVisitor;
 
-    public TransportAbilityManager(MainViewController mainViewController, GooseManager gooseManager, RBMap map, TransportManagerVisitor transportManagerVisitor) {
+    public TransportAbilityManager(MainViewController mainViewController, GooseManager gooseManager, RBMap map, TransportManagerVisitor transportManagerVisitor, StructureManagerVisitor structureManagerVisitor) {
         this.mainViewController = mainViewController;
         this.abilityFactory = new AbilityFactory(mainViewController);
         this.abilities = new ArrayList<Ability>();
         this.gooseManager = gooseManager;
         this.map = map;
         this.transportManagerVisitor = transportManagerVisitor;
+        this.structureManagerVisitor = structureManagerVisitor;
     }
 
     public RBMap getMap() { return map; }

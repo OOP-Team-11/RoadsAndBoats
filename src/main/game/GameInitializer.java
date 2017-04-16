@@ -38,12 +38,12 @@ public class GameInitializer {
             structureManager.attach(viewHandler.getMainViewReference());
 
             PlayerId player1Id = new PlayerId(1);
-            TransportManager player1TransportManager = new TransportManager(player1Id, controllerManager.getMainViewController(), gooseManager, map);
+            TransportManager player1TransportManager = new TransportManager(player1Id, controllerManager.getMainViewController(), gooseManager, map, structureManager);
             Player player1 = new Player(player1TransportManager, new PlayerId(1), player1Name);
             player1.attach(viewHandler.getMainViewReference());
 
             PlayerId player2Id = new PlayerId(2);
-            TransportManager player2TransportManager = new TransportManager(player2Id, controllerManager.getMainViewController(), gooseManager, map);
+            TransportManager player2TransportManager = new TransportManager(player2Id, controllerManager.getMainViewController(), gooseManager, map, structureManager);
             Player player2 = new Player(player2TransportManager, new PlayerId(2), player2Name);
             player2.attach(viewHandler.getMainViewReference());
 

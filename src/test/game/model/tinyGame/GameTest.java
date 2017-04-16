@@ -30,9 +30,10 @@ public class GameTest {
         MainViewController mainViewController = mock(MainViewController.class);
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map);
+        StructureManager structureManager = new StructureManager(mainViewController, map);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
         PlayerId playerId2 = new PlayerId(2);
-        TransportManager transportManager2 = new TransportManager(playerId2, mainViewController, gooseManager, map);
+        TransportManager transportManager2 = new TransportManager(playerId2, mainViewController, gooseManager, map, structureManager);
         player1 = new Player(transportManager, playerId, "Morty");
         player2 = new Player(transportManager, playerId, "Morty");
         this.game = new Game(map, player1, player2, mock(GooseManager.class), mock(StructureManager.class));
