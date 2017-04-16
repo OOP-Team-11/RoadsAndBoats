@@ -15,26 +15,28 @@ import java.util.Set;
 
 public class GameExporter {
 
-    File outputFile;
-    FileWriter fw;
+    private File outputFile;
+    private FileWriter fw;
 
-    private Game game;
-    Location[] locations;
+    private RBMap map;
+    private Location[] locations;
 
     public GameExporter(Game game) {
-        this.game = game;
+        map = game.getMap();
+        Set<Location> locSet = map.getAllLocations();
+        locations = new Location[locSet.size()];
+        locations = locSet.toArray(locations);
     }
 
     public void exportGameToPath(String filePath) {
         outputFile = new File(filePath);
 
         String mapSection = serializeMap();
-//        System.out.println(mapSection);
-
+        String resourceSection = serializeResources();
+        System.out.println(resourceSection);
         try {
             fw = new FileWriter(outputFile);
             fw.write(mapSection);
-//            fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,10 +46,7 @@ public class GameExporter {
 
     private String serializeMap(){
         String serializedMap = "-----BEGIN MAP-----\n";
-        RBMap map = game.getMap();
-        Set<Location> locSet = map.getAllLocations();
-        Location[] locations = new Location[locSet.size()];
-        locations = locSet.toArray(locations);
+
 
         for (Location location : locations) {
             Tile thisTile = map.getTile(location);
@@ -65,44 +64,57 @@ public class GameExporter {
 
 
     public String serializeResources(){
+        String serializedResources = "-----BEGIN RESOURCES-----\n";
 
-        //In loop:
-//        HashMap<String, TileCompartment> tileCompartments = new HashMap<>();
-//        tileCompartments.put("N",thisTile.getTileCompartment(TileCompartmentDirection.getNorth()));
-//        tileCompartments.put("NNE",thisTile.getTileCompartment(TileCompartmentDirection.getNorthNorthEast()));
-//        tileCompartments.put("NE",thisTile.getTileCompartment(TileCompartmentDirection.getNorthEast()));
-//        tileCompartments.put("E",thisTile.getTileCompartment(TileCompartmentDirection.getEast()));
-//        tileCompartments.put("SE",thisTile.getTileCompartment(TileCompartmentDirection.getSouthEast()));
-//        tileCompartments.put("SSE",thisTile.getTileCompartment(TileCompartmentDirection.getSouthSouthEast()));
-//        tileCompartments.put("S",thisTile.getTileCompartment(TileCompartmentDirection.getSouth()));
-//        tileCompartments.put("SSW",thisTile.getTileCompartment(TileCompartmentDirection.getSouthSouthWest()));
-//        tileCompartments.put("SW",thisTile.getTileCompartment(TileCompartmentDirection.getSouthWest()));
-//        tileCompartments.put("W",thisTile.getTileCompartment(TileCompartmentDirection.getWest()));
-//        tileCompartments.put("NW",thisTile.getTileCompartment(TileCompartmentDirection.getNorthWest()));
-//        tileCompartments.put("NNW",thisTile.getTileCompartment(TileCompartmentDirection.getNorthNorthWest()));
-//
-//        Set<String> dirs = tileCompartments.keySet();
-//        String[] sDirs = new String[dirs.size()];
-//        sDirs = dirs.toArray(sDirs);
-//        for(int j = 0; j < sDirs.length; j++){
-//            HashMap<String,Integer> resourceCount = new HashMap<>();
-//            //If the TileCompartment has resources
-//            int boardCount = tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.BOARDS);
-//            int clayCount = tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.CLAY);
-//            int goldCount = tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.GOLD);
-//            int coinsCount = tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.COINS);
-//            int fuelCount = tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.FUEL);
-//            int gooseCount = tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.GOOSE);
-//            int ironCount = tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.IRON);
-//            int paperCount = tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.PAPER);
-//            int stockbondCount = tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.STOCKBOND);
-//            int stoneCount = tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.STONE);
-//            int trunksCount = tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.TRUNKS);
-//
-//            if(boardCount > 0) serializedMap += "";
-//        }
-//
-//        serializedMap += "\n";
-        return null;
+
+        for (Location location : locations) {
+            Tile thisTile = map.getTile(location);
+            boolean hasResources = false;   //Will be used to determine whether to actually add a line or not.
+            serializedResources += location.getExportString() + " ";  /* Coordinates */
+
+            HashMap<String, TileCompartment> tileCompartments = new HashMap<>();
+            tileCompartments.put("N",thisTile.getTileCompartment(TileCompartmentDirection.getNorth()));
+            tileCompartments.put("NNE",thisTile.getTileCompartment(TileCompartmentDirection.getNorthNorthEast()));
+            tileCompartments.put("NE",thisTile.getTileCompartment(TileCompartmentDirection.getNorthEast()));
+            tileCompartments.put("E",thisTile.getTileCompartment(TileCompartmentDirection.getEast()));
+            tileCompartments.put("SE",thisTile.getTileCompartment(TileCompartmentDirection.getSouthEast()));
+            tileCompartments.put("SSE",thisTile.getTileCompartment(TileCompartmentDirection.getSouthSouthEast()));
+            tileCompartments.put("S",thisTile.getTileCompartment(TileCompartmentDirection.getSouth()));
+            tileCompartments.put("SSW",thisTile.getTileCompartment(TileCompartmentDirection.getSouthSouthWest()));
+            tileCompartments.put("SW",thisTile.getTileCompartment(TileCompartmentDirection.getSouthWest()));
+            tileCompartments.put("W",thisTile.getTileCompartment(TileCompartmentDirection.getWest()));
+            tileCompartments.put("NW",thisTile.getTileCompartment(TileCompartmentDirection.getNorthWest()));
+            tileCompartments.put("NNW",thisTile.getTileCompartment(TileCompartmentDirection.getNorthNorthWest()));
+
+            Set<String> dirs = tileCompartments.keySet();
+            String[] sDirs = new String[dirs.size()];
+            sDirs = dirs.toArray(sDirs);
+
+            for(int j = 0; j < sDirs.length; j++){
+                String directionName = sDirs[j];    //For readability
+
+                HashMap<String,Integer> resourceCount = new HashMap<>();
+                resourceCount.put("BOARDS",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.BOARDS));
+                resourceCount.put("CLAY",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.CLAY));
+                resourceCount.put("GOLD",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.GOLD));
+                resourceCount.put("COINS",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.COINS));
+                resourceCount.put("FUEL",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.FUEL));
+                resourceCount.put("GOOSE",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.GOOSE));
+                resourceCount.put("IRON",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.IRON));
+                resourceCount.put("PAPER",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.PAPER));
+                resourceCount.put("STOCKBOND",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.STOCKBOND));
+                resourceCount.put("STONE",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.STONE));
+                resourceCount.put("TRUNKS",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.TRUNKS));
+
+
+            }
+
+
+            serializedResources += "\n";
+        }
+
+        serializedResources += "-----END RESOURCES-----";
+        return serializedResources;
+
     }
 }

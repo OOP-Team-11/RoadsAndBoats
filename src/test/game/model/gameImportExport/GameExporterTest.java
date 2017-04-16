@@ -62,6 +62,11 @@ public class GameExporterTest {
         map.placeTile(locations.get(3),tiles.get(3));
         map.placeTile(locations.get(4),tiles.get(4));
 
+        map.getTile(locations.get(0)).getTileCompartment(TileCompartmentDirection.getNorth()).storeResource(ResourceType.BOARDS,3);
+        map.getTile(locations.get(0)).getTileCompartment(TileCompartmentDirection.getSouth()).storeResource(ResourceType.GOLD,6);
+        map.getTile(locations.get(2)).getTileCompartment(TileCompartmentDirection.getSouthEast()).storeResource(ResourceType.COINS,12);
+        map.getTile(locations.get(3)).getTileCompartment(TileCompartmentDirection.getEast()).storeResource(ResourceType.FUEL,2);
+
 
         TransportAbilityManager tm = new TransportAbilityManager(new MainViewController(),new GooseManager(), map);
         Game game = new Game(map,
@@ -114,7 +119,7 @@ public class GameExporterTest {
             e.printStackTrace();
         }
 
-        assertEquals(contents,"-----BEGIN MAP-----\n" +
+        assertEquals(contents.substring(0,160),"-----BEGIN MAP-----\n" +
                 "( 0 0 0 ) PASTURE ( 1 3 5 )\n" +
                 "( 0 -1 1 ) DESERT ( 1 2 )\n" +
                 "( 0 1 -1 ) SEA ( 1 4 )\n" +
