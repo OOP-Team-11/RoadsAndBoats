@@ -1,6 +1,6 @@
 package model.structures.secondaryProducer;
 
-import game.model.resources.ResourceManager;
+import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.resourceProducer.secondaryProducer.Papermill;
 import org.junit.Test;

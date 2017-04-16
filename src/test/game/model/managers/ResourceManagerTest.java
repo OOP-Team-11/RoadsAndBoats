@@ -1,6 +1,5 @@
 package game.model.managers;
 
-import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
 import org.junit.Before;
 import org.junit.Test;
