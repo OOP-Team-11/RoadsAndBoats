@@ -1,6 +1,6 @@
 package game.model.structures.secondaryProducer;
 
-import game.model.resources.ResourceManager;
+import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.resourceProducer.secondaryProducer.CoalBurner;
 import org.junit.Test;
