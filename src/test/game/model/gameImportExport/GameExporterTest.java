@@ -55,6 +55,12 @@ public class GameExporterTest {
         tiles.add(new Tile(Terrain.WOODS, RiverConfiguration.getSkipAFace()));
         tiles.add(new Tile(Terrain.MOUNTAIN, RiverConfiguration.getNoRivers()));
 
+        tiles.get(0).getTileCompartment(TileCompartmentDirection.getNorth()).storeResource(ResourceType.BOARDS,1);
+        tiles.get(1).getTileCompartment(TileCompartmentDirection.getSouth()).storeResource(ResourceType.GOLD,2);
+        tiles.get(2).getTileCompartment(TileCompartmentDirection.getSouthEast()).storeResource(ResourceType.COINS,3);
+        tiles.get(3).getTileCompartment(TileCompartmentDirection.getEast()).storeResource(ResourceType.FUEL,4);
+        tiles.get(4).getTileCompartment(TileCompartmentDirection.getEast()).storeResource(ResourceType.TRUNKS,5);
+        tiles.get(4).getTileCompartment(TileCompartmentDirection.getEast()).storeResource(ResourceType.CLAY,6);
 
         map.placeTile(locations.get(0),tiles.get(0));
         map.placeTile(locations.get(1),tiles.get(1));
@@ -62,10 +68,7 @@ public class GameExporterTest {
         map.placeTile(locations.get(3),tiles.get(3));
         map.placeTile(locations.get(4),tiles.get(4));
 
-        map.getTile(locations.get(0)).getTileCompartment(TileCompartmentDirection.getNorth()).storeResource(ResourceType.BOARDS,3);
-        map.getTile(locations.get(0)).getTileCompartment(TileCompartmentDirection.getSouth()).storeResource(ResourceType.GOLD,6);
-        map.getTile(locations.get(2)).getTileCompartment(TileCompartmentDirection.getSouthEast()).storeResource(ResourceType.COINS,12);
-        map.getTile(locations.get(3)).getTileCompartment(TileCompartmentDirection.getEast()).storeResource(ResourceType.FUEL,2);
+
 
 
         TransportAbilityManager tm = new TransportAbilityManager(new MainViewController(),new GooseManager(), map);

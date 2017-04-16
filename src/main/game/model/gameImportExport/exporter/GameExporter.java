@@ -66,12 +66,12 @@ public class GameExporter {
     public String serializeResources(){
         String serializedResources = "-----BEGIN RESOURCES-----\n";
 
-
+        //Loop through all locations
         for (Location location : locations) {
-            Tile thisTile = map.getTile(location);
-            boolean hasResources = false;   //Will be used to determine whether to actually add a line or not.
-            serializedResources += location.getExportString() + " ";  /* Coordinates */
+            Tile thisTile = map.getTile(location);  //Get the tile at that location
+            String locationCoords = location.getExportString() + " ";  /* To put the Coordinates on return strings */
 
+            //Map direction names to the tile's actual TileCompartments
             HashMap<String, TileCompartment> tileCompartments = new HashMap<>();
             tileCompartments.put("N",thisTile.getTileCompartment(TileCompartmentDirection.getNorth()));
             tileCompartments.put("NNE",thisTile.getTileCompartment(TileCompartmentDirection.getNorthNorthEast()));
@@ -86,31 +86,32 @@ public class GameExporter {
             tileCompartments.put("NW",thisTile.getTileCompartment(TileCompartmentDirection.getNorthWest()));
             tileCompartments.put("NNW",thisTile.getTileCompartment(TileCompartmentDirection.getNorthNorthWest()));
 
+            //Get a key set for the map to allow iterating through it
             Set<String> dirs = tileCompartments.keySet();
             String[] sDirs = new String[dirs.size()];
             sDirs = dirs.toArray(sDirs);
 
-            for(int j = 0; j < sDirs.length; j++){
-                String directionName = sDirs[j];    //For readability
+            //Create matching arrays of resource names to ResourceTypes. Will be used in a sec.
+            String[] resourceTypeNames = {"BOARDS", "CLAY", "GOLD", "COINS", "FUEL", "GOOSE", "IRON", "PAPER", "STOCKBOND", "STONE", "TRUNKS"};
+            ResourceType[] actualResourceTypes = {
+                    ResourceType.BOARDS, ResourceType.CLAY, ResourceType.GOLD, ResourceType.COINS,
+                    ResourceType.FUEL, ResourceType.GOOSE, ResourceType.IRON, ResourceType.PAPER,
+                    ResourceType.STOCKBOND, ResourceType.STONE, ResourceType.TRUNKS
+            };
 
-                HashMap<String,Integer> resourceCount = new HashMap<>();
-                resourceCount.put("BOARDS",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.BOARDS));
-                resourceCount.put("CLAY",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.CLAY));
-                resourceCount.put("GOLD",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.GOLD));
-                resourceCount.put("COINS",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.COINS));
-                resourceCount.put("FUEL",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.FUEL));
-                resourceCount.put("GOOSE",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.GOOSE));
-                resourceCount.put("IRON",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.IRON));
-                resourceCount.put("PAPER",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.PAPER));
-                resourceCount.put("STOCKBOND",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.STOCKBOND));
-                resourceCount.put("STONE",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.STONE));
-                resourceCount.put("TRUNKS",tileCompartments.get(sDirs[j]).getResourceCount(ResourceType.TRUNKS));
-
-
+            //Loop through all the directions on the tile.
+            for (String directionName : sDirs) {
+                //Loop through all the resource types
+                for (int k = 0; k < resourceTypeNames.length; k++) {
+                    //Get the count of a specific resource at the tilecompartment given by the direction
+                    int count = tileCompartments.get(directionName).getResourceCount(actualResourceTypes[k]);
+                    //If the count for that resource is not zero
+                    if (count > 0) {
+                        serializedResources += locationCoords + " " + directionName + " " + resourceTypeNames[k] + " " + count + "\n";
+                    }
+                }
             }
 
-
-            serializedResources += "\n";
         }
 
         serializedResources += "-----END RESOURCES-----";
