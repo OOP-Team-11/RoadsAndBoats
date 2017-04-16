@@ -1,4 +1,6 @@
-package game.model;
+package game.model.managers;
+
+import game.model.PlayerId;
 
 import java.util.ArrayList;
 

@@ -4,6 +4,9 @@ import game.controller.MainViewController;
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.direction.Location;
+import game.model.direction.TileCompartmentDirection;
+import game.model.direction.TileCompartmentLocation;
+import game.model.gameImportExport.exporter.GameExporter;
 import game.model.managers.GooseManager;
 import game.model.managers.StructureAbilityManager;
 import game.model.managers.StructureManager;
@@ -13,7 +16,6 @@ import game.model.tile.RiverConfiguration;
 import game.model.tile.Tile;
 import game.model.tinyGame.Game;
 import game.utilities.exceptions.MalformedMapFileException;
-import game.model.gameImportExport.MapImporter;
 import game.model.map.RBMap;
 import game.model.tile.Terrain;
 import org.junit.Before;
@@ -63,8 +65,8 @@ public class GameExporterTest {
 
         TransportAbilityManager tm = new TransportAbilityManager(new MainViewController(),new GooseManager(), map);
         Game game = new Game(map,
-                new Player(tm, new PlayerId(1),"Player1"),
-                new Player(tm, new PlayerId(2),"Player2"),
+                new Player(tm, new PlayerId(1),"Player1", new TileCompartmentLocation(locations.get(0), TileCompartmentDirection.getEast())),
+                new Player(tm, new PlayerId(2),"Player2", new TileCompartmentLocation(locations.get(2), TileCompartmentDirection.getNorth())),
                 new GooseManager(),
                 new StructureManager(new StructureAbilityManager(new MainViewController())));
         gameExporter = new GameExporter(game);

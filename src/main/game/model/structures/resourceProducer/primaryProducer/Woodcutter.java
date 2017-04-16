@@ -1,6 +1,6 @@
 package game.model.structures.resourceProducer.primaryProducer;
 
-import game.model.resources.ResourceManager;
+import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.structures.resourceProducer.ResourceDropper;

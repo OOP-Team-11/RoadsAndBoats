@@ -4,6 +4,7 @@ import game.model.PlayerId;
 import game.model.direction.TileCompartmentLocation;
 import game.model.resources.Goose;
 import game.model.transport.Transport;
+import game.model.transport.TransportId;
 import game.model.transport.TransportType;
 
 import java.util.HashMap;
@@ -37,4 +38,6 @@ public class TransportRenderInfo
     public PlayerId getOwner() {
         return transport.getPlayerId();
     }
+
+    public TransportId getTransportID() { return transport.getTransportId(); }
 }
