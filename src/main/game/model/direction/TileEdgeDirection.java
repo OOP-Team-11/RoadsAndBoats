@@ -3,49 +3,66 @@ package game.model.direction;
 import java.util.ArrayList;
 
 public class TileEdgeDirection implements Cloneable{
-    private Angle mmAngle;
+    private Angle angle;
 
-    private TileEdgeDirection(Angle mmAngle) {
-        this.mmAngle = mmAngle;
+    public TileEdgeDirection(Angle angle) {
+        if(validAngle(angle))
+        {
+            this.angle = angle;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Invalid Angle: " + angle);
+        }
     }
 
-    public Angle getMmAngle() {
-        return this.mmAngle;
+    private boolean validAngle(Angle angle)
+    {
+        return angle.equals(CompassAngles.NORTH.getAngle())
+                || angle.equals(CompassAngles.NORTHEAST.getAngle())
+                || angle.equals(CompassAngles.SOUTHEAST.getAngle())
+                || angle.equals(CompassAngles.SOUTH.getAngle())
+                || angle.equals(CompassAngles.SOUTHWEST.getAngle())
+                || angle.equals(CompassAngles.NORTHWEST.getAngle());
+    }
+
+    public Angle getAngle() {
+        return this.angle;
     }
 
 	public TileEdgeDirection reverse() {
-        int newDegrees = (getMmAngle().getDegrees()+180) % 360;
+        int newDegrees = (getAngle().getDegrees()+180) % 360;
         return new TileEdgeDirection(new Angle(newDegrees));
-
 	}
+
 	public Object clone() throws CloneNotSupportedException{
         Object clone = super.clone();
-        ((TileEdgeDirection)clone).mmAngle = (Angle)this.mmAngle.clone();
+        ((TileEdgeDirection)clone).angle = (Angle)this.angle.clone();
         return super.clone();
     }
 
     public static TileEdgeDirection getNorthEast() {
-        return new TileEdgeDirection(CompassAngles.NORTHEAST.getMmAngle());
+        return new TileEdgeDirection(CompassAngles.NORTHEAST.getAngle());
     }
 
     public static TileEdgeDirection getNorth() {
-        return new TileEdgeDirection(CompassAngles.NORTH.getMmAngle());
+        return new TileEdgeDirection(CompassAngles.NORTH.getAngle());
     }
 
     public static TileEdgeDirection getNorthWest() {
-        return new TileEdgeDirection(CompassAngles.NORTHWEST.getMmAngle());
+        return new TileEdgeDirection(CompassAngles.NORTHWEST.getAngle());
     }
 
     public static TileEdgeDirection getSouthWest() {
-        return new TileEdgeDirection(CompassAngles.SOUTHWEST.getMmAngle());
+        return new TileEdgeDirection(CompassAngles.SOUTHWEST.getAngle());
     }
 
     public static TileEdgeDirection getSouth() {
-        return new TileEdgeDirection(CompassAngles.SOUTH.getMmAngle());
+        return new TileEdgeDirection(CompassAngles.SOUTH.getAngle());
     }
 
     public static TileEdgeDirection getSouthEast() {
-        return new TileEdgeDirection(CompassAngles.SOUTHEAST.getMmAngle());
+        return new TileEdgeDirection(CompassAngles.SOUTHEAST.getAngle());
     }
 
 	public static ArrayList<TileEdgeDirection> getAllDirections() {
@@ -61,12 +78,12 @@ public class TileEdgeDirection implements Cloneable{
 	
     @Override
     public int hashCode() {
-        return this.mmAngle.getDegrees();
+        return this.angle.getDegrees();
     }
 
     @Override
     public boolean equals(Object object) {
         return (object instanceof TileEdgeDirection) &&
-                ((TileEdgeDirection) object).getMmAngle().equals(this.mmAngle);
+                ((TileEdgeDirection) object).getAngle().equals(this.angle);
     }
 }

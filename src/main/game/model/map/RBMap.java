@@ -2,11 +2,9 @@ package game.model.map;
 
 import game.model.direction.DirectionToLocation;
 import game.model.direction.Location;
+import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileEdgeDirection;
-import game.model.tile.RiverConfiguration;
-import game.model.tile.Terrain;
-import game.model.tile.Tile;
-import game.model.tile.TileEdge;
+import game.model.tile.*;
 import game.utilities.observable.MapRenderInfoObservable;
 import game.utilities.observer.MapRenderInfoObserver;
 import game.view.render.MapRenderInfo;
@@ -15,8 +13,6 @@ import java.util.*;
 
 public class RBMap implements MapRenderInfoObservable
 {
-    private final int MAX_DISTANCE = 21;
-
     private Map<Location, Tile> tiles;
     private Vector<MapRenderInfoObserver> mapRenderInfoObservers;
 
@@ -40,93 +36,59 @@ public class RBMap implements MapRenderInfoObservable
     {
         return tiles.get(tileLocation);
     }
-    
-    public boolean placeTile(Location tileLocation, Tile Tile){
-        updateTileEdges(tileLocation, Tile);
-        tiles.put(tileLocation, Tile);
+
+    public boolean placeTile(Location tileLocation, Tile tile)
+    {
+        updateTileEdges(tileLocation, tile);
+        updateRiverConnections(tileLocation, tile);
+        tiles.put(tileLocation, tile);
         notifyMapRenderInfoObservers();
         return true;
     }
 
-    private MapBoundary getMapBoundaries()
-    {
-        int minX = Integer.MAX_VALUE;
-        int minY = Integer.MAX_VALUE;
-        int minZ = Integer.MAX_VALUE;
-
-        int maxX = Integer.MIN_VALUE;
-        int maxY = Integer.MIN_VALUE;
-        int maxZ = Integer.MIN_VALUE;
-
-        for (Location loc : getAllLocations())
-        {
-            minX = Math.min(minX, loc.getX());
-            minY = Math.min(minY, loc.getY());
-            minZ = Math.min(minZ, loc.getZ());
-
-            maxX = Math.max(maxX, loc.getX());
-            maxY = Math.max(maxY, loc.getY());
-            maxZ = Math.max(maxZ, loc.getZ());
-        }
-
-        return new MapBoundary(minX, minY, minZ, maxX, maxY, maxZ);
-    }
-
-    private void updateTileEdges(Location tileLocation, Tile Tile)
+    private void updateRiverConnections(Location tileLocation, Tile tile)
     {
         for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
         {
             Location loc = DirectionToLocation.getLocation(tileLocation, dir);
             Tile existingTile = tiles.get(loc);
 
-            if(existingTile == null)
+            if (existingTile == null)
             {
                 continue;
             }
 
-            TileEdge newTileEdge = Tile.getTileEdge(dir);
+            TileCompartmentDirection directionToNew = new TileCompartmentDirection(dir.reverse().getAngle());
+            TileCompartmentDirection directionToExisting = new TileCompartmentDirection(dir.getAngle());
+
+            TileCompartment existingComp = existingTile.getTileCompartment(directionToNew);
+            TileCompartment newComp = tile.getTileCompartment(directionToExisting);
+
+            newComp.attachRivers(directionToExisting, existingComp);
+            existingComp.attachRivers(directionToNew, newComp);
+        }
+    }
+
+    private void updateTileEdges(Location tileLocation, Tile tile)
+    {
+        for (TileEdgeDirection dir : TileEdgeDirection.getAllDirections())
+        {
+            Location loc = DirectionToLocation.getLocation(tileLocation, dir);
+            Tile existingTile = tiles.get(loc);
+
+            if (existingTile == null)
+            {
+                continue;
+            }
+
+            TileEdge newTileEdge = tile.getTileEdge(dir);
             TileEdge existingTileEdge = existingTile.getTileEdge(dir.reverse());
 
             boolean canConnectRiver = newTileEdge.canConnectRiver() || existingTileEdge.canConnectRiver();
             existingTileEdge.setCanConnectRiver(canConnectRiver);
 
-            Tile.setTileEdge(dir, existingTileEdge);
+            tile.setTileEdge(dir, existingTileEdge);
         }
-    }
-
-    /**
-     * Sets the center Tile as (0,0,0) and recalculates all the other locations around it.
-     */
-    public void recenter()
-    {
-        Location center = calculateCenter();
-
-        HashMap<Location, Tile> newMap = new LinkedHashMap<Location, Tile>();
-
-        for (java.util.Map.Entry<Location, Tile> entry : tiles.entrySet())
-        {
-            Location loc = offsetLocation(entry.getKey(), center);
-            newMap.put(loc, entry.getValue());
-            this.tiles = newMap;
-        }
-    }
-
-    private Location calculateCenter()
-    {
-        MapBoundary bounds = getMapBoundaries();
-
-        int x = (bounds.maxX + bounds.minX) / 2;
-        int y = (bounds.maxY + bounds.minY) / 2;
-        int z = (bounds.maxZ + bounds.minZ) / 2;
-
-        return new Location(x, y, z);
-    }
-
-    private static Location offsetLocation(Location loc, Location center)
-    {
-        return new Location(loc.getX() - center.getX(),
-                loc.getY() - center.getY(),
-                loc.getZ() - center.getZ());
     }
 
     public Set<Location> getAllLocations()
@@ -134,11 +96,13 @@ public class RBMap implements MapRenderInfoObservable
         return tiles.keySet();
     }
 
-    public boolean hasTiles() {
+    public boolean hasTiles()
+    {
         return !(tiles.isEmpty());
     }
 
-    public boolean updateTerrain(Location location, Terrain terrain) {
+    public boolean updateTerrain(Location location, Terrain terrain)
+    {
         if (!this.tiles.containsKey(location)) return false;
 
         Tile tileAtLocation = this.tiles.get(location);
@@ -147,13 +111,15 @@ public class RBMap implements MapRenderInfoObservable
         return true;
     }
 
-    private MapRenderInfo getMapRenderInfo() {
+    private MapRenderInfo getMapRenderInfo()
+    {
         Map<Location, Terrain> terrainMap = new HashMap<>();
         Map<Location, RiverConfiguration> riverConfigurationMap = new HashMap<>();
 
         Iterator it = tiles.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
+        while (it.hasNext())
+        {
+            Map.Entry pair = (Map.Entry) it.next();
             Location location = (Location) pair.getKey();
             Tile tile = (Tile) pair.getValue();
             terrainMap.put(location, tile.getTerrain());
@@ -162,18 +128,30 @@ public class RBMap implements MapRenderInfoObservable
         return new MapRenderInfo(terrainMap, riverConfigurationMap);
     }
 
-    public void attach(MapRenderInfoObserver observer) {
+    public void attach(MapRenderInfoObserver observer)
+    {
         mapRenderInfoObservers.add(observer);
         notifyMapRenderInfoObservers();
     }
 
-    public void detach(MapRenderInfoObserver observer) {
+    public void detach(MapRenderInfoObserver observer)
+    {
         mapRenderInfoObservers.remove(observer);
     }
 
-    private void notifyMapRenderInfoObservers() {
-        for (MapRenderInfoObserver observer : mapRenderInfoObservers) {
+    private void notifyMapRenderInfoObservers()
+    {
+        for (MapRenderInfoObserver observer : mapRenderInfoObservers)
+        {
             observer.updateMapInfo(getMapRenderInfo());
+        }
+    }
+
+    public void finalizeMap()
+    {
+        for(Tile tile: tiles.values())
+        {
+            tile.removeUnattachedRivers();
         }
     }
 }
