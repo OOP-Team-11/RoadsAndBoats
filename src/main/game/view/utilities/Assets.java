@@ -174,6 +174,13 @@ public class Assets {
     public Image WALL_BLUE_SOUTHWEST;
     public Image WALL_BLUE_NORTHWEST;
 
+    public Image MINE_AMOUNT_0;
+    public Image MINE_AMOUNT_1;
+    public Image MINE_AMOUNT_2;
+    public Image MINE_AMOUNT_3;
+    public Image MINE_AMOUNT_4;
+    public Image MINE_AMOUNT_5;
+
     public boolean loadAssets(){
         try{
             // tiles
@@ -319,6 +326,13 @@ public class Assets {
             WALL_BLUE_SOUTH = new Image(this.getClass().getResourceAsStream("/walls/blueWall/bluewall_S.png"));
 //            WALL_BLUE_SOUTHWEST = new Image(this.getClass().getResourceAsStream("/"));
 //            WALL_BLUE_NORTHWEST = new Image(this.getClass().getResourceAsStream("/"));
+
+            MINE_AMOUNT_0 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number0.png"));
+            MINE_AMOUNT_1 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number1.png"));
+            MINE_AMOUNT_2 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number2.png"));
+            MINE_AMOUNT_3 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number3.png"));
+            MINE_AMOUNT_4 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number4.png"));
+            MINE_AMOUNT_5 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number5.png"));
 
 
         } catch(Exception e){
