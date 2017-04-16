@@ -151,6 +151,8 @@ public class MainView extends View
     private void updateSidePanel(){
         if(cursorRenderInfo != null){
             drawLargeSelectedTileOnSide(cursorRenderInfo.getCursorLocation());
+            drawTransportsOnLargeSideTile(cursorRenderInfo.getCursorLocation());
+            drawGoodsOnLargeSideTile(cursorRenderInfo.getCursorLocation());
         }
     }
     private boolean isNull(Object object){
@@ -241,6 +243,7 @@ public class MainView extends View
 
     private void drawCompartmentLargeImage(Image image, int x, int y, int z, int compartment){
         // first thing we want to do is get the axial coordinates
+
         int xx = x;
         int yy = z;
         // zoom factor
@@ -261,7 +264,7 @@ public class MainView extends View
         selectGC.drawImage(image, 15+compartmentX[compartment-1]*2.3, 92+compartmentY[compartment-1]*2.3, 280/5,250/5);
     }
 
-    private void drawSideCompartmetBuildingImage(Image image, int compartment){
+    private void drawSideCompartmentLargeImage(Image image, int compartment){
         selectGC.drawImage(image,15+compartmentX[compartment-1]*2.3, 92+compartmentY[compartment-1]*2.3, 280/3.8,250/3.8 );
     }
 
@@ -277,6 +280,49 @@ public class MainView extends View
             Image riverImage = this.renderToImageConverter.getRiverImage(riverConfiguration);
             if(!terrainType.equals(Terrain.SEA)){
                 selectGC.drawImage(riverImage, 20, 100, 300,250);
+            }
+        }
+    }
+
+    private void drawTransportsOnLargeSideTile(Location location){
+        if(isNull(mapTransportRenderInfo)){
+            // nothing to display
+        } else {
+            // itterate through map and find if any match location
+            for (Map.Entry<TileCompartmentLocation, List<TransportRenderInfo>> entry : mapTransportRenderInfo.getTransports().entrySet()) {
+                for(TransportRenderInfo renderInfo : entry.getValue()){
+                    if(entry.getKey().getLocation().equals(location)){
+                        int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
+                        Image image = null;
+                        if(renderInfo.getOwner().getPlayerIdNumber() == 1){
+                            image = renderToImageConverter.getBlueTransportImage(renderInfo.getTransportType());
+                        } else {
+                            image = renderToImageConverter.getRedTransportImage(renderInfo.getTransportType());
+                        }
+                        drawSideCompartmentLargeImage(image,compartment+1);
+                    } else {
+                        // location doesn't match up
+                    }
+                }
+            }
+        }
+    }
+
+    private void drawGoodsOnLargeSideTile(Location location){
+        if(isNull(resourceRenderInfo)){
+            // nothing to render
+        } else {
+            for ( HashMap.Entry<TileCompartmentLocation, HashMap<ResourceType, Integer>> entry : resourceRenderInfo.resources.entrySet())
+            {
+                if(entry.getKey().getLocation().equals(location)){
+                    int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
+                    for ( HashMap.Entry<ResourceType, Integer> entry2 : entry.getValue().entrySet()){
+                        Image image = renderToImageConverter.getResourceImage(entry2.getKey());
+                        drawSideCompartmentGoodImage(image,compartment);
+                    }
+                } else {
+                    // not same locaiton
+                }
             }
         }
     }
@@ -553,6 +599,7 @@ public class MainView extends View
         this.refresh = false;
     }
 
+
     private void TESTING_REMOVE_LATER(){
 
         // FOR TESTING Tile compartments
@@ -581,12 +628,12 @@ public class MainView extends View
 
         drawCompartmentLargeImage(assets.DONKEY_BLUE, 0,-1,-1,1);
 
-        drawSideCompartmetBuildingImage(assets.COAL_BURNER_BUILDING,1);
-        drawSideCompartmetBuildingImage(assets.COAL_BURNER_BUILDING,2);
-        drawSideCompartmetBuildingImage(assets.COAL_BURNER_BUILDING,3);
-        drawSideCompartmetBuildingImage(assets.COAL_BURNER_BUILDING,4);
-        drawSideCompartmetBuildingImage(assets.COAL_BURNER_BUILDING,5);
-        drawSideCompartmetBuildingImage(assets.COAL_BURNER_BUILDING,6);
+        drawSideCompartmentLargeImage(assets.COAL_BURNER_BUILDING,1);
+        drawSideCompartmentLargeImage(assets.COAL_BURNER_BUILDING,2);
+        drawSideCompartmentLargeImage(assets.COAL_BURNER_BUILDING,3);
+        drawSideCompartmentLargeImage(assets.COAL_BURNER_BUILDING,4);
+        drawSideCompartmentLargeImage(assets.COAL_BURNER_BUILDING,5);
+        drawSideCompartmentLargeImage(assets.COAL_BURNER_BUILDING,6);
 
         // Walls not working 100%
         //drawWallImage(assets.WALL_RED_NORTH,0,0,-1);
@@ -627,7 +674,6 @@ public class MainView extends View
                 int x = entry.getKey().getLocation().getX();
                 int y = entry.getKey().getLocation().getY();
                 int z = entry.getKey().getLocation().getZ();
-                // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
                 int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
                 for ( HashMap.Entry<ResourceType, Integer> entry2 : entry.getValue().entrySet()){
                     Image image = renderToImageConverter.getResourceImage(entry2.getKey());
@@ -646,7 +692,6 @@ public class MainView extends View
                 int x = entry.getKey().getLocation().getX();
                 int y = entry.getKey().getLocation().getY();
                 int z = entry.getKey().getLocation().getZ();
-                // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
                 int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
                 drawCompartmentLargeImage(image,x,y,z,compartment+1);
             }
