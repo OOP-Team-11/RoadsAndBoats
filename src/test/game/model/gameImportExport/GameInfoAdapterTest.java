@@ -1,4 +1,4 @@
-package model.gameImporter;
+package game.model.gameImportExport;
 
 import game.model.direction.TileCompartmentLocation;
 import game.model.tinyGame.Game;
