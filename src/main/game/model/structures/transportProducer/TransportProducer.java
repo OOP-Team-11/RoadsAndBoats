@@ -1,6 +1,7 @@
 package game.model.structures.transportProducer;
 
 import game.model.structures.Structure;
+import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
 
 public abstract class TransportProducer extends Structure {
@@ -9,8 +10,8 @@ public abstract class TransportProducer extends Structure {
 
     }
 
-//    public Transport produce(PlayerId pid, ResourceType model.resource) {
-//
-//    }
+    public abstract Transport produce(Transport transport);
+
+    public abstract Transport produce(TileCompartment tileCompartment);
 
 }

@@ -30,7 +30,7 @@ public class MapImporter {
             }
 
             Tile tile = getTileForTileString(line);
-            addResourcesToTileForTileString(tile, line);
+//            addResourcesToTileForTileString(tile, line);
             Location location = getLocationForTileString(line);
             map.placeTile(location, tile);
         }
@@ -168,7 +168,7 @@ public class MapImporter {
                     throw new MalformedMapFileException("Could not parse resource on line: " + tileString);
                 }
                 Integer amount = Integer.parseInt(amountString);
-                tile.addResource(resourceType, amount);
+//                tile.addResource(resourceType, amount);
             } catch (NumberFormatException e) {
                 throw new MalformedMapFileException("Could not parse amount on line: " + tileString);
             }

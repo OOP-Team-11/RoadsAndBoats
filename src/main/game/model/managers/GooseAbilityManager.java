@@ -44,7 +44,8 @@ public class GooseAbilityManager {
         Location loc = tileCompartmentLocation.getLocation();
         TileCompartmentDirection gooseCompartmentDirection = tileCompartmentLocation.getTileCompartmentDirection();
         Tile tile = map.getTile(loc);
-        boolean noResources = tile.getResourceManager().isEmpty();
+        // TODO Fix LOD if possible
+        boolean noResources = tile.getTileCompartment(gooseCompartmentDirection).hasNoResources();
         boolean noStructure = (tile.getStructure() == null);
         boolean noTransports = true;
 //            Check that there's no transports on the tile

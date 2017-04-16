@@ -18,22 +18,6 @@ public class OilRig extends ResourceHolder {
         return true;
     }
 
-    public void storeResource(ResourceType resourceType, int amount) {
-        addToResourceManager(resourceType, amount);
-    }
-
-    public boolean takeResource(ResourceType resourceType, int amount) {
-        return removeFromResourceManager(resourceType, amount);
-    }
-
-    public boolean hasResource(ResourceType resourceType) {
-        return hasResourceInResourceManager(resourceType);
-    }
-
-    public int getResourceCount(ResourceType resourceType) {
-        return getResourceCountFromResourceManager(resourceType);
-    }
-
     @Override
     public StructureType getType() {
         return StructureType.OIL_RIG;

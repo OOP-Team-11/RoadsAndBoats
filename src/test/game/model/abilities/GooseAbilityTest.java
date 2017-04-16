@@ -56,7 +56,7 @@ public class GooseAbilityTest {
         gooseManager.addGoose(location, goose1);
         gooseManager.addGoose(location, goose2);
 //        Add resources so gooses cant reproduce
-        map.getTile(new Location(0,0,0)).getResourceManager().addResource(ResourceType.COINS, 10);
+        map.getTile(new Location(0,0,0)).getTileCompartment(TileCompartmentDirection.getNorth()).storeResource(ResourceType.COINS, 12);
         gooseManager.onGooseSelected(goose1, location);
         assertEquals(0, gooseManager.getGooseAbilityManager().getAbilityCount());
     }
