@@ -136,7 +136,7 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
             }
             transportRenderInfoMap.put(tcl, transportRenderList);
         }
-        MapTransportRenderInfo mapTransportRenderInfo = new MapTransportRenderInfo(transportRenderInfoMap);
+        MapTransportRenderInfo mapTransportRenderInfo = new MapTransportRenderInfo(this.playerId, transportRenderInfoMap);
         for (MapTransportRenderInfoObserver observer : this.mapTransportRenderInfoObservers) {
             observer.updateMapTransportInfo(mapTransportRenderInfo);
         }
