@@ -11,13 +11,37 @@ public class Road {
     // TODO: Road Collection in TileCompartment *see UML*
     // TODO: RoadProducerManager, RoadProducerObserver, RoadProducerObservable, RoadInfoObservable *see UML*
 
-    private Location myLocation;
-    private TileCompartmentDirection tcd;
-    private TileEdgeDirection ted;
-    private TileCompartment destination;
+    private final Location myLocation;
+    private final TileCompartment destination;
+    private final TileEdgeDirection edgeDirection;
+    private final TileCompartmentDirection compartmentDirection;
 
-    public Road() {
+    public Road(Location myLocation, TileCompartment destination, TileEdgeDirection edgeDirection, TileCompartmentDirection compartmentDirection)
+    {
+        this.myLocation = myLocation;
+        this.destination=destination;
+        this.edgeDirection=edgeDirection;
+        this.compartmentDirection=compartmentDirection;
+    }
 
+    public Location getLococation()
+    {
+        return myLocation;
+    }
+
+    public TileCompartment getDestination()
+    {
+        return destination;
+    }
+
+    public TileEdgeDirection getEdgeDirection()
+    {
+        return edgeDirection;
+    }
+
+    public TileCompartmentDirection getCompartmentDirection()
+    {
+        return compartmentDirection;
     }
 
     public boolean transport(LandTransport landTransport) {

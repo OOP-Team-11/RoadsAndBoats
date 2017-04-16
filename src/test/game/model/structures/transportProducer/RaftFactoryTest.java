@@ -40,7 +40,7 @@ public class RaftFactoryTest {
     @Test
     public void produceUsingTileCompartment() {
         RaftFactory raftFactory = new RaftFactory();
-        TileCompartment tileCompartment = new TileCompartment(false);
+        TileCompartment tileCompartment = new TileCompartment();
         tileCompartment.storeResource(ResourceType.TRUNKS, TRUNKS_REQ);
         assertTrue(raftFactory.produce(tileCompartment));
         assertEquals(tileCompartment.getResourceCount(ResourceType.TRUNKS), 0);
@@ -49,7 +49,7 @@ public class RaftFactoryTest {
     @Test
     public void produceNothingUsingTileCompartment() {
         RaftFactory raftFactory = new RaftFactory();
-        TileCompartment tileCompartment = new TileCompartment(false);
+        TileCompartment tileCompartment = new TileCompartment();
         assertFalse(raftFactory.produce(tileCompartment));
     }
 

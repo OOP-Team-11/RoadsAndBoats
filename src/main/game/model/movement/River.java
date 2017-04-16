@@ -6,19 +6,22 @@ import game.model.direction.TileEdgeDirection;
 import game.model.tile.TileCompartment;
 import game.model.transport.WaterTransport;
 
-public class River {
-
-    private Location myLocation;
-    private TileCompartmentDirection tcd;
-    private TileEdgeDirection ted;
+public class River
+{
     private TileCompartment destination;
 
-    public River() {
-
+    public void setDestination(TileCompartment destination)
+    {
+        this.destination=destination;
     }
 
-    public boolean transport(WaterTransport waterTransport) {
+    public boolean transport(WaterTransport waterTransport)
+    {
         return false;
     }
 
+    public TileCompartment getDestination()
+    {
+        return destination;
+    }
 }

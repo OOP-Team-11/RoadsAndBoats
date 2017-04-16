@@ -153,18 +153,20 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
     }
 
     public void notifyMapTransportRenderInfoObservers() {
-        Map<TileCompartmentLocation, TransportRenderInfo> transportRenderInfoMap = new HashMap<>();
+        Map<TileCompartmentLocation, List<TransportRenderInfo>> transportRenderInfoMap = new HashMap<>();
         Iterator it = transports.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             TileCompartmentLocation tcl = (TileCompartmentLocation) pair.getKey();
             List<Transport> transportList = this.transports.get(tcl);
+            List<TransportRenderInfo> transportRenderList = new ArrayList<>();
             for (Transport t : transportList) {
                 TransportRenderInfo transportRenderInfo = new TransportRenderInfo(t);
-                transportRenderInfoMap.put(tcl, transportRenderInfo);
+                transportRenderList.add(transportRenderInfo);
             }
+            transportRenderInfoMap.put(tcl, transportRenderList);
         }
-        MapTransportRenderInfo mapTransportRenderInfo = new MapTransportRenderInfo(transportRenderInfoMap);
+        MapTransportRenderInfo mapTransportRenderInfo = new MapTransportRenderInfo(this.playerId, transportRenderInfoMap);
         for (MapTransportRenderInfoObserver observer : this.mapTransportRenderInfoObservers) {
             observer.updateMapTransportInfo(mapTransportRenderInfo);
         }

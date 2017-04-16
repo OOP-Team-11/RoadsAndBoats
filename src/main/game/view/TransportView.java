@@ -197,6 +197,7 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
         }
     }
     private void updateLists(){
+        /*
         for ( Map.Entry<TileCompartmentLocation, TransportRenderInfo> entry : mapTransportRenderInfo.getTransports().entrySet())
         {
             Image image;
@@ -209,6 +210,7 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
             int y = entry.getKey().getLocation().getY();
             int z = entry.getKey().getLocation().getZ();
         }
+        */
     }
 
 
