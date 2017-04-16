@@ -112,4 +112,26 @@ public class TransportAbilityTest {
 //        Should be 1 as the goose should be able to follow the donkey!
         assertEquals(1, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
+
+    @Test
+    public void getBuildWoodcutterAbility() {
+        TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
+        GooseManager gooseManager = new GooseManager();
+        MainViewController mainViewController = new MainViewController();
+        RBMap map = new RBMap();
+        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        Transport donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
+
+        donkey.getResourceManager().addResource(ResourceType.BOARDS, 1);
+        map.placeTile(new Location(0,0,0), new Tile(Terrain.WOODS, RiverConfiguration.getNoRivers()));
+        player1.getTransportManager().addTransport(donkey, location);
+        player1.getTransportManager().onTransportSelected(donkey, location);
+//        Should be 1 as the donkey should be able to build a woodcutter
+        assertEquals(1, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
+//        Add a structure to the tile, should no longer be able to build a woodcutter
+        map.getTile(new Location(0,0,0)).addStructure(new WagonFactory());
+        player1.getTransportManager().onTransportSelected(donkey, location);
+//        Should be 1 as the donkey should be able to build a woodcutter
+        assertEquals(0, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
+    }
 }

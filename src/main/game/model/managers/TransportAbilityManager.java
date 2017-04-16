@@ -3,6 +3,7 @@ package game.model.managers;
 import game.controller.MainViewController;
 import game.model.ability.Ability;
 import game.model.ability.goose.FollowAbility;
+import game.model.ability.transport.BuildWoodcutterAbility;
 import game.model.ability.transport.TransportReproduceAbility;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
@@ -10,6 +11,7 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.factory.AbilityFactory;
 import game.model.map.RBMap;
 import game.model.resources.Goose;
+import game.model.resources.ResourceType;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
 import game.model.tile.TileCompartment;
@@ -38,17 +40,20 @@ public class TransportAbilityManager {
     public int getAbilityCount() { return this.abilities.size(); }
 
     public void addAbilities(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports) {
+        this.abilities.clear();
         this.addFollowAbility(transport, tileCompartmentLocation);
         this.addTransportReproduceAbility(transport, tileCompartmentLocation, tileTransports);
+        this.addBuildWoodCutterAbility(transport, tileCompartmentLocation);
 //        fill out with reset of abilities --> "add_____Ability(loc, transport, tcd)"
     }
+
 
     public void removeAbilities() {
         for(Ability ability : abilities)
             ability.detachFromController();
     }
 
-    public void addFollowAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    private void addFollowAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         List<Goose> availableGeese = gooseManager.getMapGeese().get(tileCompartmentLocation);
         Vector<Goose> abilityGeese = new Vector<Goose>();
         if(availableGeese == null)
@@ -61,7 +66,7 @@ public class TransportAbilityManager {
         }
     }
 
-    public void addTransportReproduceAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports) {
+    private void addTransportReproduceAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports) {
         if (!transport.canReproduce())
             return;
         else {
@@ -103,6 +108,20 @@ public class TransportAbilityManager {
             TransportReproduceAbility transportReproduceAbility = abilityFactory.getTransportReproduceAbility();
             transportReproduceAbility.attachToController(transport, tileCompartmentLocation);
             abilities.add(transportReproduceAbility);
+        }
+    }
+
+    private void addBuildWoodCutterAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        if(tile.getStructure() != null)
+            return;
+        else {
+            boolean canProduce = (transport.getResourceCount(ResourceType.BOARDS) >= 1) && tile.getTerrain() == Terrain.WOODS;
+            if(canProduce) {
+                BuildWoodcutterAbility buildAbility = abilityFactory.getBuildWoodcutterAbility();
+                buildAbility.attachToController(transport.getResourceManager());
+                abilities.add(buildAbility);
+            }
         }
     }
 }
