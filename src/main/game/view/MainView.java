@@ -26,6 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.awt.image.ImageConsumer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -294,9 +295,27 @@ public class MainView extends View
     }
 
     private void setOverLayOptions(){
-        // TODO, for the moment just random options, hook up later to actual options
-        String[] data = {"Transport1", "Transport2", "Transport3", "Goose1"};
-        ObservableList<String> items = FXCollections.observableArrayList(data);
+        // first we get the location of cursor
+        Location location = cursorRenderInfo.getCursorLocation();
+        ArrayList<String> transporteres = new ArrayList<String>();
+        if(isNull(location) || isNull(mapTransportRenderInfo)){
+            // not valid location
+        } else {
+            // itterate over transports and see if location matches
+            for (Map.Entry<TileCompartmentLocation, TransportRenderInfo> entry : mapTransportRenderInfo.getTransports().entrySet()) {
+                if(entry.getKey().getLocation().equals(location)){
+                    // same location
+                    transporteres.add(entry.getValue().getTransportType().getName()); // append to options that will be displayed
+                } else {
+                    // nope
+                }
+                entry.getValue();
+            }
+        }
+        if(transporteres.size() == 0){
+            transporteres.add(new String("Nothing"));
+        }
+        ObservableList<String> items = FXCollections.observableArrayList(transporteres);
         this.overlayMenu.setItems(items);
     }
 
@@ -349,6 +368,7 @@ public class MainView extends View
         // display count TODO update values later with actual information
         this.selectGC.setFont(new Font(17));
         this.selectGC.setLineWidth(1);
+
         this.selectGC.strokeText("Boards: 5",80,460 );
         this.selectGC.strokeText("Clay: 5",80,520 );
         this.selectGC.strokeText("Gold: 4",80,580 );
@@ -561,7 +581,7 @@ public class MainView extends View
                 int x = entry.getKey().getLocation().getX();
                 int y = entry.getKey().getLocation().getY();
                 int z = entry.getKey().getLocation().getZ();
-                // TODO not 100% sure about getting compartment from degrees may crash here
+                // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
                 int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
                 drawCompartmentLargeImage(image,x,y,z,compartment);
             }
@@ -577,7 +597,7 @@ public class MainView extends View
                 int x = entry.getKey().getLocation().getX();
                 int y = entry.getKey().getLocation().getY();
                 int z = entry.getKey().getLocation().getZ();
-                // TODO not 100% sure about getting compartment from degrees may crash here
+                // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
                 int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
                 for ( HashMap.Entry<ResourceType, Integer> entry2 : entry.getValue().entrySet()){
                     Image image = renderToImageConverter.getResourceImage(entry2.getKey());
@@ -596,7 +616,7 @@ public class MainView extends View
                 int x = entry.getKey().getLocation().getX();
                 int y = entry.getKey().getLocation().getY();
                 int z = entry.getKey().getLocation().getZ();
-                // TODO not 100% sure about getting compartment from degrees may crash here
+                // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
                 int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
                 drawCompartmentLargeImage(image,x,y,z,compartment);
             }
@@ -622,11 +642,12 @@ public class MainView extends View
             displayStructureRenderInfo();
 
             clearNewDataFlag();
-            TESTING_REMOVE_LATER();
+            //TESTING_REMOVE_LATER();
         } else {
             // nothing to update
         }
     }
+
     @Override
     public void updateTransportInfo(TransportRenderInfo transportRenderInfo) {
         this.transportRenderInfo = transportRenderInfo;
