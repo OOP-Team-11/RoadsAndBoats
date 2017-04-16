@@ -92,18 +92,6 @@ public class Tile
                 break;
             }
         }
-
-        compartments.put(TileCompartmentDirection.getEast(), new TileCompartment(true));
-        compartments.put(TileCompartmentDirection.getNorthNorthEast(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getNorthEast(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getNorth(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getNorthNorthWest(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getNorthWest(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getWest(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getSouthWest(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getSouthSouthWest(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getSouth(), new TileCompartment(false));
-        compartments.put(TileCompartmentDirection.getSouthEast(), new TileCompartment(false));
     }
 
     private void rotateAccordingToRiverConfiguration()
