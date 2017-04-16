@@ -139,9 +139,7 @@ public class Wonder implements TurnObserver, MapRenderInfoObserver {
     @Override
     public void updateMapInfo(MapRenderInfo mapRenderInfo) {
         for (Tile tile : mapRenderInfo.getRbMap().getTiles().values()) {
-            if(tile.getTerrain() == Terrain.DESERT){
-                tile.setTerrain(Terrain.PASTURE);
-            }
+            tile.changeToPasture();
         }
     }
 }
