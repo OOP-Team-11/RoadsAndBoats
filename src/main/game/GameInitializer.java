@@ -33,19 +33,23 @@ public class GameInitializer {
             RBMap map = new RBMap();
             map.attach(viewHandler.getMainViewReference());
 
-            GooseManager gooseManager = new GooseManager(new GooseAbilityManager(controllerManager.getMainViewController(), map));
-            TransportAbilityManager transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController(), gooseManager, map);
-            Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name);
+            GooseManager gooseManager = new GooseManager(controllerManager.getMainViewController(), map);
+            StructureManager structureManager = new StructureManager(controllerManager.getMainViewController(), map);
+            structureManager.attach(viewHandler.getMainViewReference());
+
+            PlayerId player1Id = new PlayerId(1);
+            TransportManager player1TransportManager = new TransportManager(player1Id, controllerManager.getMainViewController(), gooseManager, map, structureManager);
+            Player player1 = new Player(player1TransportManager, new PlayerId(1), player1Name);
             player1.attach(viewHandler.getMainViewReference());
-            Player player2 = new Player(transportAbilityManager, new PlayerId(2), player2Name);
+
+            PlayerId player2Id = new PlayerId(2);
+            TransportManager player2TransportManager = new TransportManager(player2Id, controllerManager.getMainViewController(), gooseManager, map, structureManager);
+            Player player2 = new Player(player2TransportManager, new PlayerId(2), player2Name);
             player2.attach(viewHandler.getMainViewReference());
 
             gooseManager.addTransportManager(player1.getTransportManager());
             gooseManager.addTransportManager(player2.getTransportManager());
 
-            StructureAbilityManager structureAbilityManager = new StructureAbilityManager(controllerManager.getMainViewController());
-            StructureManager structureManager = new StructureManager(structureAbilityManager);
-            structureManager.attach(viewHandler.getMainViewReference());
 
             importFile(gameFile, map, structureManager);
 

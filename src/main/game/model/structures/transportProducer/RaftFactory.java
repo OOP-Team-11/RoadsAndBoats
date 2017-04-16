@@ -1,6 +1,5 @@
 package game.model.structures.transportProducer;
 
-import game.model.managers.TransportManager;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.tile.TileCompartment;
@@ -19,17 +18,24 @@ public class RaftFactory extends TransportProducer {
 
     @Override
     public Transport produce(Transport transport) {
-        if (transport.takeResource(ResourceType.TRUNKS, TRUNKS_REQ)) {
+        if (canProduceRaft(transport)) {
             return new RaftTransport(transport.getPlayerId(), new TransportId());
         }
         return null;
     }
 
     @Override
-    public Transport produce(TileCompartment tileCompartment) {
-        return null;
+    public boolean produce(TileCompartment tileCompartment) {
+        return canProduceRaft(tileCompartment);
     }
 
+    private boolean canProduceRaft(Transport transport) {
+        return transport.takeResource(ResourceType.TRUNKS, TRUNKS_REQ);
+    }
+
+    private boolean canProduceRaft(TileCompartment tileCompartment) {
+        return tileCompartment.takeResource(ResourceType.TRUNKS, TRUNKS_REQ);
+    }
 
     @Override
     public StructureType getType() {

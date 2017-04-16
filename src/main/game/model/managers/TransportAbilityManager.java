@@ -15,6 +15,8 @@ import game.model.tile.Terrain;
 import game.model.tile.Tile;
 import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
+import game.model.visitors.StructureManagerVisitor;
+import game.model.visitors.TransportManagerVisitor;
 
 import java.util.*;
 
@@ -24,13 +26,17 @@ public class TransportAbilityManager {
     private ArrayList<Ability> abilities;
     private RBMap map;
     private MainViewController mainViewController;
+    private TransportManagerVisitor transportManagerVisitor;
+    private StructureManagerVisitor structureManagerVisitor;
 
-    public TransportAbilityManager(MainViewController mainViewController, GooseManager gooseManager, RBMap map) {
+    public TransportAbilityManager(MainViewController mainViewController, GooseManager gooseManager, RBMap map, TransportManagerVisitor transportManagerVisitor, StructureManagerVisitor structureManagerVisitor) {
         this.mainViewController = mainViewController;
         this.abilityFactory = new AbilityFactory(mainViewController);
         this.abilities = new ArrayList<Ability>();
         this.gooseManager = gooseManager;
         this.map = map;
+        this.transportManagerVisitor = transportManagerVisitor;
+        this.structureManagerVisitor = structureManagerVisitor;
     }
 
     public RBMap getMap() { return map; }
@@ -97,8 +103,7 @@ public class TransportAbilityManager {
             Map<TileCompartment, List<Transport>> tileCompartmentTransports = new HashMap<TileCompartment, List<Transport>>();
             for(TileCompartmentDirection d : tileTransports.keySet()) {
                 TileCompartment currentTileCompartment = tile.getTileCompartment(d);
-                if(tileCompartmentTransports.get(currentTileCompartment) == null)
-                    tileCompartmentTransports.put(currentTileCompartment, tileTransports.get(d));
+                tileCompartmentTransports.computeIfAbsent(currentTileCompartment, k -> tileTransports.get(d));
             }
 //            Make sure only the tileCompartment our transport is located in has another transport and theres only 1 other
             if(tileCompartmentTransports.size() == 1
@@ -111,7 +116,7 @@ public class TransportAbilityManager {
             else {
                 return;
             }
-            TransportReproduceAbility transportReproduceAbility = abilityFactory.getTransportReproduceAbility();
+            TransportReproduceAbility transportReproduceAbility = abilityFactory.getTransportReproduceAbility(transportManagerVisitor);
             transportReproduceAbility.attachToController(transport, tileCompartmentLocation);
             abilities.add(transportReproduceAbility);
         }
