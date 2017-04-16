@@ -12,6 +12,9 @@ import game.model.resources.Goose;
 import game.model.tile.Tile;
 import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
+import game.model.visitors.GooseManagerVisitor;
+import game.model.visitors.StructureManagerVisitor;
+import game.model.visitors.TransportManagerVisitor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,13 +27,15 @@ public class GooseAbilityManager {
     private List<TransportManager> transportManagers;
     private AbilityFactory abilityFactory;
     private List<Ability> abilities;
+    private GooseManagerVisitor gooseManagerVisitor;
 
-    public GooseAbilityManager(MainViewController mainViewController, RBMap map) {
+    public GooseAbilityManager(MainViewController mainViewController, RBMap map, GooseManagerVisitor gooseManagerVisitor) {
         this.mainViewController = mainViewController;
         this.map = map;
         this.transportManagers = new ArrayList<>();
         this.abilityFactory = new AbilityFactory(mainViewController);
         this.abilities = new ArrayList<>();
+        this.gooseManagerVisitor = gooseManagerVisitor;
     }
     public void addTransportManager(TransportManager transportManager) {
         transportManagers.add(transportManager);
@@ -65,13 +70,12 @@ public class GooseAbilityManager {
         Map<TileCompartment, List<Goose>> tileCompartmentGeese = new HashMap<TileCompartment, List<Goose>>();
         for(TileCompartmentDirection d : tileGeese.keySet()) {
             TileCompartment currentTileCompartment = tile.getTileCompartment(d);
-            if(tileCompartmentGeese.get(currentTileCompartment) == null)
-                tileCompartmentGeese.put(currentTileCompartment, tileGeese.get(d));
+            tileCompartmentGeese.computeIfAbsent(currentTileCompartment, k -> tileGeese.get(d));
         }
 //            Make sure only the tileCompartment our goose is located in has another goose and theres only 1 other
         if(tileCompartmentGeese.size() == 1
                 && tileCompartmentGeese.get(tile.getTileCompartment(gooseCompartmentDirection)).size() == 2) {
-            GooseReproduceAbility gooseReproduceAbility = abilityFactory.getGooseReproduceAbility();
+            GooseReproduceAbility gooseReproduceAbility = abilityFactory.getGooseReproduceAbility(gooseManagerVisitor);
             gooseReproduceAbility.attachToController(tileCompartmentLocation);
             abilities.add(gooseReproduceAbility);
         }

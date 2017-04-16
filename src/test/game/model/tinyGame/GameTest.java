@@ -1,4 +1,4 @@
-package game.model.tinyGame;
+package model.tinyGame;
 
 import game.controller.MainViewController;
 import game.model.Player;
@@ -9,7 +9,9 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.managers.GooseManager;
 import game.model.managers.StructureManager;
 import game.model.managers.TransportAbilityManager;
+import game.model.managers.TransportManager;
 import game.model.map.RBMap;
+import game.model.tinyGame.Game;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,10 +27,15 @@ public class GameTest {
     @Before
     public void setUp() {
         RBMap map = new RBMap();
-        TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
-        TransportAbilityManager transportAbilityManager = new TransportAbilityManager(mock(MainViewController.class), mock(GooseManager.class), map);
-        player1 = new Player(transportAbilityManager, new PlayerId(1), "gavin", location);
-        player2 = new Player(transportAbilityManager, new PlayerId(2), "not gavin", location);
+        MainViewController mainViewController = mock(MainViewController.class);
+        GooseManager gooseManager = new GooseManager(mainViewController, map);
+        PlayerId playerId = new PlayerId(1);
+        StructureManager structureManager = new StructureManager(mainViewController, map);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
+        PlayerId playerId2 = new PlayerId(2);
+        TransportManager transportManager2 = new TransportManager(playerId2, mainViewController, gooseManager, map, structureManager);
+        player1 = new Player(transportManager, playerId, "Morty");
+        player2 = new Player(transportManager, playerId, "Morty");
         this.game = new Game(map, player1, player2, mock(GooseManager.class), mock(StructureManager.class));
     }
 

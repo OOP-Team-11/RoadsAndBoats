@@ -1,9 +1,6 @@
 package game;
 
 import game.controller.ControllerManager;
-import game.model.direction.Location;
-import game.model.direction.TileCompartmentDirection;
-import game.model.direction.TileCompartmentLocation;
 import game.model.gameImportExport.exporter.GameExporter;
 import game.model.gameImportExport.importer.GameImporter;
 import game.model.managers.*;
@@ -36,23 +33,23 @@ public class GameInitializer {
             RBMap map = new RBMap();
             map.attach(viewHandler.getMainViewReference());
 
-            GooseManager gooseManager = new GooseManager(new GooseAbilityManager(controllerManager.getMainViewController(), map));
-            TransportAbilityManager transportAbilityManager = new TransportAbilityManager(controllerManager.getMainViewController(), gooseManager, map);
+            GooseManager gooseManager = new GooseManager(controllerManager.getMainViewController(), map);
+            StructureManager structureManager = new StructureManager(controllerManager.getMainViewController(), map);
+            structureManager.attach(viewHandler.getMainViewReference());
 
-            TileCompartmentLocation player1StartingLocation = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
-            Player player1 = new Player(transportAbilityManager, new PlayerId(1), player1Name, player1StartingLocation);
+            PlayerId player1Id = new PlayerId(1);
+            TransportManager player1TransportManager = new TransportManager(player1Id, controllerManager.getMainViewController(), gooseManager, map, structureManager);
+            Player player1 = new Player(player1TransportManager, new PlayerId(1), player1Name);
             player1.attach(viewHandler.getMainViewReference());
 
-            TileCompartmentLocation player2StartingLocation = new TileCompartmentLocation(new Location(0,-1,1), TileCompartmentDirection.getNorth());
-            Player player2 = new Player(transportAbilityManager, new PlayerId(2), player2Name, player2StartingLocation);
+            PlayerId player2Id = new PlayerId(2);
+            TransportManager player2TransportManager = new TransportManager(player2Id, controllerManager.getMainViewController(), gooseManager, map, structureManager);
+            Player player2 = new Player(player2TransportManager, new PlayerId(2), player2Name);
             player2.attach(viewHandler.getMainViewReference());
 
             gooseManager.addTransportManager(player1.getTransportManager());
             gooseManager.addTransportManager(player2.getTransportManager());
 
-            StructureAbilityManager structureAbilityManager = new StructureAbilityManager(controllerManager.getMainViewController());
-            StructureManager structureManager = new StructureManager(structureAbilityManager);
-            structureManager.attach(viewHandler.getMainViewReference());
 
             importFile(gameFile, map, structureManager);
 
