@@ -19,10 +19,10 @@ public class WonderTest {
         Wonder wonder = new Wonder();
         PlayerId player1 = new PlayerId(1);
         // at the beginning of the Wonder Phase, all player's brick cost to build a wonder brick is reset to 1
-        assertEquals(wonder.getCurrentCost(player1), 1);
+        assertEquals(wonder.getCurrentBrickCost(player1), 1);
         wonder.addBrick(player1);
         // every brick a player adds on the same turn increments the brick cost by 1
-        assertEquals(wonder.getCurrentCost(player1), 2);
+        assertEquals(wonder.getCurrentBrickCost(player1), 2);
         assertEquals(wonder.getWonderSize(), 1);
     }
 
@@ -192,9 +192,9 @@ public class WonderTest {
         PlayerId player1 = new PlayerId(0);
         PlayerId player2 = new PlayerId(1);
         wonder.addBrick(player1);
-        assertEquals(wonder.getBrickCost(player1), 2);
-        assertEquals(wonder.getBrickCost(player1), 2);
-        assertEquals(wonder.getBrickCost(player1), 2);
+        assertEquals(wonder.getCurrentBrickCost(player1), 2);
+        assertEquals(wonder.getCurrentBrickCost(player1), 2);
+        assertEquals(wonder.getCurrentBrickCost(player1), 2);
         wonder.addBrick(player1);
         assertEquals(wonder.getWonderSize(),2);
         wonder.addBrick(player2);

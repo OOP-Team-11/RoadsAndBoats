@@ -9,7 +9,7 @@ public class WonderManager {
 
     private Wonder wonder;
     public int getBrickCost(PlayerId playerId){
-        return wonder.getBrickCost(playerId);
+        return wonder.getCurrentBrickCost(playerId);
     }
 //
     public void turnDesertToPasture(MapRenderInfo mapRenderInfo) {
