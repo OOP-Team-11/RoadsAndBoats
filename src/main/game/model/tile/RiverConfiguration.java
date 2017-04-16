@@ -2,7 +2,7 @@ package game.model.tile;
 
 
 import game.model.direction.TileEdgeDirection;
-import game.model.gameImportExport.Serializable;
+import game.model.gameImportExport.exporter.Serializable;
 
 import java.util.*;
 

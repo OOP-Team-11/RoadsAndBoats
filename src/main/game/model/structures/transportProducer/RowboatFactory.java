@@ -1,6 +1,5 @@
 package game.model.structures.transportProducer;
 
-import game.model.resources.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.tile.TileCompartment;
