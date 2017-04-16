@@ -133,6 +133,7 @@ public class TransportManager implements MapTransportRenderInfoObservable{
     @Override
     public void attach(MapTransportRenderInfoObserver observer) {
         this.mapTransportRenderInfoObservers.add(observer);
+        notifyMapTransportRenderInfoObservers();
     }
 
     @Override

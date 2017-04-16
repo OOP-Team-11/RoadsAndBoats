@@ -32,7 +32,7 @@ public class GooseAbilityTest {
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
         GooseManager gooseManager = new GooseManager(new GooseAbilityManager(mainViewController, map));
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty", location);
         Goose goose1 = new Goose(new GooseId());
         Goose goose2 = new Goose(new GooseId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
@@ -49,7 +49,7 @@ public class GooseAbilityTest {
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
         GooseManager gooseManager = new GooseManager(new GooseAbilityManager(mainViewController, map));
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty", location);
         Goose goose1 = new Goose(new GooseId());
         Goose goose2 = new Goose(new GooseId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
@@ -68,7 +68,7 @@ public class GooseAbilityTest {
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
         GooseManager gooseManager = new GooseManager(new GooseAbilityManager(mainViewController, map));
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty", location);
         Goose goose1 = new Goose(new GooseId());
         Goose goose2 = new Goose(new GooseId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
@@ -86,7 +86,7 @@ public class GooseAbilityTest {
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
         GooseManager gooseManager = new GooseManager(new GooseAbilityManager(mainViewController, map));
-        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty");
+        Player player1 = new Player(new TransportAbilityManager(mainViewController, gooseManager, map), new PlayerId(2), "Morty", location);
         Goose goose1 = new Goose(new GooseId());
         Goose goose2 = new Goose(new GooseId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));

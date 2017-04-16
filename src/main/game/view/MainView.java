@@ -77,6 +77,7 @@ public class MainView extends View
     private int currentDisplayState;
     private Location rightClickedLocation;
     private ArrayList<TransportId> transportIds;
+    private double offset;
 
     public MainView(AnchorPane anchorPane){
         setAnchorPane(anchorPane);
@@ -268,6 +269,7 @@ public class MainView extends View
     }
 
     private void drawLargeSelectedTileOnSide(Location location){
+        if (isNull(mapRenderInfo)) return;
         Terrain terrainType = mapRenderInfo.getTerrainMap().get(location);
         if(isNull(terrainType)){
             // white area selected
@@ -608,7 +610,7 @@ public class MainView extends View
                 int z = entry.getKey().getLocation().getZ();
                 // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
                 int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
-                drawCompartmentLargeImage(image,x,y,z,compartment);
+                drawCompartmentLargeImage(image,x,y,z,compartment+1);
             }
         }
     }
@@ -626,13 +628,13 @@ public class MainView extends View
                 int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
                 for ( HashMap.Entry<ResourceType, Integer> entry2 : entry.getValue().entrySet()){
                     Image image = renderToImageConverter.getResourceImage(entry2.getKey());
-                    drawCompartmentSmallImage(image,x,y,z,compartment);
+                    drawCompartmentSmallImage(image,x,y,z,compartment+1);
                 }
             }
         }
     }
     private void displayStructureRenderInfo(){
-        if(isNull(mapTransportRenderInfo)){
+        if(isNull(mapStructureRenderInfo)){
             // nothing to render
         } else {
             for ( Map.Entry<TileCompartmentLocation, StructureRenderInfo> entry : mapStructureRenderInfo.getStructures().entrySet())
@@ -643,7 +645,7 @@ public class MainView extends View
                 int z = entry.getKey().getLocation().getZ();
                 // TODO not 100% sure about getting compartment from degrees may crash here, need 1-6 input
                 int compartment = (entry.getKey().getTileCompartmentDirection().getMmAngle().getDegrees())/60;
-                drawCompartmentLargeImage(image,x,y,z,compartment);
+                drawCompartmentLargeImage(image,x,y,z,compartment+1);
             }
         }
     }
