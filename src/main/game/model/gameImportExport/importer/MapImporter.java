@@ -13,11 +13,9 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static game.model.tile.Terrain.*;
-
 public class MapImporter {
 
-    public RBMap importMapFromFile(RBMap map, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
+    public static RBMap importMapFromFile(RBMap map, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
         if (!bufferedReader.readLine().equals("BEGIN MAP"))  throw new MalformedMapFileException("BEGIN MAP not found");
 
         boolean foundEOF = false;
@@ -36,7 +34,7 @@ public class MapImporter {
         return map;
     }
 
-    private Location getLocationForTileString(String tileString) throws MalformedMapFileException {
+    private static Location getLocationForTileString(String tileString) throws MalformedMapFileException {
         Pattern locationPattern = Pattern.compile("(\\([^)]*\\))");
         Matcher m = locationPattern.matcher(tileString);
         if (m.find()) {
@@ -59,32 +57,13 @@ public class MapImporter {
         throw new MalformedMapFileException("Could not parse line. Could not find location: " + tileString);
     }
 
-    private Terrain getTerrainForString(String terrainString) {
-        switch (terrainString) {
-            case "SEA":
-                return SEA;
-            case "PASTURE":
-                return PASTURE;
-            case "WOODS":
-                return WOODS;
-            case "ROCK":
-                return ROCK;
-            case "DESERT":
-                return DESERT;
-            case "MOUNTAIN":
-                return MOUNTAIN;
-            default:
-                throw new IllegalArgumentException();
-        }
-    }
-
-    private Terrain getTerrainForTileString(String tileString) throws MalformedMapFileException {
+    private static Terrain getTerrainForTileString(String tileString) throws MalformedMapFileException {
         Pattern locationPattern = Pattern.compile("\\([^)]*\\) ([^\\s]+)");
         Matcher m = locationPattern.matcher(tileString);
         if (m.find()) {
             String terrainString = m.group(1);
             try {
-                return getTerrainForString(terrainString);
+                return ParseUtilities.getTerrainForString(terrainString);
             } catch (IllegalArgumentException e) {
                 throw new MalformedMapFileException("Could not parse terrain on line: " + tileString);
             }
@@ -93,7 +72,7 @@ public class MapImporter {
         throw new MalformedMapFileException("Terrain not found on line: " + tileString);
     }
 
-    private RiverConfiguration getRiverConfigurationForTile(String tileString) throws MalformedMapFileException {
+    private static RiverConfiguration getRiverConfigurationForTile(String tileString) throws MalformedMapFileException {
         Pattern locationPattern = Pattern.compile("\\([^)]*\\).*(\\([^)]*\\))");
         Matcher m = locationPattern.matcher(tileString);
         if (m.find()) {
@@ -126,7 +105,7 @@ public class MapImporter {
         return RiverConfiguration.getNoRivers();
     }
 
-    private Tile getTileForTileString(String tileString) throws MalformedMapFileException {
+    private static Tile getTileForTileString(String tileString) throws MalformedMapFileException {
         RiverConfiguration tileRiverConfiguration = getRiverConfigurationForTile(tileString);
         Terrain tileTerrain = getTerrainForTileString(tileString);
         return new Tile(tileTerrain, tileRiverConfiguration);

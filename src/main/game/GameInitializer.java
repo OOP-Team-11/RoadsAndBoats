@@ -94,13 +94,11 @@ public class GameInitializer {
 
     private void importMap(String filename, RBMap map) throws IOException, MalformedMapFileException {
         BufferedReader br = new BufferedReader(new FileReader("map/" + filename));
-        MapImporter mapImporter = new MapImporter();
-        mapImporter.importMapFromFile(map, br);
+        MapImporter.importMapFromFile(map, br);
     }
 
     private void importGame(String filename, RBMap map, StructureManager structureManager) throws IOException, MalformedMapFileException {
         BufferedReader br = new BufferedReader(new FileReader("savedGames/" + filename));
-        GameImporter gameImporter = new GameImporter();
-        gameImporter.importGameFromFile(map, structureManager, br);
+        GameImporter.importGameFromFile(map, structureManager, br);
     }
 }

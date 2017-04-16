@@ -13,13 +13,14 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static game.model.gameImportExport.importer.ParseUtilities.getMatcherForPatternInString;
 import static game.model.resources.ResourceType.*;
 import static game.model.resources.ResourceType.STOCKBOND;
 
-public class ResourceImporter {
+class ResourceImporter {
 
     // POD
-    class Resource {
+    static class Resource {
         ResourceType resourceType;
         int amount;
         Resource(ResourceType resourceType, int amount) {
@@ -28,7 +29,7 @@ public class ResourceImporter {
         }
     }
 
-    public void importResourcesFromFile(RBMap map, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
+    static void importResourcesFromFile(RBMap map, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
         if (!bufferedReader.readLine().equals("BEGIN RESOURCE"))  throw new MalformedMapFileException("BEGIN RESOURCE not found");
 
         boolean foundEOF = false;
@@ -49,7 +50,7 @@ public class ResourceImporter {
         if (!foundEOF) throw new MalformedMapFileException("END RESOURCE not found");
     }
 
-    private Location getLocation(String resourceString) throws MalformedMapFileException {
+    private static Location getLocation(String resourceString) throws MalformedMapFileException {
         Matcher m = getMatcherForPatternInString(resourceString, "(\\([^)]*\\))");
         if (m.find()) {
             String locationString = m.group(1);
@@ -82,7 +83,7 @@ public class ResourceImporter {
         throw new MalformedMapFileException("Could not find location on line: " + resourceString);
     }
 
-    private TileCompartmentDirection getTileCompartmentDirection(String resourceString) throws MalformedMapFileException {
+    private static TileCompartmentDirection getTileCompartmentDirection(String resourceString) throws MalformedMapFileException {
         Matcher m = getMatcherForPatternInString(resourceString, "\\([^)]*\\) ([A-Z])");
         if (m.find()) {
             String directionString = m.group(1);
@@ -94,7 +95,7 @@ public class ResourceImporter {
         throw new MalformedMapFileException("Malformed resource string: " + resourceString);
     }
 
-    private Resource getResource(String resourceString) throws MalformedMapFileException {
+    private static Resource getResource(String resourceString) throws MalformedMapFileException {
         Matcher m = getMatcherForPatternInString(resourceString, "\\([^)]*\\) [A-Z] (.*)=([0-9]{1,2})");
         if (m.find()) {
             String resourceName = m.group(1);
@@ -111,10 +112,5 @@ public class ResourceImporter {
         }
 
         throw new MalformedMapFileException("Could not find resource name and amount: " + resourceString);
-    }
-
-    private Matcher getMatcherForPatternInString(String searchString, String pattern) {
-        Pattern locationPattern = Pattern.compile(pattern);
-        return locationPattern.matcher(searchString);
     }
 }

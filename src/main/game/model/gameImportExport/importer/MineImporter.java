@@ -12,9 +12,11 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MineImporter {
+import static game.model.gameImportExport.importer.ParseUtilities.getMatcherForPatternInString;
 
-    public void importMinesFromFile(StructureManager structureManager, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
+class MineImporter {
+
+    static void importMinesFromFile(StructureManager structureManager, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
         if (!bufferedReader.readLine().equals("BEGIN MINE"))  throw new MalformedMapFileException("BEGIN MINE not found");
 
         boolean foundEOF = false;
@@ -35,11 +37,11 @@ public class MineImporter {
         if (!foundEOF) throw new MalformedMapFileException("END RESOURCE not found");
     }
 
-    private String stripIdentifier(String mineString) {
+    private static String stripIdentifier(String mineString) {
         return mineString.replace("MINE ", "");
     }
 
-    private Location getLocation(String mineString) throws MalformedMapFileException {
+    private static Location getLocation(String mineString) throws MalformedMapFileException {
         Matcher m = getMatcherForPatternInString(mineString, "(\\([^)]*\\))");
         if (m.find()) {
             String locationString = m.group(1);
@@ -72,7 +74,7 @@ public class MineImporter {
         throw new MalformedMapFileException("Could not find location on line: " + mineString);
     }
 
-    private TileCompartmentDirection getTileCompartmentDirection(String mineString) throws MalformedMapFileException {
+    private static TileCompartmentDirection getTileCompartmentDirection(String mineString) throws MalformedMapFileException {
         Matcher m = getMatcherForPatternInString(mineString, "\\([^)]*\\) ([A-Z])");
         if (m.find()) {
             String directionString = m.group(1);
@@ -84,7 +86,7 @@ public class MineImporter {
         throw new MalformedMapFileException("Malformed mine string: " + mineString);
     }
 
-    private Mine createMineWithCapacity(String mineString) throws MalformedMapFileException {
+    private static Mine createMineWithCapacity(String mineString) throws MalformedMapFileException {
         int maxGoldCount = -1;
         int maxIronCount = -1;
         int currentGoldCount = -1;
@@ -118,10 +120,5 @@ public class MineImporter {
             throw new MalformedMapFileException("Could not match mine resource string: " + mineString);
 
         return new Mine(currentGoldCount, maxGoldCount, currentIronCount, maxIronCount);
-    }
-
-    private Matcher getMatcherForPatternInString(String searchString, String pattern) {
-        Pattern locationPattern = Pattern.compile(pattern);
-        return locationPattern.matcher(searchString);
     }
 }
