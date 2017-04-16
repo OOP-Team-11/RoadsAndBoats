@@ -734,4 +734,8 @@ public class MainView extends View
         this.mapTransportRenderInfo = mapTransportRenderInfo;
         this.refresh = true;
     }
+
+    public Location getRightClickedLocation() {
+        return rightClickedLocation;
+    }
 }

@@ -60,6 +60,11 @@ public class TransportAbilityManager {
 
     }
 
+    private void addAbility(Ability a) {
+        abilities.add(a);
+        System.out.println("Added ability : " + a.getDisplayString());
+    }
+
     public void removeAbilities() {
         for(Ability ability : abilities)
             ability.detachFromController();
@@ -74,7 +79,7 @@ public class TransportAbilityManager {
             abilityGeese.add(availableGeese.get(0));
             FollowAbility followAbility = abilityFactory.getFollowAbility();
             followAbility.attachToController(transport, gooseCount, abilityGeese);
-            abilities.add(followAbility);
+            addAbility(followAbility);
         }
     }
 
@@ -118,7 +123,7 @@ public class TransportAbilityManager {
             }
             TransportReproduceAbility transportReproduceAbility = abilityFactory.getTransportReproduceAbility(transportManagerVisitor);
             transportReproduceAbility.attachToController(transport, tileCompartmentLocation);
-            abilities.add(transportReproduceAbility);
+            addAbility(transportReproduceAbility);
         }
     }
 
@@ -131,7 +136,7 @@ public class TransportAbilityManager {
             if(canProduce) {
                 BuildWoodcutterAbility buildAbility = abilityFactory.getBuildWoodcutterAbility(this.structureManagerVisitor);
                 buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
-                abilities.add(buildAbility);
+                addAbility(buildAbility);
             }
         }
     }
@@ -146,7 +151,7 @@ public class TransportAbilityManager {
             if(canProduce) {
                 BuildClayPitAbility buildAbility = abilityFactory.getBuildClayPitAbility(this.structureManagerVisitor);
                 buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
-                abilities.add(buildAbility);
+                addAbility(buildAbility);
             }
         }
     }
@@ -160,7 +165,7 @@ public class TransportAbilityManager {
             if(canProduce) {
                 BuildStoneQuarryAbility buildAbility = abilityFactory.getBuildStoneQuarryAbility(this.structureManagerVisitor);
                 buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
-                abilities.add(buildAbility);
+                addAbility(buildAbility);
             }
         }
     }
@@ -176,7 +181,7 @@ public class TransportAbilityManager {
             if(canProduce) {
                 BuildSawmillAbility buildAbility = abilityFactory.getBuildSawmillAbility(this.structureManagerVisitor);
                 buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
-                abilities.add(buildAbility);
+                addAbility(buildAbility);
             }
         }
     }
@@ -192,7 +197,7 @@ public class TransportAbilityManager {
             if(canProduce) {
                 BuildPapermillAbility buildAbility = abilityFactory.getBuildPapermillAbility(this.structureManagerVisitor);
                 buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
-                abilities.add(buildAbility);
+                addAbility(buildAbility);
             }
         }
     }
@@ -206,7 +211,7 @@ public class TransportAbilityManager {
             if(canProduce) {
                 BuildStoneFactoryAbility buildAbility = abilityFactory.getBuildStoneFactoryAbility(this.structureManagerVisitor);
                 buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
-                abilities.add(buildAbility);
+                addAbility(buildAbility);
             }
         }
     }
@@ -220,7 +225,7 @@ public class TransportAbilityManager {
             if(canProduce) {
                 BuildCoalBurnerAbility buildAbility = abilityFactory.getBuildCoalBurnerAbility(this.structureManagerVisitor);
                 buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
-                abilities.add(buildAbility);
+                addAbility(buildAbility);
             }
         }
     }
@@ -236,7 +241,7 @@ public class TransportAbilityManager {
             if(canProduce) {
                 BuildMineAbility buildAbility = abilityFactory.getBuildMineAbility(this.structureManagerVisitor);
                 buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
-                abilities.add(buildAbility);
+                addAbility(buildAbility);
             }
         }
     }
