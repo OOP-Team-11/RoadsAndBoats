@@ -89,8 +89,32 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
         return true;
     }
 
-    public Transport getTransport(TransportId transportId) {
-        // TODO
+    private Transport getTransport(TransportId transportId, Location loc) {
+        for(TileCompartmentDirection d : TileCompartmentDirection.getAllDirections()) {
+            TileCompartmentLocation tilesCompartment = new TileCompartmentLocation(loc, d);
+            if(transports.get(tilesCompartment) != null && (transports.get(tilesCompartment).size() > 0)) {
+                for(Transport t : transports.get(tilesCompartment)) {
+                    if(t.getTransportId() == transportId) {
+                        return t;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private TileCompartmentLocation getTransportTileCompartmentLocation(TransportId transportId, Location loc) {
+        for(TileCompartmentDirection d : TileCompartmentDirection.getAllDirections()) {
+            TileCompartmentLocation tilesCompartment = new TileCompartmentLocation(loc, d);
+//            Check that there is an index for the tileCompartmentLocation as well as exisiting transports
+            if(transports.get(tilesCompartment) != null && (transports.get(tilesCompartment).size() > 0)) {
+                for(Transport t : transports.get(tilesCompartment)) {
+                    if(t.getTransportId() == transportId) {
+                        return tilesCompartment;
+                    }
+                }
+            }
+        }
         return null;
     }
 
@@ -100,18 +124,13 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
 
     public void onTransportSelected(TransportId transportId, Location loc) {
         Map<TileCompartmentDirection, List<Transport>> tileTransports = new HashMap<TileCompartmentDirection, List<Transport>>();
-        Transport transport = null;
-        TileCompartmentLocation transportTCL = null;
+        Transport transport = getTransport(transportId, loc);
+        TileCompartmentLocation transportTCL = getTransportTileCompartmentLocation(transportId, loc);
+
         for(TileCompartmentDirection d : TileCompartmentDirection.getAllDirections()) {
             TileCompartmentLocation tilesCompartment = new TileCompartmentLocation(loc, d);
 //            Check that there is an index for the tileCompartmentLocation as well as exisiting transports
             if(transports.get(tilesCompartment) != null && (transports.get(tilesCompartment).size() > 0)) {
-                for(Transport t : transports.get(tilesCompartment)) {
-                    if(t.getTransportId() == transportId) {
-                        transport = t;
-                        transportTCL = tilesCompartment;
-                    }
-                }
                 tileTransports.put(d, transports.get(tilesCompartment));
             }
         }

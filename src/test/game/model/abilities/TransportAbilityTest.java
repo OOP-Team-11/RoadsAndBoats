@@ -223,7 +223,6 @@ public class TransportAbilityTest {
         player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
         boolean onController = false;
         for(Ability a : mainViewController.getControls().values()) {
-            System.out.print(a.getDisplayString());
             if(a.getDisplayString().equals("Build Mine"))
                 onController = true;
         }
