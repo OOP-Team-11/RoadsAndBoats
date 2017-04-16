@@ -29,7 +29,7 @@ public class GameExporter {
         outputFile = new File(filePath);
 
         String mapSection = serializeMap();
-        System.out.println(mapSection);
+//        System.out.println(mapSection);
 
         try {
             fw = new FileWriter(outputFile);

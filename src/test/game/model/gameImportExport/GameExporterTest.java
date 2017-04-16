@@ -98,6 +98,34 @@ public class GameExporterTest {
         assertEquals(f.length(), 160);
     }
 
+    @Test
+    public void fileContentsGucciTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        File f = new File(testingFilePath);
+        String contents = "";
+        try{
+            FileReader fr = new FileReader(f);
+            int nextChar = -2;  //lol
+            while(nextChar != -1){
+                nextChar = fr.read();
+                contents += (nextChar == -1) ? "" : (char)nextChar;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        assertEquals(contents,"-----BEGIN MAP-----\n" +
+                "( 0 0 0 ) PASTURE ( 1 3 5 )\n" +
+                "( 0 -1 1 ) DESERT ( 1 2 )\n" +
+                "( 0 1 -1 ) SEA ( 1 4 )\n" +
+                "( -2 1 1 ) WOODS ( 1 3 )\n" +
+                "( 1 0 -1 ) MOUNTAIN \n" +
+                "-----END MAP-----");
+    }
+
+
+
+
 
 
 
