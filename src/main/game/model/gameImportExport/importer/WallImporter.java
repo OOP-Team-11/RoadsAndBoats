@@ -11,6 +11,7 @@ import game.view.render.WallInfo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 
@@ -24,7 +25,7 @@ public class WallImporter {
 
         boolean foundEOF = false;
 
-        HashMap<Location,WallInfo> information = new HashMap<>();
+        HashMap<Location,ArrayList<WallInfo>> information = new HashMap<>();
 
         for(String line; (line = bufferedReader.readLine()) != null; ) {
             if (line.equals("-----END WALL-----")) {
@@ -43,8 +44,17 @@ public class WallImporter {
                 try {
                     type = Integer.parseInt(goldCount);
                     compartment = Integer.parseInt(ironCount);
-                    information.put(location, new WallInfo(type,compartment));
-                    wallManager.addNewWall(location, type, compartment);
+                    if(information.get(location) == null){
+                        ArrayList<WallInfo> info = new ArrayList<>();
+                        information.put(location,info);
+                        info.add(new WallInfo(type,compartment));
+                        wallManager.addNewWall(location,info);
+                    } else {
+                        information.get(location).add(new WallInfo(type,compartment));
+                        wallManager.addNewWall(location, information.get(location));
+                    }
+
+
                 } catch (NumberFormatException e) {
                     throw new MalformedMapFileException("Could not parse current resource amounts for mine: " + line);
                 }

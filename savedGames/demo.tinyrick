@@ -182,9 +182,6 @@ BRICK PLAYERID=-1
 BRICK PLAYERID=2
 -----END WONDER-----
 -----BEGIN ROAD-----
-<<<<<<< HEAD
------END ROAD-----
-=======
 -----END ROAD-----
 -----BEGIN WALL-----
 ( -2 2 0 ) PLAYERID=2 COMPARTMENT=1
@@ -194,4 +191,4 @@ BRICK PLAYERID=2
 ( -2 2 0 ) PLAYERID=2 COMPARTMENT=5
 ( -2 2 0 ) PLAYERID=2 COMPARTMENT=6
 -----END WALL-----
->>>>>>> master
+
