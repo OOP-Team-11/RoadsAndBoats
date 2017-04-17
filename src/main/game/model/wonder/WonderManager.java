@@ -1,25 +1,23 @@
 package game.model.wonder;
 
-import game.model.Player;
 import game.model.PlayerId;
-import game.view.render.MapRenderInfo;
 
 public class WonderManager {
 
 
     private Wonder wonder;
-    private MapRenderInfo mapRenderInfo;
+    private Irrigatable irrigatable;
     public int getBrickCost(PlayerId playerId){
         return wonder.getCurrentBrickCost(playerId);
     }
-    public WonderManager(MapRenderInfo mapRenderInfo, IrrigationPoint irrigationPoint){
+    public WonderManager(Irrigatable irrigatable, IrrigationPoint irrigationPoint){
         wonder = new Wonder();
-        this.mapRenderInfo = mapRenderInfo;
+        this.irrigatable = irrigatable;
         wonder.setIrrigationPoint(irrigationPoint);
     }
 //
-    public void turnDesertToPasture(MapRenderInfo mapRenderInfo) {
-        wonder.updateMapInfo(mapRenderInfo);
+    public void turnDesertToPasture(Irrigatable irrigatable) {
+        irrigatable.irrigate();
     }
     public int getWealthPoints(PlayerId playerId){
         return wonder.getWealthPoints(playerId);
@@ -27,13 +25,13 @@ public class WonderManager {
     public void addBrick(PlayerId playerId){
         wonder.addBrick(playerId);
         if(wonder.isIrrigationPointActivated()){
-            turnDesertToPasture(mapRenderInfo);
+            turnDesertToPasture(irrigatable);
         }
     }
     public void onTurnEnded(){
         wonder.onTurnEnded();
         if(wonder.isIrrigationPointActivated()){
-            turnDesertToPasture(mapRenderInfo);
+            turnDesertToPasture(irrigatable);
         }
     }
 

@@ -258,14 +258,6 @@ public class Tile
         return this.structure;
     }
 
-
-    public void changeToPasture() {
-        if (this.terrain.canChangeToPasture()) {
-            this.setTerrain(Terrain.PASTURE);
-        }
-    }
-
-
     private static boolean isCorner(TileCompartmentDirection dir)
     {
         return dir.equals(TileCompartmentDirection.getNorthNorthEast())

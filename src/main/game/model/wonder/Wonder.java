@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class Wonder implements TurnObserver, MapRenderInfoObserver {
+public class Wonder implements TurnObserver{
     private Vector<WonderBrick> player1;
     private Vector<WonderBrick> player2;
     private Vector<Vector<WonderBrick>> wonderbricks;
@@ -166,14 +166,6 @@ public class Wonder implements TurnObserver, MapRenderInfoObserver {
 
     public Vector<WonderBrick> getPlayerBricks(PlayerId playerId) {
         return playerIdVectorHashMap.get(playerId);
-    }
-
-
-    @Override
-    public void updateMapInfo(MapRenderInfo mapRenderInfo) {
-        for (Tile tile : mapRenderInfo.getRbMap().getTiles().values()) {
-            tile.changeToPasture();
-        }
     }
 
     public void setIrrigationPoint(IrrigationPoint irrigationPoint) {

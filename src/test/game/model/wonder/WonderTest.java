@@ -6,9 +6,6 @@ import game.model.map.RBMap;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
-import game.model.wonder.IrrigationPoint;
-import game.model.wonder.Wonder;
-import game.model.wonder.WonderManager;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -133,7 +130,7 @@ public class WonderTest {
         RBMap map = new RBMap();
         Tile desertTile = new Tile(Terrain.DESERT, RiverConfiguration.getNoRivers());
         map.placeTile(new Location(0,0,0), desertTile);
-        WonderManager wonderManager = new WonderManager(map.getMapRenderInfo(), new IrrigationPoint(10,1));
+        WonderManager wonderManager = new WonderManager(map, new IrrigationPoint(10,1));
         // add 44 bricks (completes first 9 rows)
         for (int i = 0; i < 44; ++i) {
             wonderManager.onTurnEnded();
@@ -148,7 +145,7 @@ public class WonderTest {
         RBMap map = new RBMap();
         Tile desertTile = new Tile(Terrain.DESERT, RiverConfiguration.getNoRivers());
         map.placeTile(new Location(0,0,0), desertTile);
-        WonderManager wonderManager = new WonderManager(map.getMapRenderInfo(), new IrrigationPoint(10,1));
+        WonderManager wonderManager = new WonderManager(map, new IrrigationPoint(10,1));
         // add 44 bricks (completes first 9 rows)
         for (int i = 0; i < 44; ++i) {
             wonderManager.onTurnEnded();
@@ -259,7 +256,6 @@ public class WonderTest {
     public void addNeutralTileOnTurnEnd(){
         Wonder wonder = new Wonder();
         PlayerId player1 = new PlayerId(0);
-        PlayerId player2 = new PlayerId(1);
         wonder.addBrick(player1);
         wonder.onTurnEnded();
         assertEquals(wonder.getWonderSize(),2);
