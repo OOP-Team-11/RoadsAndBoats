@@ -35,7 +35,6 @@ public class NonSpecialStructuresWithLimits {
                 break;
             }
 
-            line = stripIdentifier(line, "COALBURNER");
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
@@ -57,7 +56,6 @@ public class NonSpecialStructuresWithLimits {
                 break;
             }
 
-            line = stripIdentifier(line, "SAWMILL");
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
@@ -79,7 +77,6 @@ public class NonSpecialStructuresWithLimits {
                 break;
             }
 
-            line = stripIdentifier(line, "STONEFACTORY");
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
@@ -101,7 +98,6 @@ public class NonSpecialStructuresWithLimits {
                 break;
             }
 
-            line = stripIdentifier(line, "STOCKMARKET");
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
@@ -111,10 +107,6 @@ public class NonSpecialStructuresWithLimits {
         }
 
         if (!foundEOF) throw new MalformedMapFileException("-----END STOCKMARKET----- not found");
-    }
-
-    private static String stripIdentifier(String structureString, String structureName) {
-        return structureString.replace(structureName + " ", "");
     }
 
     private static Location getLocation(String structureString) throws MalformedMapFileException {
