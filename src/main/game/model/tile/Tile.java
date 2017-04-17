@@ -1,8 +1,10 @@
 package game.model.tile;
 
 import game.model.direction.*;
+import game.model.movement.Bridge;
 import game.model.movement.River;
 import game.model.movement.Road;
+import game.model.resources.ResourceType;
 import game.model.structures.Structure;
 import game.utilities.observable.TileResourceInfoObservable;
 import game.utilities.observer.TileCompartmentResourceAddedObserver;
@@ -370,5 +372,38 @@ public class Tile implements TileResourceInfoObservable, TileCompartmentResource
     public void buildRoad(Road road)
     {
         getTileCompartment(road.getCompartmentDirection()).buildRoad(road);
+    }
+
+    public boolean canBuildBridge(Bridge bridge)
+    {
+        return !compartments.get(bridge.tcd1).equals(compartments.get(bridge.tcd2));
+    }
+
+    public void buildBridge(Bridge bridge)
+    {
+        TileCompartment comp1=compartments.get(bridge.tcd1);
+        TileCompartment comp2=compartments.get(bridge.tcd2);
+
+        for(Map.Entry<TileCompartmentDirection, River> entry: comp1.getRivers().entrySet())
+        {
+            comp2.add(entry.getKey(), entry.getValue());
+            entry.getValue().setDestination(comp1);
+        }
+
+        for(Map.Entry<TileCompartmentDirection, Road> entry: comp1.getRoads().entrySet())
+        {
+            comp2.add(entry.getKey(), entry.getValue());
+            entry.getValue().setDestination(comp1);
+        }
+
+        for(Map.Entry<ResourceType, Integer> entry: comp1.getResourceManager().getResourceTypeIntegerMap().entrySet())
+        {
+            comp2.getResourceManager().addResource(entry.getKey(), entry.getValue());
+        }
+
+        for(TileCompartmentDirection dir: getTileCompartmentDirections(comp1))
+        {
+            compartments.replace(dir, comp2);
+        }
     }
 }
