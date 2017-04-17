@@ -46,13 +46,14 @@ public class GameExporterTest {
         locations.add(new Location(-2,1,1));
         locations.add(new Location(1,0,-1));
 
-        tiles.add(new Tile(Terrain.PASTURE, RiverConfiguration.getEveryOtherFace()));
+        tiles.add(new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
         tiles.add(new Tile(Terrain.DESERT, RiverConfiguration.getAdjacentFaces()));
         tiles.add(new Tile(Terrain.SEA, RiverConfiguration.getOppositeFaces()));
         tiles.add(new Tile(Terrain.WOODS, RiverConfiguration.getSkipAFace()));
         tiles.add(new Tile(Terrain.MOUNTAIN, RiverConfiguration.getNoRivers()));
 
         tiles.get(0).getTileCompartment(TileCompartmentDirection.getNorth()).storeResource(ResourceType.BOARDS,1);
+        tiles.get(0).getTileCompartment(TileCompartmentDirection.getNorth()).storeResource(ResourceType.PAPER,10);
         tiles.get(1).getTileCompartment(TileCompartmentDirection.getSouth()).storeResource(ResourceType.GOLD,2);
         tiles.get(2).getTileCompartment(TileCompartmentDirection.getSouthEast()).storeResource(ResourceType.COINS,3);
         tiles.get(3).getTileCompartment(TileCompartmentDirection.getEast()).storeResource(ResourceType.FUEL,4);
@@ -65,44 +66,26 @@ public class GameExporterTest {
         map.placeTile(locations.get(3),tiles.get(3));
         map.placeTile(locations.get(4),tiles.get(4));
 
-
-
-
-//        TransportAbilityManager tm = new TransportAbilityManager(
-//                new MainViewController(),
-//                new GooseManager(),
-//                map,
-//                new TransportManager(),
-//                );
-//        Game game = new Game(map,
-//                new Player(tm, new PlayerId(1),"Player1", new TileCompartmentLocation(locations.get(0), TileCompartmentDirection.getEast())),
-//                new Player(tm, new PlayerId(2),"Player2", new TileCompartmentLocation(locations.get(2), TileCompartmentDirection.getNorth())),
-//                new GooseManager(),
-//                new StructureManager(new StructureAbilityManager(new MainViewController())));
         PlayerId pid1 = new PlayerId(1);
         PlayerId pid2 = new PlayerId(2);
+
         MainViewController mvc = new MainViewController();
-        TransportManager tm1 = new TransportManager(
-                pid1, mvc, new GooseManager(), map, new StructureManager(mvc,map)
-        );
-        TransportManager tm2 = new TransportManager(
-                pid2, mvc, new GooseManager(), map, new StructureManager(mvc,map)
-        );
+
+        TransportManager tm1 = new TransportManager(pid1, mvc, new GooseManager(), map, new StructureManager(mvc,map));
+        TransportManager tm2 = new TransportManager(pid2, mvc, new GooseManager(), map, new StructureManager(mvc,map));
 
         Player p1 = new Player(tm1, pid1, "Karl", new TileCompartmentLocation(new Location(0,0,0),TileCompartmentDirection.getNorth()));
-        Player p2 = new Player(tm1, pid1, "Friedrich", new TileCompartmentLocation(new Location(-1,0,1),TileCompartmentDirection.getEast()));
+        Player p2 = new Player(tm2, pid1, "Friedrich", new TileCompartmentLocation(new Location(-1,0,1),TileCompartmentDirection.getEast()));
 
         Game game = new Game(map, p1, p2, new GooseManager(), new StructureManager(mvc,map));
         gameExporter = new GameExporter(game);
     }
 
     @Test
-    public void fileWasActuallyEvenWrittenTest(){
+    public void fileWasActuallyWrittenTest(){
         gameExporter.exportGameToPath(testingFilePath);
         File f = new File(testingFilePath);
         assertTrue(f.exists());
-        assertTrue(f.isFile());
-
     }
 
     @Test
@@ -123,7 +106,7 @@ public class GameExporterTest {
     }
 
     @Test
-    public void fileContentsGucciTest(){
+    public void mapSectionGucciTest(){
         gameExporter.exportGameToPath(testingFilePath);
         File f = new File(testingFilePath);
         String contents = "";
@@ -146,12 +129,5 @@ public class GameExporterTest {
                 "( 1 0 -1 ) MOUNTAIN \n" +
                 "-----END MAP-----");
     }
-
-
-
-
-
-
-
 
 }

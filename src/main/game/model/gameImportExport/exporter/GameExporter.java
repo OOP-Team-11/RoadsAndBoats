@@ -11,6 +11,7 @@ import game.model.tinyGame.Game;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 public class GameExporter {
@@ -37,6 +38,7 @@ public class GameExporter {
         try {
             fw = new FileWriter(outputFile);
             fw.write(mapSection);
+            fw.write(resourceSection);
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,7 +60,7 @@ public class GameExporter {
         }
 
 
-        serializedMap += "-----END MAP-----";
+        serializedMap += "-----END MAP-----\n";
         return serializedMap;
     }
 
@@ -71,25 +73,20 @@ public class GameExporter {
             Tile thisTile = map.getTile(location);  //Get the tile at that location
             String locationCoords = location.getExportString() + " ";  /* To put the Coordinates on return strings */
 
-            //Map direction names to the tile's actual TileCompartments
-            HashMap<String, TileCompartment> tileCompartments = new HashMap<>();
-            tileCompartments.put("N",thisTile.getTileCompartment(TileCompartmentDirection.getNorth()));
-            tileCompartments.put("NNE",thisTile.getTileCompartment(TileCompartmentDirection.getNorthNorthEast()));
-            tileCompartments.put("NE",thisTile.getTileCompartment(TileCompartmentDirection.getNorthEast()));
-            tileCompartments.put("E",thisTile.getTileCompartment(TileCompartmentDirection.getEast()));
-            tileCompartments.put("SE",thisTile.getTileCompartment(TileCompartmentDirection.getSouthEast()));
-            tileCompartments.put("SSE",thisTile.getTileCompartment(TileCompartmentDirection.getSouthSouthEast()));
-            tileCompartments.put("S",thisTile.getTileCompartment(TileCompartmentDirection.getSouth()));
-            tileCompartments.put("SSW",thisTile.getTileCompartment(TileCompartmentDirection.getSouthSouthWest()));
-            tileCompartments.put("SW",thisTile.getTileCompartment(TileCompartmentDirection.getSouthWest()));
-            tileCompartments.put("W",thisTile.getTileCompartment(TileCompartmentDirection.getWest()));
-            tileCompartments.put("NW",thisTile.getTileCompartment(TileCompartmentDirection.getNorthWest()));
-            tileCompartments.put("NNW",thisTile.getTileCompartment(TileCompartmentDirection.getNorthNorthWest()));
-
-            //Get a key set for the map to allow iterating through it
-            Set<String> dirs = tileCompartments.keySet();
-            String[] sDirs = new String[dirs.size()];
-            sDirs = dirs.toArray(sDirs);
+            //Map TileCompartments to direction names
+            HashMap<TileCompartment, String> tileCompartments = new HashMap<>();
+            tileCompartments.replace(thisTile.getTileCompartment(TileCompartmentDirection.getNorth()),"N");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getNorthNorthEast()),"NNE");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getNorthEast()),"NE");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getEast()),"E");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouthEast()),"SE");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouthSouthEast()),"SSE");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouth()),"S");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouthSouthWest()),"SSW");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouthWest()),"SW");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getWest()),"W");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getNorthWest()),"NW");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getNorthNorthWest()),"NNW");
 
             //Create matching arrays of resource names to ResourceTypes. Will be used in a sec.
             String[] resourceTypeNames = {"BOARDS", "CLAY", "GOLD", "COINS", "FUEL", "GOOSE", "IRON", "PAPER", "STOCKBOND", "STONE", "TRUNKS"};
@@ -99,22 +96,38 @@ public class GameExporter {
                     ResourceType.STOCKBOND, ResourceType.STONE, ResourceType.TRUNKS
             };
 
-            //Loop through all the directions on the tile.
-            for (String directionName : sDirs) {
+            //Maps each direction name to a HashMap of String resource names to counts
+            LinkedHashMap<String, HashMap<String,Integer>> counts = new LinkedHashMap<>();
+
+            //Loop through all the TileCompartments on the tile.
+            for (TileCompartment tc : tileCompartments.keySet()) {
+
                 //Loop through all the resource types
                 for (int k = 0; k < resourceTypeNames.length; k++) {
                     //Get the count of a specific resource at the tilecompartment given by the direction
-                    int count = tileCompartments.get(directionName).getResourceCount(actualResourceTypes[k]);
+                    int count = tc.getResourceCount(actualResourceTypes[k]);
+
                     //If the count for that resource is not zero
                     if (count > 0) {
-                        serializedResources += locationCoords + " " + directionName + " " + resourceTypeNames[k] + " " + count + "\n";
+                        HashMap<String,Integer> tuples = counts.get(tileCompartments.get(tc));    //Maps resource name to count
+                        if(null == tuples) tuples = new HashMap<>();
+                        tuples.put(resourceTypeNames[k],count);
+                        counts.put(tileCompartments.get(tc),tuples);
                     }
                 }
             }
 
+            for(String directionName : counts.keySet()){
+                HashMap<String,Integer> resourceCounts = counts.get(directionName);
+                for(String resourceName : resourceCounts.keySet()){
+                    serializedResources += locationCoords + " " + directionName + " " + resourceName + " " + resourceCounts.get(resourceName) + "\n";
+                }
+            }
+
+
         }
 
-        serializedResources += "-----END RESOURCES-----";
+        serializedResources += "-----END RESOURCES-----\n";
         return serializedResources;
 
     }
