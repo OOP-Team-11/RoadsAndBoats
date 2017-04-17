@@ -1073,8 +1073,6 @@ public class MainView extends View
     public void updateWallInfo(WallRenderInfo wallRenderInfo) {
         this.wallRenderInfo = wallRenderInfo;
         this.refresh = true;
-        System.out.println(wallRenderInfo.getRenderInformation().size());
-        System.out.println("wall information!!!");
     }
 
     @Override
