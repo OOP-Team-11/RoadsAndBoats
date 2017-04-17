@@ -151,6 +151,7 @@
 ( 2 2 -4 ) E
 ( 2 2 -4 ) E
 ( -3 4 -1 ) E
+( 1 1 -2 ) E
 -----END GOOSE-----
 -----BEGIN TRANSPORT-----
 DONKEY ( 0 0 0 ) N PLAYERID=1 GOOSENUM=0
@@ -171,5 +172,4 @@ BRICK PLAYERID=-1
 ( 1 0 -1 ) PLAYERID=2 COMPARTMENT=5
 ( 2 0 -2 ) PLAYERID=3 COMPARTMENT=2
 -----END WALL-----
-
 
