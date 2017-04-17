@@ -37,7 +37,7 @@ public class Mine extends ResourceDropper {
 
         switch (chosen) {
             // Gold is picked
-            case 1:
+            case 0:
                 if (checkCurrentGoldCount()) {
                     produceGold(tcv);
                 }
@@ -46,7 +46,7 @@ public class Mine extends ResourceDropper {
                 }
                 return true;
             // Iron is picked
-            case 2:
+            case 1:
                 if (checkCurrentIronCount()) {
                     produceIron(tcv);
                 }

@@ -111,7 +111,7 @@
 ( -2 0 2 ) S GOLD=1
 -----END RESOURCE-----
 -----BEGIN MINE-----
-( 2 -2 0 ) E MAX=[GOLD=3 IRON=3] CURRENT=[GOLD=0 IRON=1]
+( 2 -2 0 ) E MAX=[GOLD=3 IRON=3] CURRENT=[GOLD=3 IRON=3]
 -----END MINE-----
 -----BEGIN OILRIG-----
 ( 0 3 -3 ) E
