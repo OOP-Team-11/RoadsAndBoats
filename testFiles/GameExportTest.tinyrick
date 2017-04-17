@@ -25,21 +25,26 @@
 ( 1 0 -1 ) NW [TRUNKS=1 GOLD=29 ]
 -----END OIL_RIG-----
 
------BEGIN WOODCUTTER-----
-( 0 1 -1 ) S 
------END WOODCUTTER-----
+-----BEGIN MINT-----
+( 0 -1 1 ) NW 
+-----END MINT-----
+
+-----BEGIN PAPERMILL-----
+( 0 1 -1 ) NW 
+( -2 1 1 ) SSW 
+-----END PAPERMILL-----
+
+-----BEGIN STOCK_MARKET-----
+( -2 1 1 ) NE LIMIT=6
+-----END STOCK_MARKET-----
 
 -----BEGIN CLAYPIT-----
 ( 0 -1 1 ) NNE 
 -----END CLAYPIT-----
 
------BEGIN STONE_FACTORY-----
-( 0 1 -1 ) E LIMIT=6
------END STONE_FACTORY-----
-
------BEGIN COAL_BURNER-----
-( -2 1 1 ) NW LIMIT=6
------END COAL_BURNER-----
+-----BEGIN WOODCUTTER-----
+( 0 1 -1 ) S 
+-----END WOODCUTTER-----
 
 -----BEGIN SAWMILL-----
 ( 0 -1 1 ) N LIMIT=6
@@ -49,17 +54,12 @@
 ( 0 0 0 ) E 
 -----END STONE_QUARRY-----
 
------BEGIN MINT-----
-( 0 -1 1 ) NW 
------END MINT-----
+-----BEGIN COAL_BURNER-----
+( -2 1 1 ) NW LIMIT=6
+-----END COAL_BURNER-----
 
------BEGIN STOCK_MARKET-----
-( -2 1 1 ) NE LIMIT=6
------END STOCK_MARKET-----
-
------BEGIN PAPERMILL-----
-( 0 1 -1 ) NW 
-( -2 1 1 ) SSW 
------END PAPERMILL-----
+-----BEGIN STONE_FACTORY-----
+( 0 1 -1 ) E LIMIT=6
+-----END STONE_FACTORY-----
 
 
