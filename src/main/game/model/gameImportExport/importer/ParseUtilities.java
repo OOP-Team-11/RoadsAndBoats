@@ -38,6 +38,8 @@ class ParseUtilities {
             return COINS;
         } else if (STOCKBOND.getName().equals(name)) {
             return STOCKBOND;
+        } else if (STONE.getName().equals(name)) {
+            return STONE;
         } else return null;
     }
 
