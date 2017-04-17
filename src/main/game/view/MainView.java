@@ -506,7 +506,6 @@ public class MainView extends View
                 } else {
 
                 }
-
             }
         }
 

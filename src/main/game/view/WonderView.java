@@ -9,6 +9,7 @@ import game.view.render.WonderRenderInfo;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -28,6 +29,7 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
     private int brickX = 775; // starting location of first brick
     private int brickY = 640;
     private int brickCount = 0;
+    private boolean neutralBrickPlaced;
 
 
 
@@ -38,6 +40,8 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
         drawHeadingTitle();
         drawWonderImage();
         placeAddButton();
+        markNeutralBrickAsPlaced();
+        initializeCurrentPhaseSection();
     }
     private void setAnchorPane(AnchorPane anchorPane){
         this.anchorPane = anchorPane;
@@ -58,13 +62,34 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
     }
     private void placeAddButton(){
         this.testButton = new Button();
+        this.testButton.setText("Add Brick");
+        this.testButton.setFont(new Font(20));
         this.anchorPane.getChildren().add(testButton);
-        this.anchorPane.setLeftAnchor(testButton, 100.0);
+        this.anchorPane.setLeftAnchor(testButton, 250.0);
         this.anchorPane.setTopAnchor(testButton,200.0);
         this.testButton.setOnMouseClicked(event ->{
-            drawNextBrick();
-            incrementBrickCoordinates();
+            tryToDrawNextBrick();
         });
+    }
+    private void tryToDrawNextBrick(){
+        if(phaseRenderInfo.getName().equals("Wonder")){ // yes
+            if(playerRenderInfo.getPlayerID().getPlayerIdNumber() == 1){
+                // blue
+                drawBlueBrick();
+                incrementBrickCoordinates();
+            } else {
+                // red
+                drawRedBrick();
+                incrementBrickCoordinates();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Invalid Phase");
+            alert.setHeaderText("Bricks can only be added in the Wonder Phase");
+            alert.setContentText("You are currently not in the correct phase to place a wonder brick");
+            alert.showAndWait();
+            // not valid
+        }
     }
 
     private void setCanvasBackground(){
@@ -72,17 +97,17 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
         this.gc.fillRect(0,0,1300,800);
     }
 
-    private void drawNetualBrick(){ // TODO hook up later
+    private void drawNetualBrick(){
         this.gc.drawImage(assets.WONDERBRICK_NEUTRAL, brickX, brickY, 50, 20);
         this.brickCount++;
     }
 
-    private void drawRedBrick(){ // TOdo hook up later
+    private void drawRedBrick(){
         this.gc.drawImage(assets.WONDERBRICK_RED, brickX, brickY, 50, 20);
         this.brickCount++;
 
     }
-    private void drawBlueBrick(){ // TODO hook up later
+    private void drawBlueBrick(){
         this.gc.drawImage(assets.WONDERBRICK_BLUE, brickX, brickY, 50, 20);
         this.brickCount++;
     }
@@ -126,9 +151,55 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
         this.testButton.addEventFilter(MouseEvent.MOUSE_CLICKED, filter);
     }
 
+    private void markNeutralBrickAsPlaced(){
+        this.neutralBrickPlaced = true;
+    }
+    private void markNeutralBrickAsAvailable(){
+        this.neutralBrickPlaced = false;
+    }
+
+    private void checkForNeutralBrick(){
+        if(phaseRenderInfo.getName().equals("Trading") && (playerRenderInfo.getPlayerID().getPlayerIdNumber() ==1) && !neutralBrickPlaced ){
+            drawNetualBrick();
+            incrementBrickCoordinates();
+            markNeutralBrickAsPlaced();
+            System.out.println("neutral is placed");
+        } else if(phaseRenderInfo.getName().equals("Trading") && (playerRenderInfo.getPlayerID().getPlayerIdNumber() ==2)){
+            markNeutralBrickAsAvailable();
+        }
+    }
+    private void clearPhaseInformation(){
+        this.gc.clearRect(105,105,380,180);
+    }
+
+    private void initializeCurrentPhaseSection(){
+        this.gc.setFill(Color.TEAL);
+        this.gc.fillRoundRect(100,100,400,200,20,20);
+    }
+
+    private void drawCurrentPhaseInformation(){
+        this.gc.setFont(new Font(30));
+        this.gc.setLineWidth(2.0);
+        this.gc.strokeText("Current Phase: " +phaseRenderInfo.getName(), 140,140);
+    }
+    private void drawCurrentPlayerInformation(){
+        this.gc.setFont(new Font(20));
+        this.gc.setLineWidth(1.5);
+        this.gc.strokeText("Player: " +playerRenderInfo.getName(), 140,180);
+    }
+
     @Override
     public void render() {
+        if(newData = true){
+            clearPhaseInformation();
+            initializeCurrentPhaseSection();
+            drawCurrentPhaseInformation();
+            drawCurrentPlayerInformation();
+            checkForNeutralBrick();
+            newData = false;
+        } else {
 
+        }
     }
 
     @Override
@@ -147,5 +218,7 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
     public void updatePhaseInfo(PhaseRenderInfo phaseRenderInfo) {
         this.phaseRenderInfo = phaseRenderInfo;
         this.newData = true;
+        System.out.println("new phse");
+        checkForNeutralBrick();
     }
 }
