@@ -16,12 +16,15 @@ import game.model.movement.Road;
 import game.model.resources.Goose;
 import game.model.resources.ResourceType;
 import game.model.ResearchType;
+import game.model.structures.StructureType;
+import game.model.structures.resourceProducer.secondaryProducer.Mint;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
 import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
 import game.model.visitors.StructureManagerVisitor;
 import game.model.visitors.TransportManagerVisitor;
+import game.model.wonder.WonderManager;
 import javafx.scene.input.KeyCode;
 
 import java.util.*;
@@ -35,10 +38,11 @@ public class TransportAbilityManager {
     private final TransportManagerVisitor transportManagerVisitor;
     private final StructureManagerVisitor structureManagerVisitor;
     private final ResearchManager researchManager;
+    private WonderManager wonderManager;
 
     public TransportAbilityManager(MainViewController mainViewController, GooseManager gooseManager,
                                    RBMap map, TransportManagerVisitor transportManagerVisitor,
-                                   StructureManagerVisitor structureManagerVisitor, ResearchManager researchManager) {
+                                   StructureManagerVisitor structureManagerVisitor, ResearchManager researchManager, WonderManager wonderManager) {
         this.mainViewController = mainViewController;
         this.abilityFactory = new AbilityFactory(mainViewController);
         this.abilities = new ArrayList<Ability>();
@@ -47,6 +51,7 @@ public class TransportAbilityManager {
         this.transportManagerVisitor = transportManagerVisitor;
         this.structureManagerVisitor = structureManagerVisitor;
         this.researchManager=researchManager;
+        this.wonderManager = wonderManager;
     }
 
     public RBMap getMap() { return map; }
@@ -60,27 +65,31 @@ public class TransportAbilityManager {
         this.addProductionPhaseAbilities(phase, transport, tileCompartmentLocation, tileTransports, transportManager);
         this.addMovementPhaseAbilities(phase, transport, tileCompartmentLocation, tileTransports, transportManager);
         this.addBuildingPhaseAbilities(phase, transport, tileCompartmentLocation, tileTransports, transportManager);
+        this.addWonderPhaseAbilities(phase, transport);
     }
 
     private void addTradingPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
         if(phase=="Trading") {
             this.addPickUpResourceAbility(transport, tileCompartmentLocation);
             this.addDropResourceAbility(transport, tileCompartmentLocation);
-            this.addPickUpTransportAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
-            this.addDropTransportAbility(transport);
+            this.addPickUpTransportAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()), transportManager);
+            this.addDropTransportAbility(transport, tileCompartmentLocation, transportManager);
         }
     }
 
     private void addProductionPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
-        if(phase=="Production") {
+        if(phase.equals("(Re)Production")) {
             this.addResearchAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
             this.addTransportReproduceAbility(transport, tileCompartmentLocation, tileTransports);
+            this.addProduceCoinsAbility(transport, tileCompartmentLocation);
         }
     }
 
     private void addMovementPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
-        this.addFollowAbility(transport, tileCompartmentLocation);
-        this.addMovementAbility(transport, tileCompartmentLocation, tileTransports, transportManager);
+        if(phase=="Movement") {
+            this.addFollowAbility(transport, tileCompartmentLocation);
+            this.addMovementAbility(transport, tileCompartmentLocation, tileTransports, transportManager);
+        }
     }
 
     private void addBuildingPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
@@ -99,6 +108,12 @@ public class TransportAbilityManager {
             this.addBuildSteamshipFactoryAbility(transport, tileCompartmentLocation);
             this.addBuildTruckFactoryAbility(transport, tileCompartmentLocation);
             this.addBuildStockExchangeAbility(transport, tileCompartmentLocation);
+        }
+    }
+
+    private void addWonderPhaseAbilities(String phase, Transport transport) {
+        if(phase=="Wonder") {
+            this.addBuyWonderBrickAbility(transport);
         }
     }
 
@@ -425,30 +440,30 @@ public class TransportAbilityManager {
         int validResources = 0;
         for(ResourceType resource : ResourceType.values()) {
             if(transport.getResourceManager().getResourceTypeIntegerMap().get(resource) != null
-                    && transport.getResourceManager().getResourceTypeIntegerMap().get(resource) > 0) {
+                    && transport.getResourceManager().getResourceTypeIntegerMap().get(resource) >= 1) {
                 DropResourceAbility dropResourceAbility = abilityFactory.getDropResourceAbility();
-                dropResourceAbility.attachToController(tileCompartmentRm, transport.getResourceManager(), resource);
+                dropResourceAbility.attachToController(tileCompartmentRm, transport.getResourceManager(), resource, validResources);
                 addAbility(dropResourceAbility);
                 validResources++;
             }
         }
     }
 
-    public void addPickUpTransportAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, List<Transport> tileTransports) {
+    public void addPickUpTransportAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, List<Transport> tileTransports, TransportManager transportManager) {
         Set<Transport> transportsListed = new HashSet<>();
         for(Transport t : tileTransports) {
             if(transport.canStoreTransport(t)) {
                 PickUpTransportAbility pickupTransportAbility = abilityFactory.getPickUpTransportAbility();
-                pickupTransportAbility.attachToController(t, transport);
+                pickupTransportAbility.attachToController(t, transport, transportManager);
                 addAbility(pickupTransportAbility);
             }
         }
     }
 
-    public void addDropTransportAbility(Transport transport) {
+    public void addDropTransportAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, TransportManager transportManager) {
         if(transport.canRemoveTransport()) {
             DropTransportAbility dropTransportAbility = abilityFactory.getDropTransportAbility();
-            dropTransportAbility.attachToController(transport);
+            dropTransportAbility.attachToController(transport, transportManager, tileCompartmentLocation);
             addAbility(dropTransportAbility);
         }
     }
@@ -480,6 +495,26 @@ public class TransportAbilityManager {
             moveAbility.attachToController(transport, move, transportManager, tileCompartmentLocation, moveIndex);
             addAbility(moveAbility);
             moveIndex++;
+        }
+    }
+
+    public void addProduceCoinsAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        if(tile.getStructure() != null && tile.getStructure().getType() == StructureType.MINT) {
+            if((transport.getResourceManager().getResourceCount(ResourceType.FUEL) >= 1) &&
+                    transport.getResourceManager().getResourceCount(ResourceType.FUEL) >= 1) {
+                ProduceCoinsAbility produceCoinsAbility = abilityFactory.getProduceCoinsAbility();
+                produceCoinsAbility.attachToController(transport.getResourceManager(), (Mint) tile.getStructure());
+                addAbility(produceCoinsAbility);
+            }
+        }
+    }
+
+    public void addBuyWonderBrickAbility(Transport transport) {
+        if(transport.getResourceManager().getResourceTypeIntegerMap().values().size() >= wonderManager.getBrickCost(transport.getPlayerId())) {
+            BuyWonderBrickAbility buyWonderBrickAbility = abilityFactory.getBuyWonderBrickAbility();
+            buyWonderBrickAbility.attachToController(transport.getResourceManager(), wonderManager, transport.getPlayerId());
+            addAbility(buyWonderBrickAbility);
         }
     }
 }

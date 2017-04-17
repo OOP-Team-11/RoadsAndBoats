@@ -39,6 +39,7 @@ public class Wonder implements TurnObserver{
     public void addNeutralBrick() {
         if (wonderbricks.get(wonderbricks.size()-1).size()<maxSize()) {
             wonderbricks.get(wonderbricks.size()-1).add(new NeutralBrick());
+            orderedWonderBricks.add(new NeutralBrick());
             if(checkBrickOnIrrigationPoint(wonderbricks.get(wonderbricks.size()-1).size())){
                 setIrrigationPointActivated(true);
             }
@@ -46,12 +47,12 @@ public class Wonder implements TurnObserver{
         else {
             Vector<WonderBrick> wonderBrick = new Vector<>(maxSize());
             wonderBrick.add(new NeutralBrick());
+            orderedWonderBricks.add(new NeutralBrick());
             wonderbricks.add(wonderBrick);
             if(checkBrickOnIrrigationPoint(wonderBrick.size())){
                 setIrrigationPointActivated(true);
             }
         }
-        orderedWonderBricks.add(new NeutralBrick());
     }
 
     private int maxSize() {
@@ -82,7 +83,6 @@ public class Wonder implements TurnObserver{
     }
 
     public void addBrick(PlayerId pid) {
-        orderedWonderBricks.add(new PlayerBrick(pid));
         PlayerBrick playerbrick = new PlayerBrick(pid);
         if (!playerIdVectorHashMap.containsKey(pid)) {
             playerIdVectorHashMap.put(pid, new Vector<WonderBrick>());
@@ -99,7 +99,8 @@ public class Wonder implements TurnObserver{
 
         if (wonderbricks.get(wonderbricks.size()-1).size()<maxSize()) {
             wonderbricks.get(wonderbricks.size()-1).add(playerbrick);
-                    if(checkBrickOnIrrigationPoint(wonderbricks.get(wonderbricks.size()-1).size())){
+            orderedWonderBricks.add(playerbrick);
+            if(checkBrickOnIrrigationPoint(wonderbricks.get(wonderbricks.size()-1).size())){
                         setIrrigationPointActivated(true);
                     }
                 }
@@ -107,6 +108,7 @@ public class Wonder implements TurnObserver{
         else{
             Vector<WonderBrick> wonderBrick = new Vector<>(maxSize());
             wonderBrick.add(playerbrick);
+            orderedWonderBricks.add(playerbrick);
             wonderbricks.add(wonderBrick);
             if(checkBrickOnIrrigationPoint(wonderBrick.size())){
                 setIrrigationPointActivated(true);

@@ -23,6 +23,7 @@ import game.model.tile.TileCompartment;
 import game.model.transport.DonkeyTransport;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
+import game.model.wonder.WonderManager;
 import javafx.scene.input.KeyCode;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,7 +62,7 @@ public class TransportAbilityTest {
         this.playerId = new PlayerId(1);
         this.structureManager = new StructureManager(mainViewController, map);
         this.researchManager = new ResearchManager(startingLocation.getLocation(), playerId);
-        this.transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, researchManager);
+        this.transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, researchManager, new WonderManager(map));
         this.player1 = new Player(transportManager, playerId, "Morty", startingLocation);
         this.donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
     }
@@ -324,7 +325,7 @@ public class TransportAbilityTest {
         map.placeTile(new Location(0, 0, 0), new Tile(Terrain.MOUNTAIN, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         player1.getTransportManager().addTransport(new DonkeyTransport(player1.getPlayerId(), new TransportId()), tileCompartmentLocation);
-        player1.getTransportManager().getTransportAbilityManager().addPickUpTransportAbility(donkey, tileCompartmentLocation, player1.getTransportManager().getTransports().get(tileCompartmentLocation));
+        player1.getTransportManager().getTransportAbilityManager().addPickUpTransportAbility(donkey, tileCompartmentLocation, player1.getTransportManager().getTransports().get(tileCompartmentLocation), transportManager);
         assertEquals(1, mainViewController.getControls().size());
     }
 
@@ -343,7 +344,7 @@ public class TransportAbilityTest {
         map.placeTile(new Location(0, 1, -1), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         donkey.storeTransport(new DonkeyTransport(player1.getPlayerId(), new TransportId()));
-        player1.getTransportManager().getTransportAbilityManager().addDropTransportAbility(donkey);
+        player1.getTransportManager().getTransportAbilityManager().addDropTransportAbility(donkey, tileCompartmentLocation, transportManager);
         assertEquals(1, mainViewController.getControls().size());
     }
 }

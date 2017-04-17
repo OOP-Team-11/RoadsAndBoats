@@ -11,8 +11,10 @@ import game.model.structures.Structure;
 import game.model.wonder.TurnObserver;
 import game.utilities.observable.PhaseRenderInfoObservable;
 import game.utilities.observable.PlayerRenderInfoObservable;
+import game.utilities.observable.WonderPhaseEndedObservable;
 import game.utilities.observer.PhaseRenderInfoObserver;
 import game.utilities.observer.PlayerRenderInfoObserver;
+import game.utilities.observer.WonderPhaseEndedObserver;
 import game.view.render.PhaseRenderInfo;
 import game.view.render.PlayerRenderInfo;
 
@@ -21,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservable, TurnObserver {
+public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservable, TurnObserver, WonderPhaseEndedObservable {
 
     private Player player1;
     private Player player2;
@@ -133,5 +135,15 @@ public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservab
         for (PlayerRenderInfoObserver observer : this.playerRenderInfoObservers) {
             observer.updatePlayerInfo(playerRenderInfo);
         }
+    }
+
+    @Override
+    public void attach(WonderPhaseEndedObserver observer) {
+        this.phase.attach(observer);
+    }
+
+    @Override
+    public void detach(WonderPhaseEndedObserver observer) {
+        this.phase.detach(observer);
     }
 }

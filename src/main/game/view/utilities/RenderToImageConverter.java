@@ -165,7 +165,10 @@ public class RenderToImageConverter {
         else if(resourceType.equals(ResourceType.STOCKBOND)){
             return assets.STOCK_GOODS;
         }
-        else {
+        else if (resourceType.equals(ResourceType.STONE)){
+            return assets.STONE_GOODS;
+        }
+        else{
             System.out.println("ERROR: Can't match resource to image");
             return null;
         }

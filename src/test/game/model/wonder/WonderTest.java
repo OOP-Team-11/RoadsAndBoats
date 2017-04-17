@@ -136,9 +136,9 @@ public class WonderTest {
         WonderManager wonderManager = new WonderManager(map);
         // add 44 bricks (completes first 9 rows)
         for (int i = 0; i < 44; ++i) {
-            wonderManager.onTurnEnded();
+            wonderManager.onWonderPhaseEnded();
         }
-        wonderManager.onTurnEnded();
+        wonderManager.onWonderPhaseEnded();
         // 45th brick turns all Desert tiles to Pasture
         assertEquals(desertTile.getTerrain(), Terrain.PASTURE);
     }
@@ -151,9 +151,9 @@ public class WonderTest {
         WonderManager wonderManager = new WonderManager(map);
         // add 44 bricks (completes first 9 rows)
         for (int i = 0; i < 44; ++i) {
-            wonderManager.onTurnEnded();
+            wonderManager.onWonderPhaseEnded();
         }
-        wonderManager.onTurnEnded();
+        wonderManager.onWonderPhaseEnded();
         // 45th brick turns all Desert tiles to Pasture
         assertEquals(desertTile.getTerrain(), Terrain.PASTURE);
     }
