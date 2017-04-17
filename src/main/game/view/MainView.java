@@ -974,7 +974,9 @@ public class MainView extends View
         }
         this.refresh = true;
     }
-    public void setAbilities(Map<KeyCode, Ability> abilites) {this.abilities = abilites;
+    public void setAbilities(Map<KeyCode, Ability> abilities )
+    {
+        this.abilities = abilities;
     this.refresh = true;
     }
 
