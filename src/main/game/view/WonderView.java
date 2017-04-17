@@ -186,7 +186,7 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
     }
 
     private void drawCurrentPhaseInformation(){
-        this.gc.setFont(new Font(30));
+        this.gc.setFont(new Font(25));
         this.gc.setLineWidth(2.0);
         this.gc.strokeText("Current Phase: " +phaseRenderInfo.getName(), 140,140);
     }
