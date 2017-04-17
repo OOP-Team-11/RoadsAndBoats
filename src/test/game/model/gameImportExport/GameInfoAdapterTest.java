@@ -1,4 +1,4 @@
-package model.gameImportExport;
+package game.model.gameImportExport;
 
 import game.model.direction.TileCompartmentLocation;
 import game.model.gameImportExport.exporter.Exportable;
