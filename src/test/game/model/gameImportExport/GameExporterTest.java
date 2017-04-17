@@ -89,8 +89,15 @@ public class GameExporterTest {
         sm.addStructure(new TileCompartmentLocation(locations.get(4),TileCompartmentDirection.getSouthSouthWest()), new Mine(10,10));
 
         /* Sprinkle in some Oil Rigs too */
-        sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorth()), new OilRig());
-        sm.addStructure(new TileCompartmentLocation(locations.get(4),TileCompartmentDirection.getNorthWest()), new OilRig());
+        OilRig oilRig1 = new OilRig();
+        oilRig1.storeResource(ResourceType.BOARDS,5);
+        oilRig1.storeResource(ResourceType.COINS,2);
+        sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorth()), oilRig1);
+
+        OilRig oilRig2 = new OilRig();
+        oilRig2.storeResource(ResourceType.TRUNKS,1);
+        oilRig2.storeResource(ResourceType.GOLD,29);
+        sm.addStructure(new TileCompartmentLocation(locations.get(4),TileCompartmentDirection.getNorthWest()), oilRig2);
 
         sm.addStructure(
                 new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorthNorthEast()),
@@ -143,7 +150,6 @@ public class GameExporterTest {
     public void resourceSectionTest(){
         gameExporter.exportGameToPath(testingFilePath);
         String contents = readFile(testingFilePath);
-//        System.out.println(contents);
         assertEquals(
                 contents.substring(contents.indexOf("-----BEGIN RESOURCES-----"), contents.indexOf("-----END RESOURCES-----")).trim(),
                 "-----BEGIN RESOURCES-----\n" +
@@ -154,6 +160,21 @@ public class GameExporterTest {
                         "( -2 1 1 )  E FUEL 4\n" +
                         "( 1 0 -1 )  N TRUNKS 5\n" +
                         "( 1 0 -1 )  N CLAY 6".trim()
+        );
+    }
+
+    @Test
+    public void mineSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN MINES-----\n" +
+                "( 0 -1 1 ) S MAX=[GOLD=4 IRON=8] CURRENT=[GOLD=4 IRON=8]\n" +
+                "( 1 0 -1 ) SSW MAX=[GOLD=10 IRON=10] CURRENT=[GOLD=10 IRON=10]\n";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN MINES-----"),contents.indexOf("-----END MINES-----")),
+                expected
         );
     }
 

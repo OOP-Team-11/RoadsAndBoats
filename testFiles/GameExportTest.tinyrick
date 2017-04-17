@@ -19,6 +19,6 @@
 ( 1 0 -1 ) SSW MAX=[GOLD=10 IRON=10] CURRENT=[GOLD=10 IRON=10]
 -----END MINES-----
 -----BEGIN OIL RIGS-----
-( 0 -1 1 ) 
-( 1 0 -1 ) 
+( 0 -1 1 ) N [BOARDS=5 COINS=2 ]
+( 1 0 -1 ) NW [GOLD=29 TRUNKS=1 ]
 -----END OIL RIGS-----
