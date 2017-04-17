@@ -115,16 +115,24 @@ public class GameExporter {
 
     private String serializeTheRest(Map<TileCompartmentLocation,Structure> allStructures){
         String wholeList = "";
-        StructureType[] simpleStructures = {
+        Collection<TileCompartmentLocation> structureLocations = allStructures.keySet();
+
+        StructureType[] simpleStructureNames = {
                 StructureType.CLAYPIT, StructureType.STONE_QUARRY, StructureType.WOODCUTTER,
                 StructureType.MINT, StructureType.PAPERMILL
         };
 
         /* Iterate through all the types */
-        for(StructureType type : simpleStructures){
+        for(StructureType type : simpleStructureNames){
             String subsection = "-----BEGIN " + type.name() + "-----\n";
 
-
+            for(TileCompartmentLocation thisLocation : structureLocations){
+                Structure thisStructure = allStructures.get(thisLocation);
+                if(thisStructure.getType().toString().equals(type.toString())){
+                    subsection += thisLocation.getLocation().getExportString() + " ";
+                    subsection += angleLetterMap.get(thisLocation.getTileCompartmentDirection().getAngle()) + "\n";
+                }
+            }
 
             subsection += "-----END " + type.name() + "-----\n";
             wholeList += subsection + "\n";

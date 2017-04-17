@@ -27,18 +27,24 @@
 -----END OIL_RIG-----
 
 -----BEGIN CLAYPIT-----
+( 0 -1 1 ) NNE
 -----END CLAYPIT-----
 
 -----BEGIN STONE_QUARRY-----
+( 0 0 0 ) E
 -----END STONE_QUARRY-----
 
 -----BEGIN WOODCUTTER-----
+( 0 1 -1 ) S
 -----END WOODCUTTER-----
 
 -----BEGIN MINT-----
+( 0 -1 1 ) NW
 -----END MINT-----
 
 -----BEGIN PAPERMILL-----
+( 0 1 -1 ) NW
+( -2 1 1 ) SSW
 -----END PAPERMILL-----
 
 

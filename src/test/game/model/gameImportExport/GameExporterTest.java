@@ -9,10 +9,8 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.gameImportExport.exporter.GameExporter;
 import game.model.managers.*;
 import game.model.resources.ResourceType;
-import game.model.structures.resourceProducer.primaryProducer.ClayPit;
-import game.model.structures.resourceProducer.primaryProducer.Mine;
-import game.model.structures.resourceProducer.primaryProducer.OilRig;
-import game.model.structures.resourceProducer.primaryProducer.StoneQuarry;
+import game.model.structures.resourceProducer.primaryProducer.*;
+import game.model.structures.resourceProducer.secondaryProducer.Mint;
 import game.model.structures.resourceProducer.secondaryProducer.Papermill;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Tile;
@@ -93,22 +91,26 @@ public class GameExporterTest {
         oilRig1.storeResource(ResourceType.BOARDS,5);
         oilRig1.storeResource(ResourceType.COINS,2);
         sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorth()), oilRig1);
-
         OilRig oilRig2 = new OilRig();
         oilRig2.storeResource(ResourceType.TRUNKS,1);
         oilRig2.storeResource(ResourceType.GOLD,29);
         sm.addStructure(new TileCompartmentLocation(locations.get(4),TileCompartmentDirection.getNorthWest()), oilRig2);
 
-        sm.addStructure(
-                new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorthNorthEast()),
-                new StoneQuarry()
-        );
+        /* Put a ClayPit in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorthNorthEast()), new ClayPit());
 
-        sm.addStructure(
-                new TileCompartmentLocation(locations.get(2),TileCompartmentDirection.getNorthWest()),
-                new Papermill()
-        );
+        /* Put a couple of PaperMills in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(2),TileCompartmentDirection.getNorthWest()), new Papermill());
+        sm.addStructure(new TileCompartmentLocation(locations.get(3),TileCompartmentDirection.getSouthSouthWest()), new Papermill());
 
+        /* Put a StoneQuarry in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(0),TileCompartmentDirection.getEast()), new StoneQuarry());
+
+        /* Put a WoodCutter in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(2),TileCompartmentDirection.getSouth()), new Woodcutter());
+
+        /* Put a Mint in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorthWest()), new Mint());
 
 
         Game game = new Game(map, p1, p2, new GooseManager(), sm);
