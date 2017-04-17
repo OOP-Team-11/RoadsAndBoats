@@ -147,7 +147,7 @@ public class RBMap implements MapRenderInfoObservable
         return true;
     }
 
-    private MapRenderInfo getMapRenderInfo() {
+    public MapRenderInfo getMapRenderInfo() {
         Map<Location, Terrain> terrainMap = new HashMap<>();
         Map<Location, RiverConfiguration> riverConfigurationMap = new HashMap<>();
 

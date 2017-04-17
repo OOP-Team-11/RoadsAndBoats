@@ -1,6 +1,4 @@
-package model.wonder;
-
-
+package game.model.wonder;
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.direction.Location;
@@ -8,7 +6,9 @@ import game.model.map.RBMap;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
+import game.model.wonder.IrrigationPoint;
 import game.model.wonder.Wonder;
+import game.model.wonder.WonderManager;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -101,7 +101,7 @@ public class WonderTest {
         }
         wonder.addBrick(player1);
         assertEquals(wonder.getWonderSize(), 18);
-        assertEquals(wonder.getCurrentBrickCost(player1), 2);
+        assertEquals(wonder.getCurrentBrickCost(player1), 3);
         assertEquals(wonder.getCurrentBrickCost(player2), 2);
     }
 
@@ -117,12 +117,12 @@ public class WonderTest {
         wonder.addBrick(player1);
         wonder.addBrick(player1);
         wonder.addBrick(player1);
-        assertEquals(wonder.getWonderSize(), 18);
+        assertEquals(wonder.getWonderSize(), 21);
         // brick cost increases by 1 from brick cost of 2
-        assertEquals(wonder.getCurrentBrickCost(player1), 4);
+        assertEquals(wonder.getCurrentBrickCost(player1), 5);
         assertEquals(wonder.getCurrentBrickCost(player2), 2);
         wonder.onTurnEnded();
-        assertEquals(wonder.getWonderSize(), 19);
+        assertEquals(wonder.getWonderSize(), 22);
         // brick cost is now 2
         assertEquals(wonder.getCurrentBrickCost(player1), 2);
         assertEquals(wonder.getCurrentBrickCost(player2), 2);
@@ -133,12 +133,12 @@ public class WonderTest {
         RBMap map = new RBMap();
         Tile desertTile = new Tile(Terrain.DESERT, RiverConfiguration.getNoRivers());
         map.placeTile(new Location(0,0,0), desertTile);
-        Wonder wonder = new Wonder();
+        WonderManager wonderManager = new WonderManager(map.getMapRenderInfo(), new IrrigationPoint(10,1));
         // add 44 bricks (completes first 9 rows)
         for (int i = 0; i < 44; ++i) {
-            wonder.onTurnEnded();
+            wonderManager.onTurnEnded();
         }
-        wonder.onTurnEnded();
+        wonderManager.onTurnEnded();
         // 45th brick turns all Desert tiles to Pasture
         assertEquals(desertTile.getTerrain(), Terrain.PASTURE);
     }
@@ -148,12 +148,12 @@ public class WonderTest {
         RBMap map = new RBMap();
         Tile desertTile = new Tile(Terrain.DESERT, RiverConfiguration.getNoRivers());
         map.placeTile(new Location(0,0,0), desertTile);
-        Wonder wonder = new Wonder();
+        WonderManager wonderManager = new WonderManager(map.getMapRenderInfo(), new IrrigationPoint(10,1));
         // add 44 bricks (completes first 9 rows)
         for (int i = 0; i < 44; ++i) {
-            wonder.onTurnEnded();
+            wonderManager.onTurnEnded();
         }
-        wonder.onTurnEnded();
+        wonderManager.onTurnEnded();
         // 45th brick turns all Desert tiles to Pasture
         assertEquals(desertTile.getTerrain(), Terrain.PASTURE);
     }
@@ -197,17 +197,18 @@ public class WonderTest {
         assertEquals(wonder.getCurrentBrickCost(player1), 2);
         wonder.addBrick(player1);
         assertEquals(wonder.getWonderSize(),2);
+        wonder.onTurnEnded();
         wonder.addBrick(player2);
         wonder.addBrick(player2);
         wonder.addBrick(player2);
         wonder.onTurnEnded();
-        assertEquals(wonder.getWonderSize(),6);
-        wonder.addBrick(player2);
         assertEquals(wonder.getWonderSize(),7);
-        wonder.onTurnEnded();
+        wonder.addBrick(player2);
         assertEquals(wonder.getWonderSize(),8);
-        assertEquals(wonder.getWealthPoints(player1), 4);
-        assertEquals(wonder.getWealthPoints(player2), 16);
+        wonder.onTurnEnded();
+        assertEquals(wonder.getWonderSize(),9);
+        assertEquals(wonder.getWealthPoints(player1), 6);
+        assertEquals(wonder.getWealthPoints(player2), 13);
     }
     @Test
     public void getWonderBricks(){
