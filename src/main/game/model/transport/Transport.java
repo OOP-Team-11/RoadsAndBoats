@@ -105,6 +105,12 @@ public abstract class Transport implements Serializable {
     // use for view drawing and import/export to file ONLY
     public abstract TransportType getType();
 
+    public abstract boolean canMoveOnLand();
+
+    public abstract boolean canMoveOnRoad();
+
+    public abstract boolean canMoveOnWater();
+
     @Override
     public int hashCode() {
         return Objects.hash(playerId, transportId, moveCapacity, carryCapacity);

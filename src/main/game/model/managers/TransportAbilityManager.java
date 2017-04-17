@@ -9,6 +9,8 @@ import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.factory.AbilityFactory;
 import game.model.map.RBMap;
+import game.model.movement.River;
+import game.model.movement.Road;
 import game.model.resources.Goose;
 import game.model.resources.ResourceType;
 import game.model.tile.Terrain;
@@ -58,6 +60,34 @@ public class TransportAbilityManager {
         this.addBuildCoalBurnerAbility(transport, tileCompartmentLocation);
         this.addBuildMineAbility(transport, tileCompartmentLocation);
 
+    }
+
+    private Set<TileCompartment> getValidMoves(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports)
+    {
+        Set<TileCompartment> compartments=new HashSet<>();
+
+        if(transport.canMoveOnRoad())
+        {
+            for(Road r: map.getTile(tileCompartmentLocation.getLocation()).getTileCompartment(tileCompartmentLocation.getTileCompartmentDirection()).getRoads().values())
+            {
+                compartments.add(r.getDestination());
+            }
+        }
+
+        if(transport.canMoveOnWater())
+        {
+            for(River r: map.getTile(tileCompartmentLocation.getLocation()).getTileCompartment(tileCompartmentLocation.getTileCompartmentDirection()).getRivers().values())
+            {
+                compartments.add(r.getDestination());
+            }
+        }
+
+        if(transport.canMoveOnLand())
+        {
+            compartments.addAll(map.getAdjacentTileCompartments(tileCompartmentLocation));
+        }
+
+        return compartments;
     }
 
     private void addAbility(Ability a) {
