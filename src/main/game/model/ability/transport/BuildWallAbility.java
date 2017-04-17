@@ -10,7 +10,7 @@ public class BuildWallAbility extends Ability {
 
     @Override
     public void perform() {
-
+        mainViewController.detachControls();
     }
 
     @Override

@@ -21,6 +21,7 @@ public class BuildPapermillAbility extends Ability {
 
     @Override
     public void perform() {
+        mainViewController.detachControls();
         this.resourceManager.removeResource(ResourceType.BOARDS, 1);
         this.resourceManager.removeResource(ResourceType.STONE, 1);
         Papermill papermill = new Papermill();

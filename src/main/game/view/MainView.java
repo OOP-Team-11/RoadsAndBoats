@@ -793,4 +793,8 @@ public class MainView extends View
         }
         this.refresh = true;
     }
+
+    public Location getRightClickedLocation() {
+        return rightClickedLocation;
+    }
 }

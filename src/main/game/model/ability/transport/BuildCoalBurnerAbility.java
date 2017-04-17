@@ -20,6 +20,7 @@ public class BuildCoalBurnerAbility extends Ability {
 
     @Override
     public void perform() {
+        mainViewController.detachControls();
         this.resourceManager.removeResource(ResourceType.BOARDS, 3);
         CoalBurner coalBurner = new CoalBurner();
         structureManagerVisitor.addStructureVisit(coalBurner, tileCompartmentLocation);

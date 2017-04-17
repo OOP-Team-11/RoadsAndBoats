@@ -13,6 +13,7 @@ public class DropFollowersAbility extends Ability {
     }
     @Override
     public void perform() {
+        mainViewController.detachControls();
         transport.removeFollowers();
     }
 
