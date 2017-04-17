@@ -18,3 +18,7 @@
 ( 0 -1 1 ) S MAX=[GOLD=4 IRON=8] CURRENT=[GOLD=4 IRON=8]
 ( 1 0 -1 ) SSW MAX=[GOLD=10 IRON=10] CURRENT=[GOLD=10 IRON=10]
 -----END MINES-----
+-----BEGIN OIL RIGS-----
+( 0 -1 1 ) 
+( 1 0 -1 ) 
+-----END OIL RIGS-----

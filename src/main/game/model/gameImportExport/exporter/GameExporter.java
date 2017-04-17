@@ -6,7 +6,9 @@ import game.model.map.RBMap;
 import game.model.resources.ResourceType;
 import game.model.structures.Structure;
 import game.model.structures.StructureType;
+import game.model.structures.resourceProducer.ResourceHolder;
 import game.model.structures.resourceProducer.primaryProducer.Mine;
+import game.model.structures.resourceProducer.primaryProducer.OilRig;
 import game.model.tile.Tile;
 import game.model.tile.TileCompartment;
 import game.model.tinyGame.Game;
@@ -53,23 +55,30 @@ public class GameExporter {
     private String serializeStructures(Map<TileCompartmentLocation, Structure> structures){
         String serializedStructures = "";
         serializedStructures += serializeMines(structures);
+        serializedStructures += serializeOilRigs(structures);
 
-        HashMap<String, ArrayList<Structure>> structureList = new HashMap<>();
-        for(Structure structure : structures.values()){
-            ArrayList<Structure> structuresOfType = structureList.get(structure.getType().toString());
-            if(null == structuresOfType)
-                structuresOfType = new ArrayList<>();
-            structuresOfType.add(structure);
-            structureList.replace(structure.getType().toString(),structuresOfType);
-        }
+        return serializedStructures;
+    }
 
-        Collection<ArrayList<Structure>> actualStructures = structureList.values();
-        for(ArrayList<Structure> actualStructureList : actualStructures){
-            for(int i = 0; i < actualStructureList.size(); i++){
-                System.out.println(actualStructureList.get(i).getExportString());
+    private String serializeOilRigs(Map<TileCompartmentLocation,Structure> allStructures){
+        String oilRigString = "-----BEGIN OIL RIGS-----\n";
+
+        TileCompartmentLocation[] tileCompartmentLocations = new TileCompartmentLocation[allStructures.size()];
+        allStructures.keySet().toArray(tileCompartmentLocations);
+
+        for(TileCompartmentLocation tileCompartmentLocation : tileCompartmentLocations){
+            Structure currentStructure = allStructures.get(tileCompartmentLocation);
+            if(currentStructure.getType().equals(StructureType.OIL_RIG)){
+                ResourceHolder thisRig = ((OilRig) currentStructure);
+                oilRigString += tileCompartmentLocation.getLocation().getExportString() + " ";
+                oilRigString += angleLetterMap.get(tileCompartmentLocation.getTileCompartmentDirection().getAngle()) + " ";
+                oilRigString += thisRig.
+                oilRigString += "\n";
             }
         }
-        return serializedStructures;
+
+        oilRigString += "-----END OIL RIGS-----\n";
+        return oilRigString;
     }
 
     private String serializeMines(Map<TileCompartmentLocation,Structure> allStructures){

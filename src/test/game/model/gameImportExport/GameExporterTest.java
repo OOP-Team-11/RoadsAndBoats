@@ -88,10 +88,9 @@ public class GameExporterTest {
         sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getSouth()), new Mine(4,8));
         sm.addStructure(new TileCompartmentLocation(locations.get(4),TileCompartmentDirection.getSouthSouthWest()), new Mine(10,10));
 
-        sm.addStructure(
-                new TileCompartmentLocation(locations.get(0),TileCompartmentDirection.getNorth()),
-                new ClayPit()
-        );
+        /* Sprinkle in some Oil Rigs too */
+        sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorth()), new OilRig());
+        sm.addStructure(new TileCompartmentLocation(locations.get(4),TileCompartmentDirection.getNorthWest()), new OilRig());
 
         sm.addStructure(
                 new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorthNorthEast()),
