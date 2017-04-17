@@ -39,6 +39,9 @@ public class MoveAbility extends Ability {
             transportList.add(transport);
             transportManager.getTransports().put(newTCL,transportList);
         }
+        if(transport.getFollowers().size() > 0) {
+            transportManager.moveFollowers(transport, tileCompartmentLocation, newTCL);
+        }
         transportManager.notifyMapTransportRenderInfoObservers();
     }
 
