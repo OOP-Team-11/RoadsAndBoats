@@ -252,7 +252,7 @@ public class RBMap implements MapRenderInfoObservable, Irrigatable, TileResource
                 }
             } else
             {
-                TileEdgeDirection ted = new TileEdgeDirection(new Angle(tcd.getAngle().getDegrees() + 30));
+                TileEdgeDirection ted = new TileEdgeDirection(tcd.getAngle());
 
                 Location adjacentLoc = DirectionToLocation.getLocation(loc, ted);
 

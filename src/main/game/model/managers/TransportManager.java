@@ -65,14 +65,15 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
             Map.Entry pair = (Map.Entry)it.next();
             TileCompartmentLocation mapLocation = (TileCompartmentLocation) pair.getKey();
             List<Transport> mapTransportLocation = transports.get(tileCompartmentLocation);
-
-            Iterator transportIterator = mapTransportLocation.iterator();
-            while (transportIterator.hasNext()) {
-                Transport iteratorTransport = (Transport) transportIterator.next();
-                if (transportIterator.equals(transport)) {
-                    transportIterator.remove();
-                    foundTransport = true;
-                    break;
+            if(mapTransportLocation != null){
+                Iterator transportIterator = mapTransportLocation.iterator();
+                while (transportIterator.hasNext()) {
+                    Transport iteratorTransport = (Transport) transportIterator.next();
+                    if (transportIterator.equals(transport)) {
+                        transportIterator.remove();
+                        foundTransport = true;
+                        break;
+                    }
                 }
             }
         }
@@ -122,7 +123,8 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
         TileCompartmentLocation transportTCL = getTransportTileCompartmentLocation(transportId, loc);
         Map<TileCompartmentDirection, List<Transport>> tileTransports = getTileTransports(loc);
         if(transport != null)
-            this.transportAbilityManager.addAbilities(transport, transportTCL, tileTransports, this);
+            this.transportAbilityManager.addMovementAbility(transport, transportTCL, tileTransports, this);
+//            this.transportAbilityManager.addAbilities(transport, transportTCL, tileTransports, this);
     }
 
     public Map<TileCompartmentDirection, List<Transport>> getTileTransports(Location loc) {

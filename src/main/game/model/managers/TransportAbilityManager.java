@@ -1,6 +1,7 @@
 package game.model.managers;
 
 import game.controller.MainViewController;
+import game.model.ResearchType;
 import game.model.ability.Ability;
 import game.model.ability.goose.FollowAbility;
 import game.model.ability.transport.*;
@@ -14,6 +15,7 @@ import game.model.movement.River;
 import game.model.movement.Road;
 import game.model.resources.Goose;
 import game.model.resources.ResourceType;
+import game.model.ResearchType;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
 import game.model.tile.TileCompartment;
@@ -53,26 +55,27 @@ public class TransportAbilityManager {
 
     public void addAbilities(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
         this.abilities.clear();
-        this.addFollowAbility(transport, tileCompartmentLocation);
-        this.addTransportReproduceAbility(transport, tileCompartmentLocation, tileTransports);
-        this.addBuildWoodCutterAbility(transport, tileCompartmentLocation);
-//        this.addBuildClayPitAbility(transport, tileCompartmentLocation);      TODO: Once we can check if on river/sea shore
-        this.addBuildStoneQuarryAbility(transport, tileCompartmentLocation);
-//        this.addBuildOilRigAbility(transport, tileCompartmentLocation);  TODO: After research is implemented
-        this.addBuildSawmillAbility(transport, tileCompartmentLocation);
-        this.addBuildPapermillAbility(transport, tileCompartmentLocation);
-        this.addBuildStoneFactoryAbility(transport, tileCompartmentLocation);
-        this.addBuildCoalBurnerAbility(transport, tileCompartmentLocation);
-        this.addBuildMineAbility(transport, tileCompartmentLocation);
-        this.addBuildMintAbility(transport, tileCompartmentLocation);
-        this.addBuildRowboatFactoryAbility(transport, tileCompartmentLocation);
-        this.addBuildSteamshipFactoryAbility(transport, tileCompartmentLocation);
-        this.addBuildTruckFactoryAbility(transport, tileCompartmentLocation);
-        this.addBuildStockExchangeAbility(transport, tileCompartmentLocation);
-        this.addPickUpResourceAbility(transport, tileCompartmentLocation);
-        this.addDropResourceAbility(transport, tileCompartmentLocation);
-        this.addPickUpTransportAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
-        this.addResearchAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
+//        this.addFollowAbility(transport, tileCompartmentLocation);
+//        this.addTransportReproduceAbility(transport, tileCompartmentLocation, tileTransports);
+//        this.addBuildWoodCutterAbility(transport, tileCompartmentLocation);
+////        this.addBuildClayPitAbility(transport, tileCompartmentLocation);      TODO: Once we can check if on river/sea shore
+//        this.addBuildStoneQuarryAbility(transport, tileCompartmentLocation);
+////        this.addBuildOilRigAbility(transport, tileCompartmentLocation);  TODO: After research is implemented
+//        this.addBuildSawmillAbility(transport, tileCompartmentLocation);
+//        this.addBuildPapermillAbility(transport, tileCompartmentLocation);
+//        this.addBuildStoneFactoryAbility(transport, tileCompartmentLocation);
+//        this.addBuildCoalBurnerAbility(transport, tileCompartmentLocation);
+//        this.addBuildMineAbility(transport, tileCompartmentLocation);
+//        this.addBuildMintAbility(transport, tileCompartmentLocation);
+//        this.addBuildRowboatFactoryAbility(transport, tileCompartmentLocation);
+//        this.addBuildSteamshipFactoryAbility(transport, tileCompartmentLocation);
+//        this.addBuildTruckFactoryAbility(transport, tileCompartmentLocation);
+//        this.addBuildStockExchangeAbility(transport, tileCompartmentLocation);
+//        this.addPickUpResourceAbility(transport, tileCompartmentLocation);
+//        this.addDropResourceAbility(transport, tileCompartmentLocation);
+//        this.addPickUpTransportAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
+//        this.addResearchAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
+        this.addMovementAbility(transport, tileCompartmentLocation, tileTransports, transportManager);
     }
 
     private Set<Move> getValidMoves(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports)
@@ -422,14 +425,15 @@ public class TransportAbilityManager {
 
     public void addResearchAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, List<Transport> tileCompartmentTransports) {
         List<Goose> tileGeese = gooseManager.getMapGeese().get(tileCompartmentLocation);
-        TileCompartment tileCompartment = map.getTile(tileCompartmentLocation.getLocation()).getTileCompartment(tileCompartmentLocation.getTileCompartmentDirection()));
+        TileCompartment tileCompartment = map.getTile(tileCompartmentLocation.getLocation()).getTileCompartment(tileCompartmentLocation.getTileCompartmentDirection());
         if(tileGeese != null && tileGeese.size() > 1 && tileCompartment.hasResource(ResourceType.PAPER)) {
             for (Transport t : tileCompartmentTransports) {
                 if (t != transport) {
-                    for(ResearchEnum researchEnum : ResearchEnum.values()) {
-                        if(ResearchManager.canResearch(researchEnum)) {
+                    for(ResearchType researchType : ResearchType.values()) {
+                        if(!researchManager.hasResearched(researchType)) {
                             ResearchAbility researchAbility = abilityFactory.getResearchAbility();
                             researchAbility.attachToController(researchType, researchManager, gooseManager, tileCompartment, tileCompartmentLocation);
+                            addAbility(researchAbility);
                         }
                     }
                     break;
@@ -438,7 +442,14 @@ public class TransportAbilityManager {
         }
     }
 
-    public void addMovementAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
-        
+    public void addMovementAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
+        Set<Move> validMoves = getValidMoves(transport, tileCompartmentLocation, tileTransports);
+        int moveIndex = 0;
+        for(Move move : validMoves) {
+            MoveAbility moveAbility = abilityFactory.getMoveAbility();
+            moveAbility.attachToController(transport, move, transportManager, tileCompartmentLocation, moveIndex);
+            addAbility(moveAbility);
+            moveIndex++;
+        }
     }
 }

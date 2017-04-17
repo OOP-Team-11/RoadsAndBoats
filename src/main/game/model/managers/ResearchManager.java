@@ -59,14 +59,8 @@ public class ResearchManager
         return researchPoints > 0 && !research.get(researchType);
     }
 
-    public boolean spendResearchPointOn(ResearchType researchType)
+    public boolean performResearch(ResearchType researchType)
     {
-        if(researchPoints <= 0)
-        {
-            return false;
-        }
-
-        researchPoints--;
         research.replace(researchType, true);
         return true;
     }
