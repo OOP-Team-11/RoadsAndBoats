@@ -2,7 +2,6 @@ package game.model.resource;
 
 import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
-import game.model.structures.resourceProducer.ResourceHolder;
 import game.model.structures.resourceProducer.primaryProducer.OilRig;
 import org.junit.Before;
 import org.junit.Test;

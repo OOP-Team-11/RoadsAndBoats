@@ -111,7 +111,7 @@
 ( -2 0 2 ) S GOLD=1
 -----END RESOURCE-----
 -----BEGIN MINE-----
-( 2 -2 0 ) E MAX=[GOLD=3 IRON=3] CURRENT=[GOLD=0 IRON=1]
+( 2 -2 0 ) E MAX=[GOLD=3 IRON=3] CURRENT=[GOLD=3 IRON=3]
 -----END MINE-----
 -----BEGIN OILRIG-----
 ( 0 3 -3 ) E
@@ -160,9 +160,13 @@ BRICK PLAYERID=2
 BRICK PLAYERID=-1
 -----END WONDER-----
 -----BEGIN ROAD-----
+<<<<<<< HEAD
+-----END ROAD-----
+=======
 -----END ROAD-----
 -----BEGIN WALL-----
 ( 0 0 0 ) PLAYERID=1 COMPARTMENT=1
 ( 1 0 -1 ) PLAYERID=2 COMPARTMENT=5
 ( 2 0 -2 ) PLAYERID=3 COMPARTMENT=2
 -----END WALL-----
+>>>>>>> master
