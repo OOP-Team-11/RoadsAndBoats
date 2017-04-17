@@ -984,4 +984,6 @@ public class MainView extends View
     public Location getRightClickedLocation() {
         return rightClickedLocation;
     }
+
+    public PhaseRenderInfo getCurentPhaseInformation(){ return this.phaseRenderInfo; }
 }

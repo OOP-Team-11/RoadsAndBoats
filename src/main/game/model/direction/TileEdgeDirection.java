@@ -75,7 +75,22 @@ public class TileEdgeDirection implements Cloneable{
         directions.add(getNorthWest());
         return directions;
 	}
-	
+
+    public String getString() {
+        if(this.getAngle().getDegrees() == getNorthEast().getAngle().getDegrees())
+            return "North East";
+        else if(this.getAngle().getDegrees() == getNorth().getAngle().getDegrees())
+            return "North";
+        else if(this.getAngle().getDegrees() == getNorthWest().getAngle().getDegrees())
+            return "Northwest";
+        else if(this.getAngle().getDegrees() == getSouthWest().getAngle().getDegrees())
+            return "Southwest";
+        else if(this.getAngle().getDegrees() == getSouth().getAngle().getDegrees())
+            return "South";
+        else
+            return "Southeast";
+    }
+
     @Override
     public int hashCode() {
         return this.angle.getDegrees();

@@ -54,10 +54,9 @@ public class MoveAbility extends Ability {
         this.tileCompartmentLocation = tileCompartmentLocation;
         KeyCode kc = KeyCode.getKeyCode(Integer.toString(moveIndex));
         mainViewController.addControl(kc, this);
-        System.out.println(kc);
     }
     @Override
     public String getDisplayString() {
-        return "Move "+moveObj.getTileEdgeDirection();
+        return "Move "+moveObj.getTileEdgeDirection().getString();
     }
 }
