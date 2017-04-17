@@ -2,13 +2,20 @@ package game.model.gameImportExport.importer;
 
 import game.model.direction.TileCompartmentDirection;
 import game.model.resources.ResourceType;
+import game.model.tile.Terrain;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static game.model.resources.ResourceType.*;
 import static game.model.resources.ResourceType.STOCKBOND;
+import static game.model.tile.Terrain.*;
+import static game.model.tile.Terrain.DESERT;
+import static game.model.tile.Terrain.MOUNTAIN;
 
-public class ParseUtilities {
+class ParseUtilities {
 
-    public static ResourceType getResourceTypeByString(String name) {
+    static ResourceType getResourceTypeByString(String name) {
         if (TRUNKS.getName().equals(name)) {
             return TRUNKS;
         } else if (BOARDS.getName().equals(name)) {
@@ -32,7 +39,7 @@ public class ParseUtilities {
         } else return null;
     }
 
-    public static TileCompartmentDirection getTileCompartmentDirectionForTCDString(String tcdString) {
+    static TileCompartmentDirection getTileCompartmentDirectionForTCDString(String tcdString) {
         switch (tcdString) {
             case "E":
                 return TileCompartmentDirection.getEast();
@@ -61,5 +68,29 @@ public class ParseUtilities {
             default:
                 return null;
         }
+    }
+
+    static Terrain getTerrainForString(String terrainString) {
+        switch (terrainString) {
+            case "SEA":
+                return SEA;
+            case "PASTURE":
+                return PASTURE;
+            case "WOODS":
+                return WOODS;
+            case "ROCK":
+                return ROCK;
+            case "DESERT":
+                return DESERT;
+            case "MOUNTAIN":
+                return MOUNTAIN;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    static Matcher getMatcherForPatternInString(String searchString, String pattern) {
+        Pattern locationPattern = Pattern.compile(pattern);
+        return locationPattern.matcher(searchString);
     }
 }

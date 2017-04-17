@@ -2,21 +2,23 @@ package game.model.tile;
 
 import game.model.direction.Angle;
 import game.model.direction.TileCompartmentDirection;
-import game.model.direction.TileEdgeDirection;
 import game.model.managers.ResourceManager;
 import game.model.movement.River;
 import game.model.movement.Road;
 import game.model.resources.ResourceType;
 import game.model.transport.Transport;
+import game.utilities.observable.TileCompartmentResourceAddedObservable;
+import game.utilities.observer.TileCompartmentResourceAddedObserver;
 
 import java.util.*;
 
-public class TileCompartment
+public class TileCompartment implements TileCompartmentResourceAddedObservable
 {
     private ResourceManager resourceManager;
     private Collection<Transport> transports;
     private Map<TileCompartmentDirection, Road> roads;
     private Map<TileCompartmentDirection, River> rivers;
+    private List<TileCompartmentResourceAddedObserver> tileCompartmentResourceAddedObservers;
 
     public TileCompartment()
     {
@@ -24,6 +26,7 @@ public class TileCompartment
         transports=new HashSet<>();
         roads=new HashMap<>();
         rivers=new HashMap<>();
+        tileCompartmentResourceAddedObservers = new ArrayList<>();
     }
 
     public boolean hasWater()
@@ -84,11 +87,15 @@ public class TileCompartment
     public void storeResource(ResourceType type, Integer numberToAdd)
     {
         resourceManager.addResource(type, numberToAdd);
+        notifyObservers();
     }
 
     public boolean takeResource(ResourceType type, Integer numberToRemove)
     {
-        return resourceManager.removeResource(type, numberToRemove);
+        boolean removed = resourceManager.removeResource(type, numberToRemove);
+        if (removed)
+            notifyObservers();
+        return removed;
     }
 
     public boolean hasResource(ResourceType wellDoesIt)
@@ -163,5 +170,21 @@ public class TileCompartment
         {
             rivers.remove(entry.getKey(), entry.getValue());
         }
+    }
+
+    private void notifyObservers() {
+        for (TileCompartmentResourceAddedObserver observer : tileCompartmentResourceAddedObservers) {
+            observer.onTileCompartmentResourcesChanged();
+        }
+    }
+
+    @Override
+    public void attach(TileCompartmentResourceAddedObserver observer) {
+        this.tileCompartmentResourceAddedObservers.add(observer);
+    }
+
+    @Override
+    public void detach(TileCompartmentResourceAddedObserver observer) {
+        this.tileCompartmentResourceAddedObservers.remove(observer);
     }
 }

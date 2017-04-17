@@ -19,6 +19,14 @@ public class StoneFactory extends ResourceDropper {
         this.productionLimit = LIMIT;
     }
 
+    /**
+     * Use for map importer to import used stone factories
+     * @param productionLimit
+     */
+    public StoneFactory(int productionLimit) {
+        this.productionLimit = productionLimit;
+    }
+
     // 2 Stone <= 1 Clay
     @Override
     public boolean produce(ResourceManager resourceManager) {

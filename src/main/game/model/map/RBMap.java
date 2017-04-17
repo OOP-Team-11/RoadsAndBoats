@@ -1,26 +1,31 @@
 package game.model.map;
 
-import game.model.direction.DirectionToLocation;
-import game.model.direction.Location;
-import game.model.direction.TileCompartmentDirection;
-import game.model.direction.TileEdgeDirection;
+import game.model.direction.*;
 import game.model.tile.*;
 import game.model.wonder.Irrigatable;
 import game.utilities.observable.MapRenderInfoObservable;
+import game.utilities.observable.MapResourceRenderInfoObservable;
 import game.utilities.observer.MapRenderInfoObserver;
+import game.utilities.observer.MapResourceRenderInfoObserver;
+import game.utilities.observer.TileResourceInfoObserver;
 import game.view.render.MapRenderInfo;
+import game.view.render.MapResourceRenderInfo;
+import game.view.render.ResourceManagerRenderInfo;
+import game.view.render.TileResourceRenderInfo;
 
 import java.util.*;
 
-public class RBMap implements MapRenderInfoObservable, Irrigatable
+public class RBMap implements MapRenderInfoObservable, Irrigatable, TileResourceInfoObserver, MapResourceRenderInfoObservable
 {
     private Map<Location, Tile> tiles;
-    private Vector<MapRenderInfoObserver> mapRenderInfoObservers;
+    private List<MapRenderInfoObserver> mapRenderInfoObservers;
+    private List<MapResourceRenderInfoObserver> mapResourceRenderInfoObservers;
 
     public RBMap()
     {
         tiles = new LinkedHashMap<>();
         mapRenderInfoObservers = new Vector<>();
+        mapResourceRenderInfoObservers = new Vector<>();
     }
 
     /**
@@ -42,6 +47,7 @@ public class RBMap implements MapRenderInfoObservable, Irrigatable
     {
         updateTileEdges(tileLocation, tile);
         updateRiverConnections(tileLocation, tile);
+        tile.attach(this);
         tiles.put(tileLocation, tile);
         notifyMapRenderInfoObservers();
         return true;
@@ -156,6 +162,34 @@ public class RBMap implements MapRenderInfoObservable, Irrigatable
         }
     }
 
+    private void notifyMapResourceRenderInfoObservers(TileResourceRenderInfo tileResourceRenderInfo) {
+        Map<TileCompartmentLocation, ResourceManagerRenderInfo> mapResources = new HashMap<>();
+        Iterator it = tileResourceRenderInfo.getTileResourceMap().entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            TileCompartmentDirection tcd = (TileCompartmentDirection) pair.getKey();
+            ResourceManagerRenderInfo resourceManagerRenderInfo = (ResourceManagerRenderInfo) pair.getValue();
+            TileCompartmentLocation tcl = new TileCompartmentLocation(getLocationForTile(tileResourceRenderInfo.getTile()), tcd);
+            mapResources.put(tcl, resourceManagerRenderInfo);
+        }
+        MapResourceRenderInfo mapResourceRenderInfo = new MapResourceRenderInfo(mapResources);
+
+        for (MapResourceRenderInfoObserver observer : this.mapResourceRenderInfoObservers) {
+            observer.updateMapResourceInfo(mapResourceRenderInfo);
+        }
+    }
+
+    private Location getLocationForTile(Tile searchTile) {
+        Iterator it = tiles.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            Location location = (Location) pair.getKey();
+            Tile tile = (Tile) pair.getValue();
+            if (searchTile.equals(tile)) return location;
+        }
+        return null;
+    }
+
 
     @Override
     public void irrigate() {
@@ -163,5 +197,20 @@ public class RBMap implements MapRenderInfoObservable, Irrigatable
             tile.irrigate();
         }
         notifyMapRenderInfoObservers();
+    }
+
+    @Override
+    public void onTileResourcesUpdated(TileResourceRenderInfo tileResourceRenderInfo) {
+        notifyMapResourceRenderInfoObservers(tileResourceRenderInfo);
+    }
+
+    @Override
+    public void attachMapResourceRenderInfoObserver(MapResourceRenderInfoObserver observer) {
+        this.mapResourceRenderInfoObservers.add(observer);
+    }
+
+    @Override
+    public void detachMapResourceRenderInfoObserver(MapResourceRenderInfoObserver observer) {
+        this.mapResourceRenderInfoObservers.remove(observer);
     }
 }
