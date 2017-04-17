@@ -29,6 +29,7 @@ public class BuyWonderBrickAbility extends Ability {
             if(transportRm.hasResource(resourceType)) {
                 transportRm.removeResource(resourceType, 1);
                 wonderManager.addBrick(this.playerId);
+                return;
             }
         }
     }
@@ -40,6 +41,6 @@ public class BuyWonderBrickAbility extends Ability {
 
     @Override
     public String getDisplayString() {
-        return "Buy wonder brick!";
+        return "Buy wonder brick";
     }
 }
