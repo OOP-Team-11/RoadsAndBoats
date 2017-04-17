@@ -43,8 +43,4 @@ public class Road {
     {
         return compartmentDirection;
     }
-
-    public boolean transport(LandTransport landTransport) {
-        return false;
-    }
 }

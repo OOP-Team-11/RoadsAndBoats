@@ -234,6 +234,15 @@ public class WelcomeView {
         ft.play();
     }
 
+    public void showAlert(String title, String headerText, String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
 
     public Button getStartGameButtonReference() { return startNewGameButoon; }
     public Button getExitButtonRefernce(){

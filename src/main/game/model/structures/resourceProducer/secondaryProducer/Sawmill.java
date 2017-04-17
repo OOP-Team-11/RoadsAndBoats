@@ -19,6 +19,14 @@ public class Sawmill extends ResourceDropper {
         this.productionLimit = LIMIT;
     }
 
+    /**
+     * Used for map importer to import used sawmills
+     * @param productionLimit
+     */
+    public Sawmill(int productionLimit) {
+        this.productionLimit = productionLimit;
+    }
+
     // 2 Boards <= 1 Trunk
     @Override
     public boolean produce(ResourceManager resourceManager) {

@@ -3,6 +3,7 @@ package game.model.managers;
 
 import game.model.gameImportExport.exporter.Serializable;
 import game.model.resources.ResourceType;
+import game.view.render.ResourceManagerRenderInfo;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -81,5 +82,9 @@ public class ResourceManager implements Serializable {
             count += resourceCount;
         }
         return (count == 0);
+    }
+
+    public ResourceManagerRenderInfo getRenderInfo() {
+        return new ResourceManagerRenderInfo(resourceTypeIntegerMap);
     }
 }
