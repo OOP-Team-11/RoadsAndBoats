@@ -75,7 +75,22 @@ public class TileEdgeDirection implements Cloneable{
         directions.add(getNorthWest());
         return directions;
 	}
-	
+
+    public String getString() {
+        if(this.angle == CompassAngles.NORTHEAST.getAngle())
+            return "North East";
+        else if(this.angle == CompassAngles.NORTH.getAngle())
+            return "North";
+        else if(this.angle == CompassAngles.NORTHWEST.getAngle())
+            return "Northwest";
+        else if(this.angle == CompassAngles.SOUTHWEST.getAngle())
+            return "Southwest";
+        else if(this.angle == CompassAngles.SOUTH.getAngle())
+            return "South";
+        else
+            return "Southeast";
+    }
+
     @Override
     public int hashCode() {
         return this.angle.getDegrees();
