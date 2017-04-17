@@ -155,6 +155,7 @@ public class MainView extends View
             drawTransportsOnLargeSideTile(cursorRenderInfo.getCursorLocation(), mapTransportRenderInfoP1);
             drawTransportsOnLargeSideTile(cursorRenderInfo.getCursorLocation(), mapTransportRenderInfoP2);
             drawGoodsOnLargeSideTile(cursorRenderInfo.getCursorLocation());
+            drawBuildingsOnLargeSideTile(cursorRenderInfo.getCursorLocation());
         }
     }
     private boolean isNull(Object object){
@@ -322,6 +323,23 @@ public class MainView extends View
                         Image image = renderToImageConverter.getResourceImage(entry2.getKey());
                         drawSideCompartmentGoodImage(image,compartment);
                     }
+                } else {
+                    // not same locaiton
+                }
+            }
+        }
+    }
+
+    private void drawBuildingsOnLargeSideTile(Location location){
+        if(isNull(mapStructureRenderInfo)){
+            // nothing to render
+        } else {
+            for ( HashMap.Entry<TileCompartmentLocation,StructureRenderInfo> entry : mapStructureRenderInfo.getStructures().entrySet())
+            {
+                if(entry.getKey().getLocation().equals(location)){
+                    int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
+                    Image image = renderToImageConverter.getStructureImage(entry.getValue().getStructureType());
+                    drawSideCompartmentLargeImage(image,compartment);
                 } else {
                     // not same locaiton
                 }
