@@ -18,6 +18,8 @@ import game.model.resources.ResourceType;
 import game.model.ResearchType;
 import game.model.structures.StructureType;
 import game.model.structures.resourceProducer.secondaryProducer.Mint;
+import game.model.structures.resourceProducer.secondaryProducer.Sawmill;
+import game.model.structures.resourceProducer.secondaryProducer.StoneFactory;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
 import game.model.tile.TileCompartment;
@@ -82,6 +84,8 @@ public class TransportAbilityManager {
             this.addResearchAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
             this.addTransportReproduceAbility(transport, tileCompartmentLocation, tileTransports);
             this.addProduceCoinsAbility(transport, tileCompartmentLocation);
+            this.addProduceStonesAbility(transport, tileCompartmentLocation);
+            this.addProduceBoardsAbility(transport, tileCompartmentLocation);
         }
     }
 
@@ -94,6 +98,7 @@ public class TransportAbilityManager {
 
     private void addBuildingPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
         if(phase=="Building") {
+            this.addBuildStoneFactoryAbility(transport, tileCompartmentLocation);
             this.addBuildWoodCutterAbility(transport, tileCompartmentLocation);
 //          this.addBuildClayPitAbility(transport, tileCompartmentLocation);      TODO: Once we can check if on river/sea shore
             this.addBuildStoneQuarryAbility(transport, tileCompartmentLocation);
@@ -501,11 +506,39 @@ public class TransportAbilityManager {
     public void addProduceCoinsAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         Tile tile = map.getTile(tileCompartmentLocation.getLocation());
         if(tile.getStructure() != null && tile.getStructure().getType() == StructureType.MINT) {
-            if((transport.getResourceManager().getResourceCount(ResourceType.FUEL) >= 1) &&
+            if((transport.getResourceManager().getResourceCount(ResourceType.GOLD) >= 2) &&
                     transport.getResourceManager().getResourceCount(ResourceType.FUEL) >= 1) {
                 ProduceCoinsAbility produceCoinsAbility = abilityFactory.getProduceCoinsAbility();
                 produceCoinsAbility.attachToController(transport.getResourceManager(), (Mint) tile.getStructure());
                 addAbility(produceCoinsAbility);
+            }
+        }
+    }
+
+    public void addProduceStonesAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        int resourceCount = 0;
+        for(Integer i : transport.getResourceManager().getResourceTypeIntegerMap().values())
+            resourceCount+=i;
+        if(tile.getStructure() != null && tile.getStructure().getType() == StructureType.STONE_FACTORY) {
+            if((transport.getResourceManager().getResourceCount(ResourceType.CLAY) >= 1) && resourceCount < transport.getCarryCapacity()) {
+                ProduceStonesAbility produceStonesAbility = abilityFactory.getProduceStonesAbility();
+                produceStonesAbility.attachToController(transport.getResourceManager(), (StoneFactory) tile.getStructure());
+                addAbility(produceStonesAbility);
+            }
+        }
+    }
+
+    public void addProduceBoardsAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        int resourceCount = 0;
+        for(Integer i : transport.getResourceManager().getResourceTypeIntegerMap().values())
+            resourceCount+=i;
+        if(tile.getStructure() != null && tile.getStructure().getType() == StructureType.SAWMILL) {
+            if((transport.getResourceManager().getResourceCount(ResourceType.CLAY) >= 1) && resourceCount < transport.getCarryCapacity()) {
+                ProduceBoardsAbility produceBoardsAbility = abilityFactory.getProduceBoardsAbility();
+                produceBoardsAbility.attachToController(transport.getResourceManager(), (Sawmill) tile.getStructure());
+                addAbility(produceBoardsAbility);
             }
         }
     }

@@ -2,6 +2,7 @@ package game.model.managers;
 
 import game.controller.MainViewController;
 import game.model.direction.Location;
+import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.map.RBMap;
 import game.model.structures.Structure;
@@ -30,6 +31,7 @@ public class StructureManager implements MapStructureRenderInfoObservable, Struc
     public StructureManager(MainViewController mainViewController, RBMap map) {
         this.structures = new HashMap<>();
         this.structureRenderInfoObservers = new ArrayList<>();
+        this.map = map;
         this.structureAbilityManager = new StructureAbilityManager(mainViewController, map, this);
         this.primaryProducers = new Vector<>();
         this.map = map;
@@ -115,6 +117,8 @@ public class StructureManager implements MapStructureRenderInfoObservable, Struc
     @Override
     public void addStructureVisit(Structure structure, TileCompartmentLocation tileCompartmentLocation) {
         this.addStructure(tileCompartmentLocation, structure);
+        map.getTile(tileCompartmentLocation.getLocation()).addStructure(structure);
+
     }
 
     @Override
