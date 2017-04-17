@@ -45,7 +45,8 @@ public class MainView extends View
         CameraObserver,
         PlayerRenderInfoObserver,
         PhaseRenderInfoObserver,
-        MapTransportRenderInfoObserver {
+        MapTransportRenderInfoObserver,
+        BridgeRenderInfoObserver{
 
     private AnchorPane anchorPane;
     private TransportRenderInfo transportRenderInfo;
@@ -875,6 +876,7 @@ public class MainView extends View
             }
         }
     }
+
     private void displayStructureRenderInfo(){
         if(isNull(mapStructureRenderInfo)){
             // nothing to render
@@ -922,36 +924,43 @@ public class MainView extends View
         this.transportRenderInfo = transportRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateMapStructureInfo(MapStructureRenderInfo mapStructureRenderInfo) {
         this.mapStructureRenderInfo = mapStructureRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateMapResourceInfo(MapResourceRenderInfo mapResourceRenderInfo) {
         this.mapResourceRenderInfo = mapResourceRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateMapInfo(MapRenderInfo mapRenderInfo) {
         this.mapRenderInfo = mapRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateRoadInfo(RoadRenderInfo roadRenderInfo) {
         this.roadRenderInfo = roadRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateWallInfo(WallRenderInfo wallRenderInfo) {
         this.wallRenderInfo = wallRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateCursorInfo(CursorRenderInfo cursorRenderInfo) {
         this.cursorRenderInfo = cursorRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateCamera(CameraInfo cameraInfo) {
         this.cameraX = cameraInfo.getCameraX();
@@ -981,6 +990,13 @@ public class MainView extends View
         }
         this.refresh = true;
     }
+
+    @Override
+    public void updateBridgeInfo(BridgeRenderInfo renderInfo)
+    {
+        //TODO
+    }
+
     public void setAbilities(Map<KeyCode, Ability> abilities )
     {
         this.abilities = abilities;
@@ -992,4 +1008,5 @@ public class MainView extends View
     }
 
     public PhaseRenderInfo getCurentPhaseInformation(){ return this.phaseRenderInfo; }
+
 }
