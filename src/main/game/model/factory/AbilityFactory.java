@@ -52,5 +52,7 @@ public class AbilityFactory {
     public DropTransportAbility getDropTransportAbility() { return new DropTransportAbility(mainViewController); }
     public ResearchAbility getResearchAbility() { return new ResearchAbility(mainViewController); }
     public ProduceCoinsAbility getProduceCoinsAbility() { return new ProduceCoinsAbility(mainViewController); }
+    public ProduceStonesAbility getProduceStonesAbility() { return new ProduceStonesAbility(mainViewController); }
     public BuyWonderBrickAbility getBuyWonderBrickAbility() { return new BuyWonderBrickAbility(mainViewController); }
+    public ProduceBoardsAbility getProduceBoardsAbility() { return new ProduceBoardsAbility(mainViewController); }
 }
