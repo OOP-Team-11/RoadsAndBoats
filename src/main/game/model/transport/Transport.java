@@ -6,12 +6,13 @@ import game.model.resources.Goose;
 import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
 
 public abstract class Transport implements Serializable {
-    private Vector<Goose> followers;
+    private List<Goose> followers;
     private PlayerId playerId;
     private TransportId transportId;
     private ResourceManager resourceManager;
@@ -24,7 +25,7 @@ public abstract class Transport implements Serializable {
         this.followers = new Vector<Goose>();
     }
 
-    public void addFollowers(Vector<Goose> geese) { this.followers = geese; }
+    public void addFollowers(List<Goose> geese) { this.followers = geese; }
     public void removeFollowers() {
         for(Goose g : followers)
             followers.remove(g);
