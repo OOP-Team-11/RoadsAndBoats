@@ -97,6 +97,8 @@ public class GameInitializer {
         game.attach(wonderManager);
         game.attach(structureManager);
 
+        game.attachPlayerInfoObserver(controllerManager.getSaveLoadVieController());
+
         controllerManager.getMainViewController().setGame(game);
 
         //TODO: Add a controller and view element to trigger this gameExporter's exportGameToPath()
