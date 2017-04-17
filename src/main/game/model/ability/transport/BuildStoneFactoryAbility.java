@@ -21,6 +21,7 @@ public class BuildStoneFactoryAbility extends Ability {
 
     @Override
     public void perform() {
+        mainViewController.detachControls();
         this.resourceManager.removeResource(ResourceType.BOARDS, 2);
         StoneFactory stoneFactory = new StoneFactory();
         structureManagerVisitor.addStructureVisit(stoneFactory, tileCompartmentLocation);

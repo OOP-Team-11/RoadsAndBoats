@@ -2,11 +2,17 @@ package game.controller;
 
 import game.model.ability.Ability;
 import game.model.direction.Location;
+import game.model.managers.GooseManager;
+import game.model.managers.StructureManager;
+import game.model.managers.TransportManager;
 import game.model.transport.TransportId;
 import game.view.MainView;
 import game.view.render.CursorRenderInfo;
 import javafx.scene.input.KeyCode;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import game.view.render.CameraInfo;
 import javafx.event.EventHandler;
@@ -24,6 +30,10 @@ public class MainViewController {
     private int cameraY;
     private MouseClickInterpreter mouseClickInterpreter;
 
+    private List<TransportManager> transportManagers;
+    private GooseManager gooseManager;
+    private StructureManager structureManager;
+
     public MainViewController(MainView mainView){
         setMainView(mainView);
         addCameraEvent();
@@ -35,10 +45,14 @@ public class MainViewController {
         notifyViewCamera();
         addSlideEventHandler();
         addTurnFinishButtonHandler();
+        this.transportManagers = new ArrayList<TransportManager>();
     }
 
 //    CONSTRUCTOR JUST FOR TESTING
-    public MainViewController(){ this.controls = new HashMap<KeyCode, Ability>(); };
+    public MainViewController(){
+        this.controls = new HashMap<KeyCode, Ability>();
+        this.transportManagers = new ArrayList<TransportManager>();
+    };
 
     private void setMainView(MainView mainView){
         this.mainView = mainView;
@@ -104,8 +118,10 @@ public class MainViewController {
     private void attachEventToRightClickMenu(){
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent e) {
-                // TODO, hook this up to model and whatnot
-                 TransportId selectedTransport = mainView.getCurrentlySelectedTransportID();
+                TransportId selectedTransport = mainView.getCurrentlySelectedTransportID();
+                Location transportLocation = mainView.getRightClickedLocation();
+                for(TransportManager tm : transportManagers)
+                    tm.onTransportSelected(selectedTransport, transportLocation);
             }
         };
         this.mainView.addEventFilterToRightClickMenu(MouseEvent.MOUSE_CLICKED,eventHandler);
@@ -158,9 +174,24 @@ public class MainViewController {
         controls.remove(keyCode);
     }
 
+    public void detachControls() { this.controls.clear(); }
+
     public Map<KeyCode, Ability> getControls() { return controls; }
 
     private void executeControl(Ability ability) {
         ability.perform();
+    }
+
+
+    public void addTransportManager(TransportManager transportManager) {
+        this.transportManagers.add(transportManager);
+    }
+
+    public void setGooseManager(GooseManager gooseManager) {
+        this.gooseManager = gooseManager;
+    }
+
+    public void setStructureManager(StructureManager structureManager) {
+        this.structureManager = structureManager;
     }
 }

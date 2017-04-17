@@ -21,6 +21,7 @@ public class BuildSawmillAbility extends Ability {
 
     @Override
     public void perform() {
+        mainViewController.detachControls();
         this.resourceManager.removeResource(ResourceType.BOARDS, 2);
         this.resourceManager.removeResource(ResourceType.STONE, 1);
         Sawmill sawmill = new Sawmill();

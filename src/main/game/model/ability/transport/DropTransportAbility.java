@@ -10,7 +10,7 @@ public class DropTransportAbility extends Ability {
 
     @Override
     public void perform() {
-
+        mainViewController.detachControls();
     }
 
     @Override

@@ -20,6 +20,7 @@ public class BuildWoodcutterAbility extends Ability {
 
     @Override
     public void perform() {
+        mainViewController.detachControls();
         this.resourceManager.removeResource(ResourceType.BOARDS, 1);
         Woodcutter woodcutter = new Woodcutter();
         structureManagerVisitor.addStructureVisit(woodcutter, tileCompartmentLocation);

@@ -1,4 +1,4 @@
-package model.abilities;
+package game.model.abilities;
 
 import game.controller.MainViewController;
 import game.model.Player;
@@ -24,21 +24,21 @@ public class AbilityTest {
 
     @Test
     public void addFollowAbilityTest() {
-        TileCompartmentLocation location = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
+        TileCompartmentLocation tcl = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
         MainViewController mainViewController = new MainViewController();
         RBMap map = new RBMap();
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(2);
         StructureManager structureManager = new StructureManager(mainViewController, map);
         TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
-        Player player1 = new Player(transportManager, new PlayerId(2), "gavin", location);
+        Player player1 = new Player(transportManager, new PlayerId(2), "gavin", tcl);
         Transport donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
 //        Add 2 geese to same location that donkey is at so he will have 2 followAbilities. One or both follow.
-        gooseManager.addGoose(location, new Goose(new GooseId()));
-        gooseManager.addGoose(location, new Goose(new GooseId()));
-        player1.getTransportManager().addTransport(donkey, location);
-        player1.getTransportManager().onTransportSelected(donkey, location);
+        gooseManager.addGoose(tcl, new Goose(new GooseId()));
+        gooseManager.addGoose(tcl, new Goose(new GooseId()));
+        player1.getTransportManager().addTransport(donkey, tcl);
+        player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tcl.getLocation());
         assertEquals(2, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
 }

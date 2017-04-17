@@ -22,6 +22,7 @@ public class BuildStoneQuarryAbility extends Ability {
 
     @Override
     public void perform() {
+        mainViewController.detachControls();
         this.resourceManager.removeResource(ResourceType.BOARDS, 2);
         StoneQuarry stoneQuarry = new StoneQuarry();
         structureManagerVisitor.addStructureVisit(stoneQuarry, tileCompartmentLocation);
