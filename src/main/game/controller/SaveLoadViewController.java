@@ -1,19 +1,26 @@
 package game.controller;
 
+import game.GameInitializer;
+import game.utilities.observer.PlayerRenderInfoObserver;
 import game.view.SaveLoadView;
+import game.view.render.PlayerRenderInfo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.File;
 
 
-public class SaveLoadViewController {
+public class SaveLoadViewController implements PlayerRenderInfoObserver {
 
     private SaveLoadView saveLoadView;
     private File saveDirectory;
     private File loadDirectory;
+    private String player1Name;
+    private String player2Name;
+    private Stage primaryStage;
 
     public SaveLoadViewController(SaveLoadView saveLoadView){
         setupDirectories();
@@ -65,8 +72,13 @@ public class SaveLoadViewController {
             EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent e) {
                     String selectedFile = saveLoadView.getSelectedLoadFile();
-                    saveLoadView.showLoadMessage(selectedFile + " has been selected TODO stuff to make it load");
-                    // TODO
+                    saveLoadView.showLoadMessage(selectedFile + " has been selected");
+                    try{
+                        new GameInitializer(selectedFile,player1Name,player2Name,primaryStage);
+                    } catch(Exception err){
+
+                    }
+
                 }
             };
             this.saveLoadView.addEventFilterToLoadButton(eventHandler);
@@ -107,5 +119,18 @@ public class SaveLoadViewController {
             this.saveLoadView.addEventFilterToSaveDirectory(eventHandler);
     }
 
+    public void setPrimaryStage(Stage primaryStage){
+        this.primaryStage = primaryStage;
+    }
 
+
+
+    @Override
+    public void updatePlayerInfo(PlayerRenderInfo playerRenderInfo) {
+        if(playerRenderInfo.getPlayerID().getPlayerIdNumber() == 1){
+            player1Name = playerRenderInfo.getName();
+        } else {
+            player2Name = playerRenderInfo.getName();
+        }
+    }
 }
