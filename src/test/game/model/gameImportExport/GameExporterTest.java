@@ -101,13 +101,13 @@ public class GameExporterTest {
         gameExporter.exportGameToPath(testingFilePath);
         String contents = readFile(testingFilePath);
 
-        assertEquals(contents.substring(0,contents.indexOf("-----END MAP-----")),
-                "-----BEGIN MAP-----\n" +
-                "( 0 0 0 ) PASTURE \n" +
-                "( 0 -1 1 ) DESERT ( 1 2 )\n" +
-                "( 0 1 -1 ) SEA ( 1 4 )\n" +
-                "( -2 1 1 ) WOODS ( 1 3 )\n" +
-                "( 1 0 -1 ) MOUNTAIN \n"
+        assertEquals("-----BEGIN MAP-----\n" +
+                        "( 0 0 0 ) PASTURE \n" +
+                        "( 0 -1 1 ) DESERT ( 1 2 )\n" +
+                        "( 0 1 -1 ) SEA ( 1 2 3 4 5 6 )\n" +
+                        "( -2 1 1 ) WOODS ( 1 3 )\n" +
+                        "( 1 0 -1 ) MOUNTAIN \n",
+                contents.substring(0,contents.indexOf("-----END MAP-----"))
         );
     }
 
