@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ResourceManager implements Serializable {
+
     private Map<ResourceType, Integer> resourceTypeIntegerMap;
 
     public ResourceManager(){
@@ -23,6 +24,10 @@ public class ResourceManager implements Serializable {
 
         }
         return points;
+    }
+
+    public Map<ResourceType, Integer> getResourceTypeIntegerMap() {
+        return resourceTypeIntegerMap;
     }
 
     public void addResource(ResourceType type, Integer numberToAdd){

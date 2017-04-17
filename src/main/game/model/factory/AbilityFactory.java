@@ -7,9 +7,16 @@ import game.model.ability.goose.GooseReproduceAbility;
 import game.model.ability.transport.*;
 import game.model.ability.transport.MoveAbility;
 import game.model.ability.transport.TransportReproduceAbility;
+import game.model.managers.ResourceManager;
+import game.model.managers.StructureManager;
+import game.model.resources.ResourceType;
+import game.model.structures.Structure;
+import game.model.transport.Transport;
 import game.model.visitors.GooseManagerVisitor;
 import game.model.visitors.StructureManagerVisitor;
 import game.model.visitors.TransportManagerVisitor;
+
+import javax.annotation.Resource;
 
 public class AbilityFactory {
     private MainViewController mainViewController;
@@ -32,4 +39,14 @@ public class AbilityFactory {
     public BuildStoneFactoryAbility getBuildStoneFactoryAbility(StructureManagerVisitor v) { return new BuildStoneFactoryAbility(mainViewController, v); }
     public BuildCoalBurnerAbility getBuildCoalBurnerAbility(StructureManagerVisitor v) { return new BuildCoalBurnerAbility(mainViewController, v); }
     public BuildMineAbility getBuildMineAbility(StructureManagerVisitor v) { return new BuildMineAbility(mainViewController, v); }
+    public BuildMintAbility getBuildMintAbility(StructureManagerVisitor v) { return new BuildMintAbility(mainViewController, v); }
+    public BuildGoldMineAbility getBuildGoldMineAbility(StructureManagerVisitor v) { return new BuildGoldMineAbility(mainViewController, v); }
+    public BuildIronMineAbility getBuildIronMineAbility(StructureManagerVisitor v) { return new BuildIronMineAbility(mainViewController, v); }
+    public BuildRowboatFactoryAbility getBuildRowboatFactoryAbility(StructureManagerVisitor v) { return new BuildRowboatFactoryAbility(mainViewController, v); }
+    public BuildSteamshipFactoryAbility getBuildSteamshipFactoryAbility(StructureManagerVisitor v) { return new BuildSteamshipFactoryAbility(mainViewController, v); }
+    public BuildStockExchangeAbility getBuildStockExchangeAbility(StructureManagerVisitor v) { return new BuildStockExchangeAbility(mainViewController, v); }
+    public BuildTruckFactoryAbility getBuildTruckFactoryAbility(StructureManagerVisitor v) { return new BuildTruckFactoryAbility(mainViewController, v); }
+    public PickUpResourceAbility getPickUpResourceAbility() { return new PickUpResourceAbility(mainViewController); }
+    public DropResourceAbility getDropResourceAbility() { return new DropResourceAbility(mainViewController); }
+    public PickUpTransportAbility getPickUpTransportAbility() { return new PickUpTransportAbility(mainViewController); }
 }

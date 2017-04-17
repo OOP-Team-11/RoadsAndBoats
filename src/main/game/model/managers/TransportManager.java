@@ -122,10 +122,15 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
     }
 
     public void onTransportSelected(TransportId transportId, Location loc) {
-        Map<TileCompartmentDirection, List<Transport>> tileTransports = new HashMap<TileCompartmentDirection, List<Transport>>();
         Transport transport = getTransport(transportId, loc);
         TileCompartmentLocation transportTCL = getTransportTileCompartmentLocation(transportId, loc);
+        Map<TileCompartmentDirection, List<Transport>> tileTransports = getTileTransports(loc);
+        if(transport != null)
+            this.transportAbilityManager.addAbilities(transport, transportTCL, tileTransports);
+    }
 
+    public Map<TileCompartmentDirection, List<Transport>> getTileTransports(Location loc) {
+        Map<TileCompartmentDirection, List<Transport>> tileTransports = new HashMap<TileCompartmentDirection, List<Transport>>();
         for(TileCompartmentDirection d : TileCompartmentDirection.getAllDirections()) {
             TileCompartmentLocation tilesCompartment = new TileCompartmentLocation(loc, d);
 //            Check that there is an index for the tileCompartmentLocation as well as exisiting transports
@@ -133,8 +138,7 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
                 tileTransports.put(d, transports.get(tilesCompartment));
             }
         }
-        if(transport != null)
-            this.transportAbilityManager.addAbilities(transport, transportTCL, tileTransports);
+        return tileTransports;
     }
 
     public void onTransportUnselected() {

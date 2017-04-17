@@ -38,7 +38,7 @@ public class AbilityTest {
         gooseManager.addGoose(tcl, new Goose(new GooseId()));
         gooseManager.addGoose(tcl, new Goose(new GooseId()));
         player1.getTransportManager().addTransport(donkey, tcl);
-        player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tcl.getLocation());
+        player1.getTransportManager().getTransportAbilityManager().addFollowAbility(donkey, tcl);
         assertEquals(2, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
 }

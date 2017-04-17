@@ -3,9 +3,9 @@ package game.model.ability.transport;
 import game.controller.MainViewController;
 import game.model.ability.Ability;
 
-public class BuildbigMineAbility extends Ability {
+public class BuildBigMineAbility extends Ability {
 
-    public BuildbigMineAbility(MainViewController mainViewController) {
+    public BuildBigMineAbility(MainViewController mainViewController) {
         super(mainViewController);
     }
 
