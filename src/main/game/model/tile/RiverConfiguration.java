@@ -11,7 +11,7 @@ public class RiverConfiguration implements Serializable {
     private Map<TileEdgeDirection, Boolean> riverMap;
     private int rotationAmount;
 
-    private RiverConfiguration(Map<TileEdgeDirection, Boolean> riverMap) {
+    public RiverConfiguration(Map<TileEdgeDirection, Boolean> riverMap) {
         this.riverMap = riverMap;
         this.rotationAmount = 0;
     }
