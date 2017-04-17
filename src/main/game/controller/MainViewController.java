@@ -47,6 +47,7 @@ public class MainViewController {
         notifyViewCamera();
         addSlideEventHandler();
         addTurnFinishButtonHandler();
+
         this.transportManagers = new ArrayList<TransportManager>();
     }
     public void setGame(Game game){
@@ -171,8 +172,23 @@ public class MainViewController {
         mainView.addEventFilterToMainView(KeyEvent.ANY,eventHandler);
     }
 
+
+    private void updateMainView(){
+        if(this.getControls() == null){
+
+        } else {
+
+        }
+    }
+
     public void addControl(KeyCode keyCode, Ability ability) {
         this.controls.put(keyCode, ability);
+        if(mainView != null){
+            mainView.setAbilities(controls);
+        }
+    }
+
+    public void addMainViewController(){
     }
 
     public void removeControl(KeyCode keyCode) {

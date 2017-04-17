@@ -14,7 +14,6 @@ import game.model.structures.resourceProducer.secondaryProducer.*;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Tile;
 import game.model.tinyGame.Game;
-import game.utilities.exceptions.MalformedMapFileException;
 import game.model.map.RBMap;
 import game.model.tile.Terrain;
 import org.junit.Before;
@@ -73,8 +72,8 @@ public class GameExporterTest {
 
         MainViewController mvc = new MainViewController();
 
-        TransportManager tm1 = new TransportManager(pid1, mvc, new GooseManager(), map, new StructureManager(mvc,map));
-        TransportManager tm2 = new TransportManager(pid2, mvc, new GooseManager(), map, new StructureManager(mvc,map));
+        TransportManager tm1 = new TransportManager(pid1, mvc, new GooseManager(), map, new StructureManager(mvc,map), null);
+        TransportManager tm2 = new TransportManager(pid2, mvc, new GooseManager(), map, new StructureManager(mvc,map), null);
 
         Player p1 = new Player(tm1, pid1, "Karl", new TileCompartmentLocation(new Location(0,0,0),TileCompartmentDirection.getNorth()));
         Player p2 = new Player(tm2, pid1, "Friedrich", new TileCompartmentLocation(new Location(-1,0,1),TileCompartmentDirection.getEast()));
