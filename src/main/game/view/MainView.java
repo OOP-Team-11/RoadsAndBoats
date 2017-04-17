@@ -213,22 +213,6 @@ public class MainView extends View
     }
 
 
-    private void drawWallImage(Image image, int x, int y, int z){
-        // first thing we want to do is get the axial coordinates
-        int xx = x;
-        int yy = z;
-        if(xx%2 == 0){ // even
-            double offsetHorizontal = imageX*xx*0.25;
-            double offsetVertical = imageY*(xx/2)-(zoomSlider.getValue()*6.5); // extra horizontal offset for walls
-            mapGC.drawImage(image,imageX*xx-offsetHorizontal+cameraX,imageY*yy+offsetVertical+cameraY, imageX, imageY); // x, y
-        } else {
-
-            double offset = imageX*0.50;
-            double offsetVertical = imageY*((xx-1)/2)-7;
-            mapGC.drawImage(image,imageX*xx*0.75+cameraX,(imageY*((yy)) + offset +offsetVertical + cameraY + verticalOffset ), imageX,imageY); // x, y
-        }
-    }
-
     private void drawCompartmentSmallImage(Image image, int x, int y, int z, int compartment){
         // first thing we want to do is get the axial coordinates
         int xx = x;
@@ -737,42 +721,10 @@ public class MainView extends View
 
     private void TESTING_REMOVE_LATER(){
 
-        // FOR TESTING Tile compartments
-        drawCompartmentLargeImage(assets.CLAY_GOODS,0,0,0,1);
-        drawCompartmentLargeImage(assets.CLAY_GOODS,0,0,0,2);
-        drawCompartmentLargeImage(assets.CLAY_GOODS,0,0,0,3);
-        drawCompartmentLargeImage(assets.CLAY_GOODS,0,0,0,4);
-        drawCompartmentLargeImage(assets.CLAY_GOODS,0,0,0,5);
-        drawCompartmentLargeImage(assets.CLAY_GOODS,0,0,0,6);
-
-        drawSideCompartmentGoodImage(assets.CLAY_GOODS,1);
-        drawSideCompartmentGoodImage(assets.CLAY_GOODS,2);
-        drawSideCompartmentGoodImage(assets.CLAY_GOODS,3);
-        drawSideCompartmentGoodImage(assets.CLAY_GOODS,4);
-        drawSideCompartmentGoodImage(assets.CLAY_GOODS,5);
-        drawSideCompartmentGoodImage(assets.CLAY_GOODS,6);
-
-
-        drawCompartmentLargeImage(assets.RAFT_FACTORY, 1,0,1,1);
-        drawCompartmentLargeImage(assets.RAFT_FACTORY, 1,0,1,2);
-        drawCompartmentLargeImage(assets.RAFT_FACTORY, 1,0,1,3);
-        drawCompartmentLargeImage(assets.RAFT_FACTORY, 1,0,1,4);
-        drawCompartmentLargeImage(assets.RAFT_FACTORY, 1,0,1,5);
-        drawCompartmentLargeImage(assets.RAFT_FACTORY, 1,0,1,6);
-
-
-        drawCompartmentLargeImage(assets.DONKEY_BLUE, 0,-1,-1,1);
-
-        drawSideCompartmentLargeImage(assets.COAL_BURNER_BUILDING,1);
-        drawSideCompartmentLargeImage(assets.COAL_BURNER_BUILDING,2);
-        drawSideCompartmentLargeImage(assets.COAL_BURNER_BUILDING,3);
-        drawSideCompartmentLargeImage(assets.COAL_BURNER_BUILDING,4);
-        drawSideCompartmentLargeImage(assets.COAL_BURNER_BUILDING,5);
-        drawSideCompartmentLargeImage(assets.COAL_BURNER_BUILDING,6);
 
         // Walls not working 100%
-        //drawWallImage(assets.WALL_RED_NORTH,0,0,-1);
-        //drawWallImage(assets.WALL_BLUE_SOUTH,0,0,-1);
+        drawImage(assets.WALL_BLUE_NORTH,0,0,-1);
+        drawImage(assets.WALL_BLUE_SOUTH,0,0,-1);
 
     }
 
@@ -853,7 +805,7 @@ public class MainView extends View
             displayStructureRenderInfo();
 
             clearNewDataFlag();
-            //TESTING_REMOVE_LATER();
+            TESTING_REMOVE_LATER();
         } else {
             // nothing to update
         }
