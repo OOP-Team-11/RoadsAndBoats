@@ -36,20 +36,14 @@ public class GooseImporter {
                 break;
             }
 
-            line = stripIdentifier(line, "GOOSE");
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
-            GooseId gooseId = getGooseId(line);
-            Goose goose = new Goose(gooseId);
+            Goose goose = new Goose(new GooseId());
             gooseManager.addGoose(tcl, goose);
         }
 
         if (!foundEOF) throw new MalformedMapFileException("-----END GOOSE----- not found");
-    }
-
-    private static String stripIdentifier(String structureString, String structureName) {
-        return structureString.replace(structureName + " ", "");
     }
 
     private static Location getLocation(String structureString) throws MalformedMapFileException {
@@ -92,21 +86,6 @@ public class GooseImporter {
             TileCompartmentDirection tcd = ParseUtilities.getTileCompartmentDirectionForTCDString(directionString);
             if (tcd == null) throw new MalformedMapFileException("Could not parse direction for goose: " + gooseString);
             return tcd;
-        }
-
-        throw new MalformedMapFileException("Malformed goose string: " + gooseString);
-    }
-
-    private static GooseId getGooseId(String gooseString) throws MalformedMapFileException {
-        Matcher m = getMatcherForPatternInString(gooseString, "\\([^)]*\\) [A-Z] ([0-9]{1,2})");
-        if (m.find()) {
-            String gooseIdString = m.group(1);
-
-            try {
-                return new GooseId(Integer.parseInt(gooseIdString));
-            } catch (NumberFormatException e) {
-                throw new MalformedMapFileException("Could not parse goose id: " + gooseString);
-            }
         }
 
         throw new MalformedMapFileException("Malformed goose string: " + gooseString);

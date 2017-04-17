@@ -7,6 +7,11 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.gameImportExport.exporter.GameExporter;
 import game.model.gameImportExport.importer.GameImporter;
 import game.model.managers.*;
+import game.model.resources.Goose;
+import game.model.resources.GooseId;
+import game.model.resources.ResourceType;
+import game.model.tile.Tile;
+import game.model.tile.TileCompartment;
 import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.PlayerId;
@@ -73,6 +78,12 @@ public class GameInitializer {
         game.attachPlayerInfoObserver(viewHandler.getWonderViewReference());
         game.attachPhaseInfoObserver(viewHandler.getWonderViewReference());
 
+        addInitialResourcesToTile(map.getTile(player1StartingLocation.getLocation()), player1StartingLocation.getTileCompartmentDirection());
+        addInitialGeeseToTile(player1StartingLocation, gooseManager);
+
+        addInitialResourcesToTile(map.getTile(player2StartingLocation.getLocation()), player2StartingLocation.getTileCompartmentDirection());
+        addInitialGeeseToTile(player2StartingLocation, gooseManager);
+
         controllerManager.getMainViewController().setGame(game);
 
         //TODO: Add a controller and view element to trigger this gameExporter's exportGameToPath()
@@ -98,5 +109,20 @@ public class GameInitializer {
     private void importGame(String filename, RBMap map, StructureManager structureManager, GooseManager gooseManager) throws IOException, MalformedMapFileException {
         BufferedReader br = new BufferedReader(new FileReader("savedGames/" + filename));
         GameImporter.importGameFromFile(map, structureManager, gooseManager, br);
+    }
+
+    private void addInitialGeeseToTile(TileCompartmentLocation tcl, GooseManager gooseManager) {
+        gooseManager.addGoose(tcl, new Goose(new GooseId()));
+        gooseManager.addGoose(tcl, new Goose(new GooseId()));
+    }
+
+    private void addInitialResourcesToTile(Tile t, TileCompartmentDirection tcd) {
+        TileCompartment tileCompartment = t.getTileCompartment(tcd);
+        placeResourceOnTileCompartments(tileCompartment, ResourceType.BOARDS, 4);
+        placeResourceOnTileCompartments(tileCompartment, ResourceType.STONE, 1);
+    }
+
+    private void placeResourceOnTileCompartments(TileCompartment tileCompartment, ResourceType resourceType, int amount) {
+        tileCompartment.storeResource(resourceType, amount);
     }
 }
