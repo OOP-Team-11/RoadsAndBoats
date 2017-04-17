@@ -13,6 +13,15 @@ public class TransportId {
         transportId++;
     }
 
+    /**
+     * Used by map importer
+     * @param id
+     */
+    public TransportId(int id) {
+        this.myTransportId = id;
+        if (id > transportId) transportId = id+1;
+    }
+
     public int getTransportIdValue() {
         return myTransportId;
     }

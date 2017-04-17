@@ -40,7 +40,8 @@ public class GooseImporter {
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
-            Goose goose = new Goose(new GooseId());
+            GooseId gooseId = getGooseId(line);
+            Goose goose = new Goose(gooseId);
             gooseManager.addGoose(tcl, goose);
         }
 
@@ -84,15 +85,30 @@ public class GooseImporter {
         throw new MalformedMapFileException("Could not find location on line: " + structureString);
     }
 
-    private static TileCompartmentDirection getTileCompartmentDirection(String structureString) throws MalformedMapFileException {
-        Matcher m = getMatcherForPatternInString(structureString, "\\([^)]*\\) ([A-Z])");
+    private static TileCompartmentDirection getTileCompartmentDirection(String gooseString) throws MalformedMapFileException {
+        Matcher m = getMatcherForPatternInString(gooseString, "\\([^)]*\\) ([A-Z])");
         if (m.find()) {
             String directionString = m.group(1);
             TileCompartmentDirection tcd = ParseUtilities.getTileCompartmentDirectionForTCDString(directionString);
-            if (tcd == null) throw new MalformedMapFileException("Could not parse direction for goose: " + structureString);
+            if (tcd == null) throw new MalformedMapFileException("Could not parse direction for goose: " + gooseString);
             return tcd;
         }
 
-        throw new MalformedMapFileException("Malformed goose string: " + structureString);
+        throw new MalformedMapFileException("Malformed goose string: " + gooseString);
+    }
+
+    private static GooseId getGooseId(String gooseString) throws MalformedMapFileException {
+        Matcher m = getMatcherForPatternInString(gooseString, "\\([^)]*\\) [A-Z] ([0-9]{1,2})");
+        if (m.find()) {
+            String gooseIdString = m.group(1);
+
+            try {
+                return new GooseId(Integer.parseInt(gooseIdString));
+            } catch (NumberFormatException e) {
+                throw new MalformedMapFileException("Could not parse goose id: " + gooseString);
+            }
+        }
+
+        throw new MalformedMapFileException("Malformed goose string: " + gooseString);
     }
 }

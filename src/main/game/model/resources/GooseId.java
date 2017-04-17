@@ -14,6 +14,15 @@ public class GooseId {
         gooseId++;
     }
 
+    /**
+     * Used by map importer
+     * @param id
+     */
+    public GooseId(int id) {
+        myGooseId = id;
+        if (id > gooseId) gooseId = id+1;
+    }
+
     public int getGooseIdValue() {
         return myGooseId;
     }

@@ -46,3 +46,6 @@
 -----BEGIN STOCKMARKET-----
 ( 2 -4 2 ) E LIMIT=1
 -----END STOCKMARKET-----
+-----BEGIN GOOSE-----
+( 0 0 0 ) E 4
+-----END GOOSE-----
