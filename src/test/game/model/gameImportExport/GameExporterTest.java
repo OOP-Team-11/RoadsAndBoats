@@ -260,6 +260,34 @@ public class GameExporterTest {
         );
     }
 
+    @Test
+    public void stoneFactorySectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN STONE_FACTORY-----\n" +
+                "( 0 1 -1 ) E LIMIT=6";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN STONE_FACTORY-----"),contents.indexOf("-----END STONE_FACTORY-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void mintSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN MINT-----\n" +
+                "( 0 -1 1 ) NW";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN MINT-----"),contents.indexOf("-----END MINT-----")).trim(),
+                expected.trim()
+        );
+    }
+
 
     private String readFile(String filepath){
         File f = new File(filepath);
