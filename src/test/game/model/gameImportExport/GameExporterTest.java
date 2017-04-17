@@ -97,15 +97,6 @@ public class GameExporterTest {
     }
 
     @Test
-    public void fileIsOfTheRightLengthTest(){
-        gameExporter.exportGameToPath(testingFilePath);
-        File f = new File(testingFilePath);
-        assertTrue(f.exists());
-        assertTrue(f.isFile());
-        assertEquals(f.length(), 160);
-    }
-
-    @Test
     public void mapSectionGucciTest(){
         gameExporter.exportGameToPath(testingFilePath);
         File f = new File(testingFilePath);
@@ -121,13 +112,15 @@ public class GameExporterTest {
             e.printStackTrace();
         }
 
-        assertEquals(contents.substring(0,160),"-----BEGIN MAP-----\n" +
-                "( 0 0 0 ) PASTURE ( 1 3 5 )\n" +
+        assertEquals(contents.substring(0,contents.indexOf("-----END MAP-----")),"-----BEGIN MAP-----\n" +
+                "( 0 0 0 ) PASTURE \n" +
                 "( 0 -1 1 ) DESERT ( 1 2 )\n" +
                 "( 0 1 -1 ) SEA ( 1 4 )\n" +
                 "( -2 1 1 ) WOODS ( 1 3 )\n" +
-                "( 1 0 -1 ) MOUNTAIN \n" +
-                "-----END MAP-----");
+                "( 1 0 -1 ) MOUNTAIN \n"
+        );
     }
+
+    //TODO: Write test to check whether the resources are right
 
 }
