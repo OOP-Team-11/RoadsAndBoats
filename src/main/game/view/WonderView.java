@@ -1,10 +1,12 @@
 package game.view;
 
+import game.model.PlayerId;
 import game.utilities.observer.PhaseRenderInfoObserver;
 import game.utilities.observer.PlayerRenderInfoObserver;
 import game.utilities.observer.WonderRenderInfoObserver;
 import game.view.render.PhaseRenderInfo;
 import game.view.render.PlayerRenderInfo;
+import game.view.render.WonderBrickRenderInfo;
 import game.view.render.WonderRenderInfo;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
@@ -74,6 +76,7 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
         this.anchorPane.setLeftAnchor(testButton, 250.0);
         this.anchorPane.setTopAnchor(testButton,200.0);
         this.testButton.setOnMouseClicked(event ->{
+            // TODO hook up to controller
             tryToDrawNextBrick();
         });
     }
@@ -232,6 +235,33 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
         this.gc.strokeText(" " +player2Amount,420,720);
     }
 
+    private void drawBricks(){
+        if(wonderRenderInfo != null){
+            brickX = 775; // starting location of first brick
+            brickY = 640;
+            brickCount = 0;
+
+            for(WonderBrickRenderInfo brick : wonderRenderInfo.getWonderBrickRenderInfo()){
+                if(brick.getPlayerId().getPlayerIdNumber() == 1){
+                    drawBlueBrick();
+                } else if(brick.getPlayerId().getPlayerIdNumber() == 2){
+                    drawRedBrick();
+                } else {
+                    drawNetualBrick();
+                }
+            }
+        }
+
+    }
+
+    private void displayWealth(){
+
+        if(wonderRenderInfo != null){
+            displayWealthAmount(wonderRenderInfo.getWealthPoints(new PlayerId(1)),wonderRenderInfo.getWealthPoints(new PlayerId(2)));
+        }
+
+    }
+
     @Override
     public void render() {
         if(newData = true){
@@ -241,8 +271,9 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
             drawCurrentPlayerInformation();
             initializeCurrentWealthSection();
             displayWealthPlayerText();
-            displayWealthAmount(100,200);
+            displayWealth();
             drawListText();
+            drawBricks();
             newData = false;
         } else {
 
