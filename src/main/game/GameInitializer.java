@@ -91,6 +91,7 @@ public class GameInitializer {
         game.attachPhaseInfoObserver(viewHandler.getMainViewReference());
         game.attachPlayerInfoObserver(viewHandler.getWonderViewReference());
         game.attachPhaseInfoObserver(viewHandler.getWonderViewReference());
+        game.attach(wonderManager);
 
         addInitialResourcesToTile(map.getTile(player1StartingLocation.getLocation()), player1StartingLocation.getTileCompartmentDirection());
         addInitialGeeseToTile(player1StartingLocation, gooseManager);
