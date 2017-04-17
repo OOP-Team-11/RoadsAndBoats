@@ -194,6 +194,7 @@ public class Assets {
     public Image ROAD_S;
     public Image ROAD_SW;
     public Image ROAD_NW;
+    public Image ROAD_N_TO_S;
 
 
     public Image PROCESS_CHART;
@@ -363,6 +364,7 @@ public class Assets {
             ROAD_S =  new Image(this.getClass().getResourceAsStream("/roads/roadS.png"));
             ROAD_SW =  new Image(this.getClass().getResourceAsStream("/roads/roadSW.png"));
             ROAD_NW =  new Image(this.getClass().getResourceAsStream("/roads/roadNW.png"));
+            ROAD_N_TO_S = new Image(this.getClass().getResourceAsStream("/roads/roadN_TO_S.png"));
 
             PROCESS_CHART = new Image(this.getClass().getResourceAsStream("/misc/process_chart.jpg"));
 
