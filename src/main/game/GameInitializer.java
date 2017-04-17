@@ -17,6 +17,8 @@ import game.model.Player;
 import game.model.PlayerId;
 import game.model.gameImportExport.importer.MapImporter;
 import game.model.map.RBMap;
+import game.model.wonder.IrrigationPoint;
+import game.model.wonder.WonderManager;
 import game.utilities.exceptions.MalformedMapFileException;
 import game.view.ViewHandler;
 import javafx.stage.Stage;
@@ -42,12 +44,14 @@ public class GameInitializer {
         map.attachMapResourceRenderInfoObserver(viewHandler.getMainViewReference());
 
         GooseManager gooseManager = new GooseManager(controllerManager.getMainViewController(), map);
+        WonderManager wonderManager = new WonderManager(map);
         StructureManager structureManager = new StructureManager(controllerManager.getMainViewController(), map);
         structureManager.attach(viewHandler.getMainViewReference());
 
         PlayerId player1Id = new PlayerId(1);
         TileCompartmentLocation player1StartingLocation = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
         ResearchManager p1ResearchManager = new ResearchManager(player1StartingLocation.getLocation(), player1Id);
+        p1ResearchManager.attach(viewHandler.getResearchViewReference());
         TransportManager player1TransportManager = new TransportManager(player1Id, controllerManager.getMainViewController(), gooseManager, map, structureManager, p1ResearchManager);
         Player player1 = new Player(player1TransportManager, new PlayerId(1), player1Name, player1StartingLocation);
         player1.attach(viewHandler.getMainViewReference());
@@ -56,6 +60,7 @@ public class GameInitializer {
         PlayerId player2Id = new PlayerId(2);
         TileCompartmentLocation player2StartingLocation = new TileCompartmentLocation(new Location(0,1,-1), TileCompartmentDirection.getNorth());
         ResearchManager p2ResearchManager = new ResearchManager(player2StartingLocation.getLocation(), player2Id);
+        p2ResearchManager.attach(viewHandler.getResearchViewReference());
         TransportManager player2TransportManager = new TransportManager(player2Id, controllerManager.getMainViewController(), gooseManager, map, structureManager, p2ResearchManager);
         Player player2 = new Player(player2TransportManager, new PlayerId(2), player2Name, player2StartingLocation);
         player2.attach(viewHandler.getMainViewReference());
@@ -65,7 +70,11 @@ public class GameInitializer {
         gooseManager.addTransportManager(player2.getTransportManager());
 
 
-        importFile(gameFile, map, structureManager, gooseManager);
+        if (gameFile.contains(".tinyrick")) {
+            importGame(gameFile, map, structureManager, gooseManager, player1TransportManager, player2TransportManager, wonderManager);
+        } else if (gameFile.contains(".map")) {
+            importMap(gameFile, map);
+        }
 
         Game game = new Game(map, player1, player2, gooseManager, structureManager);
 
@@ -94,23 +103,15 @@ public class GameInitializer {
         viewHandler.startGameLoop();
     }
 
-    private void importFile(String filename, RBMap map, StructureManager structureManager, GooseManager gooseManager) throws IOException, MalformedMapFileException {
-        if (filename.contains(".tinyrick")) {
-            importGame(filename, map, structureManager, gooseManager);
-        } else if (filename.contains(".map")) {
-            importMap(filename, map);
-        }
-    }
-
     private void importMap(String filename, RBMap map) throws IOException, MalformedMapFileException {
         BufferedReader br = new BufferedReader(new FileReader("map/" + filename));
         MapImporter.importMapFromFile(map, br);
         map.finalizeMap();
     }
 
-    private void importGame(String filename, RBMap map, StructureManager structureManager, GooseManager gooseManager) throws IOException, MalformedMapFileException {
+    private void importGame(String filename, RBMap map, StructureManager structureManager, GooseManager gooseManager, TransportManager player1TransportManager, TransportManager player2TransportManager, WonderManager wonderManager) throws IOException, MalformedMapFileException {
         BufferedReader br = new BufferedReader(new FileReader("savedGames/" + filename));
-        GameImporter.importGameFromFile(map, structureManager, gooseManager, br);
+        GameImporter.importGameFromFile(map, structureManager, gooseManager, player1TransportManager, player2TransportManager, wonderManager, br);
     }
 
     private void addInitialGeeseToTile(TileCompartmentLocation tcl, GooseManager gooseManager) {
