@@ -173,6 +173,7 @@ public class MainViewController {
 
     public void addControl(KeyCode keyCode, Ability ability) {
         this.controls.put(keyCode, ability);
+        mainView.setAbilities(this.getControls());
     }
 
     public void removeControl(KeyCode keyCode) {
