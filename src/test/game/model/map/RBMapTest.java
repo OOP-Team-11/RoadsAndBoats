@@ -53,6 +53,29 @@ public class RBMapTest
     }
 
     @Test
+    public void placeTile_2SpringHeadsTilted_RiversAttach()
+    {
+        Tile tile1 = new Tile(Terrain.ROCK, RiverConfiguration.getSpringHead());
+        tile1.rotate(new Angle(120));
+        Tile tile2 = new Tile(Terrain.ROCK, RiverConfiguration.getSpringHead());
+        tile2.rotate(new Angle(300));
+
+        map.placeTile(new Location(0,0,0), tile1);
+        map.placeTile(new Location(1,-1,0), tile2);
+
+        map.finalizeMap();
+
+        TileCompartment tile1BottomComponent = tile1.getTileCompartment(TileCompartmentDirection.getSouthEast());
+        TileCompartment tile2TileTopComponent = tile2.getTileCompartment(TileCompartmentDirection.getNorthWest());
+
+        assertEquals(tile1BottomComponent, tile2TileTopComponent.getRivers().get(TileCompartmentDirection.getNorthWest()).getDestination());
+        assertEquals(tile2TileTopComponent, tile1BottomComponent.getRivers().get(TileCompartmentDirection.getSouthEast()).getDestination());
+
+        assertEquals(1, tile1BottomComponent.getRivers().size());
+        assertEquals(1, tile2TileTopComponent.getRivers().size());
+    }
+
+    @Test
     public void placeTile_SpringHeadAndSea_RiversAttach()
     {
         map.placeTile(new Location(0,0,0), tileWithDownRiver);
