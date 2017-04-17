@@ -3,9 +3,11 @@ package game.model.structures.resourceProducer.secondaryProducer;
 import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
-import game.model.structures.resourceProducer.ResourceDropper;
+import game.model.structures.resourceProducer.SecondaryProducer;
+import game.model.tile.TileCompartment;
+import game.model.transport.Transport;
 
-public class CoalBurner extends ResourceDropper {
+public class CoalBurner extends SecondaryProducer {
 
     private static final int LIMIT = 6;         // limit of uses per turn
 
@@ -39,37 +41,145 @@ public class CoalBurner extends ResourceDropper {
     @Override
     public boolean produce(ResourceManager resourceManager) {
         if (canProduceCoalWithTrunks(resourceManager)) {
-            resourceManager.addResource(ResourceType.FUEL, FUEL_AMT);
-            decrementProductionLimit();
-            return true;
-        }
-        else if (canProduceCoalWithBoth(resourceManager)) {
-            resourceManager.addResource(ResourceType.FUEL, FUEL_AMT);
-            decrementProductionLimit();
+            produceCoalWithTrunks(resourceManager);
             return true;
         }
         else if (canProduceCoalWithBoards(resourceManager)) {
-            resourceManager.addResource(ResourceType.FUEL, FUEL_AMT);
-            decrementProductionLimit();
+            produceCoalWithBoards(resourceManager);
+            return true;
+        }
+        else if (canProduceCoalWithBoth(resourceManager)) {
+            produceCoalWithBoth(resourceManager);
             return true;
         }
         return false;
     }
 
+    @Override
+    public boolean produce(TileCompartment tileCompartment) {
+        if (canProduceCoalWithTrunks(tileCompartment)) {
+            produceCoalWithTrunks(tileCompartment);
+            return true;
+        }
+        else if (canProduceCoalWithBoards(tileCompartment)) {
+            produceCoalWithBoards(tileCompartment);
+            return true;
+        }
+        else if (canProduceCoalWithBoth(tileCompartment)) {
+            produceCoalWithBoth(tileCompartment);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean produce(Transport transport) {
+        if (canProduceCoalWithTrunks(transport)) {
+            produceCoalWithTrunks(transport);
+            return true;
+        }
+        else if (canProduceCoalWithBoards(transport)) {
+            produceCoalWithBoards(transport);
+            return true;
+        }
+        else if (canProduceCoalWithBoth(transport)) {
+            produceCoalWithBoth(transport);
+            return true;
+        }
+        return false;
+    }
+
+    private void produceCoalWithTrunks(TileCompartment tileCompartment) {
+        tileCompartment.storeResource(ResourceType.FUEL, FUEL_AMT);
+        decrementProductionLimit();
+    }
+
+    private void produceCoalWithBoards(TileCompartment tileCompartment) {
+        tileCompartment.storeResource(ResourceType.FUEL, FUEL_AMT);
+        decrementProductionLimit();
+    }
+
+    private void produceCoalWithBoth(TileCompartment tileCompartment) {
+        tileCompartment.storeResource(ResourceType.FUEL, FUEL_AMT);
+        decrementProductionLimit();
+    }
+
+    private void produceCoalWithTrunks(Transport transport) {
+        transport.storeResource(ResourceType.FUEL, FUEL_AMT);
+        decrementProductionLimit();
+    }
+
+    private void produceCoalWithBoards(Transport transport) {
+        transport.storeResource(ResourceType.FUEL, FUEL_AMT);
+        decrementProductionLimit();
+    }
+
+    private void produceCoalWithBoth(Transport transport) {
+        transport.storeResource(ResourceType.FUEL, FUEL_AMT);
+        decrementProductionLimit();
+    }
+
+    private void produceCoalWithTrunks(ResourceManager resourceManager) {
+        resourceManager.removeResource(ResourceType.FUEL, FUEL_AMT);
+        decrementProductionLimit();
+    }
+
+    private void produceCoalWithBoards(ResourceManager resourceManager) {
+        resourceManager.removeResource(ResourceType.FUEL, FUEL_AMT);
+        decrementProductionLimit();
+    }
+
+    private void produceCoalWithBoth(ResourceManager resourceManager) {
+        resourceManager.removeResource(ResourceType.FUEL, FUEL_AMT);
+        decrementProductionLimit();
+    }
+
+    private boolean canProduceCoalWithTrunks(TileCompartment tileCompartment) {
+        return (productionLimit != 0)
+                && tileCompartment.takeResource(ResourceType.TRUNKS, TRUNKS_REQ2);
+    }
+
+    private boolean canProduceCoalWithBoards(TileCompartment tileCompartment) {
+        return (productionLimit != 0)
+                && tileCompartment.takeResource(ResourceType.BOARDS, BOARDS_REQ2);
+    }
+
+    private boolean canProduceCoalWithBoth(TileCompartment tileCompartment) {
+        return (productionLimit != 0)
+                && tileCompartment.takeResource(ResourceType.TRUNKS, TRUNKS_REQ1)
+                && tileCompartment.takeResource(ResourceType.BOARDS, BOARDS_REQ1);
+    }
+
+    private boolean canProduceCoalWithTrunks(Transport transport) {
+        return (productionLimit != 0)
+                && transport.takeResource(ResourceType.TRUNKS, TRUNKS_REQ2);
+    }
+
+    private boolean canProduceCoalWithBoards(Transport transport) {
+        return (productionLimit != 0)
+                && transport.takeResource(ResourceType.BOARDS, BOARDS_REQ2);
+    }
+
+    private boolean canProduceCoalWithBoth(Transport transport) {
+        return (productionLimit != 0)
+                && transport.takeResource(ResourceType.TRUNKS, TRUNKS_REQ1)
+                && transport.takeResource(ResourceType.BOARDS, BOARDS_REQ1);
+    }
+
     private boolean canProduceCoalWithTrunks(ResourceManager resourceManager) {
-        return ((productionLimit != 0)
-                && resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ2));
+        return (productionLimit != 0)
+                && resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ2);
     }
 
     private boolean canProduceCoalWithBoards(ResourceManager resourceManager) {
-        return ((productionLimit != 0)
-                && resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ2));
+        return (productionLimit != 0)
+                && resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ2);
     }
 
     private boolean canProduceCoalWithBoth(ResourceManager resourceManager) {
-        return ((productionLimit != 0)
+        return (productionLimit != 0)
                 && resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ1)
-                && resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ1));
+                && resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ1);
     }
 
     private void decrementProductionLimit() {
