@@ -258,6 +258,12 @@ public class Tile
         return this.structure;
     }
 
+    public void irrigate() {
+        if (this.terrain.isIrrigatable()) {
+            this.setTerrain(Terrain.PASTURE);
+        }
+    }
+
     private static boolean isCorner(TileCompartmentDirection dir)
     {
         return dir.equals(TileCompartmentDirection.getNorthNorthEast())

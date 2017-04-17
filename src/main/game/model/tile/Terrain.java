@@ -14,22 +14,22 @@ public enum Terrain implements Serializable
     private final boolean canConnectRiver;
     private final String name;
     private final boolean canReproduce;
-    private final boolean canChangeToPasture;
+    private final boolean irrigatable;
 
-    Terrain(boolean canConnectRiver, String name, boolean canReproduce, boolean canChangeToPasture)
+    Terrain(boolean canConnectRiver, String name, boolean canReproduce, boolean irrigatable)
     {
         this.canConnectRiver=canConnectRiver;
         this.name = name;
         this.canReproduce = canReproduce;
-        this.canChangeToPasture = canChangeToPasture;
+        this.irrigatable = irrigatable;
     }
 
     public boolean canReproduce() { return this.canReproduce; }
     public boolean canConnectRiver() {
         return this.canConnectRiver;
     }
-    public boolean canChangeToPasture() {
-        return this.canChangeToPasture;
+    public boolean isIrrigatable() {
+        return this.irrigatable;
     }
 
     public String getName() { return this.name; }

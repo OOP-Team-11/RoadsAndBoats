@@ -21,7 +21,7 @@ public class WonderViewController {
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent e) {
                 // TODO hook up to model to update when a brick was added
-                System.out.println("Brick was added to model.wonder");
+                System.out.println("Brick was added to wonder");
             }
         };
         this.wonderView.addEventFilterToAddBrickButton(eventHandler);

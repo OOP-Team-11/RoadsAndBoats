@@ -291,10 +291,10 @@ public class Assets {
             RESEARCH_TABLE = new Image(this.getClass().getResourceAsStream("/research/research_table.png"));
             GLASS_STONE = new Image(this.getClass().getResourceAsStream("/research/glassSmall.png"));
 
-            WONDER = new Image(this.getClass().getResourceAsStream("/model/wonder/wonder.png"));
-            WONDERBRICK_BLUE = new Image(this.getClass().getResourceAsStream("/model/wonder/wonderbrick_blue.jpg"));
-            WONDERBRICK_NEUTRAL = new Image(this.getClass().getResourceAsStream("/model/wonder/wonderbrick_neutral.jpg"));
-            WONDERBRICK_RED = new Image(this.getClass().getResourceAsStream("/model/wonder/wonderbrick_red.jpg"));
+            WONDER = new Image(this.getClass().getResourceAsStream("/wonder/wonder.png"));
+            WONDERBRICK_BLUE = new Image(this.getClass().getResourceAsStream("/wonder/wonderbrick_blue.jpg"));
+            WONDERBRICK_NEUTRAL = new Image(this.getClass().getResourceAsStream("/wonder/wonderbrick_neutral.jpg"));
+            WONDERBRICK_RED = new Image(this.getClass().getResourceAsStream("/wonder/wonderbrick_red.jpg"));
 
             HOUSE_BLUE = new Image(this.getClass().getResourceAsStream("/player/house_blue.jpg"));
             HOUSE_RED = new Image(this.getClass().getResourceAsStream("/player/house_red.jpg"));

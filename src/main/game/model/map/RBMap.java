@@ -160,9 +160,8 @@ public class RBMap implements MapRenderInfoObservable, Irrigatable
     @Override
     public void irrigate() {
         for (Tile tile : tiles.values()) {
-            if (tile.getTerrain() == Terrain.DESERT) {
-                tile.setTerrain(Terrain.PASTURE);
-            }
+            tile.irrigate();
         }
+        notifyMapRenderInfoObservers();
     }
 }
