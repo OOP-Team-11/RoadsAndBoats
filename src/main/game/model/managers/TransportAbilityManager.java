@@ -511,9 +511,12 @@ public class TransportAbilityManager {
     }
 
     public void addBuyWonderBrickAbility(Transport transport) {
-        if(transport.getResourceManager().getResourceTypeIntegerMap().values().size() >= wonderManager.getBrickCost(transport.getPlayerId())) {
+        int resourceCount = 0;
+        for(Integer i : transport.getResourceManager().getResourceTypeIntegerMap().values())
+            resourceCount+=i;
+        if(resourceCount >= wonderManager.getBrickCost(transport.getPlayerId())) {
             BuyWonderBrickAbility buyWonderBrickAbility = abilityFactory.getBuyWonderBrickAbility();
-            buyWonderBrickAbility.attachToController(transport.getResourceManager(), wonderManager, transport.getPlayerId());
+            buyWonderBrickAbility.attachToController(transport.getResourceManager(), this.wonderManager, transport.getPlayerId());
             addAbility(buyWonderBrickAbility);
         }
     }

@@ -160,4 +160,13 @@ BRICK PLAYERID=2
 BRICK PLAYERID=-1
 -----END WONDER-----
 -----BEGIN ROAD-----
+<<<<<<< HEAD
 -----END ROAD-----
+=======
+-----END ROAD-----
+-----BEGIN WALL-----
+( 0 0 0 ) PLAYERID=1 COMPARTMENT=1
+( 1 0 -1 ) PLAYERID=2 COMPARTMENT=5
+( 2 0 -2 ) PLAYERID=3 COMPARTMENT=2
+-----END WALL-----
+>>>>>>> master

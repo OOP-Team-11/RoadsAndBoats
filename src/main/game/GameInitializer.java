@@ -72,9 +72,12 @@ public class GameInitializer {
         gooseManager.addTransportManager(player1.getTransportManager());
         gooseManager.addTransportManager(player2.getTransportManager());
 
+        WallManager wallManager = new WallManager();
+        wallManager.attach(viewHandler.getMainViewReference());
+
 
         if (gameFile.contains(".tinyrick")) {
-            importGame(gameFile, map, structureManager, gooseManager, player1TransportManager, player2TransportManager, wonderManager);
+            importGame(gameFile, map, structureManager, gooseManager, player1TransportManager, player2TransportManager, wonderManager, wallManager);
         } else if (gameFile.contains(".map")) {
             importMap(gameFile, map, player1, player2, player1StartingLocation, player2StartingLocation, gooseManager);
         }
@@ -118,9 +121,9 @@ public class GameInitializer {
         map.finalizeMap();
     }
 
-    private void importGame(String filename, RBMap map, StructureManager structureManager, GooseManager gooseManager, TransportManager player1TransportManager, TransportManager player2TransportManager, WonderManager wonderManager) throws IOException, MalformedMapFileException {
+    private void importGame(String filename, RBMap map, StructureManager structureManager, GooseManager gooseManager, TransportManager player1TransportManager, TransportManager player2TransportManager, WonderManager wonderManager, WallManager wallManager) throws IOException, MalformedMapFileException {
         BufferedReader br = new BufferedReader(new FileReader("savedGames/" + filename));
-        GameImporter.importGameFromFile(map, structureManager, gooseManager, player1TransportManager, player2TransportManager, wonderManager, br);
+        GameImporter.importGameFromFile(map, structureManager, gooseManager, player1TransportManager, player2TransportManager, wonderManager,  wallManager, br);
     }
 
     private void addInitialGeeseToTile(TileCompartmentLocation tcl, GooseManager gooseManager) {

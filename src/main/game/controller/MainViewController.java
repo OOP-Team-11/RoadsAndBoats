@@ -115,6 +115,7 @@ public class MainViewController {
                         // right mouse click
                         Location clicked = mouseClickInterpreter.interpretMouseClick(event.getX(), event.getY());
                         mainView.updateCursorInfo(new CursorRenderInfo(event.getX(),event.getY(), clicked, true));
+                        detachControls();
                     }
                 } else { // events on right side panel
 
