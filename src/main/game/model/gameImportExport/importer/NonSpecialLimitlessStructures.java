@@ -170,6 +170,6 @@ public class NonSpecialLimitlessStructures {
             return tcd;
         }
 
-        throw new MalformedMapFileException("Malformed mine string: " + structureString);
+        throw new MalformedMapFileException("Malformed structure string: " + structureString);
     }
 }

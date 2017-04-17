@@ -58,7 +58,7 @@ public class GameInitializer {
         gooseManager.addTransportManager(player2.getTransportManager());
 
 
-        importFile(gameFile, map, structureManager);
+        importFile(gameFile, map, structureManager, gooseManager);
 
         Game game = new Game(map, player1, player2, gooseManager, structureManager);
 
@@ -81,9 +81,9 @@ public class GameInitializer {
         viewHandler.startGameLoop();
     }
 
-    private void importFile(String filename, RBMap map, StructureManager structureManager) throws IOException, MalformedMapFileException {
+    private void importFile(String filename, RBMap map, StructureManager structureManager, GooseManager gooseManager) throws IOException, MalformedMapFileException {
         if (filename.contains(".tinyrick")) {
-            importGame(filename, map, structureManager);
+            importGame(filename, map, structureManager, gooseManager);
         } else if (filename.contains(".map")) {
             importMap(filename, map);
         }
@@ -95,8 +95,8 @@ public class GameInitializer {
         map.finalizeMap();
     }
 
-    private void importGame(String filename, RBMap map, StructureManager structureManager) throws IOException, MalformedMapFileException {
+    private void importGame(String filename, RBMap map, StructureManager structureManager, GooseManager gooseManager) throws IOException, MalformedMapFileException {
         BufferedReader br = new BufferedReader(new FileReader("savedGames/" + filename));
-        GameImporter.importGameFromFile(map, structureManager, br);
+        GameImporter.importGameFromFile(map, structureManager, gooseManager, br);
     }
 }

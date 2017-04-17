@@ -59,11 +59,11 @@ public class GooseImporter {
             try {
                 locationString = locationString.substring(2, locationString.length() - 2);
             } catch (IndexOutOfBoundsException e) {
-                throw new MalformedMapFileException("Could not parse location for structure: " + structureString);
+                throw new MalformedMapFileException("Could not parse location for goose: " + structureString);
             }
             String[] coordinatesString = locationString.split(" ");
             if (coordinatesString.length != 3)
-                throw new MalformedMapFileException("Malformed location in structure string: " + structureString);
+                throw new MalformedMapFileException("Malformed location in goose string: " + structureString);
 
             try {
                 int x = Integer.parseInt(coordinatesString[0]);
@@ -73,11 +73,11 @@ public class GooseImporter {
                 try {
                     return new Location(x, y, z);
                 } catch (IllegalArgumentException e) {
-                    throw new MalformedMapFileException("Invalid location for structure: " + structureString);
+                    throw new MalformedMapFileException("Invalid location for goose: " + structureString);
                 }
 
             } catch (NumberFormatException e) {
-                throw new MalformedMapFileException("Malformed structure string, could not parse location ints: " + structureString);
+                throw new MalformedMapFileException("Malformed goose string, could not parse location ints: " + structureString);
             }
         }
 
@@ -89,10 +89,10 @@ public class GooseImporter {
         if (m.find()) {
             String directionString = m.group(1);
             TileCompartmentDirection tcd = ParseUtilities.getTileCompartmentDirectionForTCDString(directionString);
-            if (tcd == null) throw new MalformedMapFileException("Could not parse direction for structure: " + structureString);
+            if (tcd == null) throw new MalformedMapFileException("Could not parse direction for goose: " + structureString);
             return tcd;
         }
 
-        throw new MalformedMapFileException("Malformed mine string: " + structureString);
+        throw new MalformedMapFileException("Malformed goose string: " + structureString);
     }
 }
