@@ -26,7 +26,7 @@ public class BuildTruckFactoryAbility extends Ability {
         mainViewController.detachControls();
         this.resourceManager.removeResource(ResourceType.BOARDS, 2);
         this.resourceManager.removeResource(ResourceType.STONE, 2);
-        TruckFactory truckFactory = new TruckFactory();
+        TruckFactory truckFactory = new TruckFactory(tileCompartmentLocation);
         structureManagerVisitor.addStructureVisit(truckFactory, tileCompartmentLocation);
     }
 

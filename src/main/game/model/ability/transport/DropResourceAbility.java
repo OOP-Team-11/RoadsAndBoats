@@ -12,7 +12,7 @@ public class DropResourceAbility extends Ability {
     private ResourceType resourceType;
     private Transport transport;
     private TileCompartment tileCompartment;
-    public DropResourceAbility(MainViewController mainViewController) {
+    public DropResourceAbility(MainViewController mainViewController, ResourceType resource) {
         super(mainViewController);
     }
 

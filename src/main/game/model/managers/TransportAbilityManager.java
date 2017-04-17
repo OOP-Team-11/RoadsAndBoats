@@ -64,6 +64,7 @@ public class TransportAbilityManager {
         this.addBuildStockExchangeAbility(transport, tileCompartmentLocation);
         this.addPickUpResourceAbility(transport, tileCompartmentLocation);
         this.addDropResourceAbility(transport, tileCompartmentLocation);
+        this.addPickUpTransportAbility(transport, tileCompartmentLocation, tileTransports);
     }
 
     private void addAbility(Ability a) {
@@ -362,11 +363,24 @@ public class TransportAbilityManager {
         for(ResourceType resource : ResourceType.values()) {
             if(transport.getResourceManager().getResourceTypeIntegerMap().get(resource) != null
                     && transport.getResourceManager().getResourceTypeIntegerMap().get(resource) > 0) {
-                DropResourceAbility dropResourceAbility = abilityFactory.getDropResourceAbility();
+                DropResourceAbility dropResourceAbility = abilityFactory.getDropResourceAbility(resource);
                 dropResourceAbility.attachToController(tileCompartmentRm, transport.getResourceManager());
                 addAbility(dropResourceAbility);
                 validResources++;
             }
+        }
+    }
+
+
+
+    public void addPickUpTransportAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, List<Transport> tileTransports) {
+        if(!transport.canStoreTransport(transportToPickUp))
+            return;
+        Set<Transport> transportsListed = new HashSet<>();
+        for(Transport t : tileTransports) {
+            PickUpTransportAbility pickupTransportAbility = abilityFactory.getPickUpTransportAbility(t, transport);
+            pickupTransportAbility.attachToController(t, transport);
+            addAbility(pickupTransportAbility);
         }
     }
 }

@@ -25,7 +25,7 @@ public class BuildSteamshipFactoryAbility extends Ability {
         mainViewController.detachControls();
         this.resourceManager.removeResource(ResourceType.BOARDS, 1);
         this.resourceManager.removeResource(ResourceType.STONE, 1);
-        SteamerFactory steamshipFactory = new SteamerFactory();
+        SteamerFactory steamshipFactory = new SteamerFactory(tileCompartmentLocation);
         structureManagerVisitor.addStructureVisit(steamshipFactory, tileCompartmentLocation);
     }
 

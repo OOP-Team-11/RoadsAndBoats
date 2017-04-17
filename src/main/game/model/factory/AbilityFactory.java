@@ -11,6 +11,7 @@ import game.model.managers.ResourceManager;
 import game.model.managers.StructureManager;
 import game.model.resources.ResourceType;
 import game.model.structures.Structure;
+import game.model.transport.Transport;
 import game.model.visitors.GooseManagerVisitor;
 import game.model.visitors.StructureManagerVisitor;
 import game.model.visitors.TransportManagerVisitor;
@@ -46,5 +47,6 @@ public class AbilityFactory {
     public BuildStockExchangeAbility getBuildStockExchangeAbility(StructureManagerVisitor v) { return new BuildStockExchangeAbility(mainViewController, v); }
     public BuildTruckFactoryAbility getBuildTruckFactoryAbility(StructureManagerVisitor v) { return new BuildTruckFactoryAbility(mainViewController, v); }
     public PickUpResourceAbility getPickUpResourceAbility(ResourceType resourceType) { return new PickUpResourceAbility(mainViewController, resourceType); }
-    public DropResourceAbility getDropResourceAbility() { return new DropResourceAbility(mainViewController); }
+    public DropResourceAbility getDropResourceAbility(ResourceType resourceType) { return new DropResourceAbility(mainViewController, resourceType); }
+    public PickUpTransportAbility getPickUpTransportAbility(Transport transportToPickUp, Transport transport) { return new PickUpTransportAbility(mainViewController, transportToPickUp, transport); }
 }

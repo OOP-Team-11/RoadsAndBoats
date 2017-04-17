@@ -24,7 +24,7 @@ public class DropFollowersAbility extends Ability {
 
     @Override
     public String getDisplayString() {
-        return "Stop geese following";
+        return "Stop geese";
     }
 
     public void attachToController(Transport transport) {

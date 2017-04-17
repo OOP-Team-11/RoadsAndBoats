@@ -25,7 +25,7 @@ public class BuildRowboatFactoryAbility  extends Ability {
         mainViewController.detachControls();
         this.resourceManager.removeResource(ResourceType.BOARDS, 1);
         this.resourceManager.removeResource(ResourceType.STONE, 1);
-        RowboatFactory rbFactory = new RowboatFactory();
+        RowboatFactory rbFactory = new RowboatFactory(tileCompartmentLocation);
         structureManagerVisitor.addStructureVisit(rbFactory, tileCompartmentLocation);
     }
 
