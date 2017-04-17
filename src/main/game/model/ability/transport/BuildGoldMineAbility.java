@@ -10,6 +10,7 @@ public class BuildGoldMineAbility extends Ability {
 
     @Override
     public void perform() {
+        mainViewController.detachControls();
 
     }
 

@@ -10,7 +10,7 @@ public class BuildNewShaftAbility extends Ability {
 
     @Override
     public void perform() {
-
+        mainViewController.detachControls();
     }
 
     @Override
