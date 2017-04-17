@@ -26,7 +26,6 @@ class MineImporter {
                 break;
             }
 
-            line = stripIdentifier(line);
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             Mine mine = createMineWithCapacity(line);
@@ -35,10 +34,6 @@ class MineImporter {
         }
 
         if (!foundEOF) throw new MalformedMapFileException("-----END MINE----- not found");
-    }
-
-    private static String stripIdentifier(String mineString) {
-        return mineString.replace("MINE ", "");
     }
 
     private static Location getLocation(String mineString) throws MalformedMapFileException {
