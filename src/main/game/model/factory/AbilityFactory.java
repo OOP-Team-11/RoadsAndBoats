@@ -25,7 +25,7 @@ public class AbilityFactory {
         this.mainViewController = mainViewController;
     }
 
-    public Ability getMoveAbility() { return new MoveAbility(mainViewController); }
+    public MoveAbility getMoveAbility() { return new MoveAbility(mainViewController); }
     public FollowAbility getFollowAbility() { return new FollowAbility(mainViewController); }
     public TransportReproduceAbility getTransportReproduceAbility(TransportManagerVisitor v) {
         return new TransportReproduceAbility(mainViewController, v); }
@@ -49,4 +49,5 @@ public class AbilityFactory {
     public PickUpResourceAbility getPickUpResourceAbility() { return new PickUpResourceAbility(mainViewController); }
     public DropResourceAbility getDropResourceAbility() { return new DropResourceAbility(mainViewController); }
     public PickUpTransportAbility getPickUpTransportAbility() { return new PickUpTransportAbility(mainViewController); }
+    public ResearchAbility getResearchAbility() { return new ResearchAbility(mainViewController); }
 }

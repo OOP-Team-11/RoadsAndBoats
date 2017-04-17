@@ -1,24 +1,18 @@
 package game.model.managers;
 
 import game.controller.MainViewController;
-import game.model.Player;
 import game.model.PlayerId;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.map.RBMap;
-import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
-import game.model.transport.TransportLocation;
 import game.model.visitors.StructureManagerVisitor;
 import game.model.visitors.TransportManagerVisitor;
 import game.utilities.observable.MapTransportRenderInfoObservable;
-import game.utilities.observer.MapStructureRenderInfoObserver;
 import game.utilities.observer.MapTransportRenderInfoObserver;
-import game.view.render.MapStructureRenderInfo;
 import game.view.render.MapTransportRenderInfo;
-import game.view.render.StructureRenderInfo;
 import game.view.render.TransportRenderInfo;
 
 import java.util.*;
@@ -29,11 +23,13 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
     private TransportAbilityManager transportAbilityManager;
     private Map<TileCompartmentLocation, List<Transport>> transports;
     private List<MapTransportRenderInfoObserver> mapTransportRenderInfoObservers;
-    public TransportManager(PlayerId playerId, MainViewController mainViewController, GooseManager gooseManager, RBMap map, StructureManagerVisitor structureManagerVisitor) {
+    public TransportManager(PlayerId playerId, MainViewController mainViewController,
+                            GooseManager gooseManager, RBMap map,
+                            StructureManagerVisitor structureManagerVisitor, ResearchManager researchManager) {
         this.playerId = playerId;
         this.transports = new HashMap<TileCompartmentLocation, List<Transport>>();
         this.mapTransportRenderInfoObservers = new Vector<>();
-        this.transportAbilityManager = new TransportAbilityManager(mainViewController, gooseManager, map, this, structureManagerVisitor);
+        this.transportAbilityManager = new TransportAbilityManager(mainViewController, gooseManager, map, this, structureManagerVisitor, researchManager);
         mainViewController.addTransportManager(this);
     }
 
@@ -69,14 +65,15 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
             Map.Entry pair = (Map.Entry)it.next();
             TileCompartmentLocation mapLocation = (TileCompartmentLocation) pair.getKey();
             List<Transport> mapTransportLocation = transports.get(tileCompartmentLocation);
-
-            Iterator transportIterator = mapTransportLocation.iterator();
-            while (transportIterator.hasNext()) {
-                Transport iteratorTransport = (Transport) transportIterator.next();
-                if (transportIterator.equals(transport)) {
-                    transportIterator.remove();
-                    foundTransport = true;
-                    break;
+            if(mapTransportLocation != null){
+                Iterator transportIterator = mapTransportLocation.iterator();
+                while (transportIterator.hasNext()) {
+                    Transport iteratorTransport = (Transport) transportIterator.next();
+                    if (transportIterator.equals(transport)) {
+                        transportIterator.remove();
+                        foundTransport = true;
+                        break;
+                    }
                 }
             }
         }
@@ -126,7 +123,8 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
         TileCompartmentLocation transportTCL = getTransportTileCompartmentLocation(transportId, loc);
         Map<TileCompartmentDirection, List<Transport>> tileTransports = getTileTransports(loc);
         if(transport != null)
-            this.transportAbilityManager.addAbilities(transport, transportTCL, tileTransports);
+            this.transportAbilityManager.addMovementAbility(transport, transportTCL, tileTransports, this);
+//            this.transportAbilityManager.addAbilities(transport, transportTCL, tileTransports, this);
     }
 
     public Map<TileCompartmentDirection, List<Transport>> getTileTransports(Location loc) {

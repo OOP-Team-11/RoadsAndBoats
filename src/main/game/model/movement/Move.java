@@ -8,6 +8,10 @@ import java.util.Objects;
 
 public class Move
 {
+    public TileCompartment getDestination() {
+        return destination;
+    }
+
     public final TileCompartment destination;
     public final TileCompartmentDirection tileCompartmentDirection;
     public final TileEdgeDirection tileEdgeDirection;
@@ -19,9 +23,17 @@ public class Move
         this.tileEdgeDirection = tileEdgeDirection;
     }
 
+    public TileCompartmentDirection getTileCompartmentDirection() {
+        return tileCompartmentDirection;
+    }
+
+    public TileEdgeDirection getTileEdgeDirection() {
+        return tileEdgeDirection;
+    }
+
     public int hashCode()
     {
-        return Objects.hash(destination, tileCompartmentDirection, tileEdgeDirection);
+        return Objects.hash(destination);
     }
 
     public boolean equals(Object o)
@@ -30,9 +42,7 @@ public class Move
         {
             Move other = (Move)o;
 
-            return this.tileEdgeDirection.equals(other.tileEdgeDirection)
-                    && this.tileCompartmentDirection.equals(other.tileCompartmentDirection)
-                    && this.destination.equals(other.destination);
+            return this.destination.equals(other.destination);
         }
         else
         {

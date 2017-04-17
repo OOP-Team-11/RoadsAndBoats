@@ -7,6 +7,11 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.gameImportExport.exporter.GameExporter;
 import game.model.gameImportExport.importer.GameImporter;
 import game.model.managers.*;
+import game.model.resources.Goose;
+import game.model.resources.GooseId;
+import game.model.resources.ResourceType;
+import game.model.tile.Tile;
+import game.model.tile.TileCompartment;
 import game.model.tinyGame.Game;
 import game.model.Player;
 import game.model.PlayerId;
@@ -41,15 +46,17 @@ public class GameInitializer {
         structureManager.attach(viewHandler.getMainViewReference());
 
         PlayerId player1Id = new PlayerId(1);
-        TransportManager player1TransportManager = new TransportManager(player1Id, controllerManager.getMainViewController(), gooseManager, map, structureManager);
         TileCompartmentLocation player1StartingLocation = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
+        ResearchManager p1ResearchManager = new ResearchManager(player1StartingLocation.getLocation(), player1Id);
+        TransportManager player1TransportManager = new TransportManager(player1Id, controllerManager.getMainViewController(), gooseManager, map, structureManager, p1ResearchManager);
         Player player1 = new Player(player1TransportManager, new PlayerId(1), player1Name, player1StartingLocation);
         player1.attach(viewHandler.getMainViewReference());
         player1.attach(viewHandler.getTransportViewReference());
 
         PlayerId player2Id = new PlayerId(2);
-        TransportManager player2TransportManager = new TransportManager(player2Id, controllerManager.getMainViewController(), gooseManager, map, structureManager);
         TileCompartmentLocation player2StartingLocation = new TileCompartmentLocation(new Location(0,1,-1), TileCompartmentDirection.getNorth());
+        ResearchManager p2ResearchManager = new ResearchManager(player2StartingLocation.getLocation(), player2Id);
+        TransportManager player2TransportManager = new TransportManager(player2Id, controllerManager.getMainViewController(), gooseManager, map, structureManager, p2ResearchManager);
         Player player2 = new Player(player2TransportManager, new PlayerId(2), player2Name, player2StartingLocation);
         player2.attach(viewHandler.getMainViewReference());
         player2.attach(viewHandler.getTransportViewReference());
@@ -58,7 +65,7 @@ public class GameInitializer {
         gooseManager.addTransportManager(player2.getTransportManager());
 
 
-        importFile(gameFile, map, structureManager);
+        importFile(gameFile, map, structureManager, gooseManager);
 
         Game game = new Game(map, player1, player2, gooseManager, structureManager);
 
@@ -73,6 +80,12 @@ public class GameInitializer {
         game.attachPlayerInfoObserver(viewHandler.getWonderViewReference());
         game.attachPhaseInfoObserver(viewHandler.getWonderViewReference());
 
+        addInitialResourcesToTile(map.getTile(player1StartingLocation.getLocation()), player1StartingLocation.getTileCompartmentDirection());
+        addInitialGeeseToTile(player1StartingLocation, gooseManager);
+
+        addInitialResourcesToTile(map.getTile(player2StartingLocation.getLocation()), player2StartingLocation.getTileCompartmentDirection());
+        addInitialGeeseToTile(player2StartingLocation, gooseManager);
+
         controllerManager.getMainViewController().setGame(game);
 
         //TODO: Add a controller and view element to trigger this gameExporter's exportGameToPath()
@@ -81,9 +94,9 @@ public class GameInitializer {
         viewHandler.startGameLoop();
     }
 
-    private void importFile(String filename, RBMap map, StructureManager structureManager) throws IOException, MalformedMapFileException {
+    private void importFile(String filename, RBMap map, StructureManager structureManager, GooseManager gooseManager) throws IOException, MalformedMapFileException {
         if (filename.contains(".tinyrick")) {
-            importGame(filename, map, structureManager);
+            importGame(filename, map, structureManager, gooseManager);
         } else if (filename.contains(".map")) {
             importMap(filename, map);
         }
@@ -95,8 +108,23 @@ public class GameInitializer {
         map.finalizeMap();
     }
 
-    private void importGame(String filename, RBMap map, StructureManager structureManager) throws IOException, MalformedMapFileException {
+    private void importGame(String filename, RBMap map, StructureManager structureManager, GooseManager gooseManager) throws IOException, MalformedMapFileException {
         BufferedReader br = new BufferedReader(new FileReader("savedGames/" + filename));
-        GameImporter.importGameFromFile(map, structureManager, br);
+        GameImporter.importGameFromFile(map, structureManager, gooseManager, br);
+    }
+
+    private void addInitialGeeseToTile(TileCompartmentLocation tcl, GooseManager gooseManager) {
+        gooseManager.addGoose(tcl, new Goose(new GooseId()));
+        gooseManager.addGoose(tcl, new Goose(new GooseId()));
+    }
+
+    private void addInitialResourcesToTile(Tile t, TileCompartmentDirection tcd) {
+        TileCompartment tileCompartment = t.getTileCompartment(tcd);
+        placeResourceOnTileCompartments(tileCompartment, ResourceType.BOARDS, 4);
+        placeResourceOnTileCompartments(tileCompartment, ResourceType.STONE, 1);
+    }
+
+    private void placeResourceOnTileCompartments(TileCompartment tileCompartment, ResourceType resourceType, int amount) {
+        tileCompartment.storeResource(resourceType, amount);
     }
 }

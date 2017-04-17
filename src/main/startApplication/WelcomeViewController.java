@@ -134,6 +134,7 @@ public class WelcomeViewController {
                 try {
                     new GameInitializer(gameFile, player1Name, player2Name, primaryStage);
                 } catch (MalformedMapFileException|IOException e) {
+                    e.printStackTrace();
                     welcomeView.showAlert("Invalid File", null, "Please select a different file.");
                 }
             } else {
