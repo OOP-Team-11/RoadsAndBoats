@@ -1,10 +1,8 @@
 package game.model.structures.resourceProducer.primaryProducer;
 
-import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
-import game.model.structures.resourceProducer.ResourceDropper;
-
+import game.model.visitors.TileCompartmentVisitor;
 
 public class ClayPit extends ResourceDropper {
 
@@ -15,8 +13,8 @@ public class ClayPit extends ResourceDropper {
     }
 
     @Override
-    public boolean produce(ResourceManager resourceManager) {
-        resourceManager.addResource(ResourceType.CLAY, CLAY_AMT);
+    public boolean produce(TileCompartmentVisitor tcv) {
+        acceptStoreResources(tcv, ResourceType.CLAY, CLAY_AMT);
         return true;
     }
 

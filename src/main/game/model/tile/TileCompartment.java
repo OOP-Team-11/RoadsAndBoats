@@ -7,6 +7,7 @@ import game.model.movement.River;
 import game.model.movement.Road;
 import game.model.resources.ResourceType;
 import game.model.transport.Transport;
+import game.model.visitors.TileCompartmentVisitor;
 import game.utilities.observable.TileCompartmentResourceAddedObservable;
 import game.utilities.observer.TileCompartmentResourceAddedObserver;
 
@@ -17,7 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-public class TileCompartment implements TileCompartmentResourceAddedObservable
+public class TileCompartment implements TileCompartmentResourceAddedObservable, TileCompartmentVisitor
 {
     private ResourceManager resourceManager;
     private Collection<Transport> transports;
@@ -210,5 +211,10 @@ public class TileCompartment implements TileCompartmentResourceAddedObservable
         }
 
         return true;
+    }
+
+    @Override
+    public void addResourcesVisit(ResourceType resourceType, Integer amountToAdd) {
+        this.storeResource(resourceType, amountToAdd);
     }
 }
