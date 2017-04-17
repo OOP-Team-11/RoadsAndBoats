@@ -996,6 +996,11 @@ public class MainView extends View
         }
     }
 
+    private void drawPlayerHouses(){
+        drawImage(assets.HOUSE_BLUE, 0,0,0);
+        drawImage(assets.HOUSE_RED,0,0,-1);
+    }
+
     @Override
     public void render() {
         if(refresh){
@@ -1008,6 +1013,7 @@ public class MainView extends View
             displaySidePanelInformation();
             drawPlayerName();
             drawCurrentPhase();
+            drawPlayerHouses();
 
             displayMapTransportRenderInfo(mapTransportRenderInfoP1);
             displayMapTransportRenderInfo(mapTransportRenderInfoP2);

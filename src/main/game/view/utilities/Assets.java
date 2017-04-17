@@ -306,8 +306,8 @@ public class Assets {
             WONDERBRICK_NEUTRAL = new Image(this.getClass().getResourceAsStream("/wonder/wonderbrick_neutral.jpg"));
             WONDERBRICK_RED = new Image(this.getClass().getResourceAsStream("/wonder/wonderbrick_red.jpg"));
 
-            HOUSE_BLUE = new Image(this.getClass().getResourceAsStream("/player/house_blue.jpg"));
-            HOUSE_RED = new Image(this.getClass().getResourceAsStream("/player/house_red.jpg"));
+            HOUSE_BLUE = new Image(this.getClass().getResourceAsStream("/player/house_blue.png"));
+            HOUSE_RED = new Image(this.getClass().getResourceAsStream("/player/house_red.png"));
 
             DONKEY_RED = new Image(this.getClass().getResourceAsStream("/player/donkey_red.png"));
             RAFT_RED = new Image(this.getClass().getResourceAsStream("/player/raft_red.png"));
