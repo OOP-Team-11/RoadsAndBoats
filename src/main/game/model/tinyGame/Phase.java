@@ -7,6 +7,7 @@ public class Phase {
 
     private Integer currentPhase;
     private List<String> phases;
+//    private PhaseObserver observer;
 
     public Phase() {
         this.currentPhase = 0;
@@ -32,6 +33,7 @@ public class Phase {
 
     public void goToNextPhase() {
         currentPhase = (currentPhase + 1) % phases.size();
+//        oberserver.notify();
     }
 
 }

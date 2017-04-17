@@ -74,7 +74,7 @@ public class TransportAbilityManager {
     }
 
     private void addProductionPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
-        if(phase=="(Re)Production") {
+        if(phase.equals("(Re)Production")) {
             this.addResearchAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
             this.addTransportReproduceAbility(transport, tileCompartmentLocation, tileTransports);
             this.addProduceCoinsAbility(transport, tileCompartmentLocation);
