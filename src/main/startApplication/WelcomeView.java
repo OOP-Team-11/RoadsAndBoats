@@ -193,14 +193,6 @@ public class WelcomeView {
         this.startNewGameButoon.setPrefWidth(100.0);
     }
 
-    public void showSaveMessage(String message){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Saving Game");
-        alert.setHeaderText("Save Status:");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
     private void clearOverlayAnchorPane(){
         int size = this.overlayAnchorPane.getChildren().size();
         for(int i=size-1; i>=0; i--){
