@@ -798,6 +798,30 @@ public class MainView extends View
         drawImage(assets.ROAD_N,x,y,z);
     }
 
+    private void drawRoadNE(int x, int y, int z){
+        drawImage(assets.ROAD_NE, x,y,z);
+        drawImage(assets.ROAD_SW, x+1,y,z-1);
+    }
+
+    private void drawRoadSE(int x, int y, int z){
+        drawImage(assets.ROAD_SE, x,y,z);
+        drawImage(assets.ROAD_NW,x+1,y,z);
+    }
+    private void drawRoadSouth(int x, int y, int z){
+        drawRoadNorth(x,y,z+1);
+    }
+    private void drawRoadNW(int x, int y, int z){
+        drawImage(assets.ROAD_SE, x-1,y,z);
+        drawImage(assets.ROAD_NW,x,y,z);
+    }
+    private void drawRoadSW(int x, int y, int z){
+        drawImage(assets.ROAD_SW, x,y,z);
+        drawImage(assets.ROAD_NE,x-1,y,z+1);
+    }
+    private void drawN_TO_S_ROAD(int x, int y, int z){
+        drawImage(assets.ROAD_N_TO_S, x,y,z);
+    }
+
 
     private void TESTING_REMOVE_LATER(){
 
@@ -829,6 +853,13 @@ public class MainView extends View
 
 
         drawRoadNorth(1,0,1);
+        drawRoadNE(1,0,1);
+        drawRoadSE(1,0,1);
+        drawRoadSouth(1,0,1);
+        drawRoadNW(1,0,1);
+        drawRoadSW(1,0,1);
+        drawN_TO_S_ROAD(1,0,0);
+        drawN_TO_S_ROAD(1,0,-1);
         //drawImage(assets.WALL_BLUE_NORTH,0,0,-1);
         //drawImage(assets.WALL_BLUE_SOUTH,0,0,-1);
 
