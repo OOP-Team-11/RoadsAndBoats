@@ -45,6 +45,7 @@ public class GameInitializer {
 
         GooseManager gooseManager = new GooseManager(controllerManager.getMainViewController(), map);
         WonderManager wonderManager = new WonderManager(map);
+        wonderManager.attach(viewHandler.getWonderViewReference());
         StructureManager structureManager = new StructureManager(controllerManager.getMainViewController(), map);
         structureManager.attach(viewHandler.getMainViewReference());
 
