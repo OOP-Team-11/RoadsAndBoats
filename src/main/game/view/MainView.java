@@ -669,6 +669,7 @@ public class MainView extends View
     private void drawCursor(){
         if(cursorRenderInfo != null){
             drawImage(assets.GREEN_CURSOR,cursorRenderInfo.getCursorLocation().getX(), cursorRenderInfo.getCursorLocation().getY(), cursorRenderInfo.getCursorLocation().getZ());
+            System.out.println("   X:" + cursorRenderInfo.getCursorLocation().getX() + "   Y:" + cursorRenderInfo.getCursorLocation().getY() + "   Z:" + cursorRenderInfo.getCursorLocation().getZ());
         }
     }
     public double getZoomSliderValue(){
@@ -915,7 +916,7 @@ public class MainView extends View
             displayStructureRenderInfo();
 
             clearNewDataFlag();
-            TESTING_REMOVE_LATER();
+//            TESTING_REMOVE_LATER();
             drawCursor(); // cursor is always last
         } else {
             // nothing to update
