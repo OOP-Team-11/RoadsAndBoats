@@ -809,6 +809,30 @@ public class MainView extends View
         drawImage(assets.ROAD_N,x,y,z);
     }
 
+    private void drawRoadNE(int x, int y, int z){
+        drawImage(assets.ROAD_NE, x,y,z);
+        drawImage(assets.ROAD_SW, x+1,y,z-1);
+    }
+
+    private void drawRoadSE(int x, int y, int z){
+        drawImage(assets.ROAD_SE, x,y,z);
+        drawImage(assets.ROAD_NW,x+1,y,z);
+    }
+    private void drawRoadSouth(int x, int y, int z){
+        drawRoadNorth(x,y,z+1);
+    }
+    private void drawRoadNW(int x, int y, int z){
+        drawImage(assets.ROAD_SE, x-1,y,z);
+        drawImage(assets.ROAD_NW,x,y,z);
+    }
+    private void drawRoadSW(int x, int y, int z){
+        drawImage(assets.ROAD_SW, x,y,z);
+        drawImage(assets.ROAD_NE,x-1,y,z+1);
+    }
+    private void drawN_TO_S_ROAD(int x, int y, int z){
+        drawImage(assets.ROAD_N_TO_S, x,y,z);
+    }
+
 
     private void TESTING_REMOVE_LATER(){
 
@@ -840,6 +864,13 @@ public class MainView extends View
 
 
         drawRoadNorth(1,0,1);
+        drawRoadNE(1,0,1);
+        drawRoadSE(1,0,1);
+        drawRoadSouth(1,0,1);
+        drawRoadNW(1,0,1);
+        drawRoadSW(1,0,1);
+        drawN_TO_S_ROAD(1,0,0);
+        drawN_TO_S_ROAD(1,0,-1);
         //drawImage(assets.WALL_BLUE_NORTH,0,0,-1);
         //drawImage(assets.WALL_BLUE_SOUTH,0,0,-1);
 
@@ -887,6 +918,68 @@ public class MainView extends View
         }
     }
 
+    private void displayWalls(){
+        if(isNull(wallRenderInfo)){
+
+        } else {
+            for(Map.Entry<Location,WallInfo> entry : wallRenderInfo.getRenderInformation().entrySet()){
+                System.out.println(entry.getKey().getX() + " " + entry.getKey().getY() + " " + entry.getKey().getZ());
+                System.out.println(entry.getValue().getCompartment() + " " + entry.getValue().getType());
+
+                if(entry.getValue().getType() == 1){ // blue
+                    int compartment = entry.getValue().getType();
+                    Location location = entry.getKey();
+                    if(compartment == 1){
+                        drawBlueNorthWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 2){
+                        drawBlueNEWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 3){
+                        drawBlueSEWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 4){
+                        drawBlueSouthWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 5){
+                        drawBlueSWWall(location.getX(), location.getY(), location.getZ());
+                    } else {
+                        drawBlueNWWall(location.getX(), location.getY(), location.getZ());
+                    }
+                } else if(entry.getValue().getType() == 2){ // red
+                    int compartment = entry.getValue().getType();
+                    Location location = entry.getKey();
+                    if(compartment == 1){
+                        drawREDNorthWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 2){
+                        drawRedNEWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 3){
+                        drawRedSEWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 4){
+                        drawRedSouthWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 5){
+                        drawRedSWWall(location.getX(), location.getY(), location.getZ());
+                    } else {
+                        drawRedNWWall(location.getX(), location.getY(), location.getZ());
+                    }
+                } else { // neutral
+                    int compartment = entry.getValue().getType();
+                    Location location = entry.getKey();
+                    if(compartment == 1){
+                        drawNeutralNorthWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 2){
+                        drawNeutralNEWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 3){
+                        drawNeutralSEWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 4){
+                        drawNeutralSouthWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 5){
+                        drawNeutralSWWall(location.getX(), location.getY(), location.getZ());
+                    } else {
+                        drawNeutralNWWall(location.getX(), location.getY(), location.getZ());
+                    }
+                }
+            }
+        }
+
+    }
+
     private void displayStructureRenderInfo(){
         if(isNull(mapStructureRenderInfo)){
             // nothing to render
@@ -922,7 +1015,10 @@ public class MainView extends View
             displayStructureRenderInfo();
 
             clearNewDataFlag();
+            //TESTING_REMOVE_LATER();
+            displayWalls();
 //            TESTING_REMOVE_LATER();
+
             drawCursor(); // cursor is always last
         } else {
             // nothing to update
@@ -969,6 +1065,7 @@ public class MainView extends View
     public void updateWallInfo(WallRenderInfo wallRenderInfo) {
         this.wallRenderInfo = wallRenderInfo;
         this.refresh = true;
+        System.out.println("wall information!!!");
     }
 
     @Override
