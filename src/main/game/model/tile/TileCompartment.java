@@ -191,4 +191,24 @@ public class TileCompartment implements TileCompartmentResourceAddedObservable
     public void detach(TileCompartmentResourceAddedObserver observer) {
         this.tileCompartmentResourceAddedObservers.remove(observer);
     }
+
+    public Road getRoad(TileCompartmentDirection tcd)
+    {
+        return roads.get(tcd);
+    }
+
+    public void buildRoad(Road road)
+    {
+        roads.put(road.getCompartmentDirection(), road);
+    }
+
+    public boolean canBuildRoad(Road road)
+    {
+        if(roads.get(road.getCompartmentDirection()) != null)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

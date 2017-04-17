@@ -2,12 +2,14 @@ package game.model.wonder;
 
 import game.model.PlayerId;
 import game.utilities.observable.WonderRenderInfoObservable;
+import game.utilities.observer.WonderPhaseEndedObserver;
 import game.utilities.observer.WonderRenderInfoObserver;
+import game.view.render.WonderRenderInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WonderManager implements TurnObserver, WonderRenderInfoObservable {
+public class WonderManager implements WonderPhaseEndedObserver, WonderRenderInfoObservable {
 
     private Wonder wonder;
     private Irrigatable irrigatable;
@@ -54,17 +56,6 @@ public class WonderManager implements TurnObserver, WonderRenderInfoObservable {
         return wonder.getOrderedWonderBricks();
     }
 
-    @Override
-    public void onTurnEnded(){
-        for (TurnObserver observer : this.turnObservers) {
-            observer.onTurnEnded();
-        }
-
-        if(wonder.isIrrigationPointActivated() && haveNotIrrigated()){
-            irrigate();
-        }
-    }
-
     private boolean haveNotIrrigated() {
         return !irrigationHasOcurred;
     }
@@ -72,6 +63,13 @@ public class WonderManager implements TurnObserver, WonderRenderInfoObservable {
     private void irrigate() {
         turnDesertToPasture(irrigatable);
         irrigationHasOcurred = true;
+    }
+
+    private void notifyWonderRenderInfoObservers() {
+        WonderRenderInfo wonderRenderInfo = new WonderRenderInfo(this);
+        for (WonderRenderInfoObserver observer : this.wonderRenderInfoObservers) {
+            observer.updateWonderInfo(wonderRenderInfo);
+        }
     }
 
     @Override
@@ -82,5 +80,18 @@ public class WonderManager implements TurnObserver, WonderRenderInfoObservable {
     @Override
     public void detach(WonderRenderInfoObserver observer) {
         this.wonderRenderInfoObservers.remove(observer);
+    }
+
+    @Override
+    public void onWonderPhaseEnded() {
+        for (TurnObserver observer : this.turnObservers) {
+            observer.onTurnEnded();
+        }
+
+        if(wonder.isIrrigationPointActivated() && haveNotIrrigated()){
+            irrigate();
+        }
+
+        notifyWonderRenderInfoObservers();
     }
 }
