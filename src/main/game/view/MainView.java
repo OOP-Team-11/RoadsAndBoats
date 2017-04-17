@@ -580,7 +580,7 @@ public class MainView extends View
                     } else if (entry.getValue().getStructureType().equals(StructureType.PAPERMILL)) {
                         paperMillBuildingCount +=1;
                     } else if (entry.getValue().getStructureType().equals(StructureType.MINT)) {
-                        mineBuildingCount +=1;
+                        mintBuildingCount +=1;
                     } else if (entry.getValue().getStructureType().equals(StructureType.STOCK_MARKET)) {
                         stockExchangeBuildingCount +=1;
                     } else if (entry.getValue().getStructureType().equals(StructureType.OIL_RIG)) {
