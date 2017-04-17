@@ -30,7 +30,6 @@ class OilRigImporter {
                 break;
             }
 
-            line = stripIdentifier(line);
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
@@ -39,10 +38,6 @@ class OilRigImporter {
         }
 
         if (!foundEOF) throw new MalformedMapFileException("-----END OILRIG----- not found");
-    }
-
-    private static String stripIdentifier(String oilRigString) {
-        return oilRigString.replace("OILRIG ", "");
     }
 
     private static Location getLocation(String mineString) throws MalformedMapFileException {

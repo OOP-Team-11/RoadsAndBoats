@@ -558,6 +558,7 @@ public class MainView extends View
                     this.selectGC.drawImage(image,125,500);
                     this.selectGC.strokeText(entry.getValue().getStructureType() + " ", 50, 480);
                     drawnStructure = true;
+
                 } else {
 
                 }
