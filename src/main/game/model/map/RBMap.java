@@ -2,6 +2,7 @@ package game.model.map;
 
 import game.model.direction.*;
 import game.model.movement.Move;
+import game.model.movement.Road;
 import game.model.tile.*;
 import game.model.wonder.Irrigatable;
 import game.utilities.observable.MapRenderInfoObservable;
@@ -119,10 +120,45 @@ public class RBMap implements MapRenderInfoObservable, Irrigatable, TileResource
         return true;
     }
 
+    public boolean canBuildRoad(Location loc, TileEdgeDirection ted, TileCompartmentDirection tcd)
+    {
+        Tile tile=tiles.get(loc);
+
+        Tile adjacent = tiles.get(DirectionToLocation.getLocation(loc, ted));
+
+        TileCompartment dest = adjacent.getTileCompartment(new TileCompartmentDirection(new Angle(- tcd.getAngle().getDegrees() + 180)));
+
+
+        if(tile == null)
+        {
+            return false;
+        }
+
+        return tile.canBuildRoad(new Road(loc, dest, ted, tcd));
+    }
+
+    public boolean buildRoad(Location loc, TileEdgeDirection ted, TileCompartmentDirection tcd)
+    {
+        Tile tile=tiles.get(loc);
+
+        Tile adjacent = tiles.get(DirectionToLocation.getLocation(loc, ted));
+
+        TileCompartment dest = adjacent.getTileCompartment(new TileCompartmentDirection(new Angle(- tcd.getAngle().getDegrees() + 180)));
+
+
+        if(tile == null)
+        {
+            return false;
+        }
+
+        tile.buildRoad(new Road(loc, dest, ted, tcd));
+        return true;
+    }
 
     public MapRenderInfo getMapRenderInfo() {
         Map<Location, Terrain> terrainMap = new HashMap<>();
         Map<Location, RiverConfiguration> riverConfigurationMap = new HashMap<>();
+        Map<Location, RoadConfiguration> roadConfigurationMap = new HashMap<>();
 
         Iterator it = tiles.entrySet().iterator();
         while (it.hasNext())
@@ -132,8 +168,9 @@ public class RBMap implements MapRenderInfoObservable, Irrigatable, TileResource
             Tile tile = (Tile) pair.getValue();
             terrainMap.put(location, tile.getTerrain());
             riverConfigurationMap.put(location, tile.getRiverConfiguration());
+            roadConfigurationMap.put(location, tile.getRoadConfiguration());
         }
-        return new MapRenderInfo(terrainMap, riverConfigurationMap, this);
+        return new MapRenderInfo(terrainMap, riverConfigurationMap, roadConfigurationMap, this);
     }
 
     public void attach(MapRenderInfoObserver observer)

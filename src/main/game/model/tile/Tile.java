@@ -1,10 +1,8 @@
 package game.model.tile;
 
-import game.model.direction.Angle;
-import game.model.direction.DirectionToLocation;
-import game.model.direction.TileCompartmentDirection;
-import game.model.direction.TileEdgeDirection;
+import game.model.direction.*;
 import game.model.movement.River;
+import game.model.movement.Road;
 import game.model.structures.Structure;
 import game.utilities.observable.TileResourceInfoObservable;
 import game.utilities.observer.TileCompartmentResourceAddedObserver;
@@ -344,5 +342,33 @@ public class Tile implements TileResourceInfoObservable, TileCompartmentResource
         }
 
         return dirs;
+    }
+
+    public RoadConfiguration getRoadConfiguration()
+    {
+        Map<TileEdgeDirection, Boolean> roads= new HashMap<>();
+        for(TileEdgeDirection ted: TileEdgeDirection.getAllDirections())
+        {
+            TileCompartmentDirection tcd =new TileCompartmentDirection(ted.getAngle());
+            boolean hasRoad =getTileCompartment(tcd).getRoad(tcd) != null;
+            roads.put(ted, hasRoad);
+        }
+
+        return new RoadConfiguration(roads);
+    }
+
+    public boolean canBuildRoad(Road road)
+    {
+        if(hasRiver(road.getCompartmentDirection(), getRiverConfiguration()))
+        {
+            return false;
+        }
+
+        return getTileCompartment(road.getCompartmentDirection()).canBuildRoad(road);
+    }
+
+    public void buildRoad(Road road)
+    {
+        getTileCompartment(road.getCompartmentDirection()).buildRoad(road);
     }
 }
