@@ -288,6 +288,51 @@ public class GameExporterTest {
         );
     }
 
+    @Test
+    public void paperMillSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN PAPERMILL-----\n" +
+                "( 0 1 -1 ) NW \n" +
+                "( -2 1 1 ) SSW";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN PAPERMILL-----"),contents.indexOf("-----END PAPERMILL-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void coalBurnerSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN COAL_BURNER-----\n" +
+                "( -2 1 1 ) NW LIMIT=6";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN COAL_BURNER-----"),contents.indexOf("-----END COAL_BURNER-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void stockMarketSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN STOCK_MARKET-----\n" +
+                "( -2 1 1 ) NE LIMIT=6";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN STOCK_MARKET-----"),contents.indexOf("-----END STOCK_MARKET-----")).trim(),
+                expected.trim()
+        );
+    }
+
+
+
 
     private String readFile(String filepath){
         File f = new File(filepath);
