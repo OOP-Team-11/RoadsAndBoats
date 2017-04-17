@@ -127,11 +127,10 @@ public class MainViewController {
             public void handle(MouseEvent e) {
                 TransportId selectedTransport = mainView.getCurrentlySelectedTransportID();
                 PhaseRenderInfo info = mainView.getCurentPhaseInformation();
-                // TODO 
-
+                String phase =  info.getName();
                 Location transportLocation = mainView.getRightClickedLocation();
                 for(TransportManager tm : transportManagers)
-                    tm.onTransportSelected(selectedTransport, transportLocation);
+                    tm.onTransportSelected(selectedTransport, transportLocation, phase);
             }
         };
         this.mainView.addEventFilterToRightClickMenu(MouseEvent.MOUSE_CLICKED,eventHandler);

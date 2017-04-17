@@ -118,13 +118,12 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
         return this.transports;
     }
 
-    public void onTransportSelected(TransportId transportId, Location loc) {
+    public void onTransportSelected(TransportId transportId, Location loc, String phase) {
         Transport transport = getTransport(transportId, loc);
         TileCompartmentLocation transportTCL = getTransportTileCompartmentLocation(transportId, loc);
         Map<TileCompartmentDirection, List<Transport>> tileTransports = getTileTransports(loc);
         if(transport != null)
-            this.transportAbilityManager.addMovementAbility(transport, transportTCL, tileTransports, this);
-//            this.transportAbilityManager.addAbilities(transport, transportTCL, tileTransports, this);
+            this.transportAbilityManager.addAbilities(phase, transport, transportTCL, tileTransports, this);
     }
 
     public Map<TileCompartmentDirection, List<Transport>> getTileTransports(Location loc) {

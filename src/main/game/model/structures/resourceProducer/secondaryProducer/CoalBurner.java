@@ -152,7 +152,7 @@ public class CoalBurner extends SecondaryProducer {
 
     @Override
     public String getExportString() {
-        // TODO add other things?
-        return this.getType().toString();
+        //Has limit, so getExportString should return its limit
+        return "LIMIT=" + this.getProductionLimit();
     }
 }

@@ -86,6 +86,14 @@ public class Mine extends ResourceDropper {
         return currentIronCount;
     }
 
+    public int getMaxGoldCount() {
+        return maxGoldCount;
+    }
+
+    public int getMaxIronCount() {
+        return maxIronCount;
+    }
+
     private boolean checkCurrentGoldCount() {
         return (currentGoldCount != 0);
     }

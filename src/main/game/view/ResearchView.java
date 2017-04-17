@@ -60,6 +60,7 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
     private PathTransition pathTransition8;
     private PhaseRenderInfo currentPhaseRenderInfo;
     private PlayerRenderInfo currentPlayerRenderInfo;
+    private ResearchRenderInfo researchRenderInfo;
 
 
     public ResearchView(AnchorPane anchorPane){
@@ -69,7 +70,6 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
         drawBackgroundStyling();
         drawHeadingTitle();
         drawResearchTable();
-        drawTransportList();
         initializeButtons();
 
 
@@ -83,6 +83,10 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
         addSeventh();
         addEight();
 
+
+    }
+
+    private void initalizeStones(){
         addStoneOne();
         addStoneTwo();
         addStoneThree();
@@ -122,22 +126,7 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
         this.gc.fillRoundRect(75,100,1140,400,20,20);
     }
 
-    private void drawPhase(){
-        this.gc.setFill(Color.TEAL);
-        this.gc.fillRoundRect(780,520,400,250,20,20);
-        this.gc.setLineWidth(1.0);
-        this.gc.setFont(new Font(20));
-        this.gc.strokeText("Current Phase: " + currentPhaseRenderInfo.getName(), 800, 550);
-    }
 
-    private void drawTransportList(){
-        this.transporters = new ListView();
-        this.transporters.setPrefHeight(190.0);
-        this.transporters.setPrefWidth(335.0);
-        this.anchorPane.getChildren().add(transporters);
-        this.anchorPane.setLeftAnchor(transporters, 810.0);
-        this.anchorPane.setTopAnchor(transporters, 560.0);
-    }
 
     private void initializeButtons(){
         this.selectFirst = new Button();
@@ -340,6 +329,16 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
         this.anchorPane.getChildren().remove(selectSeventh);
         this.anchorPane.getChildren().remove(selectEighth);
     }
+    private void removeAllStones(){
+        this.anchorPane.getChildren().remove(stoneOne);
+        this.anchorPane.getChildren().remove(stoneTwo);
+        this.anchorPane.getChildren().remove(stoneThree);
+        this.anchorPane.getChildren().remove(stoneFour);
+        this.anchorPane.getChildren().remove(stoneFife);
+        this.anchorPane.getChildren().remove(stoneSix);
+        this.anchorPane.getChildren().remove(stoneSeven);
+        this.anchorPane.getChildren().remove(stoneEight);
+    }
 
     public void addTech1EventFilter(EventHandler filter){
         this.selectFirst.addEventFilter(MouseEvent.MOUSE_CLICKED, filter);
@@ -366,10 +365,45 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
         this.selectEighth.addEventFilter(MouseEvent.MOUSE_CLICKED, filter);
     }
 
+    private void displayResearchedTechnologies(){
+        if(researchRenderInfo.hasReasearchedRowing()){
+            pathTransition1.play();
+        }
+        if(researchRenderInfo.hasReasearchedTrucking()){
+            pathTransition2.play();
+        }
+        if(researchRenderInfo.hasReasearchedShipping()){
+            pathTransition3.play();
+        }
+        if(researchRenderInfo.hasReasearchedDrilling()){
+            pathTransition4.play();
+        }
+        if(researchRenderInfo.hasReasearchedSpecialization()){
+            pathTransition5.play();
+        }
+        if(researchRenderInfo.hasReasearchedEnlargement()){
+            pathTransition6.play();
+        }
+        if(researchRenderInfo.hasReasearchedNewShafts()){
+            pathTransition7.play();
+        }
+        if(researchRenderInfo.hasReasearchedBrightIdea()){
+            pathTransition8.play();
+        }
+    }
+
 
     @Override
     public void render() {
+        if(newData){
+            removeAllButtons();
+            removeAllStones();
+            initalizeStones();
+            displayResearchedTechnologies();
+            this.newData = false;
+        } else {
 
+        }
     }
 
     @Override
@@ -388,12 +422,12 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
     public void updatePhaseInfo(PhaseRenderInfo phaseRenderInfo) {
         this.currentPhaseRenderInfo = phaseRenderInfo;
         this.newData = true;
-        drawPhase();
     }
 
     @Override
     public void updateResearchInfo(ResearchRenderInfo info)
     {
-        //TODO
+        this.researchRenderInfo = info;
+        this.newData = true;
     }
 }
