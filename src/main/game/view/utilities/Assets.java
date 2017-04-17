@@ -187,6 +187,15 @@ public class Assets {
     public Image MINE_AMOUNT_10;
     public Image MINE_AMOUNT_UNKOWN;
 
+
+    public Image ROAD_N;
+    public Image ROAD_NE;
+    public Image ROAD_SE;
+    public Image ROAD_S;
+    public Image ROAD_SW;
+    public Image ROAD_NW;
+
+
     public Image PROCESS_CHART;
 
     public boolean loadAssets(){
@@ -347,6 +356,13 @@ public class Assets {
             MINE_AMOUNT_9 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number9.png"));
             MINE_AMOUNT_10 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number10.png"));
             MINE_AMOUNT_UNKOWN = new Image(this.getClass().getResourceAsStream("/buildings/mine_unknown.png"));
+
+            ROAD_N = new Image(this.getClass().getResourceAsStream("/roads/roadN.png"));
+            ROAD_NE =  new Image(this.getClass().getResourceAsStream("/roads/roadNE.png"));
+            ROAD_SE =  new Image(this.getClass().getResourceAsStream("/roads/roadSE.png"));
+            ROAD_S =  new Image(this.getClass().getResourceAsStream("/roads/roadS.png"));
+            ROAD_SW =  new Image(this.getClass().getResourceAsStream("/roads/roadSW.png"));
+            ROAD_NW =  new Image(this.getClass().getResourceAsStream("/roads/roadNW.png"));
 
             PROCESS_CHART = new Image(this.getClass().getResourceAsStream("/misc/process_chart.jpg"));
 

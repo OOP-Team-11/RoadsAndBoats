@@ -6,11 +6,11 @@ import game.view.render.MapRenderInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Vector;
 
 public class Wonder implements TurnObserver{
-    private Vector<WonderBrick> player1;
-    private Vector<WonderBrick> player2;
+    private List<WonderBrick> orderedWonderBricks;
     private Vector<Vector<WonderBrick>> wonderbricks;
     private HashMap<PlayerId, Vector<WonderBrick>> playerIdVectorHashMap;
     private HashMap<PlayerId, Vector<WonderBrick>> playerBrickMapTurn;
@@ -23,6 +23,7 @@ public class Wonder implements TurnObserver{
         wonderbricks.add(new Vector<WonderBrick>());
         playerIdVectorHashMap = new HashMap<>();
         playerBrickMapTurn = new HashMap<>();
+        orderedWonderBricks = new Vector<>();
     }
 
     @Override
@@ -31,9 +32,14 @@ public class Wonder implements TurnObserver{
         playerBrickMapTurn.clear();
     }
 
+    public List<WonderBrick> getOrderedWonderBricks() {
+        return orderedWonderBricks;
+    }
+
     public void addNeutralBrick() {
         if (wonderbricks.get(wonderbricks.size()-1).size()<maxSize()) {
             wonderbricks.get(wonderbricks.size()-1).add(new NeutralBrick());
+            orderedWonderBricks.add(new NeutralBrick());
             if(checkBrickOnIrrigationPoint(wonderbricks.get(wonderbricks.size()-1).size())){
                 setIrrigationPointActivated(true);
             }
@@ -41,6 +47,7 @@ public class Wonder implements TurnObserver{
         else {
             Vector<WonderBrick> wonderBrick = new Vector<>(maxSize());
             wonderBrick.add(new NeutralBrick());
+            orderedWonderBricks.add(new NeutralBrick());
             wonderbricks.add(wonderBrick);
             if(checkBrickOnIrrigationPoint(wonderBrick.size())){
                 setIrrigationPointActivated(true);
@@ -92,7 +99,8 @@ public class Wonder implements TurnObserver{
 
         if (wonderbricks.get(wonderbricks.size()-1).size()<maxSize()) {
             wonderbricks.get(wonderbricks.size()-1).add(playerbrick);
-                    if(checkBrickOnIrrigationPoint(wonderbricks.get(wonderbricks.size()-1).size())){
+            orderedWonderBricks.add(playerbrick);
+            if(checkBrickOnIrrigationPoint(wonderbricks.get(wonderbricks.size()-1).size())){
                         setIrrigationPointActivated(true);
                     }
                 }
@@ -100,6 +108,7 @@ public class Wonder implements TurnObserver{
         else{
             Vector<WonderBrick> wonderBrick = new Vector<>(maxSize());
             wonderBrick.add(playerbrick);
+            orderedWonderBricks.add(playerbrick);
             wonderbricks.add(wonderBrick);
             if(checkBrickOnIrrigationPoint(wonderBrick.size())){
                 setIrrigationPointActivated(true);

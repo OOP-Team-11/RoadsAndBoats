@@ -96,6 +96,7 @@ public class MainViewController {
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 game.onTurnEnded();
+                detachControls();
             }
         };
         mainView.addEventFilterToFinishButton(MouseEvent.MOUSE_CLICKED, eventHandler);
@@ -109,6 +110,7 @@ public class MainViewController {
                         // left mouse click
                         Location clicked = mouseClickInterpreter.interpretMouseClick(event.getX(), event.getY());
                         mainView.updateCursorInfo(new CursorRenderInfo(event.getX(),event.getY(), clicked, false));
+                        detachControls();
                     } else {
                         // right mouse click
                         Location clicked = mouseClickInterpreter.interpretMouseClick(event.getX(), event.getY());
@@ -127,11 +129,10 @@ public class MainViewController {
             public void handle(MouseEvent e) {
                 TransportId selectedTransport = mainView.getCurrentlySelectedTransportID();
                 PhaseRenderInfo info = mainView.getCurentPhaseInformation();
-                // TODO 
-
+                String phase =  info.getName();
                 Location transportLocation = mainView.getRightClickedLocation();
                 for(TransportManager tm : transportManagers)
-                    tm.onTransportSelected(selectedTransport, transportLocation);
+                    tm.onTransportSelected(selectedTransport, transportLocation, phase);
             }
         };
         this.mainView.addEventFilterToRightClickMenu(MouseEvent.MOUSE_CLICKED,eventHandler);
@@ -192,14 +193,16 @@ public class MainViewController {
         }
     }
 
-    public void addMainViewController(){
-    }
-
     public void removeControl(KeyCode keyCode) {
         controls.remove(keyCode);
     }
 
-    public void detachControls() { this.controls.clear(); }
+    public void detachControls() {
+        this.controls.clear();
+        if(mainView != null){
+            mainView.setAbilities(controls);
+        }
+    }
 
     public Map<KeyCode, Ability> getControls() { return controls; }
 

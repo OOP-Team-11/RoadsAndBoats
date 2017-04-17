@@ -45,7 +45,8 @@ public class MainView extends View
         CameraObserver,
         PlayerRenderInfoObserver,
         PhaseRenderInfoObserver,
-        MapTransportRenderInfoObserver {
+        MapTransportRenderInfoObserver,
+        BridgeRenderInfoObserver{
 
     private AnchorPane anchorPane;
     private TransportRenderInfo transportRenderInfo;
@@ -462,6 +463,7 @@ public class MainView extends View
         int paperCount = 0;
         int stockCount = 0;
         int trunkCount = 0;
+        int stoneCount = 0;
 
         if(isNull(mapResourceRenderInfo)){
             // nothing to render
@@ -490,6 +492,8 @@ public class MainView extends View
                             stockCount = entry2.getValue();
                         } else if(entry2.getKey().equals(ResourceType.TRUNKS)){
                             trunkCount = entry2.getValue();
+                        } else if(entry2.getKey().equals(ResourceType.STONE)){
+                            stoneCount = entry2.getValue();
                         } else {
 
                         }
@@ -511,7 +515,7 @@ public class MainView extends View
         this.selectGC.strokeText("Iron: " +ironCount,230,460 );
         this.selectGC.strokeText("Paper " +paperCount,230,520 );
         this.selectGC.strokeText("Stock: " +stockCount,230,580 );
-        this.selectGC.strokeText("Stone: " +stockCount,230,640 );
+        this.selectGC.strokeText("Stone: " +stoneCount,230,640 );
         this.selectGC.strokeText("Trunks: " +trunkCount,230,700 );
 
     }
@@ -665,6 +669,7 @@ public class MainView extends View
     private void drawCursor(){
         if(cursorRenderInfo != null){
             drawImage(assets.GREEN_CURSOR,cursorRenderInfo.getCursorLocation().getX(), cursorRenderInfo.getCursorLocation().getY(), cursorRenderInfo.getCursorLocation().getZ());
+            System.out.println("   X:" + cursorRenderInfo.getCursorLocation().getX() + "   Y:" + cursorRenderInfo.getCursorLocation().getY() + "   Z:" + cursorRenderInfo.getCursorLocation().getZ());
         }
     }
     public double getZoomSliderValue(){
@@ -793,6 +798,11 @@ public class MainView extends View
         drawImage(assets.WALL_RED_NORTHEAST,x-1,y,z+1);
     }
 
+    private void drawRoadNorth(int x, int y, int z){
+        drawImage(assets.ROAD_S,x,y,z-1);
+        drawImage(assets.ROAD_N,x,y,z);
+    }
+
 
     private void TESTING_REMOVE_LATER(){
 
@@ -823,6 +833,7 @@ public class MainView extends View
         drawNeutralNWWall(-2,0,-2);
 
 
+        drawRoadNorth(1,0,1);
         //drawImage(assets.WALL_BLUE_NORTH,0,0,-1);
         //drawImage(assets.WALL_BLUE_SOUTH,0,0,-1);
 
@@ -869,6 +880,7 @@ public class MainView extends View
             }
         }
     }
+
     private void displayStructureRenderInfo(){
         if(isNull(mapStructureRenderInfo)){
             // nothing to render
@@ -904,7 +916,7 @@ public class MainView extends View
             displayStructureRenderInfo();
 
             clearNewDataFlag();
-            TESTING_REMOVE_LATER();
+//            TESTING_REMOVE_LATER();
             drawCursor(); // cursor is always last
         } else {
             // nothing to update
@@ -916,36 +928,43 @@ public class MainView extends View
         this.transportRenderInfo = transportRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateMapStructureInfo(MapStructureRenderInfo mapStructureRenderInfo) {
         this.mapStructureRenderInfo = mapStructureRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateMapResourceInfo(MapResourceRenderInfo mapResourceRenderInfo) {
         this.mapResourceRenderInfo = mapResourceRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateMapInfo(MapRenderInfo mapRenderInfo) {
         this.mapRenderInfo = mapRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateRoadInfo(RoadRenderInfo roadRenderInfo) {
         this.roadRenderInfo = roadRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateWallInfo(WallRenderInfo wallRenderInfo) {
         this.wallRenderInfo = wallRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateCursorInfo(CursorRenderInfo cursorRenderInfo) {
         this.cursorRenderInfo = cursorRenderInfo;
         this.refresh = true;
     }
+
     @Override
     public void updateCamera(CameraInfo cameraInfo) {
         this.cameraX = cameraInfo.getCameraX();
@@ -975,6 +994,13 @@ public class MainView extends View
         }
         this.refresh = true;
     }
+
+    @Override
+    public void updateBridgeInfo(BridgeRenderInfo renderInfo)
+    {
+        //TODO
+    }
+
     public void setAbilities(Map<KeyCode, Ability> abilities )
     {
         this.abilities = abilities;
@@ -986,4 +1012,5 @@ public class MainView extends View
     }
 
     public PhaseRenderInfo getCurentPhaseInformation(){ return this.phaseRenderInfo; }
+
 }

@@ -10,6 +10,7 @@ import game.model.transport.Transport;
 import game.model.transport.TransportId;
 import game.model.visitors.StructureManagerVisitor;
 import game.model.visitors.TransportManagerVisitor;
+import game.model.wonder.WonderManager;
 import game.utilities.observable.MapTransportRenderInfoObservable;
 import game.utilities.observer.MapTransportRenderInfoObserver;
 import game.view.render.MapTransportRenderInfo;
@@ -23,13 +24,14 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
     private TransportAbilityManager transportAbilityManager;
     private Map<TileCompartmentLocation, List<Transport>> transports;
     private List<MapTransportRenderInfoObserver> mapTransportRenderInfoObservers;
+    private WonderManager wonderManager;
     public TransportManager(PlayerId playerId, MainViewController mainViewController,
                             GooseManager gooseManager, RBMap map,
-                            StructureManagerVisitor structureManagerVisitor, ResearchManager researchManager) {
+                            StructureManagerVisitor structureManagerVisitor, ResearchManager researchManager, WonderManager wonderManager) {
         this.playerId = playerId;
         this.transports = new HashMap<TileCompartmentLocation, List<Transport>>();
         this.mapTransportRenderInfoObservers = new Vector<>();
-        this.transportAbilityManager = new TransportAbilityManager(mainViewController, gooseManager, map, this, structureManagerVisitor, researchManager);
+        this.transportAbilityManager = new TransportAbilityManager(mainViewController, gooseManager, map, this, structureManagerVisitor, researchManager, wonderManager);
         mainViewController.addTransportManager(this);
     }
 
@@ -118,13 +120,12 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
         return this.transports;
     }
 
-    public void onTransportSelected(TransportId transportId, Location loc) {
+    public void onTransportSelected(TransportId transportId, Location loc, String phase) {
         Transport transport = getTransport(transportId, loc);
         TileCompartmentLocation transportTCL = getTransportTileCompartmentLocation(transportId, loc);
         Map<TileCompartmentDirection, List<Transport>> tileTransports = getTileTransports(loc);
         if(transport != null)
-            this.transportAbilityManager.addMovementAbility(transport, transportTCL, tileTransports, this);
-//            this.transportAbilityManager.addAbilities(transport, transportTCL, tileTransports, this);
+            this.transportAbilityManager.addAbilities(phase, transport, transportTCL, tileTransports, this);
     }
 
     public Map<TileCompartmentDirection, List<Transport>> getTileTransports(Location loc) {
