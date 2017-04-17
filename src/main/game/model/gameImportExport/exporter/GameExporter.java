@@ -72,7 +72,7 @@ public class GameExporter {
                 ResourceHolder thisRig = ((OilRig) currentStructure);
                 oilRigString += tileCompartmentLocation.getLocation().getExportString() + " ";
                 oilRigString += angleLetterMap.get(tileCompartmentLocation.getTileCompartmentDirection().getAngle()) + " ";
-                oilRigString += thisRig.
+//                oilRigString += thisRig.
                 oilRigString += "\n";
             }
         }
