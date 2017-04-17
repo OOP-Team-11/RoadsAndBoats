@@ -1,4 +1,5 @@
-package game.model.wonder;
+package model.wonder;
+
 import game.model.Player;
 import game.model.PlayerId;
 import game.model.direction.Location;
@@ -6,6 +7,8 @@ import game.model.map.RBMap;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.model.tile.Tile;
+import game.model.wonder.Wonder;
+import game.model.wonder.WonderManager;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -130,7 +133,7 @@ public class WonderTest {
         RBMap map = new RBMap();
         Tile desertTile = new Tile(Terrain.DESERT, RiverConfiguration.getNoRivers());
         map.placeTile(new Location(0,0,0), desertTile);
-        WonderManager wonderManager = new WonderManager(map, new IrrigationPoint(10,1));
+        WonderManager wonderManager = new WonderManager(map);
         // add 44 bricks (completes first 9 rows)
         for (int i = 0; i < 44; ++i) {
             wonderManager.onTurnEnded();
@@ -145,7 +148,7 @@ public class WonderTest {
         RBMap map = new RBMap();
         Tile desertTile = new Tile(Terrain.DESERT, RiverConfiguration.getNoRivers());
         map.placeTile(new Location(0,0,0), desertTile);
-        WonderManager wonderManager = new WonderManager(map, new IrrigationPoint(10,1));
+        WonderManager wonderManager = new WonderManager(map);
         // add 44 bricks (completes first 9 rows)
         for (int i = 0; i < 44; ++i) {
             wonderManager.onTurnEnded();

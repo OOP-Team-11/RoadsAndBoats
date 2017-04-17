@@ -3,6 +3,7 @@ package game.model.gameImportExport.importer;
 import game.model.direction.TileCompartmentDirection;
 import game.model.resources.ResourceType;
 import game.model.tile.Terrain;
+import game.model.transport.TransportType;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -92,5 +93,24 @@ class ParseUtilities {
     static Matcher getMatcherForPatternInString(String searchString, String pattern) {
         Pattern locationPattern = Pattern.compile(pattern);
         return locationPattern.matcher(searchString);
+    }
+
+    static TransportType getTransportTypeForString(String transportString) {
+        switch (transportString) {
+            case "DONKEY":
+                return TransportType.DONKEY;
+            case "RAFT":
+                return TransportType.RAFT;
+            case "ROWBOAT":
+                return TransportType.ROWBOAT;
+            case "STEAMSHIP":
+                return TransportType.STEAMSHIP;
+            case "TRUCK":
+                return TransportType.TRUCK;
+            case "WAGON":
+                return TransportType.WAGON;
+            default:
+                return null;
+        }
     }
 }
