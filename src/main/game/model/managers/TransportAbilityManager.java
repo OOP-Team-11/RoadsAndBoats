@@ -22,6 +22,7 @@ import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
 import game.model.visitors.StructureManagerVisitor;
 import game.model.visitors.TransportManagerVisitor;
+import javafx.scene.input.KeyCode;
 
 import java.util.*;
 
@@ -53,29 +54,52 @@ public class TransportAbilityManager {
 
     public int getAbilityCount() { return this.abilities.size(); }
 
-    public void addAbilities(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
+    public void addAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
         this.abilities.clear();
-//        this.addFollowAbility(transport, tileCompartmentLocation);
-//        this.addTransportReproduceAbility(transport, tileCompartmentLocation, tileTransports);
-//        this.addBuildWoodCutterAbility(transport, tileCompartmentLocation);
-////        this.addBuildClayPitAbility(transport, tileCompartmentLocation);      TODO: Once we can check if on river/sea shore
-//        this.addBuildStoneQuarryAbility(transport, tileCompartmentLocation);
-////        this.addBuildOilRigAbility(transport, tileCompartmentLocation);  TODO: After research is implemented
-//        this.addBuildSawmillAbility(transport, tileCompartmentLocation);
-//        this.addBuildPapermillAbility(transport, tileCompartmentLocation);
-//        this.addBuildStoneFactoryAbility(transport, tileCompartmentLocation);
-//        this.addBuildCoalBurnerAbility(transport, tileCompartmentLocation);
-//        this.addBuildMineAbility(transport, tileCompartmentLocation);
-//        this.addBuildMintAbility(transport, tileCompartmentLocation);
-//        this.addBuildRowboatFactoryAbility(transport, tileCompartmentLocation);
-//        this.addBuildSteamshipFactoryAbility(transport, tileCompartmentLocation);
-//        this.addBuildTruckFactoryAbility(transport, tileCompartmentLocation);
-//        this.addBuildStockExchangeAbility(transport, tileCompartmentLocation);
-//        this.addPickUpResourceAbility(transport, tileCompartmentLocation);
-//        this.addDropResourceAbility(transport, tileCompartmentLocation);
-//        this.addPickUpTransportAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
-//        this.addResearchAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
+        this.addTradingPhaseAbilities(phase, transport, tileCompartmentLocation, tileTransports, transportManager);
+        this.addProductionPhaseAbilities(phase, transport, tileCompartmentLocation, tileTransports, transportManager);
+        this.addMovementPhaseAbilities(phase, transport, tileCompartmentLocation, tileTransports, transportManager);
+        this.addBuildingPhaseAbilities(phase, transport, tileCompartmentLocation, tileTransports, transportManager);
+    }
+
+    private void addTradingPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
+        if(phase=="Trading") {
+            this.addPickUpResourceAbility(transport, tileCompartmentLocation);
+            this.addDropResourceAbility(transport, tileCompartmentLocation);
+            this.addPickUpTransportAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
+            this.addDropTransportAbility(transport);
+        }
+    }
+
+    private void addProductionPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
+        if(phase=="Production") {
+            this.addResearchAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
+            this.addTransportReproduceAbility(transport, tileCompartmentLocation, tileTransports);
+        }
+    }
+
+    private void addMovementPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
+        this.addFollowAbility(transport, tileCompartmentLocation);
         this.addMovementAbility(transport, tileCompartmentLocation, tileTransports, transportManager);
+    }
+
+    private void addBuildingPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
+        if(phase=="Building") {
+            this.addBuildWoodCutterAbility(transport, tileCompartmentLocation);
+//          this.addBuildClayPitAbility(transport, tileCompartmentLocation);      TODO: Once we can check if on river/sea shore
+            this.addBuildStoneQuarryAbility(transport, tileCompartmentLocation);
+//          this.addBuildOilRigAbility(transport, tileCompartmentLocation);  TODO: After research is implemented
+            this.addBuildSawmillAbility(transport, tileCompartmentLocation);
+            this.addBuildPapermillAbility(transport, tileCompartmentLocation);
+            this.addBuildStoneFactoryAbility(transport, tileCompartmentLocation);
+            this.addBuildCoalBurnerAbility(transport, tileCompartmentLocation);
+            this.addBuildMineAbility(transport, tileCompartmentLocation);
+            this.addBuildMintAbility(transport, tileCompartmentLocation);
+            this.addBuildRowboatFactoryAbility(transport, tileCompartmentLocation);
+            this.addBuildSteamshipFactoryAbility(transport, tileCompartmentLocation);
+            this.addBuildTruckFactoryAbility(transport, tileCompartmentLocation);
+            this.addBuildStockExchangeAbility(transport, tileCompartmentLocation);
+        }
     }
 
     private Set<Move> getValidMoves(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports)
@@ -410,8 +434,6 @@ public class TransportAbilityManager {
         }
     }
 
-
-
     public void addPickUpTransportAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, List<Transport> tileTransports) {
         Set<Transport> transportsListed = new HashSet<>();
         for(Transport t : tileTransports) {
@@ -420,6 +442,14 @@ public class TransportAbilityManager {
                 pickupTransportAbility.attachToController(t, transport);
                 addAbility(pickupTransportAbility);
             }
+        }
+    }
+
+    public void addDropTransportAbility(Transport transport) {
+        if(transport.canRemoveTransport()) {
+            DropTransportAbility dropTransportAbility = abilityFactory.getDropTransportAbility();
+            dropTransportAbility.attachToController(transport);
+            addAbility(dropTransportAbility);
         }
     }
 

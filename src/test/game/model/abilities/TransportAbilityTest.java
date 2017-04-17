@@ -336,4 +336,14 @@ public class TransportAbilityTest {
         player1.getTransportManager().getTransportAbilityManager().addMovementAbility(donkey, tileCompartmentLocation, player1.getTransportManager().getTileTransports(tileCompartmentLocation.getLocation()), transportManager);
         assertEquals(1, mainViewController.getControls().size());
     }
+
+    @Test
+    public void addDropTransportAbility() {
+        map.placeTile(new Location(0, 0, 0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
+        map.placeTile(new Location(0, 1, -1), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
+        player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
+        donkey.storeTransport(new DonkeyTransport(player1.getPlayerId(), new TransportId()));
+        player1.getTransportManager().getTransportAbilityManager().addDropTransportAbility(donkey);
+        assertEquals(1, mainViewController.getControls().size());
+    }
 }
