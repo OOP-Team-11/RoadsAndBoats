@@ -2,10 +2,12 @@ package game.model.tinyGame;
 
 import game.model.Player;
 import game.model.PlayerId;
+import game.model.direction.TileCompartmentLocation;
 import game.model.managers.PrayerManager;
 import game.model.managers.GooseManager;
 import game.model.managers.StructureManager;
 import game.model.map.RBMap;
+import game.model.structures.Structure;
 import game.model.wonder.TurnObserver;
 import game.utilities.observable.PhaseRenderInfoObservable;
 import game.utilities.observable.PlayerRenderInfoObservable;
@@ -15,7 +17,9 @@ import game.view.render.PhaseRenderInfo;
 import game.view.render.PlayerRenderInfo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservable, TurnObserver {
 
@@ -99,6 +103,11 @@ public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservab
     public void onTurnEnded() {
         changePlayers();
         incrementTurn();
+    }
+
+    public Map<TileCompartmentLocation, Structure> getStructureSet(){
+        Map<TileCompartmentLocation, Structure> structures = structureManager.getStructures();
+        return structures;
     }
 
     private void incrementTurn() {

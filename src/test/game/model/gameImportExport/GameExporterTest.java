@@ -9,6 +9,11 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.gameImportExport.exporter.GameExporter;
 import game.model.managers.*;
 import game.model.resources.ResourceType;
+import game.model.structures.resourceProducer.primaryProducer.ClayPit;
+import game.model.structures.resourceProducer.primaryProducer.Mine;
+import game.model.structures.resourceProducer.primaryProducer.OilRig;
+import game.model.structures.resourceProducer.primaryProducer.StoneQuarry;
+import game.model.structures.resourceProducer.secondaryProducer.Papermill;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Tile;
 import game.model.tinyGame.Game;
@@ -77,7 +82,31 @@ public class GameExporterTest {
         Player p1 = new Player(tm1, pid1, "Karl", new TileCompartmentLocation(new Location(0,0,0),TileCompartmentDirection.getNorth()));
         Player p2 = new Player(tm2, pid1, "Friedrich", new TileCompartmentLocation(new Location(-1,0,1),TileCompartmentDirection.getEast()));
 
-        Game game = new Game(map, p1, p2, new GooseManager(), new StructureManager(mvc,map));
+        StructureManager sm = new StructureManager(mvc,map);
+
+        /* Put some mines in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getSouth()), new Mine(4,8));
+        sm.addStructure(new TileCompartmentLocation(locations.get(4),TileCompartmentDirection.getSouthSouthWest()), new Mine(10,10));
+
+        sm.addStructure(
+                new TileCompartmentLocation(locations.get(0),TileCompartmentDirection.getNorth()),
+                new ClayPit()
+        );
+
+        sm.addStructure(
+                new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorthNorthEast()),
+                new StoneQuarry()
+        );
+
+        sm.addStructure(
+                new TileCompartmentLocation(locations.get(2),TileCompartmentDirection.getNorthWest()),
+                new Papermill()
+        );
+
+
+
+        Game game = new Game(map, p1, p2, new GooseManager(), sm);
+
         gameExporter = new GameExporter(game);
     }
 
@@ -89,7 +118,7 @@ public class GameExporterTest {
     }
 
     @Test
-    public void fileActuallyHasShitInItTest(){
+    public void fileActuallyHasStuffInItTest(){
         gameExporter.exportGameToPath(testingFilePath);
         File f = new File(testingFilePath);
         assertTrue(f.exists());
@@ -97,7 +126,7 @@ public class GameExporterTest {
     }
 
     @Test
-    public void mapSectionGucciTest(){
+    public void mapSectionTest(){
         gameExporter.exportGameToPath(testingFilePath);
         String contents = readFile(testingFilePath);
 
@@ -112,10 +141,10 @@ public class GameExporterTest {
     }
 
     @Test
-    public void resourceSectionGucciTest(){
+    public void resourceSectionTest(){
         gameExporter.exportGameToPath(testingFilePath);
         String contents = readFile(testingFilePath);
-        System.out.println(contents);
+//        System.out.println(contents);
         assertEquals(
                 contents.substring(contents.indexOf("-----BEGIN RESOURCES-----"), contents.indexOf("-----END RESOURCES-----")).trim(),
                 "-----BEGIN RESOURCES-----\n" +

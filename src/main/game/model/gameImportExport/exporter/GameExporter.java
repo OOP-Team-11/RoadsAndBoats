@@ -1,40 +1,44 @@
 package game.model.gameImportExport.exporter;
 
-import game.model.direction.Location;
-import game.model.direction.TileCompartmentDirection;
+import game.model.direction.*;
+import game.model.managers.StructureManager;
 import game.model.map.RBMap;
 import game.model.resources.ResourceType;
+import game.model.structures.Structure;
+import game.model.structures.StructureType;
+import game.model.structures.resourceProducer.primaryProducer.Mine;
 import game.model.tile.Tile;
 import game.model.tile.TileCompartment;
 import game.model.tinyGame.Game;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Set;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class GameExporter {
-
-    private File outputFile;
-    private FileWriter fw;
-
+    private Game game;
     private RBMap map;
     private Location[] locations;
 
+    private HashMap<Angle,String> angleLetterMap;
+
     public GameExporter(Game game) {
+        this.game = game;
         map = game.getMap();
         Set<Location> locSet = map.getAllLocations();
         locations = new Location[locSet.size()];
         locations = locSet.toArray(locations);
+        angleLetterMap = makeAngleLetterMap();
     }
 
     public void exportGameToPath(String filePath) {
-        outputFile = new File(filePath);
+        File outputFile = new File(filePath);
+        FileWriter fw;
 
         String mapSection = serializeMap();
         String resourceSection = serializeResources();
-        String structureSections = serializeStructures();
+        String structureSections = serializeStructures(game.getStructureSet());
         try {
             fw = new FileWriter(outputFile);
             fw.write(mapSection);
@@ -44,15 +48,53 @@ public class GameExporter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    private String serializeStructures(){
+    private String serializeStructures(Map<TileCompartmentLocation, Structure> structures){
         String serializedStructures = "";
+        serializedStructures += serializeMines(structures);
 
+        HashMap<String, ArrayList<Structure>> structureList = new HashMap<>();
+        for(Structure structure : structures.values()){
+            ArrayList<Structure> structuresOfType = structureList.get(structure.getType().toString());
+            if(null == structuresOfType)
+                structuresOfType = new ArrayList<>();
+            structuresOfType.add(structure);
+            structureList.replace(structure.getType().toString(),structuresOfType);
+        }
 
-
+        Collection<ArrayList<Structure>> actualStructures = structureList.values();
+        for(ArrayList<Structure> actualStructureList : actualStructures){
+            for(int i = 0; i < actualStructureList.size(); i++){
+                System.out.println(actualStructureList.get(i).getExportString());
+            }
+        }
         return serializedStructures;
+    }
+
+    private String serializeMines(Map<TileCompartmentLocation,Structure> allStructures){
+        String minesList = "-----BEGIN MINES-----\n";
+
+        TileCompartmentLocation[] tileCompartmentLocations = new TileCompartmentLocation[allStructures.size()];
+        allStructures.keySet().toArray(tileCompartmentLocations);
+
+        for(TileCompartmentLocation tileCompartmentLocation : tileCompartmentLocations){
+            Structure currentStructure = allStructures.get(tileCompartmentLocation);
+            if(currentStructure.getType().equals(StructureType.MINE)){
+                minesList += tileCompartmentLocation.getLocation().getExportString() + " ";
+                minesList += angleLetterMap.get(tileCompartmentLocation.getTileCompartmentDirection().getAngle()) + " ";
+                Mine thisMine = ((Mine)currentStructure);
+                int maxGoldCount = thisMine.getMaxGoldCount();
+                int maxIronCount = thisMine.getMaxIronCount();
+                int curGoldCount = thisMine.getCurrentGoldCount();
+                int curIronCount = thisMine.getCurrentIronCount();
+                minesList += "MAX=[GOLD=" + maxGoldCount + " IRON=" + maxIronCount + "] CURRENT=[GOLD=" + curGoldCount + " IRON=" + curIronCount + "]";
+                minesList += "\n";
+            }
+        }
+
+        minesList += "-----END MINES-----\n";
+        return minesList;
     }
 
     private String serializeMap(){
@@ -139,5 +181,23 @@ public class GameExporter {
         serializedResources += "-----END RESOURCES-----\n";
         return serializedResources;
 
+    }
+
+
+    private HashMap<Angle,String> makeAngleLetterMap(){
+        HashMap<Angle,String> angleMap = new HashMap<>();
+        angleMap.put(CompassAngles.EAST.getAngle(),"E");
+        angleMap.put(CompassAngles.NORTHEAST.getAngle(),"NE");
+        angleMap.put(CompassAngles.NORTH_NORTHEAST.getAngle(),"NNE");
+        angleMap.put(CompassAngles.NORTH.getAngle(),"N");
+        angleMap.put(CompassAngles.NORTH_NORTHWEST.getAngle(),"NNW");
+        angleMap.put(CompassAngles.NORTHWEST.getAngle(),"NW");
+        angleMap.put(CompassAngles.WEST.getAngle(),"W");
+        angleMap.put(CompassAngles.SOUTHWEST.getAngle(),"SW");
+        angleMap.put(CompassAngles.SOUTH_SOUTHWEST.getAngle(),"SSW");
+        angleMap.put(CompassAngles.SOUTH.getAngle(),"S");
+        angleMap.put(CompassAngles.SOUTH_SOUTHEAST.getAngle(),"SSE");
+        angleMap.put(CompassAngles.SOUTHEAST.getAngle(),"SE");
+        return angleMap;
     }
 }
