@@ -22,9 +22,15 @@
 -----END MINES-----
 
 -----BEGIN OIL_RIG-----
-( 1 0 -1 ) NW [GOLD=29 TRUNKS=1 ]
+( 1 0 -1 ) NW [TRUNKS=1 GOLD=29 ]
 -----END OIL_RIG-----
 
+<<<<<<< HEAD
+-----BEGIN CLAYPIT-----
+( 0 -1 1 ) NNE 
+-----END CLAYPIT-----
+
+=======
 -----BEGIN COAL_BURNER-----
 ( -2 1 1 ) NW LIMIT=6
 -----END COAL_BURNER-----
@@ -37,6 +43,7 @@
 ( 0 0 0 ) E 
 -----END STONE_QUARRY-----
 
+>>>>>>> master
 -----BEGIN MINT-----
 ( 0 -1 1 ) NW 
 -----END MINT-----
@@ -50,9 +57,14 @@
 ( -2 1 1 ) SSW 
 -----END PAPERMILL-----
 
------BEGIN SAWMILL-----
-( 0 -1 1 ) N LIMIT=6
------END SAWMILL-----
+-----BEGIN WOODCUTTER-----
+( 0 1 -1 ) S 
+-----END WOODCUTTER-----
+
+-----BEGIN PAPERMILL-----
+( 0 1 -1 ) NW 
+( -2 1 1 ) SSW 
+-----END PAPERMILL-----
 
 -----BEGIN STONE_FACTORY-----
 ( 0 1 -1 ) E LIMIT=6

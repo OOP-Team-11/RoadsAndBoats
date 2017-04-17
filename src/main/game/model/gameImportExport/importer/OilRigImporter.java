@@ -6,7 +6,7 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.managers.ResourceManager;
 import game.model.managers.StructureManager;
 import game.model.resources.ResourceType;
-import game.model.structures.resourceProducer.ResourceHolder;
+import game.model.structures.resourceProducer.primaryProducer.ResourceHolder;
 import game.model.structures.resourceProducer.primaryProducer.Mine;
 import game.model.structures.resourceProducer.primaryProducer.OilRig;
 import game.model.tile.TileCompartment;
