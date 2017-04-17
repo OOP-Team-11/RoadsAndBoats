@@ -30,6 +30,6 @@ public class PickUpTransportAbility extends Ability {
 
     @Override
     public String getDisplayString() {
-        return "Pick up " +transportToPickUp.getExportString();
+        return "Pick up " +transportToPickUp.getType().toString();
     }
 }

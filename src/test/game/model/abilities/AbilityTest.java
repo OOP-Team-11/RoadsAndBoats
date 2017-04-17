@@ -30,7 +30,8 @@ public class AbilityTest {
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(2);
         StructureManager structureManager = new StructureManager(mainViewController, map);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
+        ResearchManager researchManager = new ResearchManager(tcl.getLocation(), playerId);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, researchManager);
         Player player1 = new Player(transportManager, new PlayerId(2), "gavin", tcl);
         Transport donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
