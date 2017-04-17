@@ -3,6 +3,7 @@ package game.model.tile;
 import game.model.direction.Angle;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileEdgeDirection;
+import game.model.movement.River;
 import game.model.structures.Structure;
 
 import java.util.HashMap;
@@ -63,7 +64,7 @@ public class Tile
     {
         List<TileCompartmentDirection> compartmentDirections = TileCompartmentDirection.getAllDirections();
 
-        TileCompartment river = new TileCompartment(true);
+        TileCompartment river = new TileCompartment();
         TileCompartment compartment = null;
 
         for (TileCompartmentDirection tileCompartmentDirection : compartmentDirections)
@@ -73,9 +74,14 @@ public class Tile
             if (hasRiver)
             {
                 compartment = river;
-            } else if (compartment == null || hasRiver != compartment.hasWater()) //Compare to previous
+
+                if (!isCorner(tileCompartmentDirection))
+                {
+                    river.add(tileCompartmentDirection, new River());
+                }
+            } else if (compartment == null || compartment.hasWater())
             {
-                compartment = new TileCompartment(hasRiver);
+                compartment = new TileCompartment();
             }
 
             compartments.put(tileCompartmentDirection, compartment);
@@ -111,7 +117,6 @@ public class Tile
 
     private boolean canConnectRiver(TileEdgeDirection tileEdgeDirection)
     {
-
         return (tileEdgeDirection.equals(tileEdgeDirection.getNorth()) && riverConfiguration.canConnectNorth() ||
                 tileEdgeDirection.equals(tileEdgeDirection.getNorthEast()) && riverConfiguration.canConnectNortheast() ||
                 tileEdgeDirection.equals(tileEdgeDirection.getSouthEast()) && riverConfiguration.canConnectSoutheast() ||
@@ -133,12 +138,6 @@ public class Tile
                 terrain.canConnectRiver();
     }
 
-    // for deep cloning
-    private void setRiverConfiguration(RiverConfiguration riverConfiguration)
-    {
-        this.riverConfiguration = riverConfiguration;
-    }
-
     // TileEdge
     public TileEdge getTileEdge(TileEdgeDirection edgeDirection)
     {
@@ -154,11 +153,6 @@ public class Tile
     public TileCompartment getTileCompartment(TileCompartmentDirection compartmentDirection)
     {
         return compartments.get(compartmentDirection);
-    }
-
-    public void setHasWater(TileCompartmentDirection direction, boolean bool)
-    {
-        getTileCompartment(direction).setHasWater(bool);
     }
 
     public Terrain getTerrain()
@@ -223,6 +217,19 @@ public class Tile
         TileCompartment northWestComp = compartments.get(TileCompartmentDirection.getNorthWest());
         TileCompartment northNorthWestComp = compartments.get(TileCompartmentDirection.getNorthNorthWest());
 
+        northComp.rotate();
+        northNorthEastComp.rotate();
+        northEastComp.rotate();
+        eastComp.rotate();
+        southEastComp.rotate();
+        southSouthEastComp.rotate();
+        southComp.rotate();
+        southSouthWestComp.rotate();
+        southWestComp.rotate();
+        westComp.rotate();
+        northWestComp.rotate();
+        northNorthWestComp.rotate();
+
         compartments.put(TileCompartmentDirection.getEast(), northNorthEastComp);
         compartments.put(TileCompartmentDirection.getNorthNorthEast(), northNorthWestComp);
         compartments.put(TileCompartmentDirection.getNorthEast(), northComp);
@@ -238,13 +245,6 @@ public class Tile
 
     }
 
-    public void resetTileEdge(TileEdgeDirection dir)
-    {
-        edges.put(TileEdgeDirection.getSouthWest(),
-                new TileEdge(canConnectRiver(TileEdgeDirection.getSouthWest()),
-                        riverConfiguration.canConnect(dir)));
-    }
-
     public boolean addStructure(Structure structure)
     {
         if (this.structure != null) return false;
@@ -258,10 +258,29 @@ public class Tile
         return this.structure;
     }
 
+
     public void changeToPasture() {
         if (this.terrain.canChangeToPasture()) {
             this.setTerrain(Terrain.PASTURE);
         }
     }
 
+
+    private static boolean isCorner(TileCompartmentDirection dir)
+    {
+        return dir.equals(TileCompartmentDirection.getNorthNorthEast())
+                || dir.equals(TileCompartmentDirection.getSouthSouthEast())
+                || dir.equals(TileCompartmentDirection.getNorthNorthWest())
+                || dir.equals(TileCompartmentDirection.getSouthSouthWest())
+                || dir.equals(TileCompartmentDirection.getEast())
+                || dir.equals(TileCompartmentDirection.getWest());
+    }
+
+    public void removeUnattachedRivers()
+    {
+        for(TileCompartment comp: compartments.values())
+        {
+            comp.removeUnattachedRivers();
+        }
+    }
 }

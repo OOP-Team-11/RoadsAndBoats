@@ -1,8 +1,7 @@
 package game.view.render;
 
 import game.model.direction.Location;
-import game.model.direction.TileCompartmentLocation;
-import game.model.tile.Road;
+import game.model.movement.Road;
 
 import java.util.HashMap;
 

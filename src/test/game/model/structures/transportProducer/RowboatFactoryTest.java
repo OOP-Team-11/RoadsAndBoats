@@ -44,7 +44,7 @@ public class RowboatFactoryTest {
     @Test
     public void produceUsingTileCompartment() {
         RowboatFactory rowboatFactory = new RowboatFactory();
-        TileCompartment tileCompartment = new TileCompartment(false);
+        TileCompartment tileCompartment = new TileCompartment();
         tileCompartment.storeResource(ResourceType.BOARDS, BOARDS_REQ);
         assertTrue(rowboatFactory.produce(tileCompartment));
         assertEquals(tileCompartment.getResourceCount(ResourceType.BOARDS), 0);
@@ -53,7 +53,7 @@ public class RowboatFactoryTest {
     @Test
     public void produceNothingUsingTileCompartment() {
         RowboatFactory rowboatFactory = new RowboatFactory();
-        TileCompartment tileCompartment = new TileCompartment(false);
+        TileCompartment tileCompartment = new TileCompartment();
         assertFalse(rowboatFactory.produce(tileCompartment));
         assertEquals(tileCompartment.getResourceCount(ResourceType.BOARDS), 0);
     }
