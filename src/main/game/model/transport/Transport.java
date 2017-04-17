@@ -75,6 +75,7 @@ public abstract class Transport implements Serializable {
 
     public boolean canStoreTransport(Transport transport) {
         return hasNoTransport() &&
+                transport.hasNoTransport() &&
                 isCarryingNothing() &&
                 transport.isCarryingNothing() &&
                 transportBelongsToSamePlayer(transport);

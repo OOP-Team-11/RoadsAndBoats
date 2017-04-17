@@ -324,7 +324,7 @@ public class TransportAbilityTest {
         map.placeTile(new Location(0, 0, 0), new Tile(Terrain.MOUNTAIN, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         player1.getTransportManager().addTransport(new DonkeyTransport(player1.getPlayerId(), new TransportId()), tileCompartmentLocation);
-        player1.getTransportManager().getTransportAbilityManager().addPickUpTransportAbility(donkey, tileCompartmentLocation, player1.getTransportManager().getTransports().get(tileCompartmentLocation));
+        player1.getTransportManager().getTransportAbilityManager().addPickUpTransportAbility(donkey, tileCompartmentLocation, player1.getTransportManager().getTransports().get(tileCompartmentLocation), transportManager);
         assertEquals(1, mainViewController.getControls().size());
     }
 
@@ -343,7 +343,7 @@ public class TransportAbilityTest {
         map.placeTile(new Location(0, 1, -1), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         donkey.storeTransport(new DonkeyTransport(player1.getPlayerId(), new TransportId()));
-        player1.getTransportManager().getTransportAbilityManager().addDropTransportAbility(donkey);
+        player1.getTransportManager().getTransportAbilityManager().addDropTransportAbility(donkey, tileCompartmentLocation, transportManager);
         assertEquals(1, mainViewController.getControls().size());
     }
 }
