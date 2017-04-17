@@ -3,12 +3,13 @@ package game.model.managers;
 
 import game.model.gameImportExport.exporter.Serializable;
 import game.model.resources.ResourceType;
+import game.model.visitors.TileCompartmentVisitor;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ResourceManager implements Serializable {
+public class ResourceManager implements Serializable, TileCompartmentVisitor {
     private Map<ResourceType, Integer> resourceTypeIntegerMap;
 
     public ResourceManager(){
@@ -82,4 +83,10 @@ public class ResourceManager implements Serializable {
         }
         return (count == 0);
     }
+
+    @Override
+    public void addResourcesVisit(ResourceType resourceType, Integer amountToAdd) {
+        this.addResource(resourceType, amountToAdd);
+    }
+
 }
