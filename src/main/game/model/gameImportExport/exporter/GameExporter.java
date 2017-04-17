@@ -34,7 +34,6 @@ public class GameExporter {
 
         String mapSection = serializeMap();
         String resourceSection = serializeResources();
-        System.out.println(resourceSection);
         try {
             fw = new FileWriter(outputFile);
             fw.write(mapSection);
@@ -75,18 +74,19 @@ public class GameExporter {
 
             //Map TileCompartments to direction names
             HashMap<TileCompartment, String> tileCompartments = new HashMap<>();
-            tileCompartments.replace(thisTile.getTileCompartment(TileCompartmentDirection.getNorth()),"N");
             tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getNorthNorthEast()),"NNE");
-            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getNorthEast()),"NE");
-            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getEast()),"E");
-            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouthEast()),"SE");
             tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouthSouthEast()),"SSE");
-            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouth()),"S");
             tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouthSouthWest()),"SSW");
-            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouthWest()),"SW");
-            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getWest()),"W");
-            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getNorthWest()),"NW");
             tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getNorthNorthWest()),"NNW");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouthWest()),"SW");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouthEast()),"SE");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getNorthWest()),"NW");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getNorthEast()),"NE");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getWest()),"W");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getEast()),"E");
+            tileCompartments.put(thisTile.getTileCompartment(TileCompartmentDirection.getSouth()),"S");
+            tileCompartments.replace(thisTile.getTileCompartment(TileCompartmentDirection.getNorth()),"N");
+
 
             //Create matching arrays of resource names to ResourceTypes. Will be used in a sec.
             String[] resourceTypeNames = {"BOARDS", "CLAY", "GOLD", "COINS", "FUEL", "GOOSE", "IRON", "PAPER", "STOCKBOND", "STONE", "TRUNKS"};

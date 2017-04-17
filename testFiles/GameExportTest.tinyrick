@@ -6,11 +6,11 @@
 ( 1 0 -1 ) MOUNTAIN 
 -----END MAP-----
 -----BEGIN RESOURCES-----
-( 0 0 0 )  NNW BOARDS 1
-( 0 0 0 )  NNW PAPER 10
-( 0 -1 1 )  NNW GOLD 2
-( 0 1 -1 )  NNW COINS 3
-( -2 1 1 )  SSE FUEL 4
-( 1 0 -1 )  NNW TRUNKS 5
-( 1 0 -1 )  NNW CLAY 6
+( 0 0 0 )  N BOARDS 1
+( 0 0 0 )  N PAPER 10
+( 0 -1 1 )  S GOLD 2
+( 0 1 -1 )  N COINS 3
+( -2 1 1 )  E FUEL 4
+( 1 0 -1 )  N TRUNKS 5
+( 1 0 -1 )  N CLAY 6
 -----END RESOURCES-----

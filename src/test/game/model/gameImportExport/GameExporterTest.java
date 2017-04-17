@@ -112,7 +112,8 @@ public class GameExporterTest {
             e.printStackTrace();
         }
 
-        assertEquals(contents.substring(0,contents.indexOf("-----END MAP-----")),"-----BEGIN MAP-----\n" +
+        assertEquals(contents.substring(0,contents.indexOf("-----END MAP-----")),
+                "-----BEGIN MAP-----\n" +
                 "( 0 0 0 ) PASTURE \n" +
                 "( 0 -1 1 ) DESERT ( 1 2 )\n" +
                 "( 0 1 -1 ) SEA ( 1 4 )\n" +
