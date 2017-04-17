@@ -66,15 +66,29 @@ public class GameExporter {
         Map<TileCompartmentLocation, List<Transport>> p1Transports = p1TransportManager.getTransports();
         Map<TileCompartmentLocation, List<Transport>> p2Transports = p2TransportManager.getTransports();
 
-        for(List<Transport> tList : p1Transports.values()){
+        for(TileCompartmentLocation loc : p1Transports.keySet()){
+            List<Transport> tList = p1Transports.get(loc);
             for(Transport t : tList){
-                System.out.println(t.getExportString());
+                transportString += t.getType() + " ";
+                transportString += loc.getLocation().getExportString() + " ";
+                transportString += angleLetterMap.get(loc.getTileCompartmentDirection().getAngle()) + " ";
+                transportString += "PLAYERID=" + playerList.get(0).getPlayerId().getPlayerIdNumber() + " ";
+
+                transportString += "\n";
             }
         }
 
-        for(List<Transport> tList : p2Transports.values()){
+        for(TileCompartmentLocation loc : p2Transports.keySet()){
+            List<Transport> tList = p2Transports.get(loc);
             for(Transport t : tList){
-                System.out.println(t.getExportString());
+                transportString += t.getType() + " ";
+                transportString += loc.getLocation().getExportString() + " ";
+                transportString += angleLetterMap.get(loc.getTileCompartmentDirection().getAngle()) + " ";
+                transportString += "PLAYERID=" + playerList.get(1).getPlayerId().getPlayerIdNumber() + " ";
+
+
+                transportString += "\n";
+
             }
         }
 //        for(TileCompartmentLocation location : p1Transports.keySet()){
