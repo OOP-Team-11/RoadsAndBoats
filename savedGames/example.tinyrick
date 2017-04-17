@@ -160,3 +160,5 @@ ROWBOAT ( -3 4 -1 ) E PLAYERID=2 GOOSENUM=0
 -----END TRANSPORT-----
 -----BEGIN WONDER-----
 -----END WONDER-----
+-----BEGIN ROAD-----
+-----END ROAD-----
