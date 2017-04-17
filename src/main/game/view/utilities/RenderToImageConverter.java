@@ -115,25 +115,25 @@ public class RenderToImageConverter {
     }
 
     public Image getResourceImage(ResourceType resourceType){
-        if(resourceType.equals(resourceType.TRUNKS)){
+        if(resourceType.equals(ResourceType.TRUNKS)){
             return assets.TRUNKS_GOODS;
-        } else if(resourceType.equals(resourceType.BOARDS)){
+        } else if(resourceType.equals(ResourceType.BOARDS)){
             return assets.BOARDS_GOODS;
-        } else if(resourceType.equals(resourceType.PAPER)){
+        } else if(resourceType.equals(ResourceType.PAPER)){
             return assets.PAPER_GOODS;
-        } else if(resourceType.equals(resourceType.GOOSE)){
+        } else if(resourceType.equals(ResourceType.GOOSE)){
             return assets.GOOSE_GOODS;
-        } else if(resourceType.equals(resourceType.CLAY)){
+        } else if(resourceType.equals(ResourceType.CLAY)){
             return assets.CLAY_GOODS;
-        } else if(resourceType.equals(resourceType.FUEL)){
+        } else if(resourceType.equals(ResourceType.FUEL)){
             return assets.FUEL_GOODS;
-        } else if(resourceType.equals(resourceType.IRON)){
+        } else if(resourceType.equals(ResourceType.IRON)){
             return assets.IRON_GOODS;
-        } else if(resourceType.equals(resourceType.GOLD)){
+        } else if(resourceType.equals(ResourceType.GOLD)){
             return assets.GOLD_GOODS;
-        } else if(resourceType.equals(resourceType.COINS)){
+        } else if(resourceType.equals(ResourceType.COINS)){
             return assets.COINS_GOODS;
-        } else if(resourceType.equals(resourceType.STOCKBOND)){
+        } else if(resourceType.equals(ResourceType.STOCKBOND)){
             return assets.STOCK_GOODS;
         } else{
             System.out.println("ERROR: Can't match resource to image");
