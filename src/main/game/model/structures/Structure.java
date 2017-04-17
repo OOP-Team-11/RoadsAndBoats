@@ -24,4 +24,5 @@ public abstract class Structure implements Serializable {
     public abstract StructureType getType();
 
     public abstract String getExportString();
+
 }
