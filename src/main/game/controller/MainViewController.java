@@ -5,6 +5,7 @@ import game.model.direction.Location;
 import game.model.managers.GooseManager;
 import game.model.managers.StructureManager;
 import game.model.managers.TransportManager;
+import game.model.tinyGame.Game;
 import game.model.transport.TransportId;
 import game.view.MainView;
 import game.view.render.CursorRenderInfo;
@@ -33,6 +34,7 @@ public class MainViewController {
     private List<TransportManager> transportManagers;
     private GooseManager gooseManager;
     private StructureManager structureManager;
+    private Game game;
 
     public MainViewController(MainView mainView){
         setMainView(mainView);
@@ -46,6 +48,9 @@ public class MainViewController {
         addSlideEventHandler();
         addTurnFinishButtonHandler();
         this.transportManagers = new ArrayList<TransportManager>();
+    }
+    public void setGame(Game game){
+        this.game = game;
     }
 
 //    CONSTRUCTOR JUST FOR TESTING
@@ -88,7 +93,7 @@ public class MainViewController {
     private void addTurnFinishButtonHandler(){
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                // TODO hook up to model to change phase or currently active player
+                game.onTurnEnded();
             }
         };
         mainView.addEventFilterToFinishButton(MouseEvent.MOUSE_CLICKED, eventHandler);

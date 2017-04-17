@@ -5,13 +5,14 @@ import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileEdgeDirection;
 import game.model.tile.*;
+import game.model.wonder.Irrigatable;
 import game.utilities.observable.MapRenderInfoObservable;
 import game.utilities.observer.MapRenderInfoObserver;
 import game.view.render.MapRenderInfo;
 
 import java.util.*;
 
-public class RBMap implements MapRenderInfoObservable
+public class RBMap implements MapRenderInfoObservable, Irrigatable
 {
     private Map<Location, Tile> tiles;
     private Vector<MapRenderInfoObserver> mapRenderInfoObservers;
@@ -111,8 +112,8 @@ public class RBMap implements MapRenderInfoObservable
         return true;
     }
 
-    private MapRenderInfo getMapRenderInfo()
-    {
+
+    public MapRenderInfo getMapRenderInfo() {
         Map<Location, Terrain> terrainMap = new HashMap<>();
         Map<Location, RiverConfiguration> riverConfigurationMap = new HashMap<>();
 
@@ -125,7 +126,7 @@ public class RBMap implements MapRenderInfoObservable
             terrainMap.put(location, tile.getTerrain());
             riverConfigurationMap.put(location, tile.getRiverConfiguration());
         }
-        return new MapRenderInfo(terrainMap, riverConfigurationMap);
+        return new MapRenderInfo(terrainMap, riverConfigurationMap, this);
     }
 
     public void attach(MapRenderInfoObserver observer)
@@ -153,5 +154,14 @@ public class RBMap implements MapRenderInfoObservable
         {
             tile.removeUnattachedRivers();
         }
+    }
+
+
+    @Override
+    public void irrigate() {
+        for (Tile tile : tiles.values()) {
+            tile.irrigate();
+        }
+        notifyMapRenderInfoObservers();
     }
 }

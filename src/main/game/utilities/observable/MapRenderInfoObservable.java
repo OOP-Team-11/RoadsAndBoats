@@ -1,6 +1,7 @@
 package game.utilities.observable;
 
 import game.utilities.observer.MapRenderInfoObserver;
+import game.view.render.MapRenderInfo;
 
 public interface MapRenderInfoObservable {
 
