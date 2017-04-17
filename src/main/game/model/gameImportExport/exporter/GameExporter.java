@@ -117,20 +117,31 @@ public class GameExporter {
         String wholeList = "";
         Collection<TileCompartmentLocation> structureLocations = allStructures.keySet();
 
-        StructureType[] simpleStructureNames = {
-                StructureType.CLAYPIT, StructureType.STONE_QUARRY, StructureType.WOODCUTTER,
-                StructureType.MINT, StructureType.PAPERMILL
-        };
+        HashMap<StructureType, Boolean> simpleStructuresAndHasLimit = new HashMap<>();
+        simpleStructuresAndHasLimit.put(StructureType.CLAYPIT, false);
+        simpleStructuresAndHasLimit.put(StructureType.STONE_QUARRY, false);
+        simpleStructuresAndHasLimit.put(StructureType.WOODCUTTER, false);
+        simpleStructuresAndHasLimit.put(StructureType.MINT, false);
+        simpleStructuresAndHasLimit.put(StructureType.PAPERMILL, false);
+        simpleStructuresAndHasLimit.put(StructureType.COAL_BURNER, true);
+        simpleStructuresAndHasLimit.put(StructureType.SAWMILL, true);
+        simpleStructuresAndHasLimit.put(StructureType.STONE_FACTORY, true);
+        simpleStructuresAndHasLimit.put(StructureType.STOCK_MARKET, true);
 
         /* Iterate through all the types */
-        for(StructureType type : simpleStructureNames){
+        for(StructureType type : simpleStructuresAndHasLimit.keySet()){
             String subsection = "-----BEGIN " + type.name() + "-----\n";
 
             for(TileCompartmentLocation thisLocation : structureLocations){
                 Structure thisStructure = allStructures.get(thisLocation);
                 if(thisStructure.getType().toString().equals(type.toString())){
                     subsection += thisLocation.getLocation().getExportString() + " ";
-                    subsection += angleLetterMap.get(thisLocation.getTileCompartmentDirection().getAngle()) + "\n";
+                    subsection += angleLetterMap.get(thisLocation.getTileCompartmentDirection().getAngle()) + " ";
+                    //If the StructureType has a limit
+                    if(simpleStructuresAndHasLimit.get(type)){
+                        subsection += thisStructure.getExportString();
+                    }
+                    subsection += "\n";
                 }
             }
 

@@ -10,8 +10,7 @@ import game.model.gameImportExport.exporter.GameExporter;
 import game.model.managers.*;
 import game.model.resources.ResourceType;
 import game.model.structures.resourceProducer.primaryProducer.*;
-import game.model.structures.resourceProducer.secondaryProducer.Mint;
-import game.model.structures.resourceProducer.secondaryProducer.Papermill;
+import game.model.structures.resourceProducer.secondaryProducer.*;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Tile;
 import game.model.tinyGame.Game;
@@ -111,6 +110,18 @@ public class GameExporterTest {
 
         /* Put a Mint in there */
         sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorthWest()), new Mint());
+
+        /* Put a CoalBurner in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(3),TileCompartmentDirection.getNorthWest()), new CoalBurner());
+
+        /* Put a Sawmill in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorth()), new Sawmill());
+
+        /* Put a StoneFactory in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(2),TileCompartmentDirection.getEast()), new StoneFactory());
+
+         /* Put a StockMarket in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(3),TileCompartmentDirection.getNorthEast()), new StockMarket());
 
 
         Game game = new Game(map, p1, p2, new GooseManager(), sm);
