@@ -6,6 +6,9 @@
 -----BEGIN RESOURCE-----
 ( 0 0 0 ) E IRON=2
 ( 0 0 0 ) W GOLD=1
+( -1 0 1 ) W BOARDS=1
+( -1 0 1 ) E IRON=1
+( -1 0 1 ) N GOLD=1
 -----END RESOURCE-----
 -----BEGIN MINE-----
 ( 0 0 0 ) E MAX=[GOLD=3 IRON=3] CURRENT=[GOLD=0 IRON=1]

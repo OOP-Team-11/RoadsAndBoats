@@ -2,17 +2,12 @@ package game.model.tile;
 
 import game.model.direction.Angle;
 import game.model.direction.TileCompartmentDirection;
-import game.model.direction.TileCompartmentLocation;
 import game.model.direction.TileEdgeDirection;
-import game.model.managers.ResourceManager;
 import game.model.movement.River;
-import game.model.resources.ResourceType;
 import game.model.structures.Structure;
 import game.utilities.observable.TileResourceInfoObservable;
-import game.utilities.observer.MapResourceRenderInfoObserver;
 import game.utilities.observer.TileCompartmentResourceAddedObserver;
 import game.utilities.observer.TileResourceInfoObserver;
-import game.view.render.MapResourceRenderInfo;
 import game.view.render.ResourceManagerRenderInfo;
 import game.view.render.TileResourceRenderInfo;
 
