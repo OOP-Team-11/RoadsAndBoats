@@ -46,7 +46,7 @@ public class AbilityFactory {
     public BuildSteamshipFactoryAbility getBuildSteamshipFactoryAbility(StructureManagerVisitor v) { return new BuildSteamshipFactoryAbility(mainViewController, v); }
     public BuildStockExchangeAbility getBuildStockExchangeAbility(StructureManagerVisitor v) { return new BuildStockExchangeAbility(mainViewController, v); }
     public BuildTruckFactoryAbility getBuildTruckFactoryAbility(StructureManagerVisitor v) { return new BuildTruckFactoryAbility(mainViewController, v); }
-    public PickUpResourceAbility getPickUpResourceAbility(ResourceType resourceType) { return new PickUpResourceAbility(mainViewController, resourceType); }
-    public DropResourceAbility getDropResourceAbility(ResourceType resourceType) { return new DropResourceAbility(mainViewController, resourceType); }
-    public PickUpTransportAbility getPickUpTransportAbility(Transport transportToPickUp, Transport transport) { return new PickUpTransportAbility(mainViewController, transportToPickUp, transport); }
+    public PickUpResourceAbility getPickUpResourceAbility() { return new PickUpResourceAbility(mainViewController); }
+    public DropResourceAbility getDropResourceAbility() { return new DropResourceAbility(mainViewController); }
+    public PickUpTransportAbility getPickUpTransportAbility() { return new PickUpTransportAbility(mainViewController); }
 }

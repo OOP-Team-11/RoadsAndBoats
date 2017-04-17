@@ -13,9 +13,8 @@ public class PickUpResourceAbility extends Ability {
     private ResourceManager transportRm;
     private ResourceType resourceType;
 
-    public PickUpResourceAbility(MainViewController mainViewController, ResourceType resourceType) {
+    public PickUpResourceAbility(MainViewController mainViewController) {
         super(mainViewController);
-        this.resourceType = resourceType;
     }
 
     @Override
@@ -30,9 +29,10 @@ public class PickUpResourceAbility extends Ability {
 
     }
 
-    public void attachToController(ResourceManager tileCompartmentRm, ResourceManager transportRm, int keyCodeIndex) {
+    public void attachToController(ResourceManager tileCompartmentRm, ResourceManager transportRm, int keyCodeIndex, ResourceType resourceType) {
         this.tileCompartmentRm = tileCompartmentRm;
         this.transportRm = transportRm;
+        this.resourceType = resourceType;
         KeyCode kc = KeyCode.getKeyCode(Integer.toString(keyCodeIndex));
         mainViewController.addControl(kc, this);
     }

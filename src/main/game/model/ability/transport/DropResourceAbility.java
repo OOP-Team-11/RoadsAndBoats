@@ -12,7 +12,7 @@ public class DropResourceAbility extends Ability {
     private ResourceType resourceType;
     private Transport transport;
     private TileCompartment tileCompartment;
-    public DropResourceAbility(MainViewController mainViewController, ResourceType resource) {
+    public DropResourceAbility(MainViewController mainViewController) {
         super(mainViewController);
     }
 
@@ -28,9 +28,10 @@ public class DropResourceAbility extends Ability {
 
     }
 
-    public void attachToController(ResourceManager tileCompartmentRm, ResourceManager transportRm) {
+    public void attachToController(ResourceManager tileCompartmentRm, ResourceManager transportRm, ResourceType resource) {
         this.transport = transport;
         this.tileCompartment = tileCompartment;
+        this.resourceType = resourceType;
         mainViewController.addControl(KeyCode.Q, this);
     }
     @Override

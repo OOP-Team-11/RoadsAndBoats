@@ -72,7 +72,7 @@ public class TransportAbilityTest {
         gooseManager.addGoose(tileCompartmentLocation, new Goose(new GooseId()));
         gooseManager.addGoose(tileCompartmentLocation, new Goose(new GooseId()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
-        player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
+        player1.getTransportManager().getTransportAbilityManager().addFollowAbility(donkey, tileCompartmentLocation);
         assertEquals(2, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
 
@@ -84,7 +84,8 @@ public class TransportAbilityTest {
         map.placeTile(new Location(5, -5, 0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         player1.getTransportManager().addTransport(donkey2, tileCompartmentLocation);
-        player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
+        player1.getTransportManager().getTileTransports(tileCompartmentLocation.getLocation());
+        player1.getTransportManager().getTransportAbilityManager().addTransportReproduceAbility(donkey, tileCompartmentLocation, player1.getTransportManager().getTileTransports(tileCompartmentLocation.getLocation()));
         assertEquals(1, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
 
@@ -113,7 +114,7 @@ public class TransportAbilityTest {
         player1.getTransportManager().addTransport(donkey2, tileCompartmentLocation);
 //        ADD STRUCTURE SO THE DONKEYS MAY NOT REPRODUCE
         map.getTile(new Location(0,0,0)).addStructure(new WagonFactory(tileCompartmentLocation));
-        player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
+        player1.getTransportManager().getTransportAbilityManager().addTransportReproduceAbility(donkey, tileCompartmentLocation, player1.getTransportManager().getTileTransports(tileCompartmentLocation.getLocation()));
         assertEquals(0, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
 
@@ -125,9 +126,9 @@ public class TransportAbilityTest {
         player1.getTransportManager().addTransport(donkey2, tileCompartmentLocation);
 //        ADD GOOSE SO THE DONKEYS MAY NOT REPRODUCE
         gooseManager.addGoose(tileCompartmentLocation, new Goose(new GooseId()));
-        player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
+        player1.getTransportManager().getTransportAbilityManager().addTransportReproduceAbility(donkey, tileCompartmentLocation, player1.getTransportManager().getTileTransports(tileCompartmentLocation.getLocation()));
 //        Should be 1 as the goose should be able to follow the donkey!
-        assertEquals(1, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
+        assertEquals(0, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
 
     @Test
@@ -313,6 +314,15 @@ public class TransportAbilityTest {
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         donkey.storeResource(ResourceType.BOARDS, 2);
         player1.getTransportManager().getTransportAbilityManager().addDropResourceAbility(donkey, tileCompartmentLocation);
+        assertEquals(1, mainViewController.getControls().size());
+    }
+
+    @Test
+    public void getPickUpTransportAbility() {
+        map.placeTile(new Location(0, 0, 0), new Tile(Terrain.MOUNTAIN, RiverConfiguration.getNoRivers()));
+        player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
+        player1.getTransportManager().addTransport(new DonkeyTransport(player1.getPlayerId(), new TransportId()), tileCompartmentLocation);
+        player1.getTransportManager().getTransportAbilityManager().addPickUpTransportAbility(donkey, tileCompartmentLocation, player1.getTransportManager().getTransports().get(tileCompartmentLocation));
         assertEquals(1, mainViewController.getControls().size());
     }
 }
