@@ -18,8 +18,19 @@ public class CoalBurner extends ResourceDropper {
 
     private int productionLimit;
 
+    /**
+     * Used to instantiate new coal burners
+     */
     public CoalBurner() {
         this.productionLimit = LIMIT;
+    }
+
+    /**
+     * Used for importing previously used coal burners
+     * @param productionLimit
+     */
+    public CoalBurner(int productionLimit) {
+        this.productionLimit = productionLimit;
     }
 
     // 1 Fuel <= 2 Trunks

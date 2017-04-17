@@ -16,11 +16,11 @@ import java.util.regex.Pattern;
 public class MapImporter {
 
     public static RBMap importMapFromFile(RBMap map, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
-        if (!bufferedReader.readLine().equals("BEGIN MAP"))  throw new MalformedMapFileException("BEGIN MAP not found");
+        if (!bufferedReader.readLine().equals("-----BEGIN MAP-----"))  throw new MalformedMapFileException("-----BEGIN MAP----- not found");
 
         boolean foundEOF = false;
         for(String line; (line = bufferedReader.readLine()) != null; ) {
-            if (line.equals("END MAP")) {
+            if (line.equals("-----END MAP-----")) {
                 foundEOF = true;
                 break;
             }
@@ -30,7 +30,7 @@ public class MapImporter {
             map.placeTile(location, tile);
         }
 
-        if (!foundEOF) throw new MalformedMapFileException("END MAP not found");
+        if (!foundEOF) throw new MalformedMapFileException("-----END MAP----- not found");
         return map;
     }
 

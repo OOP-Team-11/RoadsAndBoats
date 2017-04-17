@@ -20,6 +20,10 @@ public class StockMarket extends ResourceDropper {
         this.productionLimit = LIMIT;
     }
 
+    public StockMarket(int productionLimit) {
+        this.productionLimit = productionLimit;
+    }
+
     // 1 Stock <= 1 Paper + 2 Coins
     @Override
     public boolean produce(ResourceManager resourceManager) {

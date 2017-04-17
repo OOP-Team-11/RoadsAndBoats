@@ -43,7 +43,7 @@ public class TransportRenderInfo
     }
 
     public TransportId getTransportID() { return transport.getTransportId(); }
-    
+
     public String getResourceString() {
         ResourceManager resourceManager = transport.getResourceManager();
         StringBuilder sb = new StringBuilder();

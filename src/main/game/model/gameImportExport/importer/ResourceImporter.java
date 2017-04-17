@@ -30,11 +30,11 @@ class ResourceImporter {
     }
 
     static void importResourcesFromFile(RBMap map, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
-        if (!bufferedReader.readLine().equals("BEGIN RESOURCE"))  throw new MalformedMapFileException("BEGIN RESOURCE not found");
+        if (!bufferedReader.readLine().equals("-----BEGIN RESOURCE-----"))  throw new MalformedMapFileException("-----BEGIN RESOURCE----- not found");
 
         boolean foundEOF = false;
         for(String line; (line = bufferedReader.readLine()) != null; ) {
-            if (line.equals("END RESOURCE")) {
+            if (line.equals("-----END RESOURCE-----")) {
                 foundEOF = true;
                 break;
             }
@@ -47,7 +47,7 @@ class ResourceImporter {
             tileCompartment.storeResource(resource.resourceType, resource.amount);
         }
 
-        if (!foundEOF) throw new MalformedMapFileException("END RESOURCE not found");
+        if (!foundEOF) throw new MalformedMapFileException("-----END RESOURCE----- not found");
     }
 
     private static Location getLocation(String resourceString) throws MalformedMapFileException {

@@ -17,11 +17,11 @@ import static game.model.gameImportExport.importer.ParseUtilities.getMatcherForP
 class MineImporter {
 
     static void importMinesFromFile(StructureManager structureManager, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
-        if (!bufferedReader.readLine().equals("BEGIN MINE"))  throw new MalformedMapFileException("BEGIN MINE not found");
+        if (!bufferedReader.readLine().equals("-----BEGIN MINE-----"))  throw new MalformedMapFileException("-----BEGIN MINE----- not found");
 
         boolean foundEOF = false;
         for(String line; (line = bufferedReader.readLine()) != null; ) {
-            if (line.equals("END MINE")) {
+            if (line.equals("-----END MINE-----")) {
                 foundEOF = true;
                 break;
             }
@@ -34,7 +34,7 @@ class MineImporter {
             structureManager.addStructure(tcl, mine);
         }
 
-        if (!foundEOF) throw new MalformedMapFileException("END RESOURCE not found");
+        if (!foundEOF) throw new MalformedMapFileException("-----END MINE----- not found");
     }
 
     private static String stripIdentifier(String mineString) {

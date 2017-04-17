@@ -14,5 +14,6 @@ public class GameImporter {
         ResourceImporter.importResourcesFromFile(map, bufferedReader);
         MineImporter.importMinesFromFile(structureManager, bufferedReader);
         OilRigImporter.importOilRigsFromFile(structureManager, bufferedReader);
+        NonSpecialLimitlessStructures.importNonSpecialLimitlessStructures(structureManager, bufferedReader);
     }
 }
