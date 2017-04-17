@@ -53,7 +53,7 @@ public class MainView extends View
     private MapStructureRenderInfo mapStructureRenderInfo;
     private MapTransportRenderInfo mapTransportRenderInfoP1;
     private MapTransportRenderInfo mapTransportRenderInfoP2;
-    private MapResourceRenderInfo mapResourceRenderInfo;
+    private Map<TileCompartmentLocation, Map<ResourceType, Integer>> mapResourceRenderInfo;
     private PlayerRenderInfo playerRenderInfo;
     private PhaseRenderInfo phaseRenderInfo;
     private MapRenderInfo mapRenderInfo;
@@ -94,7 +94,13 @@ public class MainView extends View
         placeFinishButton();
         initializeSelectButtons();
         placeStartingCursor();
+        initializeResourceMap();
     }
+
+    private void initializeResourceMap() {
+        this.mapResourceRenderInfo = new HashMap<>();
+    }
+
     private void setAnchorPane(AnchorPane anchorPane){
         this.anchorPane = anchorPane;
     }
@@ -307,7 +313,7 @@ public class MainView extends View
         if(isNull(mapResourceRenderInfo)){
             // nothing to render
         } else {
-            for ( Map.Entry<TileCompartmentLocation, Map<ResourceType, Integer>> entry : mapResourceRenderInfo.getResourceMap().entrySet())
+            for ( Map.Entry<TileCompartmentLocation, Map<ResourceType, Integer>> entry : mapResourceRenderInfo.entrySet())
             {
                 if(entry.getKey().getLocation().equals(location)){
                     int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
@@ -468,7 +474,7 @@ public class MainView extends View
         if(isNull(mapResourceRenderInfo)){
             // nothing to render
         } else {
-            for ( Map.Entry<TileCompartmentLocation, Map<ResourceType, Integer>> entry : mapResourceRenderInfo.getResourceMap().entrySet())
+            for ( Map.Entry<TileCompartmentLocation, Map<ResourceType, Integer>> entry : mapResourceRenderInfo.entrySet())
             {
                 if(cursorRenderInfo.getCursorLocation().equals(entry.getKey().getLocation())){ // same location
                     for ( HashMap.Entry<ResourceType, Integer> entry2 : entry.getValue().entrySet()){
@@ -867,7 +873,7 @@ public class MainView extends View
         if(isNull(mapResourceRenderInfo)){
             // nothing to render
         } else {
-            for ( Map.Entry<TileCompartmentLocation, Map<ResourceType, Integer>> entry : mapResourceRenderInfo.getResourceMap().entrySet())
+            for ( Map.Entry<TileCompartmentLocation, Map<ResourceType, Integer>> entry : mapResourceRenderInfo.entrySet())
             {
                 int x = entry.getKey().getLocation().getX();
                 int y = entry.getKey().getLocation().getY();
@@ -937,7 +943,13 @@ public class MainView extends View
 
     @Override
     public void updateMapResourceInfo(MapResourceRenderInfo mapResourceRenderInfo) {
-        this.mapResourceRenderInfo = mapResourceRenderInfo;
+        for (Map.Entry<TileCompartmentLocation, Map<ResourceType, Integer>> entry : mapResourceRenderInfo.getResourceMap().entrySet()) {
+            if (!this.mapResourceRenderInfo.containsKey(entry.getKey())) {
+                this.mapResourceRenderInfo.put(entry.getKey(), entry.getValue());
+            } else {
+                this.mapResourceRenderInfo.replace(entry.getKey(), entry.getValue());
+            }
+        }
         this.refresh = true;
     }
 
