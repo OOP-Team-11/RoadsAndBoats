@@ -46,4 +46,5 @@ public class AbilityFactory {
     public BuildStockExchangeAbility getBuildStockExchangeAbility(StructureManagerVisitor v) { return new BuildStockExchangeAbility(mainViewController, v); }
     public BuildTruckFactoryAbility getBuildTruckFactoryAbility(StructureManagerVisitor v) { return new BuildTruckFactoryAbility(mainViewController, v); }
     public PickUpResourceAbility getPickUpResourceAbility(ResourceType resourceType) { return new PickUpResourceAbility(mainViewController, resourceType); }
+    public DropResourceAbility getDropResourceAbility() { return new DropResourceAbility(mainViewController); }
 }

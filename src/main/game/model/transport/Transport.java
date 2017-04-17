@@ -79,7 +79,7 @@ public abstract class Transport implements Serializable {
 
     public boolean canStoreResource(int number) {
         return (carryCapacity != 0)
-                && (carryCapacity > number);
+                && (carryCapacity >= number);
     }
 
     private void lowerCarryCapacity(int number) {

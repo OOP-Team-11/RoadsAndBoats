@@ -62,7 +62,8 @@ public class TransportAbilityManager {
         this.addBuildSteamshipFactoryAbility(transport, tileCompartmentLocation);
         this.addBuildTruckFactoryAbility(transport, tileCompartmentLocation);
         this.addBuildStockExchangeAbility(transport, tileCompartmentLocation);
-        this.addPickUpResourcesAbility(transport, tileCompartmentLocation);
+        this.addPickUpResourceAbility(transport, tileCompartmentLocation);
+        this.addDropResourceAbility(transport, tileCompartmentLocation);
     }
 
     private void addAbility(Ability a) {
@@ -337,7 +338,7 @@ public class TransportAbilityManager {
         }
     }
 
-    public void addPickUpResourcesAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    public void addPickUpResourceAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         Tile tile = map.getTile(tileCompartmentLocation.getLocation());
         ResourceManager tileCompartmentRm = tile.getTileCompartment(tileCompartmentLocation.getTileCompartmentDirection()).getResourceManager();
         if(!transport.canStoreResource(1))
@@ -351,7 +352,21 @@ public class TransportAbilityManager {
                 addAbility(pickUpAbility);
                 validResources++;
             }
+        }
+    }
 
+    public void addDropResourceAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        ResourceManager tileCompartmentRm = tile.getTileCompartment(tileCompartmentLocation.getTileCompartmentDirection()).getResourceManager();
+        int validResources = 0;
+        for(ResourceType resource : ResourceType.values()) {
+            if(transport.getResourceManager().getResourceTypeIntegerMap().get(resource) != null
+                    && transport.getResourceManager().getResourceTypeIntegerMap().get(resource) > 0) {
+                DropResourceAbility dropResourceAbility = abilityFactory.getDropResourceAbility();
+                dropResourceAbility.attachToController(tileCompartmentRm, transport.getResourceManager());
+                addAbility(dropResourceAbility);
+                validResources++;
+            }
         }
     }
 }

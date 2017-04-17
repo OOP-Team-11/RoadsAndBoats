@@ -52,8 +52,8 @@ public class TransportAbilityTest {
 
     @Before
     public void setUp() {
-        this.startingLocation = new TileCompartmentLocation(new Location(-2,1,1), TileCompartmentDirection.getNorth());
-        this.tileCompartmentLocation = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
+        this.startingLocation = new TileCompartmentLocation(new Location(-2, 1, 1), TileCompartmentDirection.getNorth());
+        this.tileCompartmentLocation = new TileCompartmentLocation(new Location(0, 0, 0), TileCompartmentDirection.getNorth());
         this.mainViewController = new MainViewController();
         this.map = new RBMap();
         this.gooseManager = new GooseManager(mainViewController, map);
@@ -61,13 +61,13 @@ public class TransportAbilityTest {
         this.structureManager = new StructureManager(mainViewController, map);
         this.transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
         this.player1 = new Player(transportManager, playerId, "Morty", startingLocation);
-        this.donkey = new DonkeyTransport(player1.getPlayerId(),new TransportId());
+        this.donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
     }
 
     @Test
     public void addFollowAbilityTest() {
 
-        map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
+        map.placeTile(new Location(0, 0, 0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
 //        Add 2 geese to same location that donkey is at so he will have 2 followAbilities. One or both follow.
         gooseManager.addGoose(tileCompartmentLocation, new Goose(new GooseId()));
         gooseManager.addGoose(tileCompartmentLocation, new Goose(new GooseId()));
@@ -76,12 +76,12 @@ public class TransportAbilityTest {
         assertEquals(2, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
 
-//    Test that the reproduce ability will add with just two donkeys in a pasture
+    //    Test that the reproduce ability will add with just two donkeys in a pasture
     @Test
     public void addTransportReproduceAbilityTest() {
-        Transport donkey2 = new DonkeyTransport(player1.getPlayerId(),new TransportId());
-        map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
-        map.placeTile(new Location(5,-5,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
+        Transport donkey2 = new DonkeyTransport(player1.getPlayerId(), new TransportId());
+        map.placeTile(new Location(0, 0, 0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
+        map.placeTile(new Location(5, -5, 0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         player1.getTransportManager().addTransport(donkey2, tileCompartmentLocation);
         player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
@@ -91,11 +91,11 @@ public class TransportAbilityTest {
     @Test
     public void cantReproduceDueToResourcesTest() {
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(), new TransportId());
-        map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
+        map.placeTile(new Location(0, 0, 0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         player1.getTransportManager().addTransport(donkey2, tileCompartmentLocation);
 //        ADD RESOURCES SO THE DONKEYS MAY NOT REPRODUCE
-        map.getTile(new Location(0,0,0)).getTileCompartment(TileCompartmentDirection.getNorth()).storeResource(ResourceType.COINS, 10);
+        map.getTile(new Location(0, 0, 0)).getTileCompartment(TileCompartmentDirection.getNorth()).storeResource(ResourceType.COINS, 10);
         List<Transport> tileTrans = new ArrayList<Transport>();
         tileTrans.add(donkey);
         tileTrans.add(donkey2);
@@ -104,22 +104,23 @@ public class TransportAbilityTest {
         player1.getTransportManager().getTransportAbilityManager().addTransportReproduceAbility(donkey, tileCompartmentLocation, tileTransports);
         assertEquals(0, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
+
     @Test
     public void cantReproduceDueToStructureTest() {
         Transport donkey2 = new DonkeyTransport(player1.getPlayerId(), new TransportId());
-        map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
+        map.placeTile(new Location(0, 0, 0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         player1.getTransportManager().addTransport(donkey2, tileCompartmentLocation);
 //        ADD STRUCTURE SO THE DONKEYS MAY NOT REPRODUCE
-        map.getTile(new Location(0,0,0)).addStructure(new WagonFactory());
+        map.getTile(new Location(0, 0, 0)).addStructure(new WagonFactory());
         player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
         assertEquals(0, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
 
     @Test
     public void cantReproduceDueToGeeseTest() {
-        Transport donkey2 = new DonkeyTransport(player1.getPlayerId(),new TransportId());
-        map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
+        Transport donkey2 = new DonkeyTransport(player1.getPlayerId(), new TransportId());
+        map.placeTile(new Location(0, 0, 0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         player1.getTransportManager().addTransport(donkey2, tileCompartmentLocation);
 //        ADD GOOSE SO THE DONKEYS MAY NOT REPRODUCE
@@ -132,16 +133,16 @@ public class TransportAbilityTest {
     @Test
     public void BuildWoodcutterAbility() {
         donkey.getResourceManager().addResource(ResourceType.BOARDS, 1);
-        map.placeTile(new Location(0,0,0), new Tile(Terrain.WOODS, RiverConfiguration.getNoRivers()));
+        map.placeTile(new Location(0, 0, 0), new Tile(Terrain.WOODS, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
-        player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
+        player1.getTransportManager().getTransportAbilityManager().addBuildWoodCutterAbility(donkey, tileCompartmentLocation);
 //        Should be 1 as the donkey should be able to build a woodcutter
-        assertEquals(1, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
+        assertEquals(1, mainViewController.getControls().size());
 //        Add a structure to the tile, should no longer be able to build a woodcutter
-        map.getTile(new Location(0,0,0)).addStructure(new WagonFactory());
-        player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
+        map.getTile(new Location(0, 0, 0)).addStructure(new WagonFactory());
+        player1.getTransportManager().getTransportAbilityManager().addBuildWoodCutterAbility(donkey, tileCompartmentLocation);
 //        Should be 1 as the donkey should be able to build a woodcutter
-        assertEquals(0, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
+        assertEquals(1, mainViewController.getControls().size());
     }
 
     @Test
@@ -168,9 +169,9 @@ public class TransportAbilityTest {
         donkey.getResourceManager().addResource(ResourceType.BOARDS, 2);
         map.placeTile(new Location(0, 0, 0), new Tile(Terrain.ROCK, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
-        player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
+        player1.getTransportManager().getTransportAbilityManager().addBuildStoneQuarryAbility(donkey, tileCompartmentLocation);
 //        Should be 2 as the donkey should be able to build a stoneQuarry and a stoneFactory
-        assertEquals(2, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
+        assertEquals(1, mainViewController.getControls().size());
     }
 
     @Test
@@ -207,9 +208,9 @@ public class TransportAbilityTest {
         donkey.getResourceManager().addResource(ResourceType.BOARDS, 2);
         map.placeTile(new Location(0, 0, 0), new Tile(Terrain.DESERT, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
-        player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
+        player1.getTransportManager().getTransportAbilityManager().addBuildStoneFactoryAbility(donkey, tileCompartmentLocation);
 ///        Should be 1 as the donkey should be able to build a stone factory
-        assertEquals(1, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
+        assertEquals(1, mainViewController.getControls().size());
     }
 
     @Test
@@ -219,9 +220,9 @@ public class TransportAbilityTest {
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
         boolean onController = false;
-        for(Ability a : mainViewController.getControls().values()) {
-            if(a.getDisplayString() == "Build Coal Burner");
-                onController = true;
+        for (Ability a : mainViewController.getControls().values()) {
+            if (a.getDisplayString() == "Build Coal Burner") ;
+            onController = true;
         }
         assertTrue(onController);
     }
@@ -245,8 +246,8 @@ public class TransportAbilityTest {
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
         boolean onController = false;
-        for(Ability a : mainViewController.getControls().values()) {
-            if(a.getDisplayString().equals("Build Mint"))
+        for (Ability a : mainViewController.getControls().values()) {
+            if (a.getDisplayString().equals("Build Mint"))
                 onController = true;
         }
         assertTrue(onController);
@@ -291,7 +292,7 @@ public class TransportAbilityTest {
         donkey.getResourceManager().addResource(ResourceType.STONE, 3);
         map.placeTile(new Location(0, 0, 0), new Tile(Terrain.MOUNTAIN, RiverConfiguration.getNoRivers()));
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
-        player1.getTransportManager().getTransportAbilityManager().addBuildStockExchangeAbility(donkey, tileCompartmentLocation );
+        player1.getTransportManager().getTransportAbilityManager().addBuildStockExchangeAbility(donkey, tileCompartmentLocation);
         assertEquals(1, mainViewController.getControls().size());
     }
 
@@ -301,7 +302,17 @@ public class TransportAbilityTest {
         map.getTile(new Location(0, 0, 0)).getTileCompartment(TileCompartmentDirection.getNorth()).storeResource(ResourceType.COINS, 2);
         map.getTile(new Location(0, 0, 0)).getTileCompartment(TileCompartmentDirection.getNorth()).storeResource(ResourceType.BOARDS, 2);
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
-        player1.getTransportManager().getTransportAbilityManager().addPickUpResourcesAbility(donkey, tileCompartmentLocation );
+        player1.getTransportManager().getTransportAbilityManager().addPickUpResourceAbility(donkey, tileCompartmentLocation);
         assertEquals(2, mainViewController.getControls().size());
+    }
+
+    @Test
+    public void getDropResourceAbility() {
+        map.placeTile(new Location(0, 0, 0), new Tile(Terrain.MOUNTAIN, RiverConfiguration.getNoRivers()));
+        map.getTile(new Location(0, 0, 0)).getTileCompartment(TileCompartmentDirection.getNorth()).storeResource(ResourceType.BOARDS, 2);
+        player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
+        donkey.storeResource(ResourceType.BOARDS, 2);
+        player1.getTransportManager().getTransportAbilityManager().addDropResourceAbility(donkey, tileCompartmentLocation);
+        assertEquals(1, mainViewController.getControls().size());
     }
 }
