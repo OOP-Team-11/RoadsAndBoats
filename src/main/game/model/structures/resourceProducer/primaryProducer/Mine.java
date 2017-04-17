@@ -1,9 +1,8 @@
 package game.model.structures.resourceProducer.primaryProducer;
 
-import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
-import game.model.structures.resourceProducer.ResourceDropper;
+import game.model.visitors.TileCompartmentVisitor;
 
 import java.util.Random;
 
@@ -32,7 +31,7 @@ public class Mine extends ResourceDropper {
     }
 
     @Override
-    public boolean produce(ResourceManager resourceManager) {
+    public boolean produce(TileCompartmentVisitor tcv) {
         Random random = new Random();
         int chosen = random.nextInt(2);
 
@@ -40,28 +39,34 @@ public class Mine extends ResourceDropper {
             // Gold is picked
             case 1:
                 if (checkCurrentGoldCount()) {
-                    resourceManager.addResource(ResourceType.GOLD, GOLD_AMT);
-                    decrementGoldCount();
+                    produceGold(tcv);
                 }
                 else if (checkCurrentIronCount()) {
-                    resourceManager.addResource(ResourceType.IRON, IRON_AMT);
-                    decrementIronCount();
+                    produceIron(tcv);
                 }
                 return true;
             // Iron is picked
             case 2:
                 if (checkCurrentIronCount()) {
-                    resourceManager.addResource(ResourceType.IRON, IRON_AMT);
-                    decrementIronCount();
+                    produceIron(tcv);
                 }
                 else if (checkCurrentGoldCount()) {
-                    resourceManager.addResource(ResourceType.GOLD, GOLD_AMT);
-                    decrementGoldCount();
+                    produceGold(tcv);
                 }
                 return true;
         }
 
         return false;
+    }
+
+    private void produceGold(TileCompartmentVisitor tcv) {
+        acceptStoreResources(tcv, ResourceType.GOLD, GOLD_AMT);
+        decrementGoldCount();
+    }
+
+    private void produceIron(TileCompartmentVisitor tcv) {
+        acceptStoreResources(tcv, ResourceType.IRON, IRON_AMT);
+        decrementIronCount();
     }
 
     public void addShaft() {
@@ -117,4 +122,5 @@ public class Mine extends ResourceDropper {
         // TODO add other things?
         return this.getType().toString();
     }
+
 }

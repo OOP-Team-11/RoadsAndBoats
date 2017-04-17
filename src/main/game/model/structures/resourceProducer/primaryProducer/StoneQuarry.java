@@ -1,9 +1,8 @@
 package game.model.structures.resourceProducer.primaryProducer;
 
-import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
-import game.model.structures.resourceProducer.ResourceDropper;
+import game.model.visitors.TileCompartmentVisitor;
 
 public class StoneQuarry extends ResourceDropper {
 
@@ -14,8 +13,8 @@ public class StoneQuarry extends ResourceDropper {
     }
 
     @Override
-    public boolean produce(ResourceManager resourceManager) {
-        resourceManager.addResource(ResourceType.STONE, STONE_AMT);
+    public boolean produce(TileCompartmentVisitor tcv) {
+        acceptStoreResources(tcv, ResourceType.STONE, STONE_AMT);
         return true;
     }
 
