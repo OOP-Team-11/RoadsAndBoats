@@ -190,6 +190,7 @@ public class GameExporterTest {
         );
     }
 
+    /*
     @Test
     public void oilRigSectionTest(){
         gameExporter.exportGameToPath(testingFilePath);
@@ -203,6 +204,7 @@ public class GameExporterTest {
                 expected.trim()
         );
     }
+    */
 
     @Test
     public void stoneQuarrySectionTest(){
