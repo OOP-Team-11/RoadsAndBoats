@@ -38,7 +38,6 @@ public class NonSpecialLimitlessStructures {
                 break;
             }
 
-            line = stripIdentifier(line, "CLAYPIT");
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
@@ -59,7 +58,6 @@ public class NonSpecialLimitlessStructures {
                 break;
             }
 
-            line = stripIdentifier(line, "STONEQUARRY");
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
@@ -80,7 +78,6 @@ public class NonSpecialLimitlessStructures {
                 break;
             }
 
-            line = stripIdentifier(line, "WOODCUTTER");
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
@@ -101,7 +98,6 @@ public class NonSpecialLimitlessStructures {
                 break;
             }
 
-            line = stripIdentifier(line, "MINT");
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
@@ -122,7 +118,6 @@ public class NonSpecialLimitlessStructures {
                 break;
             }
 
-            line = stripIdentifier(line, "PAPERMILL");
             Location location = getLocation(line);
             TileCompartmentDirection tcd = getTileCompartmentDirection(line);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
@@ -131,10 +126,6 @@ public class NonSpecialLimitlessStructures {
         }
 
         if (!foundEOF) throw new MalformedMapFileException("-----END PAPERMILL----- not found");
-    }
-
-    private static String stripIdentifier(String structureString, String structureName) {
-        return structureString.replace(structureName + " ", "");
     }
 
     private static Location getLocation(String structureString) throws MalformedMapFileException {
