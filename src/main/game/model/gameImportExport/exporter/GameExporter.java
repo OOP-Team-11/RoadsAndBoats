@@ -1,7 +1,9 @@
 package game.model.gameImportExport.exporter;
 
+import game.model.Player;
 import game.model.direction.*;
 import game.model.managers.StructureManager;
+import game.model.managers.TransportManager;
 import game.model.map.RBMap;
 import game.model.resources.ResourceType;
 import game.model.structures.Structure;
@@ -12,6 +14,7 @@ import game.model.structures.resourceProducer.primaryProducer.OilRig;
 import game.model.tile.Tile;
 import game.model.tile.TileCompartment;
 import game.model.tinyGame.Game;
+import game.model.transport.Transport;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -41,15 +44,60 @@ public class GameExporter {
         String mapSection = serializeMap() + "\n";
         String resourceSection = serializeResources() + "\n";
         String structureSections = serializeStructures(game.getStructureSet());
+        String transportSection = serializeTransports(game.getAllPlayers());
         try {
             fw = new FileWriter(outputFile);
             fw.write(mapSection);
             fw.write(resourceSection);
             fw.write(structureSections);
+            fw.write(transportSection);
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String serializeTransports(List<Player> playerList){
+        String transportString = "-----BEGIN TRANSPORTS-----\n";
+
+        TransportManager p1TransportManager = playerList.get(0).getTransportManager();
+        TransportManager p2TransportManager = playerList.get(1).getTransportManager();
+
+        Map<TileCompartmentLocation, List<Transport>> p1Transports = p1TransportManager.getTransports();
+        Map<TileCompartmentLocation, List<Transport>> p2Transports = p2TransportManager.getTransports();
+
+        for(List<Transport> tList : p1Transports.values()){
+            for(Transport t : tList){
+                System.out.println(t.getExportString());
+            }
+        }
+
+        for(List<Transport> tList : p2Transports.values()){
+            for(Transport t : tList){
+                System.out.println(t.getExportString());
+            }
+        }
+//        for(TileCompartmentLocation location : p1Transports.keySet()){
+//            List<Transport> transports1 = p1Transports.get(location);
+//            if(null != transports1 && transports1.size() > 0){
+//                for(Transport thisTransport : transports1){
+//                    transportString += location.getLocation().getExportString() + " ";
+//                    transportString += thisTransport.getType() + "\n";
+//                }
+//            }
+//
+//            List<Transport> transports2 = p2Transports.get(location);
+//            if(null != transports2 && transports2.size() > 0){
+//                for(Transport thisTransport : transports2){
+//                    transportString += location.getLocation().getExportString() + " ";
+//                    transportString += thisTransport.getType() + "\n";
+//
+//                }
+//            }
+//        }
+
+        transportString += "-----END TRANSPORTS-----\n";
+        return transportString;
     }
 
     private String serializeStructures(Map<TileCompartmentLocation, Structure> structures){

@@ -16,6 +16,8 @@ import game.model.tile.Tile;
 import game.model.tinyGame.Game;
 import game.model.map.RBMap;
 import game.model.tile.Terrain;
+import game.model.transport.DonkeyTransport;
+import game.model.transport.TransportId;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -122,6 +124,15 @@ public class GameExporterTest {
          /* Put a StockMarket in there */
         sm.addStructure(new TileCompartmentLocation(locations.get(3),TileCompartmentDirection.getNorthEast()), new StockMarket());
 
+
+        /* Give each player a donkey */
+        TransportManager p1TransportManager = p1.getTransportManager();
+        TransportManager p2TransportManager = p2.getTransportManager();
+
+        DonkeyTransport donkey1 = new DonkeyTransport(p1.getPlayerId(), new TransportId());
+        DonkeyTransport donkey2 = new DonkeyTransport(p2.getPlayerId(), new TransportId());
+        p1TransportManager.addTransport(donkey1, new TileCompartmentLocation(new Location(5,-3,-2),TileCompartmentDirection.getSouthEast()));
+        p2TransportManager.addTransport(donkey2, new TileCompartmentLocation(new Location(5,-2,-3),TileCompartmentDirection.getNorth()));
 
         Game game = new Game(map, p1, p2, new GooseManager(), sm);
 
