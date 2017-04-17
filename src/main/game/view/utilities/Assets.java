@@ -126,7 +126,7 @@ public class Assets {
     public Image RESEARCH_TABLE;
     public Image GLASS_STONE;
 
-    // wonder
+    // model.wonder
     public Image WONDER;
     public Image WONDERBRICK_BLUE;
     public Image WONDERBRICK_NEUTRAL;

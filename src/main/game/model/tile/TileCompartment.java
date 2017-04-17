@@ -61,7 +61,7 @@ public class TileCompartment
         return transports;
     }
 
-    public River getRiver(TileEdgeDirection dir)
+    public River getRiver(TileCompartmentDirection dir)
     {
         return rivers.get(dir);
     }

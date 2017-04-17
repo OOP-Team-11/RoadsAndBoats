@@ -5,7 +5,6 @@ public class PlayerId {
     public PlayerId(int id) {
         this.playerId = id;
     }
-
     public int getPlayerIdNumber() {
         return playerId;
     }
