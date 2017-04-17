@@ -68,6 +68,8 @@ public class GameInitializer {
             game.attachPlayerInfoObserver(viewHandler.getResearchViewReference());
             game.attachPhaseInfoObserver(viewHandler.getResearchViewReference());
 
+            controllerManager.getMainViewController().setGame(game);
+
             //TODO: Add a controller and view element to trigger this gameExporter's exportGameToPath()
             gameExporter = new GameExporter(game);
         } catch (MalformedMapFileException|IOException e) {
