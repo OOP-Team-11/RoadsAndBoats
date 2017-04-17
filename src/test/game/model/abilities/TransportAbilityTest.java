@@ -23,6 +23,7 @@ import game.model.tile.TileCompartment;
 import game.model.transport.DonkeyTransport;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
+import game.model.wonder.WonderManager;
 import javafx.scene.input.KeyCode;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,7 +62,7 @@ public class TransportAbilityTest {
         this.playerId = new PlayerId(1);
         this.structureManager = new StructureManager(mainViewController, map);
         this.researchManager = new ResearchManager(startingLocation.getLocation(), playerId);
-        this.transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, researchManager);
+        this.transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, researchManager, new WonderManager(map));
         this.player1 = new Player(transportManager, playerId, "Morty", startingLocation);
         this.donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
     }

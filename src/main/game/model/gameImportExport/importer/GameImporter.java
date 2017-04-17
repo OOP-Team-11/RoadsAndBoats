@@ -24,6 +24,7 @@ public class GameImporter {
         GooseImporter.importGoose(gooseManager, bufferedReader);
         TransportImporter.importTransportsFromFile(player1TransportManager, player2TransportManager, gooseManager, bufferedReader);
         WonderImporter.importWonderFromFile(wonderManager, bufferedReader);
+        RoadImporter.importRoadsFromFile(map, bufferedReader);
         WallImporter.importWallsFromFile(wallManager,bufferedReader);
     }
 }

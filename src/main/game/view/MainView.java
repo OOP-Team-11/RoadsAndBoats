@@ -463,6 +463,7 @@ public class MainView extends View
         int paperCount = 0;
         int stockCount = 0;
         int trunkCount = 0;
+        int stoneCount = 0;
 
         if(isNull(mapResourceRenderInfo)){
             // nothing to render
@@ -491,6 +492,8 @@ public class MainView extends View
                             stockCount = entry2.getValue();
                         } else if(entry2.getKey().equals(ResourceType.TRUNKS)){
                             trunkCount = entry2.getValue();
+                        } else if(entry2.getKey().equals(ResourceType.STONE)){
+                            stoneCount = entry2.getValue();
                         } else {
 
                         }
@@ -512,7 +515,7 @@ public class MainView extends View
         this.selectGC.strokeText("Iron: " +ironCount,230,460 );
         this.selectGC.strokeText("Paper " +paperCount,230,520 );
         this.selectGC.strokeText("Stock: " +stockCount,230,580 );
-        this.selectGC.strokeText("Stone: " +stockCount,230,640 );
+        this.selectGC.strokeText("Stone: " +stoneCount,230,640 );
         this.selectGC.strokeText("Trunks: " +trunkCount,230,700 );
 
     }
@@ -666,6 +669,7 @@ public class MainView extends View
     private void drawCursor(){
         if(cursorRenderInfo != null){
             drawImage(assets.GREEN_CURSOR,cursorRenderInfo.getCursorLocation().getX(), cursorRenderInfo.getCursorLocation().getY(), cursorRenderInfo.getCursorLocation().getZ());
+            System.out.println("   X:" + cursorRenderInfo.getCursorLocation().getX() + "   Y:" + cursorRenderInfo.getCursorLocation().getY() + "   Z:" + cursorRenderInfo.getCursorLocation().getZ());
         }
     }
     public double getZoomSliderValue(){
@@ -1007,6 +1011,8 @@ public class MainView extends View
             clearNewDataFlag();
             //TESTING_REMOVE_LATER();
             displayWalls();
+//            TESTING_REMOVE_LATER();
+
             drawCursor(); // cursor is always last
         } else {
             // nothing to update

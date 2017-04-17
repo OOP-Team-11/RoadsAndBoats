@@ -1,4 +1,4 @@
-package model.tinyGame;
+package game.model.tinyGame;
 
 import game.controller.MainViewController;
 import game.model.Player;
@@ -30,9 +30,9 @@ public class GameTest {
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
         StructureManager structureManager = new StructureManager(mainViewController, map);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, null);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, null,null);
         PlayerId playerId2 = new PlayerId(2);
-        TransportManager transportManager2 = new TransportManager(playerId2, mainViewController, gooseManager, map, structureManager, null);
+        TransportManager transportManager2 = new TransportManager(playerId2, mainViewController, gooseManager, map, structureManager, null,null);
         TileCompartmentLocation tileCompartmentLocation = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
         player1 = new Player(transportManager, playerId, "Morty", tileCompartmentLocation);
         player2 = new Player(transportManager, playerId, "Morty", tileCompartmentLocation);

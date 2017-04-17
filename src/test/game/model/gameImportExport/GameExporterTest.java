@@ -72,8 +72,8 @@ public class GameExporterTest {
 
         MainViewController mvc = new MainViewController();
 
-        TransportManager tm1 = new TransportManager(pid1, mvc, new GooseManager(), map, new StructureManager(mvc,map), null);
-        TransportManager tm2 = new TransportManager(pid2, mvc, new GooseManager(), map, new StructureManager(mvc,map), null);
+        TransportManager tm1 = new TransportManager(pid1, mvc, new GooseManager(), map, new StructureManager(mvc,map), null, null);
+        TransportManager tm2 = new TransportManager(pid2, mvc, new GooseManager(), map, new StructureManager(mvc,map), null, null);
 
         Player p1 = new Player(tm1, pid1, "Karl", new TileCompartmentLocation(new Location(0,0,0),TileCompartmentDirection.getNorth()));
         Player p2 = new Player(tm2, pid1, "Friedrich", new TileCompartmentLocation(new Location(-1,0,1),TileCompartmentDirection.getEast()));

@@ -16,6 +16,7 @@ import game.model.tile.Tile;
 import game.model.transport.DonkeyTransport;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
+import game.model.wonder.WonderManager;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -31,7 +32,7 @@ public class AbilityTest {
         PlayerId playerId = new PlayerId(2);
         StructureManager structureManager = new StructureManager(mainViewController, map);
         ResearchManager researchManager = new ResearchManager(tcl.getLocation(), playerId);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, researchManager);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, researchManager, new WonderManager(map));
         Player player1 = new Player(transportManager, new PlayerId(2), "gavin", tcl);
         Transport donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
         map.placeTile(new Location(0,0,0), new Tile(Terrain.PASTURE, RiverConfiguration.getNoRivers()));
