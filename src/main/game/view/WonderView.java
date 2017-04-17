@@ -11,6 +11,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -30,6 +31,7 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
     private int brickY = 640;
     private int brickCount = 0;
     private boolean neutralBrickPlaced;
+    private ListView listView;
 
 
 
@@ -43,6 +45,9 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
         markNeutralBrickAsPlaced();
         initializeCurrentPhaseSection();
         initializeCurrentWealthSection();
+        initializeTransportChoiceList();
+        displayWealthPlayerText();
+        initializeList();
     }
     private void setAnchorPane(AnchorPane anchorPane){
         this.anchorPane = anchorPane;
@@ -160,12 +165,14 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
     }
 
     private void checkForNeutralBrick(){
+        System.out.println("checking");
         if(phaseRenderInfo.getName().equals("Trading") && (playerRenderInfo.getPlayerID().getPlayerIdNumber() ==1) && !neutralBrickPlaced ){
             drawNetualBrick();
             incrementBrickCoordinates();
             markNeutralBrickAsPlaced();
             System.out.println("neutral is placed");
-        } else if(phaseRenderInfo.getName().equals("Trading") && (playerRenderInfo.getPlayerID().getPlayerIdNumber() ==2)){
+        } else if(phaseRenderInfo.getName().equals("Wonder") && (playerRenderInfo.getPlayerID().getPlayerIdNumber() ==1)){
+            System.out.println("neutral brick avaialble");
             markNeutralBrickAsAvailable();
         }
     }
@@ -193,6 +200,37 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
         this.gc.fillRoundRect(100,650,400,100,20,20);
         this.gc.drawImage(assets.STOCK_GOODS,130,673);
     }
+    private void initializeTransportChoiceList(){
+        this.gc.setFill(Color.TEAL);
+        this.gc.fillRoundRect(100,350,400,250,20,20);
+    }
+    private void drawListText(){
+        this.gc.setFont(new Font(20));
+        this.gc.setLineWidth(1.5);
+        this.gc.strokeText("Available Wonder Brick Sources ", 160,380);
+    }
+
+    private void initializeList(){
+        this.listView = new ListView();
+        this.listView.setPrefHeight(200);
+        this.listView.setPrefWidth(300);
+        this.anchorPane.getChildren().add(listView);
+        this.anchorPane.setLeftAnchor(listView,150.0);
+        this.anchorPane.setTopAnchor(listView,390.0);
+    }
+
+    private void displayWealthPlayerText(){
+        this.gc.setFont(new Font(20));
+        this.gc.setLineWidth(1.5);
+        this.gc.strokeText("Player 1 Wealth Points :", 200,680);
+        this.gc.strokeText("Player 2 Wealth Points :", 200,720);
+    }
+    private void displayWealthAmount(int player1Amount, int player2Amount){
+        this.gc.setFont(new Font(20));
+        this.gc.setLineWidth(1.5);
+        this.gc.strokeText(" " +player1Amount,420,680);
+        this.gc.strokeText(" " +player2Amount,420,720);
+    }
 
     @Override
     public void render() {
@@ -201,8 +239,10 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
             initializeCurrentPhaseSection();
             drawCurrentPhaseInformation();
             drawCurrentPlayerInformation();
-            checkForNeutralBrick();
             initializeCurrentWealthSection();
+            displayWealthPlayerText();
+            displayWealthAmount(100,200);
+            drawListText();
             newData = false;
         } else {
 
@@ -225,7 +265,6 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
     public void updatePhaseInfo(PhaseRenderInfo phaseRenderInfo) {
         this.phaseRenderInfo = phaseRenderInfo;
         this.newData = true;
-        System.out.println("new phse");
         checkForNeutralBrick();
     }
 }
