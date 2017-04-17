@@ -34,6 +34,7 @@ public class GameInitializer {
         try {
             RBMap map = new RBMap();
             map.attach(viewHandler.getMainViewReference());
+            map.attachMapResourceRenderInfoObserver(viewHandler.getMainViewReference());
 
             GooseManager gooseManager = new GooseManager(controllerManager.getMainViewController(), map);
             StructureManager structureManager = new StructureManager(controllerManager.getMainViewController(), map);

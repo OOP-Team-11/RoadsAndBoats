@@ -2,26 +2,35 @@ package game.model.tile;
 
 import game.model.direction.Angle;
 import game.model.direction.TileCompartmentDirection;
+import game.model.direction.TileCompartmentLocation;
 import game.model.direction.TileEdgeDirection;
+import game.model.managers.ResourceManager;
 import game.model.movement.River;
+import game.model.resources.ResourceType;
 import game.model.structures.Structure;
+import game.utilities.observable.TileResourceInfoObservable;
+import game.utilities.observer.MapResourceRenderInfoObserver;
+import game.utilities.observer.TileCompartmentResourceAddedObserver;
+import game.utilities.observer.TileResourceInfoObserver;
+import game.view.render.MapResourceRenderInfo;
+import game.view.render.ResourceManagerRenderInfo;
+import game.view.render.TileResourceRenderInfo;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.List;
+import java.util.*;
 
-public class Tile
+public class Tile implements TileResourceInfoObservable, TileCompartmentResourceAddedObserver
 {
     private Map<TileEdgeDirection, TileEdge> edges;
     private Map<TileCompartmentDirection, TileCompartment> compartments;
     private Terrain terrain;
     private Structure structure;
+    private List<TileResourceInfoObserver> tileResourceInfoObservers;
 
     public Tile(Terrain terrain, RiverConfiguration riverConfiguration)
     {
         edges = new HashMap<>();
         compartments = new HashMap<>();
+        tileResourceInfoObservers = new ArrayList<>();
 
         this.terrain = terrain;
         setupCompartments(riverConfiguration);
@@ -62,6 +71,7 @@ public class Tile
         List<TileCompartmentDirection> compartmentDirections = TileCompartmentDirection.getAllDirections();
 
         TileCompartment river = new TileCompartment();
+        river.attach(this);
         TileCompartment compartment = null;
 
         for (TileCompartmentDirection tileCompartmentDirection : compartmentDirections)
@@ -79,6 +89,7 @@ public class Tile
             } else if (compartment == null || compartment.hasWater())
             {
                 compartment = new TileCompartment();
+                compartment.attach(this);
             }
 
             compartments.put(tileCompartmentDirection, compartment);
@@ -257,5 +268,70 @@ public class Tile
         {
             comp.removeUnattachedRivers();
         }
+    }
+
+    private Set<TileCompartment> getUniqueTileCompartments() {
+        Set<TileCompartment> tileCompartments = new HashSet<>();
+        for (TileCompartment tileCompartment : compartments.values()) {
+            tileCompartments.add(tileCompartment);
+        }
+        return tileCompartments;
+    }
+
+    private Set<TileCompartmentDirection> getKeysForUniqueCompartments() {
+        Set<TileCompartment> uniqueTileCompartments = getUniqueTileCompartments();
+        Set<TileCompartmentDirection> uniqueTileCompartmentDirections = new HashSet<>();
+        for (TileCompartment uniqueTileCompartment : uniqueTileCompartments) {
+            Iterator it = compartments.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                TileCompartment tileCompartment = (TileCompartment) pair.getValue();
+                if (tileCompartment.equals(uniqueTileCompartment)) {
+                    TileCompartmentDirection tcd = (TileCompartmentDirection) pair.getKey();
+                    uniqueTileCompartmentDirections.add(tcd);
+                    break;
+                }
+            }
+        }
+        return uniqueTileCompartmentDirections;
+    }
+
+    private Map<TileCompartmentDirection, TileCompartment> getUniqueTileCompartmentsMap() {
+        Map<TileCompartmentDirection, TileCompartment> tileCompartmentMap = new HashMap<>();
+        for (TileCompartmentDirection tileCompartmentDirection : getKeysForUniqueCompartments()) {
+            tileCompartmentMap.put(tileCompartmentDirection, compartments.get(tileCompartmentDirection));
+        }
+        return tileCompartmentMap;
+    }
+
+    private void notifyResourceRenderInfoObservers() {
+        Map<TileCompartmentDirection, ResourceManagerRenderInfo> resourceMap = new HashMap<>();
+        Iterator it = getUniqueTileCompartmentsMap().entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            TileCompartmentDirection tcd = (TileCompartmentDirection) pair.getKey();
+            ResourceManagerRenderInfo resourceManagerRenderInfo = compartments.get(tcd).getResourceManager().getRenderInfo();
+            resourceMap.put(tcd, resourceManagerRenderInfo);
+        }
+        TileResourceRenderInfo tileResourceRenderInfo = new TileResourceRenderInfo(this, resourceMap);
+
+        for (TileResourceInfoObserver observer : this.tileResourceInfoObservers) {
+            observer.onTileResourcesUpdated(tileResourceRenderInfo);
+        }
+    }
+
+    @Override
+    public void onTileCompartmentResourcesChanged() {
+        this.notifyResourceRenderInfoObservers();
+    }
+
+    @Override
+    public void attach(TileResourceInfoObserver observer) {
+        this.tileResourceInfoObservers.add(observer);
+    }
+
+    @Override
+    public void detach(TileResourceInfoObserver observer) {
+        this.tileResourceInfoObservers.remove(observer);
     }
 }

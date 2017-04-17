@@ -22,8 +22,8 @@ import static game.model.gameImportExport.importer.ParseUtilities.getMatcherForP
 
 public class GooseImporter {
 
-    static void importGoose(StructureManager structureManager, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
-        importClaypitsFromFile(structureManager, bufferedReader);
+    static void importGoose(GooseManager gooseManager, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
+        importGeese(gooseManager, bufferedReader);
     }
 
     private static void importGeese(GooseManager gooseManager, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
