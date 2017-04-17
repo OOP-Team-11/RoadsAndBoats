@@ -36,7 +36,7 @@ public class BuildStoneQuarryAbility extends Ability {
     public void attachToController(ResourceManager transportRm, TileCompartmentLocation tileCompartmentLocation) {
         this.resourceManager = transportRm;
         this.tileCompartmentLocation = tileCompartmentLocation;
-        mainViewController.addControl(KeyCode.S, this);
+        mainViewController.addControl(KeyCode.Y, this);
     }
     @Override
     public String getDisplayString() {
