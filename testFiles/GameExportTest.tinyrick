@@ -30,13 +30,9 @@
 ( -2 1 1 ) SSW 
 -----END PAPERMILL-----
 
------BEGIN SAWMILL-----
-( 0 -1 1 ) N LIMIT=6
------END SAWMILL-----
-
------BEGIN STOCK_MARKET-----
-( -2 1 1 ) NE LIMIT=6
------END STOCK_MARKET-----
+-----BEGIN STONE_QUARRY-----
+( 0 0 0 ) E 
+-----END STONE_QUARRY-----
 
 -----BEGIN CLAYPIT-----
 ( 0 -1 1 ) NNE 
@@ -46,20 +42,24 @@
 ( 0 1 -1 ) S 
 -----END WOODCUTTER-----
 
------BEGIN COAL_BURNER-----
-( -2 1 1 ) NW LIMIT=6
------END COAL_BURNER-----
-
------BEGIN STONE_FACTORY-----
-( 0 1 -1 ) E LIMIT=6
------END STONE_FACTORY-----
+-----BEGIN STOCK_MARKET-----
+( -2 1 1 ) NE LIMIT=6
+-----END STOCK_MARKET-----
 
 -----BEGIN MINT-----
 ( 0 -1 1 ) NW 
 -----END MINT-----
 
------BEGIN STONE_QUARRY-----
-( 0 0 0 ) E 
------END STONE_QUARRY-----
+-----BEGIN COAL_BURNER-----
+( -2 1 1 ) NW LIMIT=6
+-----END COAL_BURNER-----
+
+-----BEGIN SAWMILL-----
+( 0 -1 1 ) N LIMIT=6
+-----END SAWMILL-----
+
+-----BEGIN STONE_FACTORY-----
+( 0 1 -1 ) E LIMIT=6
+-----END STONE_FACTORY-----
 
 

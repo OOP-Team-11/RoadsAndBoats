@@ -38,6 +38,7 @@ public class Phase implements WonderPhaseEndedObservable {
     public void goToNextPhase() {
         if (getCurrentPhaseName().equals("Wonder")) notifyWonderPhaseEndedObservers();
         currentPhase = (currentPhase + 1) % phases.size();
+//        oberserver.notify();
     }
 
 
