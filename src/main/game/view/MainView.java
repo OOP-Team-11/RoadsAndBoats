@@ -33,7 +33,7 @@ import java.util.Map;
 public class MainView extends View
         implements TransportRenderInfoObserver,
         MapStructureRenderInfoObserver,
-        ResourceRenderInfoObserver,
+        MapResourceRenderInfoObserver,
         MapRenderInfoObserver,
         CursorRenderInfoObserver,
         RoadRenderInfoObserver,
@@ -48,7 +48,7 @@ public class MainView extends View
     private MapStructureRenderInfo mapStructureRenderInfo;
     private MapTransportRenderInfo mapTransportRenderInfoP1;
     private MapTransportRenderInfo mapTransportRenderInfoP2;
-    private ResourceRenderInfo resourceRenderInfo;
+    private MapResourceRenderInfo mapResourceRenderInfo;
     private PlayerRenderInfo playerRenderInfo;
     private PhaseRenderInfo phaseRenderInfo;
     private MapRenderInfo mapRenderInfo;
@@ -313,16 +313,16 @@ public class MainView extends View
     }
 
     private void drawGoodsOnLargeSideTile(Location location){
-        if(isNull(resourceRenderInfo)){
+        if(isNull(mapResourceRenderInfo)){
             // nothing to render
         } else {
-            for ( HashMap.Entry<TileCompartmentLocation, HashMap<ResourceType, Integer>> entry : resourceRenderInfo.resources.entrySet())
+            for ( Map.Entry<TileCompartmentLocation, Map<ResourceType, Integer>> entry : mapResourceRenderInfo.getResourceMap().entrySet())
             {
                 if(entry.getKey().getLocation().equals(location)){
                     int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
                     for ( HashMap.Entry<ResourceType, Integer> entry2 : entry.getValue().entrySet()){
                         Image image = renderToImageConverter.getResourceImage(entry2.getKey());
-                        drawSideCompartmentGoodImage(image,compartment);
+                        drawSideCompartmentGoodImage(image,compartment+1);
                     }
                 } else {
                     // not same locaiton
@@ -340,7 +340,7 @@ public class MainView extends View
                 if(entry.getKey().getLocation().equals(location)){
                     int compartment = (entry.getKey().getTileCompartmentDirection().getAngle().getDegrees())/60;
                     Image image = renderToImageConverter.getStructureImage(entry.getValue().getStructureType());
-                    drawSideCompartmentLargeImage(image,compartment);
+                    drawSideCompartmentLargeImage(image,compartment+1);
                 } else {
                     // not same locaiton
                 }
@@ -473,10 +473,10 @@ public class MainView extends View
         int stockCount = 0;
         int trunkCount = 0;
 
-        if(isNull(resourceRenderInfo)){
+        if(isNull(mapResourceRenderInfo)){
             // nothing to render
         } else {
-            for ( HashMap.Entry<TileCompartmentLocation, HashMap<ResourceType, Integer>> entry : resourceRenderInfo.resources.entrySet())
+            for ( Map.Entry<TileCompartmentLocation, Map<ResourceType, Integer>> entry : mapResourceRenderInfo.getResourceMap().entrySet())
             {
                 if(cursorRenderInfo.getCursorLocation().equals(entry.getKey().getLocation())){ // same location
                     for ( HashMap.Entry<ResourceType, Integer> entry2 : entry.getValue().entrySet()){
@@ -801,10 +801,10 @@ public class MainView extends View
     }
 
     private void displayResourceRenderInfo(){
-        if(isNull(resourceRenderInfo)){
+        if(isNull(mapResourceRenderInfo)){
             // nothing to render
         } else {
-            for ( HashMap.Entry<TileCompartmentLocation, HashMap<ResourceType, Integer>> entry : resourceRenderInfo.resources.entrySet())
+            for ( Map.Entry<TileCompartmentLocation, Map<ResourceType, Integer>> entry : mapResourceRenderInfo.getResourceMap().entrySet())
             {
                 int x = entry.getKey().getLocation().getX();
                 int y = entry.getKey().getLocation().getY();
@@ -870,8 +870,8 @@ public class MainView extends View
         this.refresh = true;
     }
     @Override
-    public void updateResourceInfo(ResourceRenderInfo resourceRenderInfo) {
-        this.resourceRenderInfo = resourceRenderInfo;
+    public void updateMapResourceInfo(MapResourceRenderInfo mapResourceRenderInfo) {
+        this.mapResourceRenderInfo = mapResourceRenderInfo;
         this.refresh = true;
     }
     @Override

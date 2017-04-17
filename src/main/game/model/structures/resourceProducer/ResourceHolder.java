@@ -16,8 +16,8 @@ public abstract class ResourceHolder extends Structure {
         return resourceManager.getWealthPoints();
     }
 
-    public void storeResource(ResourceType type, Integer numberToRemove) {
-        resourceManager.addResource(type, numberToRemove);
+    public void storeResource(ResourceType type, Integer numberToAdd) {
+        resourceManager.addResource(type, numberToAdd);
     }
 
     public boolean takeResource(ResourceType type, Integer numberToRemove) {

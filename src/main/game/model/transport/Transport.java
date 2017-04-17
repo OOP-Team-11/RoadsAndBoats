@@ -16,7 +16,9 @@ public abstract class Transport implements Serializable {
     private TransportId transportId;
     private ResourceManager resourceManager;
     private int moveCapacity;
-    private int carryCapacity;
+    private int currentCarryCapacity;
+    private int maxCarryCapacity;
+    private Transport transport;
 
     Transport() {
         this.followers = new Vector<Goose>();
@@ -32,7 +34,8 @@ public abstract class Transport implements Serializable {
         this.playerId = playerId;
         this.transportId = transportId;
         this.moveCapacity = moveCapacity;
-        this.carryCapacity = carryCapacity;
+        this.currentCarryCapacity = carryCapacity;
+        this.maxCarryCapacity = carryCapacity;
         this.resourceManager = new ResourceManager();
     }
 
@@ -61,6 +64,31 @@ public abstract class Transport implements Serializable {
         return false;
     }
 
+    public boolean storeTransport(Transport transport) {
+        if (!canStoreTransport(transport)) return false;
+
+        this.transport = transport;
+        this.currentCarryCapacity = 0;
+        return true;
+    }
+
+    public boolean canStoreTransport(Transport transport) {
+        return hasNoTransport() &&
+                isCarryingNothing() &&
+                transport.isCarryingNothing() &&
+                transportBelongsToSamePlayer(transport);
+    }
+
+    public boolean canRemoveTransport() {
+        return transport != null;
+    }
+
+    public Transport removeTransport() {
+        Transport transport = this.transport;
+        this.transport = null;
+        return transport;
+    }
+
     public boolean takeResource(ResourceType type, Integer numberToRemove) {
         if (resourceManager.removeResource(type, numberToRemove)) {
             raiseCarryCapacity(numberToRemove);
@@ -78,16 +106,16 @@ public abstract class Transport implements Serializable {
     }
 
     public boolean canStoreResource(int number) {
-        return (carryCapacity != 0)
-                && (carryCapacity >= number);
+        return (currentCarryCapacity != 0)
+                && (currentCarryCapacity >= number);
     }
 
     private void lowerCarryCapacity(int number) {
-        carryCapacity = carryCapacity - number;
+        currentCarryCapacity = currentCarryCapacity - number;
     }
 
     private void raiseCarryCapacity(int number) {
-        carryCapacity = carryCapacity + number;
+        currentCarryCapacity = currentCarryCapacity + number;
     }
 
     public int getMoveCapacity() {
@@ -95,7 +123,7 @@ public abstract class Transport implements Serializable {
     }
 
     public int getCarryCapacity() {
-        return this.carryCapacity;
+        return this.currentCarryCapacity;
     }
 
     public List<Goose> getFollowers() {
@@ -105,9 +133,15 @@ public abstract class Transport implements Serializable {
     // use for view drawing and import/export to file ONLY
     public abstract TransportType getType();
 
+    public abstract boolean canMoveOnLand();
+
+    public abstract boolean canMoveOnRoad();
+
+    public abstract boolean canMoveOnWater();
+
     @Override
     public int hashCode() {
-        return Objects.hash(playerId, transportId, moveCapacity, carryCapacity);
+        return Objects.hash(playerId, transportId, moveCapacity, currentCarryCapacity);
     }
 
     @Override
@@ -119,6 +153,20 @@ public abstract class Transport implements Serializable {
 
         Transport tr = (Transport) object;
         return tr.transportId.equals(transportId) && tr.playerId.equals(playerId)
-                && tr.moveCapacity == moveCapacity && tr.carryCapacity == carryCapacity;
+                && tr.moveCapacity == moveCapacity && tr.currentCarryCapacity == currentCarryCapacity;
     }
+
+    private boolean hasNoTransport() {
+        return transport == null;
+    }
+
+    private boolean isCarryingNothing() {
+        return this.currentCarryCapacity == this.maxCarryCapacity;
+    }
+
+    private boolean transportBelongsToSamePlayer(Transport transport) {
+        return this.playerId.equals(transport.playerId);
+    }
+
+
 }

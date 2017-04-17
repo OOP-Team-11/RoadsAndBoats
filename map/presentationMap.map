@@ -1,4 +1,4 @@
-BEGIN MAP
+-----BEGIN MAP-----
 ( 2 -2 0 ) MOUNTAIN
 ( 1 -1 0 ) MOUNTAIN
 ( 2 -1 -1 ) MOUNTAIN  ( 1  )
@@ -103,4 +103,4 @@ BEGIN MAP
 ( -5 4 1 ) SEA
 ( -6 4 2 ) SEA
 ( -6 3 3 ) SEA  ( 3  )
-END MAP
+-----END MAP-----

@@ -9,6 +9,9 @@ import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.factory.AbilityFactory;
 import game.model.map.RBMap;
+import game.model.movement.Move;
+import game.model.movement.River;
+import game.model.movement.Road;
 import game.model.resources.Goose;
 import game.model.resources.ResourceType;
 import game.model.tile.Terrain;
@@ -65,6 +68,34 @@ public class TransportAbilityManager {
         this.addPickUpResourceAbility(transport, tileCompartmentLocation);
         this.addDropResourceAbility(transport, tileCompartmentLocation);
         this.addPickUpTransportAbility(transport, tileCompartmentLocation, tileTransports);
+    }
+
+    private Set<Move> getValidMoves(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports)
+    {
+        Set<Move> compartments=new HashSet<>();
+
+        if(transport.canMoveOnRoad())
+        {
+            for(Road r: map.getTile(tileCompartmentLocation.getLocation()).getTileCompartment(tileCompartmentLocation.getTileCompartmentDirection()).getRoads().values())
+            {
+                compartments.add(new Move(r.getDestination(), r.getCompartmentDirection(), r.getEdgeDirection()));
+            }
+        }
+
+        if(transport.canMoveOnWater())
+        {
+            for(River r: map.getTile(tileCompartmentLocation.getLocation()).getTileCompartment(tileCompartmentLocation.getTileCompartmentDirection()).getRivers().values())
+            {
+                compartments.add(new Move(r.getDestination(), r.getCompartmentDirection(), r.getEdgeDirection()));
+            }
+        }
+
+        if(transport.canMoveOnLand())
+        {
+            compartments.addAll(map.getAdjacentMovesToTileCompartments(tileCompartmentLocation));
+        }
+
+        return compartments;
     }
 
     private void addAbility(Ability a) {

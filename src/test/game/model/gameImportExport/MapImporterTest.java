@@ -31,7 +31,7 @@ public class MapImporterTest {
         try {
             br = new BufferedReader(new FileReader(testFile));
             fw = new FileWriter(testFile);
-            fw.write("BEGIN MAP");
+            fw.write("-----BEGIN MAP-----");
             fw.write(System.lineSeparator());
         } catch (IOException e) {
             fail();
@@ -53,7 +53,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) SEA");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -68,7 +68,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -83,7 +83,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) WOODS");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -98,7 +98,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) ROCK");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -113,7 +113,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) DESERT");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -128,7 +128,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) MOUNTAIN");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -143,7 +143,7 @@ public class MapImporterTest {
         try {
             fw.write("( -1 0 1 ) PASTURE");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -158,7 +158,7 @@ public class MapImporterTest {
         try {
             fw.write("( -10 0 10 ) PASTURE");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -173,7 +173,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 -10 10 ) PASTURE");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -188,7 +188,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 -1 0 ) PASTURE");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -211,7 +211,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -233,7 +233,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 1 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -256,7 +256,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 2 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -278,7 +278,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 3 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -300,7 +300,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 4 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -322,7 +322,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 5 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -344,7 +344,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 6 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -366,7 +366,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 1 2 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -393,7 +393,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 2 3 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -420,7 +420,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 3 4 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -447,7 +447,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 4 5 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -474,7 +474,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 5 6 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -501,7 +501,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 1 6 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -528,7 +528,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 1 3 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -555,7 +555,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 2 4 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -582,7 +582,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 3 5 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -609,7 +609,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 4 6 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -636,7 +636,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 1 5 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -663,7 +663,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 2 6 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -690,7 +690,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 1 4 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -717,7 +717,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 2 5 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -744,7 +744,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 3 6 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -771,7 +771,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 1 3 5 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -798,7 +798,7 @@ public class MapImporterTest {
         try {
             fw.write("( 0 0 0 ) PASTURE ( 2 4 6 )");
             fw.write(System.lineSeparator());
-            fw.write("END MAP");
+            fw.write("-----END MAP-----");
             fw.write(System.lineSeparator());
             fw.close();
         } catch (IOException e) {

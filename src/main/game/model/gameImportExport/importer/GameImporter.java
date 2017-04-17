@@ -9,13 +9,12 @@ import java.io.IOException;
 
 public class GameImporter {
 
-    public void importGameFromFile(RBMap map, StructureManager structureManager, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
-        MapImporter mapImporter = new MapImporter();
-        ResourceImporter resourceImporter = new ResourceImporter();
-        MineImporter mineImporter = new MineImporter();
-
-        mapImporter.importMapFromFile(map, bufferedReader);
-        resourceImporter.importResourcesFromFile(map, bufferedReader);
-        mineImporter.importMinesFromFile(structureManager, bufferedReader);
+    public static void importGameFromFile(RBMap map, StructureManager structureManager, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
+        MapImporter.importMapFromFile(map, bufferedReader);
+        ResourceImporter.importResourcesFromFile(map, bufferedReader);
+        map.finalizeMap();
+        MineImporter.importMinesFromFile(structureManager, bufferedReader);
+        OilRigImporter.importOilRigsFromFile(structureManager, bufferedReader);
+        NonSpecialLimitlessStructures.importNonSpecialLimitlessStructures(structureManager, bufferedReader);
     }
 }

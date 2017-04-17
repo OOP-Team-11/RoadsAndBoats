@@ -1,4 +1,4 @@
-BEGIN MAP
+-----BEGIN MAP-----
 ( 0 -1 1 ) PASTURE
 ( 0 0 0 ) PASTURE 
 ( -1 0 1 ) PASTURE 
@@ -12,4 +12,4 @@ BEGIN MAP
 ( 0 1 -1 ) SEA 
 ( 0 2 -2 ) SEA 
 ( 2 -2 0 ) SEA  ( 6  )
-END MAP
+-----END MAP-----
