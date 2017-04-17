@@ -793,6 +793,11 @@ public class MainView extends View
         drawImage(assets.WALL_RED_NORTHEAST,x-1,y,z+1);
     }
 
+    private void drawRoadNorth(int x, int y, int z){
+        drawImage(assets.ROAD_S,x,y,z-1);
+        drawImage(assets.ROAD_N,x,y,z);
+    }
+
 
     private void TESTING_REMOVE_LATER(){
 
@@ -823,6 +828,7 @@ public class MainView extends View
         drawNeutralNWWall(-2,0,-2);
 
 
+        drawRoadNorth(1,0,1);
         //drawImage(assets.WALL_BLUE_NORTH,0,0,-1);
         //drawImage(assets.WALL_BLUE_SOUTH,0,0,-1);
 

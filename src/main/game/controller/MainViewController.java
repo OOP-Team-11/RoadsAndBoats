@@ -127,7 +127,7 @@ public class MainViewController {
             public void handle(MouseEvent e) {
                 TransportId selectedTransport = mainView.getCurrentlySelectedTransportID();
                 PhaseRenderInfo info = mainView.getCurentPhaseInformation();
-                // TODO 
+                // TODO
 
                 Location transportLocation = mainView.getRightClickedLocation();
                 for(TransportManager tm : transportManagers)

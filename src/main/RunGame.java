@@ -20,7 +20,7 @@ public class RunGame extends Application{
         StackPane stackPane = new StackPane();
         stackPane.getChildren().add(anchorPane);
         Scene scene = new Scene(stackPane,1400 , 800);
-        primaryStage.setTitle("Roads and Boats ");
+        primaryStage.setTitle("roads and Boats ");
         primaryStage.setScene(scene);
         primaryStage.show();
 
