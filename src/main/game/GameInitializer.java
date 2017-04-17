@@ -53,7 +53,7 @@ public class GameInitializer {
         TileCompartmentLocation player1StartingLocation = new TileCompartmentLocation(new Location(0,0,0), TileCompartmentDirection.getNorth());
         ResearchManager p1ResearchManager = new ResearchManager(player1StartingLocation.getLocation(), player1Id);
         p1ResearchManager.attach(viewHandler.getResearchViewReference());
-        TransportManager player1TransportManager = new TransportManager(player1Id, controllerManager.getMainViewController(), gooseManager, map, structureManager, p1ResearchManager);
+        TransportManager player1TransportManager = new TransportManager(player1Id, controllerManager.getMainViewController(), gooseManager, map, structureManager, p1ResearchManager, wonderManager);
         Player player1 = new Player(player1TransportManager, new PlayerId(1), player1Name, player1StartingLocation);
         player1.attach(viewHandler.getMainViewReference());
         player1.attach(viewHandler.getTransportViewReference());
@@ -62,7 +62,7 @@ public class GameInitializer {
         TileCompartmentLocation player2StartingLocation = new TileCompartmentLocation(new Location(0,1,-1), TileCompartmentDirection.getNorth());
         ResearchManager p2ResearchManager = new ResearchManager(player2StartingLocation.getLocation(), player2Id);
         p2ResearchManager.attach(viewHandler.getResearchViewReference());
-        TransportManager player2TransportManager = new TransportManager(player2Id, controllerManager.getMainViewController(), gooseManager, map, structureManager, p2ResearchManager);
+        TransportManager player2TransportManager = new TransportManager(player2Id, controllerManager.getMainViewController(), gooseManager, map, structureManager, p2ResearchManager, wonderManager);
         Player player2 = new Player(player2TransportManager, new PlayerId(2), player2Name, player2StartingLocation);
         player2.attach(viewHandler.getMainViewReference());
         player2.attach(viewHandler.getTransportViewReference());
