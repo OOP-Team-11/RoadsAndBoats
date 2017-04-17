@@ -12,10 +12,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -206,8 +208,8 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
             //("# | Move | Carry | Followers |                      Resources                 |");
             for(TransportRenderInfo transportRenderInfo : entry.getValue()){
                 StringBuilder builder = new StringBuilder();
-                builder.append("     move:" + transportRenderInfo.getMoveCapacity() + "              ");
-                builder.append("carry:" +transportRenderInfo.getCarryCapacity() + "            ");
+                builder.append(" move:" + transportRenderInfo.getMoveCapacity() + "    ");
+                builder.append("carry:" +transportRenderInfo.getCarryCapacity() + "     \n");
                 builder.append("followers:" +transportRenderInfo.getFollowers() + "           \n");
                 builder.append(transportRenderInfo.getResourceString());
 
@@ -237,6 +239,24 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
         }
     }
 
+    private void setFontForLists(ListView listView){
+        listView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override // way too complicated but this is what is needed to make the font bigger for each item in listView
+            public ListCell<String> call(ListView<String> p) {
+                return new ListCell<String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item);
+                            setFont(Font.font(22));
+                        }
+                    }
+                };
+            }
+        });
+    }
+
     private void drawPlayerImages(){
         if(this.playerRenderInfo == null){
             // nothing
@@ -244,7 +264,7 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
             if(this.playerRenderInfo.getPlayerID().getPlayerIdNumber() == 1){
                 drawPlayer1Images();
             } else {
-                drawPlayer1Images();
+                drawPlayer2Images();
             }
 
         }
@@ -258,6 +278,15 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
         setRaftList(FXCollections.observableArrayList(raftList));
         setRowBoatList(FXCollections.observableArrayList(rowBoatList));
         setSteamShipList(FXCollections.observableArrayList(steamShipList));
+    }
+
+    private void setFonts(){
+        setFontForLists(this.donkeyTable);
+        setFontForLists(this.wagonTable);
+        setFontForLists(this.truckTable);
+        setFontForLists(this.raftTable);
+        setFontForLists(this.rowBoatTable);
+        setFontForLists(this.steamShipTable);
     }
 
     private void setDonkeyList(ObservableList<String> data){
@@ -313,6 +342,7 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
             drawPlayerImages();
             drawTitle();
             updateLists();
+            setFonts();
             setLists();
             this.newData = false;
         }
