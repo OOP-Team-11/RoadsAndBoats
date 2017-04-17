@@ -232,6 +232,34 @@ public class GameExporterTest {
         );
     }
 
+    @Test
+    public void clayPitSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN CLAYPIT-----\n" +
+                "( 0 -1 1 ) NNE";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN CLAYPIT-----"),contents.indexOf("-----END CLAYPIT-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void sawMillSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN SAWMILL-----\n" +
+                "( 0 -1 1 ) N LIMIT=6";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN SAWMILL-----"),contents.indexOf("-----END SAWMILL-----")).trim(),
+                expected.trim()
+        );
+    }
+
 
     private String readFile(String filepath){
         File f = new File(filepath);
