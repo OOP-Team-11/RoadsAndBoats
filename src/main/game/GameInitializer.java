@@ -27,8 +27,7 @@ public class GameInitializer {
 
     public GameInitializer(String gameFile, String player1Name, String player2Name, Stage primaryStage){
 
-        System.out.println("New Game has started");
-        viewHandler = new ViewHandler(primaryStage);
+        System.out.println("New Game has started");        viewHandler = new ViewHandler(primaryStage);
         controllerManager = new ControllerManager(viewHandler);
 
         GameExporter gameExporter;
@@ -64,6 +63,9 @@ public class GameInitializer {
 
             game.attachPlayerInfoObserver(viewHandler.getMainViewReference());
             game.attachPlayerInfoObserver(viewHandler.getTransportViewReference());
+
+            game.attachPhaseInfoObserver(viewHandler.getMainViewReference());
+
             game.attachPlayerInfoObserver(viewHandler.getResearchViewReference());
             game.attachPhaseInfoObserver(viewHandler.getResearchViewReference());
             game.attachPhaseInfoObserver(viewHandler.getMainViewReference());
