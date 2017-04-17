@@ -192,16 +192,16 @@ public class GameExporterTest {
 
     @Test
     public void oilRigSectionTest(){
-//        gameExporter.exportGameToPath(testingFilePath);
-//        String contents = readFile(testingFilePath);
-//
-//        String expected = "-----BEGIN OIL_RIG-----\n" +
-//                "( 1 0 -1 ) NW [GOLD=29 TRUNKS=1 ]";
-//
-//        assertEquals(
-//                contents.substring(contents.indexOf("-----BEGIN OIL_RIG-----"),contents.indexOf("-----END OIL_RIG-----")).trim(),
-//                expected.trim()
-//        );
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN OIL_RIG-----\n" +
+                "( 1 0 -1 ) NW [GOLD=29 TRUNKS=1 ]";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN OIL_RIG-----"),contents.indexOf("-----END OIL_RIG-----")).trim(),
+                expected.trim()
+        );
     }
 
     @Test
