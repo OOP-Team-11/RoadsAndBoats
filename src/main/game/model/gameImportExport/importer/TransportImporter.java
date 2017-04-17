@@ -180,7 +180,7 @@ public class TransportImporter {
             case ROWBOAT:
                 return new RowboatTransport(playerId, new TransportId());
             case STEAMSHIP:
-                return new RowboatTransport(playerId, new TransportId());
+                return new SteamShipTransport(playerId, new TransportId());
             case TRUCK:
                 return new TruckTransport(playerId, new TransportId());
             case WAGON:
