@@ -338,7 +338,6 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
     @Override
     public void updatePlayerInfo(PlayerRenderInfo playerRenderInfo) {
         this.playerRenderInfo = playerRenderInfo;
-        System.out.println("HERE " +playerRenderInfo.getPlayerID().getPlayerIdNumber());
         this.newData = true;
     }
 }

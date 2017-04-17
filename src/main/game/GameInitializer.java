@@ -67,6 +67,8 @@ public class GameInitializer {
             game.attachPlayerInfoObserver(viewHandler.getResearchViewReference());
             game.attachPhaseInfoObserver(viewHandler.getResearchViewReference());
             game.attachPhaseInfoObserver(viewHandler.getMainViewReference());
+            game.attachPlayerInfoObserver(viewHandler.getWonderViewReference());
+            game.attachPhaseInfoObserver(viewHandler.getWonderViewReference());
 
             controllerManager.getMainViewController().setGame(game);
 

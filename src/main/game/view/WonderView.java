@@ -1,6 +1,10 @@
 package game.view;
 
+import game.utilities.observer.PhaseRenderInfoObserver;
+import game.utilities.observer.PlayerRenderInfoObserver;
 import game.utilities.observer.WonderRenderInfoObserver;
+import game.view.render.PhaseRenderInfo;
+import game.view.render.PlayerRenderInfo;
 import game.view.render.WonderRenderInfo;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
@@ -11,10 +15,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class WonderView extends View implements WonderRenderInfoObserver{
+public class WonderView extends View implements WonderRenderInfoObserver, PlayerRenderInfoObserver, PhaseRenderInfoObserver{
 
     private AnchorPane anchorPane;
     private WonderRenderInfo wonderRenderInfo;
+    private PlayerRenderInfo playerRenderInfo;
+    private PhaseRenderInfo phaseRenderInfo;
     private Boolean newData;
     private Canvas canvas;
     private Button testButton;
@@ -52,7 +58,6 @@ public class WonderView extends View implements WonderRenderInfoObserver{
     }
     private void placeAddButton(){
         this.testButton = new Button();
-        this.testButton.setText("Add Brick");
         this.anchorPane.getChildren().add(testButton);
         this.anchorPane.setLeftAnchor(testButton, 100.0);
         this.anchorPane.setTopAnchor(testButton,200.0);
@@ -83,7 +88,10 @@ public class WonderView extends View implements WonderRenderInfoObserver{
     }
 
     private void drawNextBrick(){
-        // Just for testing atm
+        // we check if we are in the correct phase
+        if(phaseRenderInfo.getName().equals("Wonder")){
+
+        }
         this.gc.drawImage(assets.WONDERBRICK_BLUE, brickX, brickY, 50, 20);
         this.brickCount++;
     }
@@ -126,6 +134,18 @@ public class WonderView extends View implements WonderRenderInfoObserver{
     @Override
     public void updateWonderInfo(WonderRenderInfo wonderRenderInfo) {
         this.wonderRenderInfo = wonderRenderInfo;
+        this.newData = true;
+    }
+
+    @Override
+    public void updatePlayerInfo(PlayerRenderInfo playerRenderInfo) {
+        this.playerRenderInfo = playerRenderInfo;
+        this.newData = true;
+    }
+
+    @Override
+    public void updatePhaseInfo(PhaseRenderInfo phaseRenderInfo) {
+        this.phaseRenderInfo = phaseRenderInfo;
         this.newData = true;
     }
 }

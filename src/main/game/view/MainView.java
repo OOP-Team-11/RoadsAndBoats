@@ -458,23 +458,71 @@ public class MainView extends View
     }
 
     private void displayGoodsCount(){
-        // display count TODO update values later with actual information
         this.selectGC.setFont(new Font(17));
         this.selectGC.setLineWidth(1);
 
-        this.selectGC.strokeText("Boards: 5",80,460 );
-        this.selectGC.strokeText("Clay: 5",80,520 );
-        this.selectGC.strokeText("Gold: 4",80,580 );
-        this.selectGC.strokeText("Coin: 4",80,640 );
-        this.selectGC.strokeText("Fuel: 4",80,700 );
-        this.selectGC.strokeText("Geese: 4",80,760 );
+        int boardCount = 0;
+        int clayCount = 0;
+        int goldCount = 0;
+        int coinCount = 0;
+        int fuelCount = 0;
+        int geeseCount = 0;
+        int ironCount = 0;
+        int paperCount = 0;
+        int stockCount = 0;
+        int trunkCount = 0;
+
+        if(isNull(resourceRenderInfo)){
+            // nothing to render
+        } else {
+            for ( HashMap.Entry<TileCompartmentLocation, HashMap<ResourceType, Integer>> entry : resourceRenderInfo.resources.entrySet())
+            {
+                if(cursorRenderInfo.getCursorLocation().equals(entry.getKey().getLocation())){ // same location
+                    for ( HashMap.Entry<ResourceType, Integer> entry2 : entry.getValue().entrySet()){
+                        if(entry2.getKey().equals(ResourceType.BOARDS)){
+                            boardCount = entry2.getValue();
+                        } else if(entry2.getKey().equals(ResourceType.CLAY)){
+                            clayCount = entry2.getValue();
+                        } else if(entry2.getKey().equals(ResourceType.GOLD)){
+                            goldCount = entry2.getValue();
+                        } else if(entry2.getKey().equals(ResourceType.COINS)){
+                            coinCount = entry2.getValue();
+                        } else if(entry2.getKey().equals(ResourceType.FUEL)){
+                            fuelCount = entry2.getValue();
+                        } else if(entry2.getKey().equals(ResourceType.GOOSE)){
+                            geeseCount = entry2.getValue();
+                        } else if(entry2.getKey().equals(ResourceType.IRON)){
+                            ironCount = entry2.getValue();
+                        } else if(entry2.getKey().equals(ResourceType.PAPER)){
+                            paperCount = entry2.getValue();
+                        } else if(entry2.getKey().equals(ResourceType.STOCKBOND)){
+                            stockCount = entry2.getValue();
+                        } else if(entry2.getKey().equals(ResourceType.TRUNKS)){
+                            trunkCount = entry2.getValue();
+                        } else {
+
+                        }
+                    }
+                } else {
+
+                }
+
+            }
+        }
+
+        this.selectGC.strokeText("Boards: " +boardCount,80,460 );
+        this.selectGC.strokeText("Clay: " +clayCount,80,520 );
+        this.selectGC.strokeText("Gold: " +goldCount,80,580 );
+        this.selectGC.strokeText("Coin: " +coinCount,80,640 );
+        this.selectGC.strokeText("Fuel: " +fuelCount,80,700 );
+        this.selectGC.strokeText("Geese: " +geeseCount,80,760 );
 
         // second column of count
-        this.selectGC.strokeText("Iron: 5",230,460 );
-        this.selectGC.strokeText("Paper 5",230,520 );
-        this.selectGC.strokeText("Stock: 4",230,580 );
-        this.selectGC.strokeText("Stone: 4",230,640 );
-        this.selectGC.strokeText("Trunks: 4",230,700 );
+        this.selectGC.strokeText("Iron: " +ironCount,230,460 );
+        this.selectGC.strokeText("Paper " +paperCount,230,520 );
+        this.selectGC.strokeText("Stock: " +stockCount,230,580 );
+        this.selectGC.strokeText("Stone: " +stockCount,230,640 );
+        this.selectGC.strokeText("Trunks: " +trunkCount,230,700 );
 
     }
 
