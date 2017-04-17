@@ -20,26 +20,21 @@ public class StructureManager implements MapStructureRenderInfoObservable, Struc
     private Map<TileCompartmentLocation, Structure> structures;
     private List<MapStructureRenderInfoObserver> structureRenderInfoObservers;
 
-    public StructureManager(MainViewController mainViewController, RBMap map)
-    {
+    public StructureManager(MainViewController mainViewController, RBMap map) {
         this.structures = new HashMap<>();
         this.structureRenderInfoObservers = new ArrayList<>();
         this.structureAbilityManager = new StructureAbilityManager(mainViewController, map, this);
     }
 
-    public void addStructure(TileCompartmentLocation tcl, Structure structure)
-    {
+    public void addStructure(TileCompartmentLocation tcl, Structure structure) {
         // TODO: enforce structure type limits
         structures.put(tcl, structure);
         notifyStructureRenderInfoObservers();
     }
 
-    public Structure getStructure(StructureId structureId)
-    {
-        for (Structure s : structures.values())
-        {
-            if (s.getId().equals(structureId))
-            {
+    public Structure getStructure(StructureId structureId) {
+        for (Structure s : structures.values()) {
+            if (s.getId().equals(structureId)) {
                 return s;
             }
         }

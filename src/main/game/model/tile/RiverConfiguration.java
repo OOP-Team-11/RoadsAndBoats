@@ -239,7 +239,7 @@ public class RiverConfiguration implements Serializable {
     public String getExportString() {
         StringBuilder sb = new StringBuilder();
         if (getNumRivers() == 0) return "";
-
+        if (getNumRivers() == 6) return "";
         sb.append("( ");
 
         Iterator it = riverMap.entrySet().iterator();
