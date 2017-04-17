@@ -718,13 +718,117 @@ public class MainView extends View
         this.refresh = false;
     }
 
+    private void drawBlueNorthWall(int x, int y, int z){
+        drawImage(assets.WALL_BLUE_SOUTH,x,y,z-1);
+        drawImage(assets.WALL_BLUE_NORTH,x,y,z);
+    }
+
+    private void drawBlueSouthWall(int x, int y, int z){
+        drawImage(assets.WALL_BLUE_SOUTH,x,y,z);
+        drawImage(assets.WALL_BLUE_NORTH,x,y,z+1);
+    }
+    private void drawBlueSEWall(int x, int y, int z){
+        drawImage(assets.WALL_BLUE_SOUTHEAST,x,y,z);
+        drawImage(assets.WALL_BLUE_NORTHWEST,x+1,y,z);
+    }
+    private void drawBlueNEWall(int x, int y, int z){
+        drawImage(assets.WALL_BLUE_NORTHEAST,x,y,z);
+        drawImage(assets.WALL_BLUE_SOUTHWEST,x+1,y,z-1);
+    }
+    private void drawBlueNWWall(int x, int y, int z){
+        drawImage(assets.WALL_BLUE_NORTHWEST,x,y,z);
+        drawImage(assets.WALL_BLUE_SOUTHEAST,x-1,y,z);
+    }
+    private void drawBlueSWWall(int x, int y, int z){
+        drawImage(assets.WALL_BLUE_SOUTHWEST,x,y,z);
+        drawImage(assets.WALL_BLUE_NORTHEAST,x-1,y,z+1);
+    }
+
+    private void drawNeutralNorthWall(int x, int y, int z){
+        drawImage(assets.WALL_NEUTRAL_SOUTH,x,y,z-1);
+        drawImage(assets.WALL_NEUTRAL_NORTH,x,y,z);
+    }
+
+    private void drawNeutralSouthWall(int x, int y, int z){
+        drawImage(assets.WALL_NEUTRAL_SOUTH,x,y,z);
+        drawImage(assets.WALL_NEUTRAL_NORTH,x,y,z+1);
+    }
+    private void drawNeutralNEWall(int x, int y, int z){
+        drawImage(assets.WALL_NEUTRAL_NORTHEAST,x,y,z);
+        drawImage(assets.WALL_NEUTRAL_SOUTHWEST,x+1,y,z-1);
+    }
+    private void drawNeutralNWWall(int x, int y, int z){
+        drawImage(assets.WALL_NEUTRAL_NORTHWEST,x,y,z);
+        drawImage(assets.WALL_NEUTRAL_SOUTHEAST,x-1,y,z);
+    }
+    private void drawNeutralSWWall(int x, int y, int z){
+        drawImage(assets.WALL_NEUTRAL_SOUTHWEST,x,y,z);
+        drawImage(assets.WALL_NEUTRAL_NORTHEAST,x-1,y,z+1);
+    }
+    private void drawNeutralSEWall(int x, int y, int z){
+        drawImage(assets.WALL_NEUTRAL_SOUTHEAST,x,y,z);
+        drawImage(assets.WALL_NEUTRAL_NORTHWEST,x+1,y,z);
+    }
+
+    private void drawREDNorthWall(int x, int y, int z){
+        drawImage(assets.WALL_RED_SOUTH,x,y,z-1);
+        drawImage(assets.WALL_RED_NORTH,x,y,z);
+    }
+
+    private void drawRedSouthWall(int x, int y, int z){
+        drawImage(assets.WALL_RED_SOUTH,x,y,z);
+        drawImage(assets.WALL_RED_NORTH,x,y,z+1);
+    }
+
+    private void drawRedSEWall(int x, int y, int z){
+        drawImage(assets.WALL_RED_SOUTHEAST,x,y,z);
+        drawImage(assets.WALL_RED_NORTHWEST,x+1,y,z);
+    }
+    private void drawRedNEWall(int x, int y, int z){
+        drawImage(assets.WALL_RED_NORTHEAST,x,y,z);
+        drawImage(assets.WALL_RED_SOUTHWEST,x+1,y,z-1);
+    }
+    private void drawRedNWWall(int x, int y, int z){
+        drawImage(assets.WALL_RED_NORTHWEST,x,y,z);
+        drawImage(assets.WALL_RED_SOUTHEAST,x-1,y,z);
+    }
+    private void drawRedSWWall(int x, int y, int z){
+        drawImage(assets.WALL_RED_SOUTHWEST,x,y,z);
+        drawImage(assets.WALL_RED_NORTHEAST,x-1,y,z+1);
+    }
+
 
     private void TESTING_REMOVE_LATER(){
 
 
         // Walls not working 100%
-        drawImage(assets.WALL_BLUE_NORTH,0,0,-1);
-        drawImage(assets.WALL_BLUE_SOUTH,0,0,-1);
+        drawBlueSouthWall(1,0,0);
+        drawBlueNorthWall(1,0,0);
+        drawBlueNEWall(1,0,0);
+        drawBlueSEWall(1,0,0);
+        drawBlueSWWall(1,0,0);
+        drawBlueNWWall(1,0,0);
+       // drawNeutralNorthWall(1,0,0);
+
+
+
+        drawRedSouthWall(-1,0,0);
+        drawREDNorthWall(-1,0,0);
+        drawRedSEWall(-1,0,0);
+        drawRedNEWall(-1,0,0);
+        drawRedNWWall(-1,0,0);
+        drawRedSWWall(-1,0,0);
+
+        drawNeutralNorthWall(-2,0,-2);
+        drawNeutralNEWall(-2,0,-2);
+        drawNeutralSEWall(-2,0,-2);
+        drawNeutralSouthWall(-2,0,-2);
+        drawNeutralSWWall(-2,0,-2);
+        drawNeutralNWWall(-2,0,-2);
+
+
+        //drawImage(assets.WALL_BLUE_NORTH,0,0,-1);
+        //drawImage(assets.WALL_BLUE_SOUTH,0,0,-1);
 
     }
 
