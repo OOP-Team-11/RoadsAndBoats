@@ -1,6 +1,7 @@
 package game.view.render;
 
 import game.model.Player;
+import game.model.PlayerId;
 
 public class PlayerRenderInfo {
 
@@ -12,4 +13,8 @@ public class PlayerRenderInfo {
     public String getName() {
         return player.getName();
     }
+    public PlayerId getPlayerID(){
+        return player.getPlayerId();
+    }
+
 }

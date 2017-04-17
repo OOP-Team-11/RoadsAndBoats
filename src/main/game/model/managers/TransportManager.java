@@ -34,6 +34,7 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
         this.transports = new HashMap<TileCompartmentLocation, List<Transport>>();
         this.mapTransportRenderInfoObservers = new Vector<>();
         this.transportAbilityManager = new TransportAbilityManager(mainViewController, gooseManager, map, this, structureManagerVisitor);
+        mainViewController.addTransportManager(this);
     }
 
     public PlayerId getPlayerId() {
@@ -87,8 +88,32 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
         return true;
     }
 
-    public Transport getTransport(TransportId transportId) {
-        // TODO
+    private Transport getTransport(TransportId transportId, Location loc) {
+        for(TileCompartmentDirection d : TileCompartmentDirection.getAllDirections()) {
+            TileCompartmentLocation tilesCompartment = new TileCompartmentLocation(loc, d);
+            if(transports.get(tilesCompartment) != null && (transports.get(tilesCompartment).size() > 0)) {
+                for(Transport t : transports.get(tilesCompartment)) {
+                    if(t.getTransportId() == transportId) {
+                        return t;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private TileCompartmentLocation getTransportTileCompartmentLocation(TransportId transportId, Location loc) {
+        for(TileCompartmentDirection d : TileCompartmentDirection.getAllDirections()) {
+            TileCompartmentLocation tilesCompartment = new TileCompartmentLocation(loc, d);
+//            Check that there is an index for the tileCompartmentLocation as well as exisiting transports
+            if(transports.get(tilesCompartment) != null && (transports.get(tilesCompartment).size() > 0)) {
+                for(Transport t : transports.get(tilesCompartment)) {
+                    if(t.getTransportId() == transportId) {
+                        return tilesCompartment;
+                    }
+                }
+            }
+        }
         return null;
     }
 
@@ -96,16 +121,20 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
         return this.transports;
     }
 
-    public void onTransportSelected(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    public void onTransportSelected(TransportId transportId, Location loc) {
         Map<TileCompartmentDirection, List<Transport>> tileTransports = new HashMap<TileCompartmentDirection, List<Transport>>();
+        Transport transport = getTransport(transportId, loc);
+        TileCompartmentLocation transportTCL = getTransportTileCompartmentLocation(transportId, loc);
+
         for(TileCompartmentDirection d : TileCompartmentDirection.getAllDirections()) {
-            TileCompartmentLocation tilesCompartment = new TileCompartmentLocation(tileCompartmentLocation.getLocation(), d);
+            TileCompartmentLocation tilesCompartment = new TileCompartmentLocation(loc, d);
 //            Check that there is an index for the tileCompartmentLocation as well as exisiting transports
             if(transports.get(tilesCompartment) != null && (transports.get(tilesCompartment).size() > 0)) {
                 tileTransports.put(d, transports.get(tilesCompartment));
             }
         }
-        this.transportAbilityManager.addAbilities(transport, tileCompartmentLocation, tileTransports);
+        if(transport != null)
+            this.transportAbilityManager.addAbilities(transport, transportTCL, tileTransports);
     }
 
     public void onTransportUnselected() {
@@ -123,18 +152,20 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
     }
 
     public void notifyMapTransportRenderInfoObservers() {
-        Map<TileCompartmentLocation, TransportRenderInfo> transportRenderInfoMap = new HashMap<>();
+        Map<TileCompartmentLocation, List<TransportRenderInfo>> transportRenderInfoMap = new HashMap<>();
         Iterator it = transports.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             TileCompartmentLocation tcl = (TileCompartmentLocation) pair.getKey();
             List<Transport> transportList = this.transports.get(tcl);
+            List<TransportRenderInfo> transportRenderList = new ArrayList<>();
             for (Transport t : transportList) {
                 TransportRenderInfo transportRenderInfo = new TransportRenderInfo(t);
-                transportRenderInfoMap.put(tcl, transportRenderInfo);
+                transportRenderList.add(transportRenderInfo);
             }
+            transportRenderInfoMap.put(tcl, transportRenderList);
         }
-        MapTransportRenderInfo mapTransportRenderInfo = new MapTransportRenderInfo(transportRenderInfoMap);
+        MapTransportRenderInfo mapTransportRenderInfo = new MapTransportRenderInfo(this.playerId, transportRenderInfoMap);
         for (MapTransportRenderInfoObserver observer : this.mapTransportRenderInfoObservers) {
             observer.updateMapTransportInfo(mapTransportRenderInfo);
         }

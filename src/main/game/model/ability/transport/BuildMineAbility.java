@@ -21,6 +21,7 @@ public class BuildMineAbility  extends Ability {
 
     @Override
     public void perform() {
+        mainViewController.detachControls();
         this.resourceManager.removeResource(ResourceType.BOARDS, 3);
         this.resourceManager.removeResource(ResourceType.STONE, 1);
         Mine mine = new Mine(3, 3);

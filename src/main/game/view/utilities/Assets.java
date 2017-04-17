@@ -187,6 +187,8 @@ public class Assets {
     public Image MINE_AMOUNT_10;
     public Image MINE_AMOUNT_UNKOWN;
 
+    public Image PROCESS_CHART;
+
     public boolean loadAssets(){
         try{
             // tiles
@@ -245,7 +247,7 @@ public class Assets {
             NAVIGATION_BAR_3 = new Image(this.getClass().getResourceAsStream("/buttons/researchViewButton.png"));
             NAVIGATION_BAR_4 = new Image(this.getClass().getResourceAsStream("/buttons/wonderViewButton.png"));
             NAVIGATION_BAR_5 = new Image(this.getClass().getResourceAsStream("/buttons/saveViewButton.png"));
-            NAVIGATION_BAR_6 = new Image(this.getClass().getResourceAsStream("/buttons/settingsViewButton.png"));
+            NAVIGATION_BAR_6 = new Image(this.getClass().getResourceAsStream("/buttons/informationViewButton.png"));
 
             CLAY_PIT_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/clay_pit.png"));
             OIL_RIG_BUILDING = new Image(this.getClass().getResourceAsStream("/buildings/oil_rig.png"));
@@ -345,6 +347,8 @@ public class Assets {
             MINE_AMOUNT_9 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number9.png"));
             MINE_AMOUNT_10 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number10.png"));
             MINE_AMOUNT_UNKOWN = new Image(this.getClass().getResourceAsStream("/buildings/mine_unknown.png"));
+
+            PROCESS_CHART = new Image(this.getClass().getResourceAsStream("/misc/process_chart.jpg"));
 
         } catch(Exception e){
             e.printStackTrace();

@@ -26,6 +26,7 @@ public class TransportReproduceAbility extends Ability {
 
     @Override
     public void perform() {
+        mainViewController.detachControls();
         DonkeyTransport newDonkey = new DonkeyTransport(transport.getPlayerId(), new TransportId());
         transportManagerVisitor.addTransportVisit(newDonkey, transportLocation);
     }

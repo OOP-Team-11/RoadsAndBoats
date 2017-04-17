@@ -10,7 +10,7 @@ public class BuildRoadAbility extends Ability {
 
     @Override
     public void perform() {
-
+        mainViewController.detachControls();
     }
 
     @Override
