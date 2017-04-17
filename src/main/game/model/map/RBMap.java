@@ -1,6 +1,7 @@
 package game.model.map;
 
 import game.model.direction.*;
+import game.model.movement.Move;
 import game.model.tile.*;
 import game.model.wonder.Irrigatable;
 import game.utilities.observable.MapRenderInfoObservable;
@@ -214,9 +215,9 @@ public class RBMap implements MapRenderInfoObservable, Irrigatable, TileResource
         this.mapResourceRenderInfoObservers.remove(observer);
     }
 
-    public Set<TileCompartment> getAdjacentTileCompartments(TileCompartmentLocation tileCompartmentLocation)
+    public Set<Move> getAdjacentMovesToTileCompartments(TileCompartmentLocation tileCompartmentLocation)
     {
-        Set<TileCompartment> comps=new HashSet<>();
+        Set<Move> comps = new HashSet<>();
 
         Location loc = tileCompartmentLocation.getLocation();
         Tile tile = getTile(loc);
@@ -238,15 +239,18 @@ public class RBMap implements MapRenderInfoObservable, Irrigatable, TileResource
 
                 if (tileL != null)
                 {
-                    comps.add(tileL.getTileCompartment(new TileCompartmentDirection(new Angle(tedL.reverse().getAngle().getDegrees()-30))));
+                    TileCompartmentDirection tcdL = new TileCompartmentDirection(new Angle(tedL.reverse().getAngle().getDegrees() - 30));
+                    TileCompartment tileCompartmentL = tileL.getTileCompartment(tcdL);
+                    comps.add(new Move(tileCompartmentL, tcdL, tedL));
                 }
 
                 if (tileR != null)
                 {
-                    comps.add(tileR.getTileCompartment(new TileCompartmentDirection(new Angle(tedR.reverse().getAngle().getDegrees()+30))));
+                    TileCompartmentDirection tcdR = new TileCompartmentDirection(new Angle(tedR.reverse().getAngle().getDegrees() + 30));
+                    TileCompartment tileCompartmentR = tileR.getTileCompartment(tcdR);
+                    comps.add(new Move(tileCompartmentR, tcdR, tedR));
                 }
-            }
-            else
+            } else
             {
                 TileEdgeDirection ted = new TileEdgeDirection(new Angle(tcd.getAngle().getDegrees() + 30));
 
@@ -256,7 +260,9 @@ public class RBMap implements MapRenderInfoObservable, Irrigatable, TileResource
 
                 if (adjacentTile != null)
                 {
-                    comps.add(adjacentTile.getTileCompartment(new TileCompartmentDirection(ted.reverse().getAngle())));
+                    TileCompartmentDirection tcdAdjacent = new TileCompartmentDirection(ted.reverse().getAngle());
+                    TileCompartment tileCompartment=adjacentTile.getTileCompartment(tcdAdjacent);
+                    comps.add(new Move(tileCompartment, tcdAdjacent, ted));
                 }
             }
         }

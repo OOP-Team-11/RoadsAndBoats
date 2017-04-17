@@ -10,9 +10,11 @@ import game.model.transport.Transport;
 import game.utilities.observable.TileCompartmentResourceAddedObservable;
 import game.utilities.observer.TileCompartmentResourceAddedObserver;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 public class TileCompartment implements TileCompartmentResourceAddedObservable

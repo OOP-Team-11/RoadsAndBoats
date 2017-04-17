@@ -80,7 +80,7 @@ public class Tile implements TileResourceInfoObservable, TileCompartmentResource
 
                 if (!isCorner(tileCompartmentDirection))
                 {
-                    river.add(tileCompartmentDirection, new River());
+                    river.add(tileCompartmentDirection, new River(tileCompartmentDirection));
                 }
             } else if (compartment == null || compartment.hasWater())
             {

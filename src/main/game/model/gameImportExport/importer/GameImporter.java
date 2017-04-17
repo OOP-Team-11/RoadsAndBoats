@@ -12,6 +12,7 @@ public class GameImporter {
     public static void importGameFromFile(RBMap map, StructureManager structureManager, BufferedReader bufferedReader) throws MalformedMapFileException, IOException {
         MapImporter.importMapFromFile(map, bufferedReader);
         ResourceImporter.importResourcesFromFile(map, bufferedReader);
+        map.finalizeMap();
         MineImporter.importMinesFromFile(structureManager, bufferedReader);
         OilRigImporter.importOilRigsFromFile(structureManager, bufferedReader);
         NonSpecialLimitlessStructures.importNonSpecialLimitlessStructures(structureManager, bufferedReader);
