@@ -1,6 +1,7 @@
 package game.model.map;
 
 import game.model.direction.*;
+import game.model.movement.Move;
 import game.model.tile.*;
 import game.model.wonder.Irrigatable;
 import game.utilities.observable.MapRenderInfoObservable;
@@ -156,7 +157,7 @@ public class RBMap implements MapRenderInfoObservable, Irrigatable, TileResource
 
     public void finalizeMap()
     {
-        for(Tile tile: tiles.values())
+        for (Tile tile : tiles.values())
         {
             tile.removeUnattachedRivers();
         }
@@ -212,5 +213,60 @@ public class RBMap implements MapRenderInfoObservable, Irrigatable, TileResource
     @Override
     public void detachMapResourceRenderInfoObserver(MapResourceRenderInfoObserver observer) {
         this.mapResourceRenderInfoObservers.remove(observer);
+    }
+
+    public Set<Move> getAdjacentMovesToTileCompartments(TileCompartmentLocation tileCompartmentLocation)
+    {
+        Set<Move> comps = new HashSet<>();
+
+        Location loc = tileCompartmentLocation.getLocation();
+        Tile tile = getTile(loc);
+        TileCompartment comp = tile.getTileCompartment(tileCompartmentLocation.getTileCompartmentDirection());
+        Set<TileCompartmentDirection> compDirs = tile.getTileCompartmentDirections(comp);
+
+        for (TileCompartmentDirection tcd : compDirs)
+        {
+            if (Tile.isCorner(tcd))
+            {
+                TileEdgeDirection tedL = new TileEdgeDirection(new Angle(tcd.getAngle().getDegrees() + 30));
+                TileEdgeDirection tedR = new TileEdgeDirection(new Angle(tcd.getAngle().getDegrees() - 30));
+
+                Location locL = DirectionToLocation.getLocation(loc, tedL);
+                Location locR = DirectionToLocation.getLocation(loc, tedR);
+
+                Tile tileL = tiles.get(locL);
+                Tile tileR = tiles.get(locR);
+
+                if (tileL != null)
+                {
+                    TileCompartmentDirection tcdL = new TileCompartmentDirection(new Angle(tedL.reverse().getAngle().getDegrees() - 30));
+                    TileCompartment tileCompartmentL = tileL.getTileCompartment(tcdL);
+                    comps.add(new Move(tileCompartmentL, tcdL, tedL));
+                }
+
+                if (tileR != null)
+                {
+                    TileCompartmentDirection tcdR = new TileCompartmentDirection(new Angle(tedR.reverse().getAngle().getDegrees() + 30));
+                    TileCompartment tileCompartmentR = tileR.getTileCompartment(tcdR);
+                    comps.add(new Move(tileCompartmentR, tcdR, tedR));
+                }
+            } else
+            {
+                TileEdgeDirection ted = new TileEdgeDirection(new Angle(tcd.getAngle().getDegrees() + 30));
+
+                Location adjacentLoc = DirectionToLocation.getLocation(loc, ted);
+
+                Tile adjacentTile = tiles.get(adjacentLoc);
+
+                if (adjacentTile != null)
+                {
+                    TileCompartmentDirection tcdAdjacent = new TileCompartmentDirection(ted.reverse().getAngle());
+                    TileCompartment tileCompartment=adjacentTile.getTileCompartment(tcdAdjacent);
+                    comps.add(new Move(tileCompartment, tcdAdjacent, ted));
+                }
+            }
+        }
+
+        return comps;
     }
 }

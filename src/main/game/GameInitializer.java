@@ -92,6 +92,7 @@ public class GameInitializer {
     private void importMap(String filename, RBMap map) throws IOException, MalformedMapFileException {
         BufferedReader br = new BufferedReader(new FileReader("map/" + filename));
         MapImporter.importMapFromFile(map, br);
+        map.finalizeMap();
     }
 
     private void importGame(String filename, RBMap map, StructureManager structureManager) throws IOException, MalformedMapFileException {

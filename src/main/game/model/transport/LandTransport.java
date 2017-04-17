@@ -9,5 +9,23 @@ public abstract class LandTransport extends Transport {
         super(playerId, transportId, moveCapacity, carryCapacity);
     }
 
+    @Override
+    public boolean canMoveOnLand()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean canMoveOnRoad()
+    {
+        return false;
+    }
+
+    @Override
+    public boolean canMoveOnWater()
+    {
+        return false;
+    }
+
     public abstract String getExportString();
 }

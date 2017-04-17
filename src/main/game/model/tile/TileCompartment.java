@@ -10,7 +10,12 @@ import game.model.transport.Transport;
 import game.utilities.observable.TileCompartmentResourceAddedObservable;
 import game.utilities.observer.TileCompartmentResourceAddedObserver;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 public class TileCompartment implements TileCompartmentResourceAddedObservable
 {
@@ -23,9 +28,9 @@ public class TileCompartment implements TileCompartmentResourceAddedObservable
     public TileCompartment()
     {
         resourceManager = new ResourceManager();
-        transports=new HashSet<>();
-        roads=new HashMap<>();
-        rivers=new HashMap<>();
+        transports = new HashSet<>();
+        roads = new HashMap<>();
+        rivers = new HashMap<>();
         tileCompartmentResourceAddedObservers = new ArrayList<>();
     }
 
@@ -117,11 +122,10 @@ public class TileCompartment implements TileCompartmentResourceAddedObservable
     {
         River river = rivers.get(direction);
 
-        if(river == null || !compartment.hasRiver(direction.reverse()))
+        if (river == null || !compartment.hasRiver(direction.reverse()))
         {
             return false;
-        }
-        else
+        } else
         {
             river.setDestination(compartment);
             return true;
@@ -135,38 +139,38 @@ public class TileCompartment implements TileCompartmentResourceAddedObservable
 
     public void rotate()
     {
-        Map<TileCompartmentDirection, Road> roads=new HashMap<>();
-        Map<TileCompartmentDirection, River> rivers=new HashMap<>();
+        Map<TileCompartmentDirection, Road> roads = new HashMap<>();
+        Map<TileCompartmentDirection, River> rivers = new HashMap<>();
 
-        for(Map.Entry<TileCompartmentDirection, Road> entry: this.roads.entrySet())
+        for (Map.Entry<TileCompartmentDirection, Road> entry : this.roads.entrySet())
         {
-            TileCompartmentDirection dir = new TileCompartmentDirection(new Angle(entry.getKey().getAngle().getDegrees()-60));
+            TileCompartmentDirection dir = new TileCompartmentDirection(new Angle(entry.getKey().getAngle().getDegrees() - 60));
             roads.put(dir, entry.getValue());
         }
 
-        for(Map.Entry<TileCompartmentDirection, River> entry: this.rivers.entrySet())
+        for (Map.Entry<TileCompartmentDirection, River> entry : this.rivers.entrySet())
         {
-            TileCompartmentDirection dir = new TileCompartmentDirection(new Angle(entry.getKey().getAngle().getDegrees()-60));
+            TileCompartmentDirection dir = new TileCompartmentDirection(new Angle(entry.getKey().getAngle().getDegrees() - 60));
             rivers.put(dir, entry.getValue());
         }
 
-        this.roads=roads;
-        this.rivers=rivers;
+        this.roads = roads;
+        this.rivers = rivers;
     }
 
     public void removeUnattachedRivers()
     {
         Map<TileCompartmentDirection, River> toRemove = new HashMap<>();
 
-        for(Map.Entry<TileCompartmentDirection, River> entry: rivers.entrySet())
+        for (Map.Entry<TileCompartmentDirection, River> entry : rivers.entrySet())
         {
-            if(entry.getValue().getDestination() == null)
+            if (entry.getValue().getDestination() == null)
             {
                 toRemove.put(entry.getKey(), entry.getValue());
             }
         }
 
-        for(Map.Entry<TileCompartmentDirection, River> entry: toRemove.entrySet())
+        for (Map.Entry<TileCompartmentDirection, River> entry : toRemove.entrySet())
         {
             rivers.remove(entry.getKey(), entry.getValue());
         }

@@ -1,6 +1,7 @@
 package game.model.tile;
 
 import game.model.direction.Angle;
+import game.model.direction.DirectionToLocation;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileEdgeDirection;
 import game.model.movement.River;
@@ -79,7 +80,7 @@ public class Tile implements TileResourceInfoObservable, TileCompartmentResource
 
                 if (!isCorner(tileCompartmentDirection))
                 {
-                    river.add(tileCompartmentDirection, new River());
+                    river.add(tileCompartmentDirection, new River(tileCompartmentDirection));
                 }
             } else if (compartment == null || compartment.hasWater())
             {
@@ -247,7 +248,7 @@ public class Tile implements TileResourceInfoObservable, TileCompartmentResource
         }
     }
 
-    private static boolean isCorner(TileCompartmentDirection dir)
+    public static boolean isCorner(TileCompartmentDirection dir)
     {
         return dir.equals(TileCompartmentDirection.getNorthNorthEast())
                 || dir.equals(TileCompartmentDirection.getSouthSouthEast())
@@ -328,5 +329,20 @@ public class Tile implements TileResourceInfoObservable, TileCompartmentResource
     @Override
     public void detach(TileResourceInfoObserver observer) {
         this.tileResourceInfoObservers.remove(observer);
+    }
+
+    public Set<TileCompartmentDirection> getTileCompartmentDirections(TileCompartment comp)
+    {
+        Set<TileCompartmentDirection> dirs=new HashSet<TileCompartmentDirection>();
+
+        for(TileCompartmentDirection tcd: TileCompartmentDirection.getAllDirections())
+        {
+            if(compartments.get(tcd).equals(comp))
+            {
+                dirs.add(tcd);
+            }
+        }
+
+        return dirs;
     }
 }
