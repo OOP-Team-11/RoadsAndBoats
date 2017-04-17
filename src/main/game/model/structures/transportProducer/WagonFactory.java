@@ -1,28 +1,31 @@
 package game.model.structures.transportProducer;
 
+import game.model.direction.TileCompartmentLocation;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.tile.TileCompartment;
-import game.model.transport.DonkeyTransport;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
+import game.model.transport.WagonTransport;
+import game.model.visitors.TransportManagerVisitor;
 
 public class WagonFactory extends TransportProducer {
 
-    private static final int BOARD_REQ = 2;
+    private static final int BOARDS_REQ = 2;
 
     // 1 Wagon <= 1 Donkey + 2 Boards
-    public WagonFactory() {
-
+    public WagonFactory(TileCompartmentLocation tcl) {
+        super(tcl);
     }
 
     @Override
-    public Transport produce(Transport transport) {
-        //TODO Remove the DonkeyTransport passed in from TransportManager (DonkeyTransport passed becomes the Donkey for pulling the Wagon)
+    public boolean produce(TransportManagerVisitor visitor, Transport transport, TileCompartmentLocation tcl) {
         if (canProduceWagon(transport)) {
-            return new DonkeyTransport(transport.getPlayerId(), new TransportId());
+            accept(visitor, new WagonTransport(transport.getPlayerId(), new TransportId()), tcl);
+            accept(visitor, transport);
+            return true;
         }
-        return null;
+        return false;
     }
 
     @Override
@@ -31,11 +34,15 @@ public class WagonFactory extends TransportProducer {
     }
 
     private boolean canProduceWagon(Transport transport) {
-        return transport.takeResource(ResourceType.BOARDS, BOARD_REQ);
+        return transport.takeResource(ResourceType.BOARDS, BOARDS_REQ);
     }
 
     private boolean canProduceWagon(TileCompartment tileCompartment) {
-        return tileCompartment.takeResource(ResourceType.BOARDS, BOARD_REQ);
+        return tileCompartment.takeResource(ResourceType.BOARDS, BOARDS_REQ);
+    }
+
+    private void accept(TransportManagerVisitor visitor, Transport transport) {
+        visitor.removeTransportVisit(transport);
     }
 
     @Override

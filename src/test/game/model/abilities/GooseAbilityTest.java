@@ -82,7 +82,7 @@ public class GooseAbilityTest {
         gooseManager.addGoose(location, goose1);
         gooseManager.addGoose(location, goose2);
 //        Add a structure so gooses cant reproduce
-        map.getTile(new Location(0,0,0)).addStructure(new WagonFactory());
+        map.getTile(new Location(0,0,0)).addStructure(new WagonFactory(location));
         gooseManager.onGooseSelected(goose1, location);
         assertEquals(0, gooseManager.getGooseAbilityManager().getAbilityCount());
     }

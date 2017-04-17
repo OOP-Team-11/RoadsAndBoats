@@ -99,7 +99,7 @@ public class TransportAbilityTest {
         player1.getTransportManager().addTransport(donkey, tileCompartmentLocation);
         player1.getTransportManager().addTransport(donkey2, tileCompartmentLocation);
 //        ADD STRUCTURE SO THE DONKEYS MAY NOT REPRODUCE
-        map.getTile(new Location(0,0,0)).addStructure(new WagonFactory());
+        map.getTile(new Location(0,0,0)).addStructure(new WagonFactory(tileCompartmentLocation));
         player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
         assertEquals(0, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
     }
@@ -126,7 +126,7 @@ public class TransportAbilityTest {
 //        Should be 1 as the donkey should be able to build a woodcutter
         assertEquals(1, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
 //        Add a structure to the tile, should no longer be able to build a woodcutter
-        map.getTile(new Location(0,0,0)).addStructure(new WagonFactory());
+        map.getTile(new Location(0,0,0)).addStructure(new WagonFactory(tileCompartmentLocation));
         player1.getTransportManager().onTransportSelected(donkey.getTransportId(), tileCompartmentLocation.getLocation());
 //        Should be 1 as the donkey should be able to build a woodcutter
         assertEquals(0, player1.getTransportManager().getTransportAbilityManager().getAbilityCount());
