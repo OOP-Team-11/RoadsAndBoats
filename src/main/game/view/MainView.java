@@ -565,47 +565,15 @@ public class MainView extends View
         } else {
             for ( HashMap.Entry<TileCompartmentLocation,StructureRenderInfo> entry : mapStructureRenderInfo.getStructures().entrySet()) {
                 if (cursorRenderInfo.getCursorLocation().equals(entry.getKey().getLocation())) { // same location
-                    if (entry.getValue().getStructureType().equals(StructureType.CLAYPIT)) {
-                        clayBuildingCount += 1;
-                    } else if (entry.getValue().getStructureType().equals(StructureType.STONE_FACTORY)) {
-                        stoneFactoryCount += 1;
-                    } else if (entry.getValue().getStructureType().equals(StructureType.STONE_QUARRY)) {
-                        quarryBuildingCount += 1;
-                    } else if (entry.getValue().getStructureType().equals(StructureType.WOODCUTTER)) {
-                        woodCutterBuildingCount += 1;
-                    } else if (entry.getValue().getStructureType().equals(StructureType.SAWMILL)) {
-                        sawMillBuildingCount += 1;
-                    } else if (entry.getValue().getStructureType().equals(StructureType.COAL_BURNER)) {
-                        coalBurnerBuildingCount +=1;
-                    } else if (entry.getValue().getStructureType().equals(StructureType.PAPERMILL)) {
-                        paperMillBuildingCount +=1;
-                    } else if (entry.getValue().getStructureType().equals(StructureType.MINT)) {
-                        mineBuildingCount +=1;
-                    } else if (entry.getValue().getStructureType().equals(StructureType.STOCK_MARKET)) {
-                        stockExchangeBuildingCount +=1;
-                    } else if (entry.getValue().getStructureType().equals(StructureType.OIL_RIG)) {
-                        oilRigBuildingCount +=1;
-                    } else if(entry.getValue().getStructureType().equals(StructureType.MINE)){
-                        mineBuildingCount += 1;
-                    } else if(entry.getValue().getStructureType().equals(StructureType.WAGON_FACTORY)){
-                        wagonFactoryCount += 1;
-                    } else if(entry.getValue().getStructureType().equals(StructureType.TRUCK_FACTORY)) {
-                        truckFactoryCount += 1;
-                    } else if(entry.getValue().getStructureType().equals(StructureType.RAFT_FACTORY)){
-                        raftFactoryCount += 1;
-                    } else if(entry.getValue().getStructureType().equals(StructureType.ROWBOAT_FACTORY)){
-                        rowboatFactoryCount += 1;
-                    } else if(entry.getValue().getStructureType().equals(StructureType.STEAMER_FACTORY)){
-                        steamerFactoryCount += 1;
-                    } else {
-
-                    }
+                    Image image = renderToImageConverter.getStructureImage(entry.getValue().getStructureType());
+                    this.selectGC.drawImage(image,25,430);
                 } else {
 
                 }
             }
         }
 
+        /*
         // column 1
         this.selectGC.strokeText("" +clayBuildingCount,80,465);
         this.selectGC.strokeText("" +stoneFactoryCount,80,525);
@@ -627,6 +595,7 @@ public class MainView extends View
         this.selectGC.strokeText("" +raftFactoryCount,280,585);
         this.selectGC.strokeText("" +rowboatFactoryCount,280,645);
         this.selectGC.strokeText("" +steamerFactoryCount,280,705);
+        */
     }
 
     private void initializeSelectButtons(){
@@ -660,7 +629,6 @@ public class MainView extends View
             displayGoodsOnSidePanel();
             displayGoodsCount();
         } else if(currentDisplayState == 2){
-            displayBuildingsOnSidePanel();
             displayBuildingCount();
         }
     }
