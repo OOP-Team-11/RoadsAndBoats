@@ -42,6 +42,7 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
         placeAddButton();
         markNeutralBrickAsPlaced();
         initializeCurrentPhaseSection();
+        initializeCurrentWealthSection();
     }
     private void setAnchorPane(AnchorPane anchorPane){
         this.anchorPane = anchorPane;
@@ -187,6 +188,11 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
         this.gc.setLineWidth(1.5);
         this.gc.strokeText("Player: " +playerRenderInfo.getName(), 140,180);
     }
+    private void initializeCurrentWealthSection(){
+        this.gc.setFill(Color.TEAL);
+        this.gc.fillRoundRect(100,650,400,100,20,20);
+        this.gc.drawImage(assets.STOCK_GOODS,130,673);
+    }
 
     @Override
     public void render() {
@@ -196,6 +202,7 @@ public class WonderView extends View implements WonderRenderInfoObserver, Player
             drawCurrentPhaseInformation();
             drawCurrentPlayerInformation();
             checkForNeutralBrick();
+            initializeCurrentWealthSection();
             newData = false;
         } else {
 
