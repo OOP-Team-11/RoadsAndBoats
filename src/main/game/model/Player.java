@@ -25,7 +25,6 @@ public class Player implements MapTransportRenderInfoObservable{
         this.transportProducerManager = new TransportProducerManager(this);
         this.name = name;
         this.startingLocation = startingLocation;
-        initializeTransports();
     }
 
     public PlayerId getPlayerId() {
@@ -54,7 +53,7 @@ public class Player implements MapTransportRenderInfoObservable{
         this.transportManager.detach(observer);
     }
 
-    private void initializeTransports() {
+    public void initializeTransports() {
         Transport donkey1 = new DonkeyTransport(this.playerId, new TransportId());
         Transport donkey2 = new DonkeyTransport(this.playerId, new TransportId());
         Transport donkey3 = new DonkeyTransport(this.playerId, new TransportId());

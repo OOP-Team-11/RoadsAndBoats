@@ -74,7 +74,7 @@ public class GameInitializer {
         if (gameFile.contains(".tinyrick")) {
             importGame(gameFile, map, structureManager, gooseManager, player1TransportManager, player2TransportManager, wonderManager);
         } else if (gameFile.contains(".map")) {
-            importMap(gameFile, map);
+            importMap(gameFile, map, player1, player2, player1StartingLocation, player2StartingLocation, gooseManager);
         }
 
         Game game = new Game(map, player1, player2, gooseManager, structureManager);
@@ -90,12 +90,6 @@ public class GameInitializer {
         game.attachPlayerInfoObserver(viewHandler.getWonderViewReference());
         game.attachPhaseInfoObserver(viewHandler.getWonderViewReference());
 
-        addInitialResourcesToTile(map.getTile(player1StartingLocation.getLocation()), player1StartingLocation.getTileCompartmentDirection());
-        addInitialGeeseToTile(player1StartingLocation, gooseManager);
-
-        addInitialResourcesToTile(map.getTile(player2StartingLocation.getLocation()), player2StartingLocation.getTileCompartmentDirection());
-        addInitialGeeseToTile(player2StartingLocation, gooseManager);
-
         controllerManager.getMainViewController().setGame(game);
 
         //TODO: Add a controller and view element to trigger this gameExporter's exportGameToPath()
@@ -104,9 +98,19 @@ public class GameInitializer {
         viewHandler.startGameLoop();
     }
 
-    private void importMap(String filename, RBMap map) throws IOException, MalformedMapFileException {
+    private void importMap(String filename, RBMap map, Player player1, Player player2, TileCompartmentLocation player1StartingLocation, TileCompartmentLocation player2StartingLocation, GooseManager gooseManager) throws IOException, MalformedMapFileException {
         BufferedReader br = new BufferedReader(new FileReader("map/" + filename));
         MapImporter.importMapFromFile(map, br);
+
+        player1.initializeTransports();
+        player2.initializeTransports();
+
+        addInitialResourcesToTile(map.getTile(player1StartingLocation.getLocation()), player1StartingLocation.getTileCompartmentDirection());
+        addInitialGeeseToTile(player1StartingLocation, gooseManager);
+
+        addInitialResourcesToTile(map.getTile(player2StartingLocation.getLocation()), player2StartingLocation.getTileCompartmentDirection());
+        addInitialGeeseToTile(player2StartingLocation, gooseManager);
+
         map.finalizeMap();
     }
 
