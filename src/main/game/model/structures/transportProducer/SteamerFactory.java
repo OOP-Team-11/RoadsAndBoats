@@ -22,12 +22,11 @@ public class SteamerFactory extends TransportProducer {
     @Override
     public boolean produce(TransportManagerVisitor visitor, Transport transport, TileCompartmentLocation tcl) {
         if (canProduceSteamer(transport)) {
-            accept(visitor, transport, tcl);
+            accept(visitor, new SteamShipTransport(transport.getPlayerId(), new TransportId()), tcl);
             return true;
         }
         return false;
     }
-
 
     @Override
     public boolean produce(TileCompartment tileCompartment) {

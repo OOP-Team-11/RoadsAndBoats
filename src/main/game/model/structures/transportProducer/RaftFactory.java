@@ -4,7 +4,9 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.tile.TileCompartment;
+import game.model.transport.RaftTransport;
 import game.model.transport.Transport;
+import game.model.transport.TransportId;
 import game.model.visitors.TransportManagerVisitor;
 
 public class RaftFactory extends TransportProducer {
@@ -19,7 +21,7 @@ public class RaftFactory extends TransportProducer {
     @Override
     public boolean produce(TransportManagerVisitor visitor, Transport transport, TileCompartmentLocation tcl) {
         if (canProduceRaft(transport)) {
-            accept(visitor, transport, tcl);
+            accept(visitor, new RaftTransport(transport.getPlayerId(), new TransportId()), tcl);
             return true;
         }
         return false;

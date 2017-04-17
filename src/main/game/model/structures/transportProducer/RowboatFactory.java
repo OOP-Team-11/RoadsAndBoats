@@ -21,7 +21,7 @@ public class RowboatFactory extends TransportProducer {
     @Override
     public boolean produce(TransportManagerVisitor visitor, Transport transport, TileCompartmentLocation tcl) {
         if (canProduceRowboat(transport)) {
-            accept(visitor, transport, tcl);
+            accept(visitor, new RowboatTransport(transport.getPlayerId(), new TransportId()), tcl);
             return true;
         }
         return false;
