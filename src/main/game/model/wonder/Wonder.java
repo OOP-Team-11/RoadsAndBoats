@@ -27,6 +27,11 @@ public class Wonder implements TurnObserver{
 
     @Override
     public void onTurnEnded() {
+        addNeutralBrick();
+        playerBrickMapTurn.clear();
+    }
+
+    public void addNeutralBrick() {
         if (wonderbricks.get(wonderbricks.size()-1).size()<maxSize()) {
             wonderbricks.get(wonderbricks.size()-1).add(new NeutralBrick());
             if(checkBrickOnIrrigationPoint(wonderbricks.get(wonderbricks.size()-1).size())){
@@ -41,7 +46,6 @@ public class Wonder implements TurnObserver{
                 setIrrigationPointActivated(true);
             }
         }
-        playerBrickMapTurn.clear();
     }
 
     private int maxSize() {

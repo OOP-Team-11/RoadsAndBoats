@@ -16,12 +16,12 @@ public class WonderManager implements TurnObserver {
         return wonder.getCurrentBrickCost(playerId);
     }
 
-    public WonderManager(Irrigatable irrigatable, IrrigationPoint irrigationPoint){
+    public WonderManager(Irrigatable irrigatable){
         this.wonder = new Wonder();
         this.turnObservers = new ArrayList<>();
         this.turnObservers.add(wonder);
         this.irrigatable = irrigatable;
-        this.wonder.setIrrigationPoint(irrigationPoint);
+        this.wonder.setIrrigationPoint(new IrrigationPoint(10, 1));
     }
 
     public void turnDesertToPasture(Irrigatable irrigatable) {
@@ -34,6 +34,13 @@ public class WonderManager implements TurnObserver {
 
     public void addBrick(PlayerId playerId){
         wonder.addBrick(playerId);
+        if(wonder.isIrrigationPointActivated() && haveNotIrrigated()){
+            irrigate();
+        }
+    }
+
+    public void addNeutralBrick() {
+        wonder.addNeutralBrick();
         if(wonder.isIrrigationPointActivated() && haveNotIrrigated()){
             irrigate();
         }
