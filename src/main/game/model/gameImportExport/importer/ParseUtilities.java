@@ -1,6 +1,7 @@
 package game.model.gameImportExport.importer;
 
 import game.model.direction.TileCompartmentDirection;
+import game.model.direction.TileEdgeDirection;
 import game.model.resources.ResourceType;
 import game.model.tile.Terrain;
 import game.model.transport.TransportType;
@@ -66,6 +67,25 @@ class ParseUtilities {
                 return TileCompartmentDirection.getSouthEast();
             case "SSE":
                 return TileCompartmentDirection.getSouthSouthEast();
+            default:
+                return null;
+        }
+    }
+
+    static TileEdgeDirection getTileEdgeDirectionForString(String tedString) {
+        switch (tedString) {
+            case "N":
+                return TileEdgeDirection.getNorth();
+            case "NE":
+                return TileEdgeDirection.getNorthEast();
+            case "NW":
+                return TileEdgeDirection.getNorthWest();
+            case "S":
+                return TileEdgeDirection.getSouth();
+            case "SE":
+                return TileEdgeDirection.getSouthEast();
+            case "SW":
+                return TileEdgeDirection.getSouthWest();
             default:
                 return null;
         }
