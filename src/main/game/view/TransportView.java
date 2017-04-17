@@ -244,7 +244,7 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
             if(this.playerRenderInfo.getPlayerID().getPlayerIdNumber() == 1){
                 drawPlayer1Images();
             } else {
-                drawPlayer1Images();
+                drawPlayer2Images();
             }
 
         }
@@ -258,7 +258,6 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
         setRaftList(FXCollections.observableArrayList(raftList));
         setRowBoatList(FXCollections.observableArrayList(rowBoatList));
         setSteamShipList(FXCollections.observableArrayList(steamShipList));
-
     }
 
     private void setDonkeyList(ObservableList<String> data){
@@ -278,18 +277,6 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
     }
     private void setSteamShipList(ObservableList<String> data){
         this.steamShipTable.setItems(data);
-    }
-
-    private void TESTING(){
-        ObservableList<String> items =FXCollections.observableArrayList (
-                "# | Move | Carry | Followers |                      Resources                 |",
-                "1","2");
-        setDonkeyList(items);
-        setWagonList(items);
-        setTruckList(items);
-        setRaftList(items);
-        setRowBoatList(items);
-        setSteamShipList(items);
     }
 
     private void drawPlayer1Images(){
@@ -351,6 +338,7 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
     @Override
     public void updatePlayerInfo(PlayerRenderInfo playerRenderInfo) {
         this.playerRenderInfo = playerRenderInfo;
+        System.out.println("HERE " +playerRenderInfo.getPlayerID().getPlayerIdNumber());
         this.newData = true;
     }
 }
