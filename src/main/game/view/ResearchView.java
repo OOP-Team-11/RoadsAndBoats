@@ -119,7 +119,6 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
     }
 
     private void drawPhase(){
-        this.gc.strokeRoundRect(780,520,400,250,20,20);
         this.gc.setFill(Color.TEAL);
         this.gc.fillRoundRect(780,520,400,250,20,20);
         this.gc.setLineWidth(1.0);

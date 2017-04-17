@@ -1,11 +1,13 @@
 package game.model.structures.transportProducer;
 
+import game.model.direction.TileCompartmentLocation;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.tile.TileCompartment;
 import game.model.transport.SteamShipTransport;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
+import game.model.visitors.TransportManagerVisitor;
 
 public class SteamerFactory extends TransportProducer {
 
@@ -13,16 +15,17 @@ public class SteamerFactory extends TransportProducer {
     private static final int FUEL_REQ = 2;
 
     // 1 Steamship <= 1 Iron + 2 Fuel
-    public SteamerFactory() {
-
+    public SteamerFactory(TileCompartmentLocation tcl) {
+        super(tcl);
     }
 
     @Override
-    public Transport produce(Transport transport) {
+    public boolean produce(TransportManagerVisitor visitor, Transport transport, TileCompartmentLocation tcl) {
         if (canProduceSteamer(transport)) {
-            return new SteamShipTransport(transport.getPlayerId(), new TransportId());
+            accept(visitor, new SteamShipTransport(transport.getPlayerId(), new TransportId()), tcl);
+            return true;
         }
-        return null;
+        return false;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package startApplication;
 
 import game.GameInitializer;
+import game.utilities.exceptions.MalformedMapFileException;
 import game.view.MapMaker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 public class WelcomeViewController {
 
@@ -129,7 +131,11 @@ public class WelcomeViewController {
             String player1Name = welcomeView.getPlayer1Name();
             String player2Name = welcomeView.getPlayer2Name();
             if(gameFile != null){
-                new GameInitializer(gameFile,player1Name ,player2Name ,primaryStage);
+                try {
+                    new GameInitializer(gameFile, player1Name, player2Name, primaryStage);
+                } catch (MalformedMapFileException|IOException e) {
+                    welcomeView.showAlert("Invalid File", null, "Please select a different file.");
+                }
             } else {
                 // no file has been selected
             }

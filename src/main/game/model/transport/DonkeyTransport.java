@@ -23,6 +23,12 @@ public class DonkeyTransport extends LandTransport implements Livestock {
     }
 
     @Override
+    public boolean canMoveOnLand()
+    {
+        return true;
+    }
+
+    @Override
     public boolean canReproduce() {
         return true;
     }

@@ -79,7 +79,7 @@ public abstract class Transport implements Serializable {
 
     private boolean canStoreResource(int number) {
         return (carryCapacity != 0)
-                && (carryCapacity > number);
+                && (carryCapacity >= number);
     }
 
     private void lowerCarryCapacity(int number) {
@@ -104,6 +104,12 @@ public abstract class Transport implements Serializable {
 
     // use for view drawing and import/export to file ONLY
     public abstract TransportType getType();
+
+    public abstract boolean canMoveOnLand();
+
+    public abstract boolean canMoveOnRoad();
+
+    public abstract boolean canMoveOnWater();
 
     @Override
     public int hashCode() {
