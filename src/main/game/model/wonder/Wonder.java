@@ -6,11 +6,11 @@ import game.view.render.MapRenderInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Vector;
 
 public class Wonder implements TurnObserver{
-    private Vector<WonderBrick> player1;
-    private Vector<WonderBrick> player2;
+    private List<WonderBrick> orderedWonderBricks;
     private Vector<Vector<WonderBrick>> wonderbricks;
     private HashMap<PlayerId, Vector<WonderBrick>> playerIdVectorHashMap;
     private HashMap<PlayerId, Vector<WonderBrick>> playerBrickMapTurn;
@@ -23,12 +23,17 @@ public class Wonder implements TurnObserver{
         wonderbricks.add(new Vector<WonderBrick>());
         playerIdVectorHashMap = new HashMap<>();
         playerBrickMapTurn = new HashMap<>();
+        orderedWonderBricks = new Vector<>();
     }
 
     @Override
     public void onTurnEnded() {
         addNeutralBrick();
         playerBrickMapTurn.clear();
+    }
+
+    public List<WonderBrick> getOrderedWonderBricks() {
+        return orderedWonderBricks;
     }
 
     public void addNeutralBrick() {
@@ -46,6 +51,7 @@ public class Wonder implements TurnObserver{
                 setIrrigationPointActivated(true);
             }
         }
+        orderedWonderBricks.add(new NeutralBrick());
     }
 
     private int maxSize() {
@@ -76,6 +82,7 @@ public class Wonder implements TurnObserver{
     }
 
     public void addBrick(PlayerId pid) {
+        orderedWonderBricks.add(new PlayerBrick(pid));
         PlayerBrick playerbrick = new PlayerBrick(pid);
         if (!playerIdVectorHashMap.containsKey(pid)) {
             playerIdVectorHashMap.put(pid, new Vector<WonderBrick>());
