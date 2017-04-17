@@ -3,6 +3,7 @@ package game.view;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentLocation;
 import game.model.resources.ResourceType;
+import game.model.structures.StructureType;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Terrain;
 import game.model.transport.TransportId;
@@ -146,7 +147,7 @@ public class MainView extends View
     }
 
     private void initializeRenderConverter(){
-        this.renderToImageConverter = new RenderToImageConverter(assets.getInstance());
+        this.renderToImageConverter = new RenderToImageConverter(assets);
     }
 
     private void updateSidePanel(){
@@ -557,27 +558,91 @@ public class MainView extends View
         this.selectGC.setFont(new Font(30));
         this.selectGC.setLineWidth(2.0);
 
+
+        int clayBuildingCount = 0;
+        int stoneFactoryCount = 0;
+        int quarryBuildingCount = 0;
+        int woodCutterBuildingCount = 0;
+        int sawMillBuildingCount = 0;
+        int coalBurnerBuildingCount = 0;
+        int paperMillBuildingCount = 0;
+        int mintBuildingCount = 0;
+        int stockExchangeBuildingCount = 0;
+        int oilRigBuildingCount = 0;
+        int mineBuildingCount = 0;
+        int wagonFactoryCount = 0;
+        int truckFactoryCount = 0;
+        int raftFactoryCount = 0;
+        int rowboatFactoryCount = 0;
+        int steamerFactoryCount = 0;
+
+        if(isNull(mapStructureRenderInfo)){
+            // nothing to render
+        } else {
+            for ( HashMap.Entry<TileCompartmentLocation,StructureRenderInfo> entry : mapStructureRenderInfo.getStructures().entrySet()) {
+                if (cursorRenderInfo.getCursorLocation().equals(entry.getKey().getLocation())) { // same location
+                    if (entry.getValue().getStructureType().equals(StructureType.CLAYPIT)) {
+                        clayBuildingCount += 1;
+                    } else if (entry.getValue().getStructureType().equals(StructureType.STONE_FACTORY)) {
+                        stoneFactoryCount += 1;
+                    } else if (entry.getValue().getStructureType().equals(StructureType.STONE_QUARRY)) {
+                        quarryBuildingCount += 1;
+                    } else if (entry.getValue().getStructureType().equals(StructureType.WOODCUTTER)) {
+                        woodCutterBuildingCount += 1;
+                    } else if (entry.getValue().getStructureType().equals(StructureType.SAWMILL)) {
+                        sawMillBuildingCount += 1;
+                    } else if (entry.getValue().getStructureType().equals(StructureType.COAL_BURNER)) {
+                        coalBurnerBuildingCount +=1;
+                    } else if (entry.getValue().getStructureType().equals(StructureType.PAPERMILL)) {
+                        paperMillBuildingCount +=1;
+                    } else if (entry.getValue().getStructureType().equals(StructureType.MINT)) {
+                        mineBuildingCount +=1;
+                    } else if (entry.getValue().getStructureType().equals(StructureType.STOCK_MARKET)) {
+                        stockExchangeBuildingCount +=1;
+                    } else if (entry.getValue().getStructureType().equals(StructureType.OIL_RIG)) {
+                        oilRigBuildingCount +=1;
+                    } else if(entry.getValue().getStructureType().equals(StructureType.MINE)){
+                        mineBuildingCount += 1;
+                    } else if(entry.getValue().getStructureType().equals(StructureType.WAGON_FACTORY)){
+                        wagonFactoryCount += 1;
+                    } else if(entry.getValue().getStructureType().equals(StructureType.TRUCK_FACTORY)) {
+                        truckFactoryCount += 1;
+                    } else if(entry.getValue().getStructureType().equals(StructureType.RAFT_FACTORY)){
+                        raftFactoryCount += 1;
+                    } else if(entry.getValue().getStructureType().equals(StructureType.ROWBOAT_FACTORY)){
+                        rowboatFactoryCount += 1;
+                    } else if(entry.getValue().getStructureType().equals(StructureType.STEAMER_FACTORY)){
+                        steamerFactoryCount += 1;
+                    } else {
+
+                    }
+                } else {
+
+                }
+            }
+        }
+
         // column 1
-        this.selectGC.strokeText("2",80,465);
-        this.selectGC.strokeText("1",80,525);
-        this.selectGC.strokeText("2",80,585);
-        this.selectGC.strokeText("0",80,645);
-        this.selectGC.strokeText("0",80,705);
-        this.selectGC.strokeText("1",80,765);
+        this.selectGC.strokeText("" +clayBuildingCount,80,465);
+        this.selectGC.strokeText("" +stoneFactoryCount,80,525);
+        this.selectGC.strokeText("" +quarryBuildingCount,80,585);
+        this.selectGC.strokeText("" +woodCutterBuildingCount,80,645);
+        this.selectGC.strokeText("" +sawMillBuildingCount,80,705);
+        this.selectGC.strokeText("" +coalBurnerBuildingCount,80,765);
 
         // column 2
-        this.selectGC.strokeText("2",180,465);
-        this.selectGC.strokeText("1",180,525);
-        this.selectGC.strokeText("2",180,585);
-        this.selectGC.strokeText("0",180,645);
-        this.selectGC.strokeText("1",180,765);
+        this.selectGC.strokeText("" +paperMillBuildingCount,180,465);
+        this.selectGC.strokeText("" +mintBuildingCount,180,525);
+        this.selectGC.strokeText("" +stockExchangeBuildingCount,180,585);
+        this.selectGC.strokeText("" +oilRigBuildingCount,180,645);
+        this.selectGC.strokeText("" +mineBuildingCount,180,765);
 
         // column 3
-        this.selectGC.strokeText("2",280,465);
-        this.selectGC.strokeText("1",280,525);
-        this.selectGC.strokeText("2",280,585);
-        this.selectGC.strokeText("0",280,645);
-        this.selectGC.strokeText("0",280,705);
+        this.selectGC.strokeText("" +wagonFactoryCount,280,465);
+        this.selectGC.strokeText("" +truckFactoryCount,280,525);
+        this.selectGC.strokeText("" +raftFactoryCount,280,585);
+        this.selectGC.strokeText("" +rowboatFactoryCount,280,645);
+        this.selectGC.strokeText("" +steamerFactoryCount,280,705);
     }
 
     private void initializeSelectButtons(){

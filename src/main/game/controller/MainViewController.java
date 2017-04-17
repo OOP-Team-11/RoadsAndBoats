@@ -93,7 +93,6 @@ public class MainViewController {
     private void addTurnFinishButtonHandler(){
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                // TODO hook up to model to change phase or currently active player
                 game.onTurnEnded();
             }
         };
