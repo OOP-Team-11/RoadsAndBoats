@@ -1,6 +1,5 @@
 package game.model.managers;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import game.controller.MainViewController;
 import game.model.Player;
 import game.model.PlayerId;
