@@ -1,6 +1,5 @@
 package game.view.render;
 
-import game.model.Player;
 import game.model.PlayerId;
 import game.model.wonder.PlayerBrick;
 import game.model.wonder.WonderBrick;
@@ -20,6 +19,10 @@ public class WonderRenderInfo {
         return wonderManager.getWealthPoints(playerId);
     }
 
+    /**
+     * returns wonder brick render info for wonder bricks in the order they were placed
+     * @return
+     */
     public List<WonderBrickRenderInfo> getWonderBrickRenderInfo() {
         List<WonderBrickRenderInfo> wonderBricks = new ArrayList<>();
         for (WonderBrick brick : this.wonderManager.getOrderedWonderBricks()) {

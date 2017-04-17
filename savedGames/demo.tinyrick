@@ -105,29 +105,28 @@
 ( -6 3 3 ) SEA
 -----END MAP-----
 -----BEGIN RESOURCE-----
-( 0 0 0 ) E IRON=2
-( 0 0 0 ) W GOLD=1
-( -1 0 1 ) W BOARDS=1
-( -1 0 1 ) E IRON=1
-( -1 0 1 ) N GOLD=1
+( 0 0 0 ) S GOLD=1
+( -2 0 2 ) W BOARDS=1
+( -2 0 2 ) E IRON=1
+( -2 0 2 ) S GOLD=1
 -----END RESOURCE-----
 -----BEGIN MINE-----
-( 2 -2 0 ) N MAX=[GOLD=3 IRON=3] CURRENT=[GOLD=0 IRON=1]
-( 0 0 0 ) E MAX=[GOLD=5 IRON=5] CURRENT=[GOLD=4 IRON=1]
+( 2 -2 0 ) E MAX=[GOLD=3 IRON=3] CURRENT=[GOLD=0 IRON=1]
 -----END MINE-----
 -----BEGIN OILRIG-----
+( 0 3 -3 ) E
 -----END OILRIG-----
 -----BEGIN CLAYPIT-----
+( 1 1 -2 ) E
+( 4 -2 -2 ) E
 -----END CLAYPIT-----
 -----BEGIN STONEQUARRY-----
-( 2 2 -4 ) E
+( 4 -3 -1 ) E
 -----END STONEQUARRY-----
 -----BEGIN WOODCUTTER-----
-( 3 -1 -2 ) E
+( 0 -1 1 ) E
 -----END WOODCUTTER-----
 -----BEGIN MINT-----
-( 4 4 -8 ) E
-( 4 3 -7 ) E
 -----END MINT-----
 -----BEGIN PAPERMILL-----
 ( 5 5 -10 ) E
@@ -136,27 +135,27 @@
 ( 1 -1 0 ) E LIMIT=4
 -----END COALBURNER-----
 -----BEGIN SAWMILL-----
-( 1 -2 1 ) E LIMIT=6
 -----END SAWMILL-----
 -----BEGIN STONEFACTORY-----
 ( 2 -3 1 ) E LIMIT=0
 -----END STONEFACTORY-----
 -----BEGIN STOCKMARKET-----
-( 2 -4 2 ) E LIMIT=1
 -----END STOCKMARKET-----
 -----BEGIN GOOSE-----
 ( 0 0 0 ) E
 ( 0 0 0 ) E
-( 2 2 -4 ) E
-( 2 2 -4 ) E
-( -3 4 -1 ) E
+( -2 2 0 ) E
+( -2 2 0 ) N
+( 6 0 -6 ) E
 -----END GOOSE-----
 -----BEGIN TRANSPORT-----
-DONKEY ( 0 0 0 ) N PLAYERID=1 GOOSENUM=2
-DONKEY ( 0 0 0 ) E PLAYERID=1 GOOSENUM=0
-DONKEY ( 2 2 -4 ) N PLAYERID=2 GOOSENUM=0
-DONKEY ( 2 2 -4 ) E PLAYERID=2 GOOSENUM=0
-ROWBOAT ( -3 4 -1 ) E PLAYERID=2 GOOSENUM=0
+DONKEY ( 0 0 0 ) E PLAYERID=1 GOOSENUM=2
+DONKEY ( -2 2 0 ) E PLAYERID=2 GOOSENUM=0
+DONKEY ( -2 2 0 ) N PLAYERID=2 GOOSENUM=0
+ROWBOAT ( 6 0 -6 ) E PLAYERID=2 GOOSENUM=0
 -----END TRANSPORT-----
 -----BEGIN WONDER-----
+BRICK PLAYERID=1
+BRICK PLAYERID=2
+BRICK PLAYERID=-1
 -----END WONDER-----
