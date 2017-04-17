@@ -49,4 +49,5 @@ public class AbilityFactory {
     public PickUpResourceAbility getPickUpResourceAbility() { return new PickUpResourceAbility(mainViewController); }
     public DropResourceAbility getDropResourceAbility() { return new DropResourceAbility(mainViewController); }
     public PickUpTransportAbility getPickUpTransportAbility() { return new PickUpTransportAbility(mainViewController); }
+    public ResearchAbility getResearchAbility() { return new ResearchAbility(mainViewController); }
 }

@@ -68,6 +68,7 @@ public class TransportAbilityManager {
         this.addPickUpResourceAbility(transport, tileCompartmentLocation);
         this.addDropResourceAbility(transport, tileCompartmentLocation);
         this.addPickUpTransportAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
+        this.addResearchAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
     }
 
     private Set<Move> getValidMoves(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports)
@@ -411,6 +412,24 @@ public class TransportAbilityManager {
                 PickUpTransportAbility pickupTransportAbility = abilityFactory.getPickUpTransportAbility();
                 pickupTransportAbility.attachToController(t, transport);
                 addAbility(pickupTransportAbility);
+            }
+        }
+    }
+
+    public void addResearchAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, List<Transport> tileCompartmentTransports) {
+        List<Goose> tileGeese = gooseManager.getMapGeese().get(tileCompartmentLocation);
+        TileCompartment tileCompartment = map.getTile(tileCompartmentLocation.getLocation()).getTileCompartment(tileCompartmentLocation.getTileCompartmentDirection()));
+        if(tileGeese != null && tileGeese.size() > 1 && tileCompartment.hasResource(ResourceType.PAPER)) {
+            for (Transport t : tileCompartmentTransports) {
+                if (t != transport) {
+                    for(ResearchEnum researchEnum : ResearchEnum.values()) {
+                        if(ResearchManager.canResearch(researchEnum)) {
+                            ResearchAbility researchAbility = abilityFactory.getResearchAbility();
+                            researchAbility.attachToController(researchType, researchManager, gooseManager, tileCompartment, tileCompartmentLocation);
+                        }
+                    }
+                    break;
+                }
             }
         }
     }
