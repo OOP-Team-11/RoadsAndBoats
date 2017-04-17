@@ -7,16 +7,15 @@ import game.model.movement.River;
 import game.model.structures.Structure;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.List;
 
 public class Tile
 {
-
     private Map<TileEdgeDirection, TileEdge> edges;
     private Map<TileCompartmentDirection, TileCompartment> compartments;
     private Terrain terrain;
-    private RiverConfiguration riverConfiguration;
     private Structure structure;
 
     public Tile(Terrain terrain, RiverConfiguration riverConfiguration)
@@ -24,16 +23,14 @@ public class Tile
         edges = new HashMap<>();
         compartments = new HashMap<>();
 
-        this.riverConfiguration = riverConfiguration;
         this.terrain = terrain;
+        setupCompartments(riverConfiguration);
+        setupEdges(riverConfiguration);
 
-        setupEdges();
-        setupCompartments();
-
-        this.rotateAccordingToRiverConfiguration();
+        this.rotateAccordingToRiverConfiguration(riverConfiguration);
     }
 
-    private void setupEdges()
+    private void setupEdges(RiverConfiguration riverConfiguration)
     {
         edges.put(TileEdgeDirection.getNorth(),
                 new TileEdge(canConnectRiver(TileEdgeDirection.getNorth()),
@@ -60,7 +57,7 @@ public class Tile
                         riverConfiguration.canConnectSouthwest()));
     }
 
-    private void setupCompartments()
+    private void setupCompartments(RiverConfiguration riverConfiguration)
     {
         List<TileCompartmentDirection> compartmentDirections = TileCompartmentDirection.getAllDirections();
 
@@ -69,7 +66,7 @@ public class Tile
 
         for (TileCompartmentDirection tileCompartmentDirection : compartmentDirections)
         {
-            boolean hasRiver = hasRiver(tileCompartmentDirection);
+            boolean hasRiver = hasRiver(tileCompartmentDirection, riverConfiguration);
 
             if (hasRiver)
             {
@@ -100,9 +97,9 @@ public class Tile
         }
     }
 
-    private void rotateAccordingToRiverConfiguration()
+    private void rotateAccordingToRiverConfiguration(RiverConfiguration riverConfiguration)
     {
-        int rotationAmount = this.riverConfiguration.getRotationAmount();
+        int rotationAmount = riverConfiguration.getRotationAmount();
         while (rotationAmount > 0)
         {
             this.rotate(new Angle(60));
@@ -112,30 +109,43 @@ public class Tile
 
     public RiverConfiguration getRiverConfiguration()
     {
-        return this.riverConfiguration;
+        Map<TileEdgeDirection, Boolean> rivers= new HashMap<>();
+        for(TileEdgeDirection ted: TileEdgeDirection.getAllDirections())
+        {
+            TileCompartmentDirection tcd =new TileCompartmentDirection(ted.getAngle());
+            boolean hasRiver =getTileCompartment(tcd).getRiver(tcd) != null;
+            rivers.put(ted, hasRiver);
+        }
+
+        return new RiverConfiguration(rivers);
     }
 
     private boolean canConnectRiver(TileEdgeDirection tileEdgeDirection)
     {
-        return (tileEdgeDirection.equals(tileEdgeDirection.getNorth()) && riverConfiguration.canConnectNorth() ||
-                tileEdgeDirection.equals(tileEdgeDirection.getNorthEast()) && riverConfiguration.canConnectNortheast() ||
-                tileEdgeDirection.equals(tileEdgeDirection.getSouthEast()) && riverConfiguration.canConnectSoutheast() ||
-                tileEdgeDirection.equals(tileEdgeDirection.getSouth()) && riverConfiguration.canConnectSouth() ||
-                tileEdgeDirection.equals(tileEdgeDirection.getSouthWest()) && riverConfiguration.canConnectSouthwest() ||
-                tileEdgeDirection.equals(tileEdgeDirection.getNorthWest()) && riverConfiguration.canConnectNorthwest()) ||
-                terrain.canConnectRiver();
+        if(terrain.canConnectRiver())
+        {
+            return true;
+        }
+
+        TileCompartmentDirection tcd =new TileCompartmentDirection(tileEdgeDirection.getAngle());
+        TileCompartment tc =getTileCompartment(tcd);
+
+        return tc.getRiver(tcd) != null;
     }
 
-    private boolean hasRiver(TileCompartmentDirection tileCompartmentDirection)
+    private boolean hasRiver(TileCompartmentDirection tileCompartmentDirection, RiverConfiguration riverConfiguration)
     {
+        if(terrain.canConnectRiver())
+        {
+            return true;
+        }
 
-        return (tileCompartmentDirection.equals(tileCompartmentDirection.getNorth()) && riverConfiguration.canConnectNorth() ||
-                tileCompartmentDirection.equals(tileCompartmentDirection.getNorthEast()) && riverConfiguration.canConnectNortheast() ||
-                tileCompartmentDirection.equals(tileCompartmentDirection.getSouthEast()) && riverConfiguration.canConnectSoutheast() ||
-                tileCompartmentDirection.equals(tileCompartmentDirection.getSouth()) && riverConfiguration.canConnectSouth() ||
-                tileCompartmentDirection.equals(tileCompartmentDirection.getSouthWest()) && riverConfiguration.canConnectSouthwest() ||
-                tileCompartmentDirection.equals(tileCompartmentDirection.getNorthWest()) && riverConfiguration.canConnectNorthwest()) ||
-                terrain.canConnectRiver();
+        if(isCorner(tileCompartmentDirection))
+        {
+            return false;
+        }
+
+        return riverConfiguration.canConnect(new TileEdgeDirection(tileCompartmentDirection.getAngle()));
     }
 
     // TileEdge
@@ -175,74 +185,41 @@ public class Tile
         {
             rotateEdges();
             rotateCompartments();
-            rotateRiverConfigurations();
         }
-    }
-
-    private void rotateRiverConfigurations()
-    {
-        riverConfiguration.rotateRiverConfigurationOnce();
     }
 
     private void rotateEdges()
     {
-        TileEdge northEdge = edges.get(TileEdgeDirection.getNorth());
-        TileEdge northEastEdge = edges.get(TileEdgeDirection.getNorthEast());
-        TileEdge northWestEdge = edges.get(TileEdgeDirection.getNorthWest());
-        TileEdge southEdge = edges.get(TileEdgeDirection.getSouth());
-        TileEdge southEastEdge = edges.get(TileEdgeDirection.getSouthEast());
-        TileEdge southWestEdge = edges.get(TileEdgeDirection.getSouthWest());
+        HashMap<TileEdgeDirection, TileEdge> edges = new HashMap<>();
 
-        edges.put(TileEdgeDirection.getNorth(), northWestEdge);
-        edges.put(TileEdgeDirection.getNorthEast(), northEdge);
-        edges.put(TileEdgeDirection.getSouthEast(), northEastEdge);
-        edges.put(TileEdgeDirection.getSouth(), southEastEdge);
-        edges.put(TileEdgeDirection.getSouthWest(), southEdge);
-        edges.put(TileEdgeDirection.getNorthWest(), southWestEdge);
+        for(Map.Entry<TileEdgeDirection, TileEdge> entry: this.edges.entrySet())
+        {
+            TileEdgeDirection dir = new TileEdgeDirection(new Angle(entry.getKey().getAngle().getDegrees()-60));
+            edges.put(dir, entry.getValue());
+        }
 
+        this.edges=edges;
     }
 
     private void rotateCompartments()
     {
-        TileCompartment northComp = compartments.get(TileCompartmentDirection.getNorth());
-        TileCompartment northNorthEastComp = compartments.get(TileCompartmentDirection.getNorthNorthEast());
-        TileCompartment northEastComp = compartments.get(TileCompartmentDirection.getNorthEast());
-        TileCompartment eastComp = compartments.get(TileCompartmentDirection.getEast());
-        TileCompartment southEastComp = compartments.get(TileCompartmentDirection.getSouthEast());
-        TileCompartment southSouthEastComp = compartments.get(TileCompartmentDirection.getSouthSouthEast());
-        TileCompartment southComp = compartments.get(TileCompartmentDirection.getSouth());
-        TileCompartment southSouthWestComp = compartments.get(TileCompartmentDirection.getSouthSouthWest());
-        TileCompartment southWestComp = compartments.get(TileCompartmentDirection.getSouthWest());
-        TileCompartment westComp = compartments.get(TileCompartmentDirection.getWest());
-        TileCompartment northWestComp = compartments.get(TileCompartmentDirection.getNorthWest());
-        TileCompartment northNorthWestComp = compartments.get(TileCompartmentDirection.getNorthNorthWest());
+        HashMap<TileCompartmentDirection, TileCompartment> compartments = new HashMap<>();
 
-        northComp.rotate();
-        northNorthEastComp.rotate();
-        northEastComp.rotate();
-        eastComp.rotate();
-        southEastComp.rotate();
-        southSouthEastComp.rotate();
-        southComp.rotate();
-        southSouthWestComp.rotate();
-        southWestComp.rotate();
-        westComp.rotate();
-        northWestComp.rotate();
-        northNorthWestComp.rotate();
+        for(Map.Entry<TileCompartmentDirection, TileCompartment> entry: this.compartments.entrySet())
+        {
+            TileCompartmentDirection dir = new TileCompartmentDirection(new Angle(entry.getKey().getAngle().getDegrees()-60));
+            compartments.put(dir, entry.getValue());
+        }
 
-        compartments.put(TileCompartmentDirection.getEast(), northNorthEastComp);
-        compartments.put(TileCompartmentDirection.getNorthNorthEast(), northNorthWestComp);
-        compartments.put(TileCompartmentDirection.getNorthEast(), northComp);
-        compartments.put(TileCompartmentDirection.getNorth(), northWestComp);
-        compartments.put(TileCompartmentDirection.getNorthNorthWest(), westComp);
-        compartments.put(TileCompartmentDirection.getNorthWest(), southWestComp);
-        compartments.put(TileCompartmentDirection.getWest(), southSouthWestComp);
-        compartments.put(TileCompartmentDirection.getSouthWest(), southComp);
-        compartments.put(TileCompartmentDirection.getSouthSouthWest(), southSouthEastComp);
-        compartments.put(TileCompartmentDirection.getSouth(), southEastComp);
-        compartments.put(TileCompartmentDirection.getSouthEast(), northEastComp);
-        compartments.put(TileCompartmentDirection.getSouthSouthEast(), eastComp);
+        this.compartments=compartments;
 
+        HashSet<TileCompartment> tileCompartments = new HashSet<>();
+        tileCompartments.addAll(this.compartments.values());
+
+        for(TileCompartment tc: tileCompartments)
+        {
+            tc.rotate();
+        }
     }
 
     public boolean addStructure(Structure structure)
