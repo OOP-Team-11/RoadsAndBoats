@@ -1,5 +1,6 @@
 package game.view;
 
+import game.model.ability.Ability;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentLocation;
 import game.model.resources.ResourceType;
@@ -18,12 +19,15 @@ import javafx.geometry.Orientation;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,6 +70,7 @@ public class MainView extends View
     private Button finishTurn;
     private Button resourceButton;
     private Button buildingButton;
+    private Button abilitiesButton;
     private int[] compartmentX = {30,68,10,90,30,68}; // for scaling resources/structures in compartments
     private int[] compartmentY = {10,10,45,45,80,80};
     private int cameraX;
@@ -76,7 +81,8 @@ public class MainView extends View
     private int currentDisplayState;
     private Location rightClickedLocation;
     private ArrayList<TransportId> transportIds;
-    private double offset;
+    private Map<KeyCode, Ability> abilities;
+    private ListView abilityList;
 
     public MainView(AnchorPane anchorPane){
         setAnchorPane(anchorPane);
@@ -632,36 +638,93 @@ public class MainView extends View
     private void initializeSelectButtons(){
         this.buildingButton = new Button();
         this.resourceButton = new Button();
+        this.abilitiesButton = new Button();
         this.buildingButton.setText("Buildings");
-        this.buildingButton.setPrefWidth(130.0);
+        this.buildingButton.setPrefWidth(80.0);
         this.buildingButton.setFont(new Font(14));
         this.resourceButton.setText("Goods");
-        this.resourceButton.setPrefWidth(130.0);
+        this.resourceButton.setPrefWidth(80.0);
         this.resourceButton.setFont(new Font(14));
+        this.abilitiesButton.setText("Abilities");
+        this.abilitiesButton.setFont(new Font(14));
+        this.abilitiesButton.setPrefWidth(80.0);
         this.anchorPane.getChildren().add(buildingButton);
         this.anchorPane.getChildren().add(resourceButton);
+        this.anchorPane.getChildren().add(abilitiesButton);
         this.anchorPane.setLeftAnchor(buildingButton, 980.0);
-        this.anchorPane.setLeftAnchor(resourceButton,1130.0);
+        this.anchorPane.setLeftAnchor(abilitiesButton, 1070.0);
+        this.anchorPane.setLeftAnchor(resourceButton,1160.0);
         this.anchorPane.setTopAnchor(resourceButton,380.0);
         this.anchorPane.setTopAnchor(buildingButton,380.0);
+        this.anchorPane.setTopAnchor(abilitiesButton,380.0);
         this.resourceButton.setOnMouseClicked(event ->{
             this.currentDisplayState = 1;
+            this.anchorPane.getChildren().remove(abilityList);
             this.refresh = true;
         });
 
         this.buildingButton.setOnMouseClicked(event ->{
             this.currentDisplayState = 2;
+            this.anchorPane.getChildren().remove(abilityList);
+            this.refresh = true;
+        });
+
+        this.abilitiesButton.setOnMouseClicked(event ->{
+            this.currentDisplayState = 3;
             this.refresh = true;
         });
     }
+    private void removeAbilitesTable(){
+        this.anchorPane.getChildren().remove(abilityList);
+    }
 
     private void displaySidePanelInformation(){
-        if(currentDisplayState == 1){
+        if(currentDisplayState == 1){ // structures
             displayGoodsOnSidePanel();
             displayGoodsCount();
-        } else if(currentDisplayState == 2){
+            removeAbilitesTable();
+        } else if(currentDisplayState == 2){ // goods
             displayBuildingsOnSidePanel();
             displayBuildingCount();
+            removeAbilitesTable();
+        } else if(currentDisplayState == 3){ // abilities
+            displayAbilitiesOnSidePanel();
+        }
+    }
+    private void displayAbilitiesOnSidePanel(){
+        if(isNull(abilities)){
+
+        } else {
+            this.anchorPane.getChildren().remove(abilityList);
+            this.abilityList = new ListView();
+            this.abilityList.setMaxHeight(350.0);
+            this.anchorPane.getChildren().add(abilityList);
+            this.anchorPane.setLeftAnchor(abilityList,1000.0);
+            this.anchorPane.setTopAnchor(abilityList, 420.0);
+
+            ArrayList<String> displayInfo = new ArrayList<>();
+
+            for (Map.Entry<KeyCode, Ability> entry : abilities.entrySet()) {
+
+                displayInfo.add("" +entry.getKey() + "    " +entry.getValue().getDisplayString() );
+            }
+            this.abilityList.setItems(FXCollections.observableList(displayInfo));
+
+            abilityList.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+                @Override // way too complicated but this is what is needed to make the font bigger for each item in listView
+                public ListCell<String> call(ListView<String> p) {
+                    return new ListCell<String>() {
+                        @Override
+                        protected void updateItem(String item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item != null) {
+                                setText(item);
+                                setFont(Font.font(22));
+                            }
+                        }
+                    };
+                }
+            });
         }
     }
 
@@ -896,7 +959,6 @@ public class MainView extends View
             clearMapCanvas();
             clearRightPanel();
             drawMap();
-            drawCursor();
             checkForOverlay();
             updateSidePanel();
             displaySidePanelInformation();
@@ -910,6 +972,7 @@ public class MainView extends View
 
             clearNewDataFlag();
             TESTING_REMOVE_LATER();
+            drawCursor(); // cursor is always last
         } else {
             // nothing to update
         }
@@ -978,6 +1041,9 @@ public class MainView extends View
             this.mapTransportRenderInfoP2 = mapTransportRenderInfo;
         }
         this.refresh = true;
+    }
+    public void setAbilities(Map<KeyCode, Ability> abilites) {this.abilities = abilites;
+    this.refresh = true;
     }
 
     public Location getRightClickedLocation() {
