@@ -19,6 +19,14 @@ public class Move
         this.tileEdgeDirection = tileEdgeDirection;
     }
 
+    public TileCompartmentDirection getTileCompartmentDirection() {
+        return tileCompartmentDirection;
+    }
+
+    public TileEdgeDirection getTileEdgeDirection() {
+        return tileEdgeDirection;
+    }
+
     public int hashCode()
     {
         return Objects.hash(destination, tileCompartmentDirection, tileEdgeDirection);

@@ -47,7 +47,7 @@ public class TransportAbilityManager {
 
     public int getAbilityCount() { return this.abilities.size(); }
 
-    public void addAbilities(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports) {
+    public void addAbilities(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
         this.abilities.clear();
         this.addFollowAbility(transport, tileCompartmentLocation);
         this.addTransportReproduceAbility(transport, tileCompartmentLocation, tileTransports);
@@ -432,5 +432,9 @@ public class TransportAbilityManager {
                 }
             }
         }
+    }
+
+    public void addMovementAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        
     }
 }

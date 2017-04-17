@@ -126,7 +126,7 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
         TileCompartmentLocation transportTCL = getTransportTileCompartmentLocation(transportId, loc);
         Map<TileCompartmentDirection, List<Transport>> tileTransports = getTileTransports(loc);
         if(transport != null)
-            this.transportAbilityManager.addAbilities(transport, transportTCL, tileTransports);
+            this.transportAbilityManager.addAbilities(transport, transportTCL, tileTransports, this);
     }
 
     public Map<TileCompartmentDirection, List<Transport>> getTileTransports(Location loc) {
