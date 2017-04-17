@@ -63,19 +63,19 @@ public class TransportAbilityManager {
     }
 
     private void addTradingPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
-        if(phase=="Trading") {
+//        if(phase=="Trading") {
             this.addPickUpResourceAbility(transport, tileCompartmentLocation);
             this.addDropResourceAbility(transport, tileCompartmentLocation);
             this.addPickUpTransportAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
             this.addDropTransportAbility(transport);
-        }
+//        }
     }
 
     private void addProductionPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
-        if(phase=="Production") {
+//        if(phase=="Production") {
             this.addResearchAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
             this.addTransportReproduceAbility(transport, tileCompartmentLocation, tileTransports);
-        }
+//        }
     }
 
     private void addMovementPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
@@ -84,7 +84,7 @@ public class TransportAbilityManager {
     }
 
     private void addBuildingPhaseAbilities(String phase, Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports, TransportManager transportManager) {
-        if(phase=="Building") {
+//        if(phase=="Building") {
             this.addBuildWoodCutterAbility(transport, tileCompartmentLocation);
 //          this.addBuildClayPitAbility(transport, tileCompartmentLocation);      TODO: Once we can check if on river/sea shore
             this.addBuildStoneQuarryAbility(transport, tileCompartmentLocation);
@@ -99,7 +99,7 @@ public class TransportAbilityManager {
             this.addBuildSteamshipFactoryAbility(transport, tileCompartmentLocation);
             this.addBuildTruckFactoryAbility(transport, tileCompartmentLocation);
             this.addBuildStockExchangeAbility(transport, tileCompartmentLocation);
-        }
+//        }
     }
 
     private Set<Move> getValidMoves(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports)

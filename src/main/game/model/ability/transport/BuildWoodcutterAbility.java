@@ -16,6 +16,7 @@ public class BuildWoodcutterAbility extends Ability {
 
     public BuildWoodcutterAbility(MainViewController mainViewController, StructureManagerVisitor v) {
         super(mainViewController);
+        this.structureManagerVisitor = v;
     }
 
     @Override
