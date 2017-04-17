@@ -133,7 +133,7 @@ public class GameExporterTest {
         assertEquals("-----BEGIN MAP-----\n" +
                         "( 0 0 0 ) PASTURE \n" +
                         "( 0 -1 1 ) DESERT ( 1 2 )\n" +
-                        "( 0 1 -1 ) SEA ( 1 2 3 4 5 6 )\n" +
+                        "( 0 1 -1 ) SEA \n" +
                         "( -2 1 1 ) WOODS ( 1 3 )\n" +
                         "( 1 0 -1 ) MOUNTAIN \n",
                 contents.substring(0,contents.indexOf("-----END MAP-----"))
