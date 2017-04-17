@@ -57,7 +57,7 @@ public class RoadConfiguration
     @Override
     public boolean equals(Object o)
     {
-        if(!(o instanceof RoadConfiguration))
+        if(!(o instanceof RiverConfiguration))
         {
             return false;
         }
@@ -68,11 +68,11 @@ public class RoadConfiguration
     }
 
     private int getNumRoads() {
-        int numRoads = 0;
-        for (Boolean hasRoad : roadMap.values()) {
-            if (hasRoad) numRoads++;
+        int numRivers = 0;
+        for (Boolean hasRiver : roadMap.values()) {
+            if (hasRiver) numRivers++;
         }
-        return numRoads;
+        return numRivers;
     }
 
     private int getSideNumberForTileEdgeDirection(TileEdgeDirection tileEdgeDirection) {
