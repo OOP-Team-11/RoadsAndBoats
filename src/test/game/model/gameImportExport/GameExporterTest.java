@@ -204,6 +204,34 @@ public class GameExporterTest {
         );
     }
 
+    @Test
+    public void stoneQuarrySectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN STONE_QUARRY-----\n" +
+                "( 0 0 0 ) E";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN STONE_QUARRY-----"),contents.indexOf("-----END STONE_QUARRY-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void woodCutterSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN WOODCUTTER-----\n" +
+                "( 0 1 -1 ) S";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN WOODCUTTER-----"),contents.indexOf("-----END WOODCUTTER-----")).trim(),
+                expected.trim()
+        );
+    }
+
 
     private String readFile(String filepath){
         File f = new File(filepath);
