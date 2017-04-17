@@ -8,8 +8,8 @@ import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.managers.GooseManager;
+import game.model.managers.ResearchManager;
 import game.model.managers.StructureManager;
-import game.model.managers.TransportAbilityManager;
 import game.model.managers.TransportManager;
 import game.model.map.RBMap;
 import game.model.resources.Goose;
@@ -23,7 +23,6 @@ import game.model.tile.TileCompartment;
 import game.model.transport.DonkeyTransport;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
-import game.model.visitors.TransportManagerVisitor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,6 +45,7 @@ public class TransportAbilityTest {
     private GooseManager gooseManager;
     private PlayerId playerId;
     private StructureManager structureManager;
+    private ResearchManager researchManager;
     private TransportManager transportManager;
     private Player player1;
     private Transport donkey;
@@ -59,7 +59,8 @@ public class TransportAbilityTest {
         this.gooseManager = new GooseManager(mainViewController, map);
         this.playerId = new PlayerId(1);
         this.structureManager = new StructureManager(mainViewController, map);
-        this.transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
+        this.researchManager = new ResearchManager(startingLocation.getLocation(), playerId);
+        this.transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, researchManager);
         this.player1 = new Player(transportManager, playerId, "Morty", startingLocation);
         this.donkey = new DonkeyTransport(player1.getPlayerId(), new TransportId());
     }

@@ -32,7 +32,7 @@ public class GooseAbilityTest {
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
         StructureManager structureManager = new StructureManager(mainViewController, map);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, null);
         Player player1 = new Player(transportManager, playerId, "Morty", location);
         Goose goose1 = new Goose(new GooseId());
         Goose goose2 = new Goose(new GooseId());
@@ -52,7 +52,7 @@ public class GooseAbilityTest {
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
         StructureManager structureManager = new StructureManager(mainViewController, map);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, null);
         Player player1 = new Player(transportManager, playerId, "Morty", location);
         Goose goose1 = new Goose(new GooseId());
         Goose goose2 = new Goose(new GooseId());
@@ -74,7 +74,7 @@ public class GooseAbilityTest {
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
         StructureManager structureManager = new StructureManager(mainViewController, map);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, null);
         Player player1 = new Player(transportManager, playerId, "Morty", location);
         Goose goose1 = new Goose(new GooseId());
         Goose goose2 = new Goose(new GooseId());
@@ -95,7 +95,7 @@ public class GooseAbilityTest {
         GooseManager gooseManager = new GooseManager(mainViewController, map);
         PlayerId playerId = new PlayerId(1);
         StructureManager structureManager = new StructureManager(mainViewController, map);
-        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager);
+        TransportManager transportManager = new TransportManager(playerId, mainViewController, gooseManager, map, structureManager, null);
         Player player1 = new Player(transportManager, playerId, "Morty", location);
         Goose goose1 = new Goose(new GooseId());
         Goose goose2 = new Goose(new GooseId());

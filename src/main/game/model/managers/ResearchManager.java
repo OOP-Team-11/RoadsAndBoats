@@ -1,9 +1,13 @@
 package game.model.managers;
 
 import game.model.PlayerId;
+import game.model.ResearchType;
 import game.model.direction.Location;
 import game.model.resources.ResourceType;
 import game.model.transport.Transport;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ResearchManager
 {
@@ -12,14 +16,7 @@ public class ResearchManager
 
     private int researchPoints;
 
-    private boolean hasReasearchedRowing;
-    private boolean hasReasearchedTrucking;
-    private boolean hasReasearchedShipping;
-    private boolean hasReasearchedDrilling;
-    private boolean hasReasearchedSpecialization;
-    private boolean hasReasearchedEnlargement;
-    private boolean hasReasearchedNewShafts;
-    private boolean hasReasearchedBrightIdea;
+    private Map<ResearchType, Boolean> research;
 
     public ResearchManager(Location home, PlayerId id)
     {
@@ -27,6 +24,13 @@ public class ResearchManager
         this.id=id;
 
         researchPoints=0;
+
+        research = new HashMap<>();
+
+        for(ResearchType rt: ResearchType.values())
+        {
+            research.put(rt, false);
+        }
     }
 
     public boolean canBuyResearchPoint(Transport transport)
@@ -45,136 +49,25 @@ public class ResearchManager
         return false;
     }
 
-    public int getResearchPoints()
+    public boolean hasResearched(ResearchType researchType)
     {
-        return researchPoints;
+        return research.get(researchType);
     }
 
-    public boolean hasReasearchedRowing()
+    public boolean canSpendResearchPointOn(ResearchType researchType)
     {
-        return hasReasearchedRowing;
+        return researchPoints > 0 && !research.get(researchType);
     }
 
-    public boolean hasReasearchedTrucking()
-    {
-        return hasReasearchedTrucking;
-    }
-
-    public boolean hasReasearchedShipping()
-    {
-        return hasReasearchedShipping;
-    }
-
-    public boolean hasReasearchedDrilling()
-    {
-        return hasReasearchedDrilling;
-    }
-
-    public boolean hasReasearchedSpecialization()
-    {
-        return hasReasearchedSpecialization;
-    }
-
-    public boolean hasReasearchedEnlargement()
-    {
-        return hasReasearchedEnlargement;
-    }
-
-    public boolean hasReasearchedNewShafts()
-    {
-        return hasReasearchedNewShafts;
-    }
-
-    public boolean hasReasearchedBrightIdea()
-    {
-        return hasReasearchedBrightIdea;
-    }
-
-    public boolean spendResearchPointOnRowing()
+    public boolean spendResearchPointOn(ResearchType researchType)
     {
         if(researchPoints <= 0)
         {
             return false;
         }
 
-        this.hasReasearchedRowing = true;
-        return true;
-    }
-
-    public boolean spendResearchPointOnTrucking()
-    {
-        if(researchPoints <= 0)
-        {
-            return false;
-        }
-
-        this.hasReasearchedTrucking = true;
-        return true;
-    }
-
-    public boolean spendResearchPointOnShipping()
-    {
-        if(researchPoints <= 0)
-        {
-            return false;
-        }
-
-        this.hasReasearchedShipping = true;
-        return true;
-    }
-
-    public boolean spendResearchPointOnDrilling()
-    {
-        if(researchPoints <= 0)
-        {
-            return false;
-        }
-
-        this.hasReasearchedDrilling = true;
-        return true;
-    }
-
-    public boolean spendResearchPointOnSpecialization()
-    {
-        if(researchPoints <= 0)
-        {
-            return false;
-        }
-
-        this.hasReasearchedSpecialization = true;
-        return true;
-    }
-
-    public boolean spendResearchPointOnEnlargement()
-    {
-        if(researchPoints <= 0)
-        {
-            return false;
-        }
-
-        this.hasReasearchedEnlargement = true;
-        return true;
-    }
-
-    public boolean spendResearchPointOnNewShafts()
-    {
-        if(researchPoints <= 0)
-        {
-            return false;
-        }
-
-        this.hasReasearchedNewShafts = true;
-        return true;
-    }
-
-    public boolean spendResearchPointOnBrightIdea()
-    {
-        if(researchPoints <= 0)
-        {
-            return false;
-        }
-
-        this.hasReasearchedBrightIdea = true;
+        researchPoints--;
+        research.replace(researchType, true);
         return true;
     }
 }

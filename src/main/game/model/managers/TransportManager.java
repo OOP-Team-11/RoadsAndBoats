@@ -1,24 +1,18 @@
 package game.model.managers;
 
 import game.controller.MainViewController;
-import game.model.Player;
 import game.model.PlayerId;
 import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.map.RBMap;
-import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
-import game.model.transport.TransportLocation;
 import game.model.visitors.StructureManagerVisitor;
 import game.model.visitors.TransportManagerVisitor;
 import game.utilities.observable.MapTransportRenderInfoObservable;
-import game.utilities.observer.MapStructureRenderInfoObserver;
 import game.utilities.observer.MapTransportRenderInfoObserver;
-import game.view.render.MapStructureRenderInfo;
 import game.view.render.MapTransportRenderInfo;
-import game.view.render.StructureRenderInfo;
 import game.view.render.TransportRenderInfo;
 
 import java.util.*;
@@ -29,11 +23,13 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
     private TransportAbilityManager transportAbilityManager;
     private Map<TileCompartmentLocation, List<Transport>> transports;
     private List<MapTransportRenderInfoObserver> mapTransportRenderInfoObservers;
-    public TransportManager(PlayerId playerId, MainViewController mainViewController, GooseManager gooseManager, RBMap map, StructureManagerVisitor structureManagerVisitor) {
+    public TransportManager(PlayerId playerId, MainViewController mainViewController,
+                            GooseManager gooseManager, RBMap map,
+                            StructureManagerVisitor structureManagerVisitor, ResearchManager researchManager) {
         this.playerId = playerId;
         this.transports = new HashMap<TileCompartmentLocation, List<Transport>>();
         this.mapTransportRenderInfoObservers = new Vector<>();
-        this.transportAbilityManager = new TransportAbilityManager(mainViewController, gooseManager, map, this, structureManagerVisitor);
+        this.transportAbilityManager = new TransportAbilityManager(mainViewController, gooseManager, map, this, structureManagerVisitor, researchManager);
         mainViewController.addTransportManager(this);
     }
 

@@ -24,15 +24,18 @@ import game.model.visitors.TransportManagerVisitor;
 import java.util.*;
 
 public class TransportAbilityManager {
-    private GooseManager gooseManager;
-    private AbilityFactory abilityFactory;
-    private ArrayList<Ability> abilities;
-    private RBMap map;
-    private MainViewController mainViewController;
-    private TransportManagerVisitor transportManagerVisitor;
-    private StructureManagerVisitor structureManagerVisitor;
+    private final GooseManager gooseManager;
+    private final AbilityFactory abilityFactory;
+    private final ArrayList<Ability> abilities;
+    private final RBMap map;
+    private final MainViewController mainViewController;
+    private final TransportManagerVisitor transportManagerVisitor;
+    private final StructureManagerVisitor structureManagerVisitor;
+    private final ResearchManager researchManager;
 
-    public TransportAbilityManager(MainViewController mainViewController, GooseManager gooseManager, RBMap map, TransportManagerVisitor transportManagerVisitor, StructureManagerVisitor structureManagerVisitor) {
+    public TransportAbilityManager(MainViewController mainViewController, GooseManager gooseManager,
+                                   RBMap map, TransportManagerVisitor transportManagerVisitor,
+                                   StructureManagerVisitor structureManagerVisitor, ResearchManager researchManager) {
         this.mainViewController = mainViewController;
         this.abilityFactory = new AbilityFactory(mainViewController);
         this.abilities = new ArrayList<Ability>();
@@ -40,6 +43,7 @@ public class TransportAbilityManager {
         this.map = map;
         this.transportManagerVisitor = transportManagerVisitor;
         this.structureManagerVisitor = structureManagerVisitor;
+        this.researchManager=researchManager;
     }
 
     public RBMap getMap() { return map; }
