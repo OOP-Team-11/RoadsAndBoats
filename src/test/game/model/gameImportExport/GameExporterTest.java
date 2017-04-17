@@ -99,18 +99,7 @@ public class GameExporterTest {
     @Test
     public void mapSectionGucciTest(){
         gameExporter.exportGameToPath(testingFilePath);
-        File f = new File(testingFilePath);
-        String contents = "";
-        try{
-            FileReader fr = new FileReader(f);
-            int nextChar = -2;  //lol
-            while(nextChar != -1){
-                nextChar = fr.read();
-                contents += (nextChar == -1) ? "" : (char)nextChar;
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        String contents = readFile(testingFilePath);
 
         assertEquals(contents.substring(0,contents.indexOf("-----END MAP-----")),
                 "-----BEGIN MAP-----\n" +
@@ -122,6 +111,39 @@ public class GameExporterTest {
         );
     }
 
-    //TODO: Write test to check whether the resources are right
+    @Test
+    public void resourceSectionGucciTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+        System.out.println(contents);
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN RESOURCES-----"), contents.indexOf("-----END RESOURCES-----")).trim(),
+                "-----BEGIN RESOURCES-----\n" +
+                        "( 0 0 0 )  N BOARDS 1\n" +
+                        "( 0 0 0 )  N PAPER 10\n" +
+                        "( 0 -1 1 )  S GOLD 2\n" +
+                        "( 0 1 -1 )  N COINS 3\n" +
+                        "( -2 1 1 )  E FUEL 4\n" +
+                        "( 1 0 -1 )  N TRUNKS 5\n" +
+                        "( 1 0 -1 )  N CLAY 6".trim()
+        );
+    }
+
+
+    private String readFile(String filepath){
+        File f = new File(filepath);
+        String contents = "";
+        try{
+            FileReader fr = new FileReader(f);
+            int nextChar = -2;  //lol
+            while(nextChar != -1){
+                nextChar = fr.read();
+                contents += (nextChar == -1) ? "" : (char)nextChar;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return contents;
+    }
 
 }
