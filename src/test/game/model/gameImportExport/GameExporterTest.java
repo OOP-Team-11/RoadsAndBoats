@@ -9,6 +9,8 @@ import game.model.direction.TileCompartmentLocation;
 import game.model.gameImportExport.exporter.GameExporter;
 import game.model.managers.*;
 import game.model.resources.ResourceType;
+import game.model.structures.resourceProducer.primaryProducer.*;
+import game.model.structures.resourceProducer.secondaryProducer.*;
 import game.model.tile.RiverConfiguration;
 import game.model.tile.Tile;
 import game.model.tinyGame.Game;
@@ -76,7 +78,53 @@ public class GameExporterTest {
         Player p1 = new Player(tm1, pid1, "Karl", new TileCompartmentLocation(new Location(0,0,0),TileCompartmentDirection.getNorth()));
         Player p2 = new Player(tm2, pid1, "Friedrich", new TileCompartmentLocation(new Location(-1,0,1),TileCompartmentDirection.getEast()));
 
-        Game game = new Game(map, p1, p2, new GooseManager(), new StructureManager(mvc,map));
+        StructureManager sm = new StructureManager(mvc,map);
+
+        /* Put some mines in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getSouth()), new Mine(4,8));
+        sm.addStructure(new TileCompartmentLocation(locations.get(4),TileCompartmentDirection.getSouthSouthWest()), new Mine(10,10));
+
+        /* Sprinkle in some Oil Rigs too */
+        OilRig oilRig1 = new OilRig();
+        oilRig1.storeResource(ResourceType.BOARDS,5);
+        oilRig1.storeResource(ResourceType.COINS,2);
+        sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorth()), oilRig1);
+        OilRig oilRig2 = new OilRig();
+        oilRig2.storeResource(ResourceType.TRUNKS,1);
+        oilRig2.storeResource(ResourceType.GOLD,29);
+        sm.addStructure(new TileCompartmentLocation(locations.get(4),TileCompartmentDirection.getNorthWest()), oilRig2);
+
+        /* Put a ClayPit in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorthNorthEast()), new ClayPit());
+
+        /* Put a couple of PaperMills in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(2),TileCompartmentDirection.getNorthWest()), new Papermill());
+        sm.addStructure(new TileCompartmentLocation(locations.get(3),TileCompartmentDirection.getSouthSouthWest()), new Papermill());
+
+        /* Put a StoneQuarry in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(0),TileCompartmentDirection.getEast()), new StoneQuarry());
+
+        /* Put a WoodCutter in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(2),TileCompartmentDirection.getSouth()), new Woodcutter());
+
+        /* Put a Mint in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorthWest()), new Mint());
+
+        /* Put a CoalBurner in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(3),TileCompartmentDirection.getNorthWest()), new CoalBurner());
+
+        /* Put a Sawmill in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(1),TileCompartmentDirection.getNorth()), new Sawmill());
+
+        /* Put a StoneFactory in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(2),TileCompartmentDirection.getEast()), new StoneFactory());
+
+         /* Put a StockMarket in there */
+        sm.addStructure(new TileCompartmentLocation(locations.get(3),TileCompartmentDirection.getNorthEast()), new StockMarket());
+
+
+        Game game = new Game(map, p1, p2, new GooseManager(), sm);
+
         gameExporter = new GameExporter(game);
     }
 
@@ -88,7 +136,7 @@ public class GameExporterTest {
     }
 
     @Test
-    public void fileActuallyHasShitInItTest(){
+    public void fileActuallyHasStuffInItTest(){
         gameExporter.exportGameToPath(testingFilePath);
         File f = new File(testingFilePath);
         assertTrue(f.exists());
@@ -96,14 +144,14 @@ public class GameExporterTest {
     }
 
     @Test
-    public void mapSectionGucciTest(){
+    public void mapSectionTest(){
         gameExporter.exportGameToPath(testingFilePath);
         String contents = readFile(testingFilePath);
 
         assertEquals("-----BEGIN MAP-----\n" +
                         "( 0 0 0 ) PASTURE \n" +
                         "( 0 -1 1 ) DESERT ( 1 2 )\n" +
-                        "( 0 1 -1 ) SEA ( 1 2 3 4 5 6 )\n" +
+                        "( 0 1 -1 ) SEA \n" +
                         "( -2 1 1 ) WOODS ( 1 3 )\n" +
                         "( 1 0 -1 ) MOUNTAIN \n",
                 contents.substring(0,contents.indexOf("-----END MAP-----"))
@@ -111,10 +159,9 @@ public class GameExporterTest {
     }
 
     @Test
-    public void resourceSectionGucciTest(){
+    public void resourceSectionTest(){
         gameExporter.exportGameToPath(testingFilePath);
         String contents = readFile(testingFilePath);
-        System.out.println(contents);
         assertEquals(
                 contents.substring(contents.indexOf("-----BEGIN RESOURCES-----"), contents.indexOf("-----END RESOURCES-----")).trim(),
                 "-----BEGIN RESOURCES-----\n" +
@@ -127,6 +174,164 @@ public class GameExporterTest {
                         "( 1 0 -1 )  N CLAY 6".trim()
         );
     }
+
+    @Test
+    public void mineSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN MINES-----\n" +
+                "( 0 -1 1 ) S MAX=[GOLD=4 IRON=8] CURRENT=[GOLD=4 IRON=8]\n" +
+                "( 1 0 -1 ) SSW MAX=[GOLD=10 IRON=10] CURRENT=[GOLD=10 IRON=10]\n";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN MINES-----"),contents.indexOf("-----END MINES-----")),
+                expected
+        );
+    }
+
+    @Test
+    public void oilRigSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN OIL_RIG-----\n" +
+                "( 1 0 -1 ) NW [GOLD=29 TRUNKS=1 ]";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN OIL_RIG-----"),contents.indexOf("-----END OIL_RIG-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void stoneQuarrySectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN STONE_QUARRY-----\n" +
+                "( 0 0 0 ) E";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN STONE_QUARRY-----"),contents.indexOf("-----END STONE_QUARRY-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void woodCutterSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN WOODCUTTER-----\n" +
+                "( 0 1 -1 ) S";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN WOODCUTTER-----"),contents.indexOf("-----END WOODCUTTER-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void clayPitSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN CLAYPIT-----\n" +
+                "( 0 -1 1 ) NNE";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN CLAYPIT-----"),contents.indexOf("-----END CLAYPIT-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void sawMillSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN SAWMILL-----\n" +
+                "( 0 -1 1 ) N LIMIT=6";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN SAWMILL-----"),contents.indexOf("-----END SAWMILL-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void stoneFactorySectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN STONE_FACTORY-----\n" +
+                "( 0 1 -1 ) E LIMIT=6";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN STONE_FACTORY-----"),contents.indexOf("-----END STONE_FACTORY-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void mintSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN MINT-----\n" +
+                "( 0 -1 1 ) NW";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN MINT-----"),contents.indexOf("-----END MINT-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void paperMillSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN PAPERMILL-----\n" +
+                "( 0 1 -1 ) NW \n" +
+                "( -2 1 1 ) SSW";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN PAPERMILL-----"),contents.indexOf("-----END PAPERMILL-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void coalBurnerSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN COAL_BURNER-----\n" +
+                "( -2 1 1 ) NW LIMIT=6";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN COAL_BURNER-----"),contents.indexOf("-----END COAL_BURNER-----")).trim(),
+                expected.trim()
+        );
+    }
+
+    @Test
+    public void stockMarketSectionTest(){
+        gameExporter.exportGameToPath(testingFilePath);
+        String contents = readFile(testingFilePath);
+
+        String expected = "-----BEGIN STOCK_MARKET-----\n" +
+                "( -2 1 1 ) NE LIMIT=6";
+
+        assertEquals(
+                contents.substring(contents.indexOf("-----BEGIN STOCK_MARKET-----"),contents.indexOf("-----END STOCK_MARKET-----")).trim(),
+                expected.trim()
+        );
+    }
+
+
 
 
     private String readFile(String filepath){

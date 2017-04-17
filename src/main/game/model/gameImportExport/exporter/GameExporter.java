@@ -1,48 +1,157 @@
 package game.model.gameImportExport.exporter;
 
-import game.model.direction.Location;
-import game.model.direction.TileCompartmentDirection;
+import game.model.direction.*;
+import game.model.managers.StructureManager;
 import game.model.map.RBMap;
 import game.model.resources.ResourceType;
+import game.model.structures.Structure;
+import game.model.structures.StructureType;
+import game.model.structures.resourceProducer.ResourceHolder;
+import game.model.structures.resourceProducer.primaryProducer.Mine;
+import game.model.structures.resourceProducer.primaryProducer.OilRig;
 import game.model.tile.Tile;
 import game.model.tile.TileCompartment;
 import game.model.tinyGame.Game;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Set;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class GameExporter {
-
-    private File outputFile;
-    private FileWriter fw;
-
+    private Game game;
     private RBMap map;
     private Location[] locations;
 
+    private HashMap<Angle,String> angleLetterMap;
+
     public GameExporter(Game game) {
+        this.game = game;
         map = game.getMap();
         Set<Location> locSet = map.getAllLocations();
         locations = new Location[locSet.size()];
         locations = locSet.toArray(locations);
+        angleLetterMap = makeAngleLetterMap();
     }
 
     public void exportGameToPath(String filePath) {
-        outputFile = new File(filePath);
+        File outputFile = new File(filePath);
+        FileWriter fw;
 
-        String mapSection = serializeMap();
-        String resourceSection = serializeResources();
+        String mapSection = serializeMap() + "\n";
+        String resourceSection = serializeResources() + "\n";
+        String structureSections = serializeStructures(game.getStructureSet());
         try {
             fw = new FileWriter(outputFile);
             fw.write(mapSection);
             fw.write(resourceSection);
+            fw.write(structureSections);
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    private String serializeStructures(Map<TileCompartmentLocation, Structure> structures){
+        String serializedStructures = "";
+        serializedStructures += serializeMines(structures) + "\n";
+        serializedStructures += serializeOilRigs(structures) + "\n";
+        serializedStructures += serializeTheRest(structures) + "\n";
+
+        return serializedStructures;
+    }
+
+    private String serializeOilRigs(Map<TileCompartmentLocation,Structure> allStructures){
+        String oilRigString = "-----BEGIN " + StructureType.OIL_RIG.name() + "-----\n";
+
+        TileCompartmentLocation[] tileCompartmentLocations = new TileCompartmentLocation[allStructures.size()];
+        allStructures.keySet().toArray(tileCompartmentLocations);
+
+        for(TileCompartmentLocation tileCompartmentLocation : tileCompartmentLocations){
+            Structure currentStructure = allStructures.get(tileCompartmentLocation);
+            if(currentStructure.getType().equals(StructureType.OIL_RIG)){
+                ResourceHolder thisRig = ((OilRig) currentStructure);
+                oilRigString += tileCompartmentLocation.getLocation().getExportString() + " ";
+                oilRigString += angleLetterMap.get(tileCompartmentLocation.getTileCompartmentDirection().getAngle()) + " ";
+                oilRigString += "[" ;
+                HashMap<ResourceType,Integer> resourceCounts = thisRig.getResourceCounts();
+                for(ResourceType type : resourceCounts.keySet()){
+                    oilRigString += type.getName() + "=" + resourceCounts.get(type) + " ";
+                }
+                oilRigString += "]" ;
+
+                oilRigString += "\n";
+            }
+        }
+
+        oilRigString += "-----END " + StructureType.OIL_RIG.name() + "-----\n";
+        return oilRigString;
+    }
+
+    private String serializeMines(Map<TileCompartmentLocation,Structure> allStructures){
+        String minesList = "-----BEGIN MINES-----\n";
+
+        TileCompartmentLocation[] tileCompartmentLocations = new TileCompartmentLocation[allStructures.size()];
+        allStructures.keySet().toArray(tileCompartmentLocations);
+
+        for(TileCompartmentLocation tileCompartmentLocation : tileCompartmentLocations){
+            Structure currentStructure = allStructures.get(tileCompartmentLocation);
+            if(currentStructure.getType().equals(StructureType.MINE)){
+                minesList += tileCompartmentLocation.getLocation().getExportString() + " ";
+                minesList += angleLetterMap.get(tileCompartmentLocation.getTileCompartmentDirection().getAngle()) + " ";
+                Mine thisMine = ((Mine)currentStructure);
+                int maxGoldCount = thisMine.getMaxGoldCount();
+                int maxIronCount = thisMine.getMaxIronCount();
+                int curGoldCount = thisMine.getCurrentGoldCount();
+                int curIronCount = thisMine.getCurrentIronCount();
+                minesList += "MAX=[GOLD=" + maxGoldCount + " IRON=" + maxIronCount + "] CURRENT=[GOLD=" + curGoldCount + " IRON=" + curIronCount + "]";
+                minesList += "\n";
+            }
+        }
+
+        minesList += "-----END MINES-----\n";
+        return minesList;
+    }
+
+    private String serializeTheRest(Map<TileCompartmentLocation,Structure> allStructures){
+        String wholeList = "";
+        Collection<TileCompartmentLocation> structureLocations = allStructures.keySet();
+
+        HashMap<StructureType, Boolean> simpleStructuresAndHasLimit = new HashMap<>();
+        simpleStructuresAndHasLimit.put(StructureType.CLAYPIT, false);
+        simpleStructuresAndHasLimit.put(StructureType.STONE_QUARRY, false);
+        simpleStructuresAndHasLimit.put(StructureType.WOODCUTTER, false);
+        simpleStructuresAndHasLimit.put(StructureType.MINT, false);
+        simpleStructuresAndHasLimit.put(StructureType.PAPERMILL, false);
+        simpleStructuresAndHasLimit.put(StructureType.COAL_BURNER, true);
+        simpleStructuresAndHasLimit.put(StructureType.SAWMILL, true);
+        simpleStructuresAndHasLimit.put(StructureType.STONE_FACTORY, true);
+        simpleStructuresAndHasLimit.put(StructureType.STOCK_MARKET, true);
+
+        /* Iterate through all the types */
+        for(StructureType type : simpleStructuresAndHasLimit.keySet()){
+            String subsection = "-----BEGIN " + type.name() + "-----\n";
+
+            for(TileCompartmentLocation thisLocation : structureLocations){
+                Structure thisStructure = allStructures.get(thisLocation);
+                if(thisStructure.getType().toString().equals(type.toString())){
+                    subsection += thisLocation.getLocation().getExportString() + " ";
+                    subsection += angleLetterMap.get(thisLocation.getTileCompartmentDirection().getAngle()) + " ";
+                    //If the StructureType has a limit
+                    if(simpleStructuresAndHasLimit.get(type)){
+                        subsection += thisStructure.getExportString();
+                    }
+                    subsection += "\n";
+                }
+            }
+
+            subsection += "-----END " + type.name() + "-----\n";
+            wholeList += subsection + "\n";
+        }
+
+
+
+        return wholeList;
     }
 
     private String serializeMap(){
@@ -62,7 +171,6 @@ public class GameExporter {
         serializedMap += "-----END MAP-----\n";
         return serializedMap;
     }
-
 
     public String serializeResources(){
         String serializedResources = "-----BEGIN RESOURCES-----\n";
@@ -130,5 +238,22 @@ public class GameExporter {
         serializedResources += "-----END RESOURCES-----\n";
         return serializedResources;
 
+    }
+
+    private HashMap<Angle,String> makeAngleLetterMap(){
+        HashMap<Angle,String> angleMap = new HashMap<>();
+        angleMap.put(CompassAngles.EAST.getAngle(),"E");
+        angleMap.put(CompassAngles.NORTHEAST.getAngle(),"NE");
+        angleMap.put(CompassAngles.NORTH_NORTHEAST.getAngle(),"NNE");
+        angleMap.put(CompassAngles.NORTH.getAngle(),"N");
+        angleMap.put(CompassAngles.NORTH_NORTHWEST.getAngle(),"NNW");
+        angleMap.put(CompassAngles.NORTHWEST.getAngle(),"NW");
+        angleMap.put(CompassAngles.WEST.getAngle(),"W");
+        angleMap.put(CompassAngles.SOUTHWEST.getAngle(),"SW");
+        angleMap.put(CompassAngles.SOUTH_SOUTHWEST.getAngle(),"SSW");
+        angleMap.put(CompassAngles.SOUTH.getAngle(),"S");
+        angleMap.put(CompassAngles.SOUTH_SOUTHEAST.getAngle(),"SSE");
+        angleMap.put(CompassAngles.SOUTHEAST.getAngle(),"SE");
+        return angleMap;
     }
 }
