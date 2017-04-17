@@ -12,7 +12,7 @@ public class Road {
     // TODO: RoadProducerManager, RoadProducerObserver, RoadProducerObservable, RoadInfoObservable *see UML*
 
     private final Location myLocation;
-    private final TileCompartment destination;
+    private TileCompartment destination;
     private final TileEdgeDirection edgeDirection;
     private final TileCompartmentDirection compartmentDirection;
 
@@ -42,5 +42,10 @@ public class Road {
     public TileCompartmentDirection getCompartmentDirection()
     {
         return compartmentDirection;
+    }
+
+    public void setDestination(TileCompartment destination)
+    {
+        this.destination = destination;
     }
 }

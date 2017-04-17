@@ -47,6 +47,8 @@ public class GameInitializer {
         WonderManager wonderManager = new WonderManager(map);
         wonderManager.attach(viewHandler.getWonderViewReference());
         StructureManager structureManager = new StructureManager(controllerManager.getMainViewController(), map);
+        BridgeManager bridgeManager = new BridgeManager(map);
+        bridgeManager.attach(viewHandler.getMainViewReference());
         structureManager.attach(viewHandler.getMainViewReference());
 
         PlayerId player1Id = new PlayerId(1);
@@ -89,6 +91,7 @@ public class GameInitializer {
         game.attachPhaseInfoObserver(viewHandler.getMainViewReference());
         game.attachPlayerInfoObserver(viewHandler.getWonderViewReference());
         game.attachPhaseInfoObserver(viewHandler.getWonderViewReference());
+        game.attach(wonderManager);
 
         addInitialResourcesToTile(map.getTile(player1StartingLocation.getLocation()), player1StartingLocation.getTileCompartmentDirection());
         addInitialGeeseToTile(player1StartingLocation, gooseManager);
