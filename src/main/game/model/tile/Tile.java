@@ -1,10 +1,10 @@
 package game.model.tile;
 
-import game.model.direction.Angle;
-import game.model.direction.DirectionToLocation;
-import game.model.direction.TileCompartmentDirection;
-import game.model.direction.TileEdgeDirection;
+import game.model.direction.*;
+import game.model.movement.Bridge;
 import game.model.movement.River;
+import game.model.movement.Road;
+import game.model.resources.ResourceType;
 import game.model.structures.Structure;
 import game.utilities.observable.TileResourceInfoObservable;
 import game.utilities.observer.TileCompartmentResourceAddedObserver;
@@ -344,5 +344,66 @@ public class Tile implements TileResourceInfoObservable, TileCompartmentResource
         }
 
         return dirs;
+    }
+
+    public RoadConfiguration getRoadConfiguration()
+    {
+        Map<TileEdgeDirection, Boolean> roads= new HashMap<>();
+        for(TileEdgeDirection ted: TileEdgeDirection.getAllDirections())
+        {
+            TileCompartmentDirection tcd =new TileCompartmentDirection(ted.getAngle());
+            boolean hasRoad =getTileCompartment(tcd).getRoad(tcd) != null;
+            roads.put(ted, hasRoad);
+        }
+
+        return new RoadConfiguration(roads);
+    }
+
+    public boolean canBuildRoad(Road road)
+    {
+        if(hasRiver(road.getCompartmentDirection(), getRiverConfiguration()))
+        {
+            return false;
+        }
+
+        return getTileCompartment(road.getCompartmentDirection()).canBuildRoad(road);
+    }
+
+    public void buildRoad(Road road)
+    {
+        getTileCompartment(road.getCompartmentDirection()).buildRoad(road);
+    }
+
+    public boolean canBuildBridge(Bridge bridge)
+    {
+        return !compartments.get(bridge.tcd1).equals(compartments.get(bridge.tcd2));
+    }
+
+    public void buildBridge(Bridge bridge)
+    {
+        TileCompartment comp1=compartments.get(bridge.tcd1);
+        TileCompartment comp2=compartments.get(bridge.tcd2);
+
+        for(Map.Entry<TileCompartmentDirection, River> entry: comp1.getRivers().entrySet())
+        {
+            comp2.add(entry.getKey(), entry.getValue());
+            entry.getValue().setDestination(comp1);
+        }
+
+        for(Map.Entry<TileCompartmentDirection, Road> entry: comp1.getRoads().entrySet())
+        {
+            comp2.add(entry.getKey(), entry.getValue());
+            entry.getValue().setDestination(comp1);
+        }
+
+        for(Map.Entry<ResourceType, Integer> entry: comp1.getResourceManager().getResourceTypeIntegerMap().entrySet())
+        {
+            comp2.getResourceManager().addResource(entry.getKey(), entry.getValue());
+        }
+
+        for(TileCompartmentDirection dir: getTileCompartmentDirections(comp1))
+        {
+            compartments.replace(dir, comp2);
+        }
     }
 }

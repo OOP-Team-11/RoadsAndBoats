@@ -191,14 +191,16 @@ public class MainViewController {
         }
     }
 
-    public void addMainViewController(){
-    }
-
     public void removeControl(KeyCode keyCode) {
         controls.remove(keyCode);
     }
 
-    public void detachControls() { this.controls.clear(); }
+    public void detachControls() {
+        this.controls.clear();
+        if(mainView != null){
+            mainView.setAbilities(controls);
+        }
+    }
 
     public Map<KeyCode, Ability> getControls() { return controls; }
 
