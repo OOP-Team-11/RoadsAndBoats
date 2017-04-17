@@ -7,6 +7,7 @@ import game.view.MainView;
 import game.view.render.WallInfo;
 import game.view.render.WallRenderInfo;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 public class WallManager implements WallInformationObservabel{
 
-    private HashMap<Location,WallInfo> renderInformation;
+    private HashMap<Location,ArrayList<WallInfo>> renderInformation;
     private MainView mainView;
     private List<WallRenderInfoObserver> wallRenderInfoObservers;
 
@@ -23,21 +24,15 @@ public class WallManager implements WallInformationObservabel{
         this.wallRenderInfoObservers = new ArrayList<>();
     }
 
-    public void addNewWall(Location location, int type, int compartment){
-        this.renderInformation.put(location, new WallInfo(type,compartment));
+    public void addNewWall(Location location, ArrayList<WallInfo> info){
+        this.renderInformation.put(location, info);
         notifyWallInfoObservers();
     }
 
     public void notifyWallInfoObservers() {
 
-        // copy over everything
-        HashMap<Location,WallInfo> copy = new HashMap<>();
-        for (Map.Entry<Location, WallInfo> entry : renderInformation.entrySet()) {
-            WallInfo copyWallInfo = new WallInfo(entry.getValue().getType(), entry.getValue().getCompartment());
-            Location copyLocation = new Location(entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ());
-            copy.put(copyLocation,copyWallInfo);
-        }
-        WallRenderInfo wallRenderInfo = new WallRenderInfo(copy);
+        WallRenderInfo wallRenderInfo = new WallRenderInfo(renderInformation);
+
         for(WallRenderInfoObserver observer : wallRenderInfoObservers){
             observer.updateWallInfo(wallRenderInfo);
         }
