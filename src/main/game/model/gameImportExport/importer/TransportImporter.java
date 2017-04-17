@@ -39,7 +39,7 @@ public class TransportImporter {
             Transport transport = createTransportWithResources(line, playerId);
             TileCompartmentLocation tcl = new TileCompartmentLocation(location, tcd);
             List<Goose> geese = gooseManager.getMapGeese().get(tcl);
-            if (geese.size() < gooseNum) throw new MalformedMapFileException("Transport has more geese than are on the tile: " + line);
+            if (geese != null && geese.size() < gooseNum) throw new MalformedMapFileException("Transport has more geese than are on the tile: " + line);
             List<Goose> geeseToAdd = new ArrayList<>();
             for (int i = 0; i < gooseNum; i++) {
                 geeseToAdd.add(geese.get(i));

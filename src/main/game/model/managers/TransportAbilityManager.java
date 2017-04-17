@@ -197,13 +197,17 @@ public class TransportAbilityManager {
             Map<TileCompartment, List<Transport>> tileCompartmentTransports = new HashMap<TileCompartment, List<Transport>>();
             for(TileCompartmentDirection d : tileTransports.keySet()) {
                 TileCompartment currentTileCompartment = tile.getTileCompartment(d);
-                tileCompartmentTransports.put(currentTileCompartment, tileTransports.get(d));
+                if (tileCompartmentTransports.containsKey(currentTileCompartment)) {
+                    tileCompartmentTransports.get(currentTileCompartment).addAll(tileTransports.get(d));
+                } else {
+                    tileCompartmentTransports.put(currentTileCompartment, tileTransports.get(d));
+                }
             }
 //            Make sure only the tileCompartment our transport is located in has another transport and theres only 1 other
             if(tileCompartmentTransports.size() == 1
                     && tileCompartmentTransports.get(tile.getTileCompartment(transportCompartmentDirection)).size() == 2) {
                 for (Transport t : tileCompartmentTransports.get(tile.getTileCompartment(transportCompartmentDirection))) {
-                    if(!t.canReproduce() || (t.getPlayerId() != transport.getPlayerId()))
+                    if(!t.canReproduce() || (!t.getPlayerId().equals(transport.getPlayerId())))
                         return;
                 }
             }
