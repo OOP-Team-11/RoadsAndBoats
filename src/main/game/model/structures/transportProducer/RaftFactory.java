@@ -1,27 +1,28 @@
 package game.model.structures.transportProducer;
 
+import game.model.direction.TileCompartmentLocation;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.tile.TileCompartment;
-import game.model.transport.RaftTransport;
 import game.model.transport.Transport;
-import game.model.transport.TransportId;
+import game.model.visitors.TransportManagerVisitor;
 
 public class RaftFactory extends TransportProducer {
 
     private static final int TRUNKS_REQ = 2;
 
     // 1 Raft <= 2 Trunks
-    public RaftFactory() {
-
+    public RaftFactory(TileCompartmentLocation tileCompartmentLocation) {
+        super(tileCompartmentLocation);
     }
 
     @Override
-    public Transport produce(Transport transport) {
+    public boolean produce(TransportManagerVisitor visitor, Transport transport, TileCompartmentLocation tcl) {
         if (canProduceRaft(transport)) {
-            return new RaftTransport(transport.getPlayerId(), new TransportId());
+            accept(visitor, transport, tcl);
+            return true;
         }
-        return null;
+        return false;
     }
 
     @Override

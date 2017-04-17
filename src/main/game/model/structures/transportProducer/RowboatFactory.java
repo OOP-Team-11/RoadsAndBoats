@@ -1,27 +1,30 @@
 package game.model.structures.transportProducer;
 
+import game.model.direction.TileCompartmentLocation;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.tile.TileCompartment;
 import game.model.transport.RowboatTransport;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
+import game.model.visitors.TransportManagerVisitor;
 
 public class RowboatFactory extends TransportProducer {
 
     private static final int BOARDS_REQ = 5;
 
     // 1 Rowboat <= 5 Boards
-    public RowboatFactory() {
-
+    public RowboatFactory(TileCompartmentLocation tcl) {
+        super(tcl);
     }
 
     @Override
-    public Transport produce(Transport transport) {
+    public boolean produce(TransportManagerVisitor visitor, Transport transport, TileCompartmentLocation tcl) {
         if (canProduceRowboat(transport)) {
-            return new RowboatTransport(transport.getPlayerId(), new TransportId());
+            accept(visitor, transport, tcl);
+            return true;
         }
-        return null;
+        return false;
     }
 
     @Override
