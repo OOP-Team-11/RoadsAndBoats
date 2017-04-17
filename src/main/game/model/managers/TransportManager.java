@@ -6,6 +6,8 @@ import game.model.direction.Location;
 import game.model.direction.TileCompartmentDirection;
 import game.model.direction.TileCompartmentLocation;
 import game.model.map.RBMap;
+import game.model.resources.Goose;
+import game.model.tile.TileCompartment;
 import game.model.transport.Transport;
 import game.model.transport.TransportId;
 import game.model.visitors.StructureManagerVisitor;
@@ -25,10 +27,12 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
     private Map<TileCompartmentLocation, List<Transport>> transports;
     private List<MapTransportRenderInfoObserver> mapTransportRenderInfoObservers;
     private WonderManager wonderManager;
+    private GooseManager gooseManager;
     public TransportManager(PlayerId playerId, MainViewController mainViewController,
                             GooseManager gooseManager, RBMap map,
                             StructureManagerVisitor structureManagerVisitor, ResearchManager researchManager, WonderManager wonderManager) {
         this.playerId = playerId;
+        this.gooseManager = gooseManager;
         this.transports = new HashMap<TileCompartmentLocation, List<Transport>>();
         this.mapTransportRenderInfoObservers = new Vector<>();
         this.transportAbilityManager = new TransportAbilityManager(mainViewController, gooseManager, map, this, structureManagerVisitor, researchManager, wonderManager);
@@ -37,6 +41,13 @@ public class TransportManager implements MapTransportRenderInfoObservable, Trans
 
     public PlayerId getPlayerId() {
         return this.playerId;
+    }
+
+    public void moveFollowers(Transport transport, TileCompartmentLocation oldTTileLoc, TileCompartmentLocation newTileLoc) {
+        for(Goose g : transport.getFollowers()) {
+            gooseManager.removeGoose(oldTTileLoc, g);
+            gooseManager.addGoose(newTileLoc, g);
+        }
     }
 
     public void addTransport(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
