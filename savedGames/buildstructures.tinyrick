@@ -1,0 +1,166 @@
+-----BEGIN MAP-----
+( 2 -2 0 ) MOUNTAIN
+( 1 -1 0 ) MOUNTAIN
+( 2 -1 -1 ) MOUNTAIN  ( 1 )
+( 3 -2 -1 ) MOUNTAIN  ( 2 )
+( 1 -2 1 ) MOUNTAIN  ( 5 )
+( 2 -3 1 ) MOUNTAIN
+( 1 0 -1 ) WOODS
+( 0 0 0 ) WOODS
+( 0 -1 1 ) WOODS
+( 3 -1 -2 ) WOODS
+( 2 0 -2 ) WOODS  ( 1 4 )
+( 4 -2 -2 ) WOODS  ( 1 5 )
+( 2 1 -3 ) WOODS  ( 2 4 )
+( 3 0 -3 ) WOODS
+( 0 -2 2 ) WOODS  ( 2 6 )
+( 4 -1 -3 ) WOODS  ( 1 4 )
+( 3 -3 0 ) ROCK
+( 4 -3 -1 ) ROCK
+( 4 0 -4 ) PASTURE  ( 2 4 6 )
+( 3 1 -4 ) PASTURE  ( 3 5 )
+( 4 1 -5 ) PASTURE
+( 3 2 -5 ) PASTURE
+( 2 2 -4 ) PASTURE
+( 5 -1 -4 ) PASTURE
+( 5 0 -5 ) PASTURE  ( 2 5 )
+( 6 0 -6 ) SEA
+( 6 -1 -5 ) SEA
+( 6 -2 -4 ) SEA
+( 5 1 -6 ) SEA
+( 4 2 -6 ) SEA
+( 3 3 -6 ) SEA
+( 2 3 -5 ) SEA
+( 1 3 -4 ) SEA
+( 1 2 -3 ) SEA
+( 1 1 -2 ) SEA
+( 0 2 -2 ) SEA
+( 0 3 -3 ) SEA
+( 0 4 -4 ) SEA
+( -1 4 -3 ) SEA
+( 1 4 -5 ) SEA
+( -1 5 -4 ) SEA
+( -1 3 -2 ) SEA
+( 5 -2 -3 ) DESERT
+( 5 -3 -2 ) DESERT
+( 4 -4 0 ) DESERT
+( 5 -4 -1 ) DESERT  ( 2 )
+( 6 -3 -3 ) SEA
+( 6 -4 -2 ) SEA
+( 6 -5 -1 ) SEA
+( 5 -5 0 ) SEA
+( 4 -5 1 ) SEA
+( 3 -4 1 ) SEA
+( 3 -5 2 ) SEA
+( 2 -4 2 ) SEA
+( 1 -3 2 ) SEA
+( 1 -4 3 ) SEA
+( 0 -3 3 ) SEA
+( -1 -1 2 ) ROCK  ( 3 6 )
+( -2 0 2 ) ROCK  ( 1 3 5 )
+( -1 0 1 ) DESERT
+( -2 1 1 ) DESERT  ( 2 4 )
+( -1 1 0 ) DESERT  ( 1 5 )
+( -1 2 -1 ) DESERT  ( 4 6 )
+( 0 1 -1 ) ROCK
+( -2 2 0 ) PASTURE
+( -3 2 1 ) PASTURE
+( -3 3 0 ) PASTURE
+( -4 3 1 ) PASTURE
+( -4 2 2 ) PASTURE
+( -3 1 2 ) PASTURE
+( -4 1 3 ) WOODS
+( -3 0 3 ) WOODS  ( 2 5 )
+( -4 0 4 ) MOUNTAIN  ( 2 3 )
+( -3 -1 4 ) MOUNTAIN  ( 6 )
+( -4 -1 5 ) MOUNTAIN
+( -5 0 5 ) MOUNTAIN
+( -5 1 4 ) MOUNTAIN
+( -2 -1 3 ) WOODS
+( -1 -2 3 ) MOUNTAIN
+( -2 -2 4 ) WOODS
+( -3 -2 5 ) SEA
+( -1 -3 4 ) SEA
+( -2 -3 5 ) SEA
+( -4 -2 6 ) SEA
+( -5 -1 6 ) SEA
+( -6 0 6 ) SEA
+( -6 1 5 ) SEA
+( -6 2 4 ) SEA
+( -5 2 3 ) ROCK  ( 6 )
+( -5 3 2 ) ROCK
+( -2 3 -1 ) DESERT  ( 3 6 )
+( -2 4 -2 ) DESERT
+( -4 4 0 ) DESERT
+( -3 5 -2 ) DESERT
+( -3 4 -1 ) SEA
+( -4 5 -1 ) SEA
+( -4 6 -2 ) SEA
+( -3 6 -3 ) SEA
+( -2 5 -3 ) SEA
+( -5 5 0 ) SEA
+( -5 6 -1 ) SEA
+( -5 4 1 ) SEA
+( -6 4 2 ) SEA
+( -6 3 3 ) SEA
+-----END MAP-----
+-----BEGIN RESOURCE-----
+( -1 0 1 ) S GOLD=1
+( -2 0 2 ) W BOARDS=1
+( -2 0 2 ) E IRON=1
+( -2 0 2 ) S GOLD=1
+( -3 3 0 ) E BOARDS=3
+-----END RESOURCE-----
+-----BEGIN MINE-----
+( 2 -2 0 ) E MAX=[GOLD=3 IRON=3] CURRENT=[GOLD=3 IRON=3]
+-----END MINE-----
+-----BEGIN OILRIG-----
+( 0 3 -3 ) E
+-----END OILRIG-----
+-----BEGIN CLAYPIT-----
+( 1 1 -2 ) E
+( 4 -2 -2 ) E
+-----END CLAYPIT-----
+-----BEGIN STONEQUARRY-----
+( 4 -3 -1 ) E
+-----END STONEQUARRY-----
+-----BEGIN WOODCUTTER-----
+( 0 -1 1 ) E
+-----END WOODCUTTER-----
+-----BEGIN MINT-----
+( -3 0 3 ) E
+-----END MINT-----
+-----BEGIN PAPERMILL-----
+( 5 5 -10 ) E
+-----END PAPERMILL-----
+-----BEGIN COALBURNER-----
+( 1 -1 0 ) E LIMIT=4
+-----END COALBURNER-----
+-----BEGIN SAWMILL-----
+( 2 0 -2 ) E LIMIT=3
+-----END SAWMILL-----
+-----BEGIN STONEFACTORY-----
+( 2 -3 1 ) E LIMIT=0
+-----END STONEFACTORY-----
+-----BEGIN STOCKMARKET-----
+-----END STOCKMARKET-----
+-----BEGIN GOOSE-----
+( -4 3 1 ) E
+( -4 3 1 ) E
+-----END GOOSE-----
+-----BEGIN TRANSPORT-----
+TRUCK ( -3 3 0 ) N PLAYERID=1 GOOSENUM=0
+TRUCK ( -4 3 1 ) N PLAYERID=1 GOOSENUM=0 [BOARDS=5]
+TRUCK ( -3 1 2 ) N PLAYERID=2 GOOSENUM=0
+-----END TRANSPORT-----
+-----BEGIN WONDER-----
+BRICK PLAYERID=1
+BRICK PLAYERID=2
+BRICK PLAYERID=-1
+BRICK PLAYERID=2
+-----END WONDER-----
+-----BEGIN ROAD-----
+-----END ROAD-----
+-----BEGIN WALL-----
+-----END WALL-----
+
