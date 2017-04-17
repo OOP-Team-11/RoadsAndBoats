@@ -240,7 +240,6 @@ public class GameExporter {
 
     }
 
-
     private HashMap<Angle,String> makeAngleLetterMap(){
         HashMap<Angle,String> angleMap = new HashMap<>();
         angleMap.put(CompassAngles.EAST.getAngle(),"E");
