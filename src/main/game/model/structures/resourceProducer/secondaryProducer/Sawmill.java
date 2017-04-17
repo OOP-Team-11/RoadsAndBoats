@@ -1,5 +1,6 @@
 package game.model.structures.resourceProducer.secondaryProducer;
 
+import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.structures.resourceProducer.SecondaryProducer;
@@ -30,6 +31,15 @@ public class Sawmill extends SecondaryProducer {
 
     // 2 Boards <= 1 Trunk
     @Override
+    public boolean produce(ResourceManager resourceManager) {
+        if (canProduceBoards(resourceManager)) {
+            produceBoards(resourceManager);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public boolean produce(TileCompartment tileCompartment) {
         if (canProduceBoards(tileCompartment)) {
             produceBoards(tileCompartment);
@@ -57,12 +67,21 @@ public class Sawmill extends SecondaryProducer {
         decrementProductionLimit();
     }
 
+    private void produceBoards(ResourceManager resourceManager) {
+        resourceManager.removeResource(ResourceType.BOARDS, BOARDS_AMT);
+        decrementProductionLimit();
+    }
+
     private boolean canProduceBoards(TileCompartment tileCompartment) {
         return tileCompartment.takeResource(ResourceType.TRUNKS, TRUNKS_REQ);
     }
 
     private boolean canProduceBoards(Transport transport) {
         return transport.takeResource(ResourceType.TRUNKS, TRUNKS_REQ);
+    }
+
+    private boolean canProduceBoards(ResourceManager resourceManager) {
+        return resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ);
     }
 
     private void decrementProductionLimit() {

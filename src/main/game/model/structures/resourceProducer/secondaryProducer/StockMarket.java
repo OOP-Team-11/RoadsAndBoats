@@ -1,5 +1,6 @@
 package game.model.structures.resourceProducer.secondaryProducer;
 
+import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.structures.resourceProducer.SecondaryProducer;
@@ -26,6 +27,15 @@ public class StockMarket extends SecondaryProducer {
     }
 
     // 1 Stock <= 1 Paper + 2 Coins
+    @Override
+    public boolean produce(ResourceManager resourceManager) {
+        if (canProduceStock(resourceManager)) {
+            produceStock(resourceManager);
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean produce(TileCompartment tileCompartment) {
         if (canProduceStock(tileCompartment)) {
@@ -54,6 +64,12 @@ public class StockMarket extends SecondaryProducer {
         decrementProductionLimit();
     }
 
+    private void produceStock(ResourceManager resourceManager) {
+        resourceManager.removeResource(ResourceType.STOCKBOND, STOCKBOND_AMT);
+        decrementProductionLimit();
+    }
+
+
     private boolean canProduceStock(TileCompartment tileCompartment) {
         return (productionLimit != 0)
                 && tileCompartment.takeResource(ResourceType.PAPER, PAPER_REQ)
@@ -65,6 +81,13 @@ public class StockMarket extends SecondaryProducer {
                 && transport.takeResource(ResourceType.PAPER, PAPER_REQ)
                 && transport.takeResource(ResourceType.COINS, COINS_REQ);
     }
+
+    private boolean canProduceStock(ResourceManager resourceManager) {
+        return (productionLimit != 0)
+                && resourceManager.removeResource(ResourceType.PAPER, PAPER_REQ)
+                && resourceManager.removeResource(ResourceType.COINS, COINS_REQ);
+    }
+
 
     private void decrementProductionLimit() {
         --productionLimit;

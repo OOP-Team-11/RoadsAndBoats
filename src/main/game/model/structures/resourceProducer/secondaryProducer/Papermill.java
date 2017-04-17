@@ -1,5 +1,7 @@
 package game.model.structures.resourceProducer.secondaryProducer;
 
+import game.model.managers.ResourceManager;
+import game.model.managers.TransportManager;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.structures.resourceProducer.SecondaryProducer;
@@ -22,6 +24,23 @@ public class Papermill extends SecondaryProducer {
     // 1 Paper <= 2 Trunks
     // 1 Paper <= 2 Boards
     // 1 Paper <= 1 Trunks + 1 Boards
+    @Override
+    public boolean produce(ResourceManager resourceManager) {
+        if (canProducePaperWithTrunks(resourceManager)) {
+            resourceManager.removeResource(ResourceType.PAPER, PAPER_AMT);
+            return true;
+        }
+        else if (canProducePaperWithBoards(resourceManager)) {
+            resourceManager.removeResource(ResourceType.PAPER, PAPER_AMT);
+            return true;
+        }
+        else if (canProducePaperWithBoth(resourceManager)) {
+            resourceManager.removeResource(ResourceType.PAPER, PAPER_AMT);
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean produce(TileCompartment tileCompartment) {
         if (canProducePaperWithTrunks(tileCompartment)) {
@@ -80,6 +99,19 @@ public class Papermill extends SecondaryProducer {
     private boolean canProducePaperWithBoth(Transport transport) {
         return transport.takeResource(ResourceType.TRUNKS, TRUNKS_REQ1)
                 && transport.takeResource(ResourceType.BOARDS, BOARDS_REQ1);
+    }
+
+    private boolean canProducePaperWithTrunks(ResourceManager resourceManager) {
+        return resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ2);
+    }
+
+    private boolean canProducePaperWithBoards(ResourceManager resourceManager) {
+        return resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ2);
+    }
+
+    private boolean canProducePaperWithBoth(ResourceManager resourceManager) {
+        return resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ1)
+                && resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ1);
     }
 
     @Override

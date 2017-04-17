@@ -1,5 +1,6 @@
 package game.model.structures.resourceProducer.secondaryProducer;
 
+import game.model.managers.ResourceManager;
 import game.model.resources.ResourceType;
 import game.model.structures.StructureType;
 import game.model.structures.resourceProducer.SecondaryProducer;
@@ -37,6 +38,23 @@ public class CoalBurner extends SecondaryProducer {
     // 1 Fuel <= 2 Trunks
     // 1 Fuel <= 2 Boards
     // 1 Fuel <= 1 Trunks + 1 Boards
+    @Override
+    public boolean produce(ResourceManager resourceManager) {
+        if (canProduceCoalWithTrunks(resourceManager)) {
+            produceCoalWithTrunks(resourceManager);
+            return true;
+        }
+        else if (canProduceCoalWithBoards(resourceManager)) {
+            produceCoalWithBoards(resourceManager);
+            return true;
+        }
+        else if (canProduceCoalWithBoth(resourceManager)) {
+            produceCoalWithBoth(resourceManager);
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean produce(TileCompartment tileCompartment) {
         if (canProduceCoalWithTrunks(tileCompartment)) {
@@ -101,6 +119,21 @@ public class CoalBurner extends SecondaryProducer {
         decrementProductionLimit();
     }
 
+    private void produceCoalWithTrunks(ResourceManager resourceManager) {
+        resourceManager.removeResource(ResourceType.FUEL, FUEL_AMT);
+        decrementProductionLimit();
+    }
+
+    private void produceCoalWithBoards(ResourceManager resourceManager) {
+        resourceManager.removeResource(ResourceType.FUEL, FUEL_AMT);
+        decrementProductionLimit();
+    }
+
+    private void produceCoalWithBoth(ResourceManager resourceManager) {
+        resourceManager.removeResource(ResourceType.FUEL, FUEL_AMT);
+        decrementProductionLimit();
+    }
+
     private boolean canProduceCoalWithTrunks(TileCompartment tileCompartment) {
         return (productionLimit != 0)
                 && tileCompartment.takeResource(ResourceType.TRUNKS, TRUNKS_REQ2);
@@ -131,6 +164,22 @@ public class CoalBurner extends SecondaryProducer {
         return (productionLimit != 0)
                 && transport.takeResource(ResourceType.TRUNKS, TRUNKS_REQ1)
                 && transport.takeResource(ResourceType.BOARDS, BOARDS_REQ1);
+    }
+
+    private boolean canProduceCoalWithTrunks(ResourceManager resourceManager) {
+        return (productionLimit != 0)
+                && resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ2);
+    }
+
+    private boolean canProduceCoalWithBoards(ResourceManager resourceManager) {
+        return (productionLimit != 0)
+                && resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ2);
+    }
+
+    private boolean canProduceCoalWithBoth(ResourceManager resourceManager) {
+        return (productionLimit != 0)
+                && resourceManager.removeResource(ResourceType.TRUNKS, TRUNKS_REQ1)
+                && resourceManager.removeResource(ResourceType.BOARDS, BOARDS_REQ1);
     }
 
     private void decrementProductionLimit() {
