@@ -33,7 +33,7 @@ public class WonderImporter {
             else
                 wonderManager.addBrick(playerId);
         }
-
+        wonderManager.notifyWonderRenderInfoObservers();
         if (!foundEOF) throw new MalformedMapFileException("-----END WONDER----- not found");
     }
 
