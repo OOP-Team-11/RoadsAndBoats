@@ -908,6 +908,68 @@ public class MainView extends View
         }
     }
 
+    private void displayWalls(){
+        if(isNull(wallRenderInfo)){
+
+        } else {
+            for(Map.Entry<Location,WallInfo> entry : wallRenderInfo.getRenderInformation().entrySet()){
+                System.out.println(entry.getKey().getX() + " " + entry.getKey().getY() + " " + entry.getKey().getZ());
+                System.out.println(entry.getValue().getCompartment() + " " + entry.getValue().getType());
+
+                if(entry.getValue().getType() == 1){ // blue
+                    int compartment = entry.getValue().getType();
+                    Location location = entry.getKey();
+                    if(compartment == 1){
+                        drawBlueNorthWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 2){
+                        drawBlueNEWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 3){
+                        drawBlueSEWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 4){
+                        drawBlueSouthWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 5){
+                        drawBlueSWWall(location.getX(), location.getY(), location.getZ());
+                    } else {
+                        drawBlueNWWall(location.getX(), location.getY(), location.getZ());
+                    }
+                } else if(entry.getValue().getType() == 2){ // red
+                    int compartment = entry.getValue().getType();
+                    Location location = entry.getKey();
+                    if(compartment == 1){
+                        drawREDNorthWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 2){
+                        drawRedNEWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 3){
+                        drawRedSEWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 4){
+                        drawRedSouthWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 5){
+                        drawRedSWWall(location.getX(), location.getY(), location.getZ());
+                    } else {
+                        drawRedNWWall(location.getX(), location.getY(), location.getZ());
+                    }
+                } else { // neutral
+                    int compartment = entry.getValue().getType();
+                    Location location = entry.getKey();
+                    if(compartment == 1){
+                        drawNeutralNorthWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 2){
+                        drawNeutralNEWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 3){
+                        drawNeutralSEWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 4){
+                        drawNeutralSouthWall(location.getX(), location.getY(), location.getZ());
+                    } else if (compartment == 5){
+                        drawNeutralSWWall(location.getX(), location.getY(), location.getZ());
+                    } else {
+                        drawNeutralNWWall(location.getX(), location.getY(), location.getZ());
+                    }
+                }
+            }
+        }
+
+    }
+
     private void displayStructureRenderInfo(){
         if(isNull(mapStructureRenderInfo)){
             // nothing to render
@@ -943,7 +1005,8 @@ public class MainView extends View
             displayStructureRenderInfo();
 
             clearNewDataFlag();
-            TESTING_REMOVE_LATER();
+            //TESTING_REMOVE_LATER();
+            displayWalls();
             drawCursor(); // cursor is always last
         } else {
             // nothing to update
@@ -984,6 +1047,7 @@ public class MainView extends View
     public void updateWallInfo(WallRenderInfo wallRenderInfo) {
         this.wallRenderInfo = wallRenderInfo;
         this.refresh = true;
+        System.out.println("wall information!!!");
     }
 
     @Override

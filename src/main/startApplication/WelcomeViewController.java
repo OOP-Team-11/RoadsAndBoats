@@ -111,14 +111,16 @@ public class WelcomeViewController {
         });
 
         // jump to mmMapMaker
-        this.mapMakerButton.setOnMouseClicked(event ->{
-            new MapMaker(primaryStage.getScene(), this);
-        });
+       // this.mapMakerButton.setOnMouseClicked(event ->{
+        //    new MapMaker(primaryStage.getScene(), this);
+        //});
 
         // options page
+        /*
         this.optionsButton.setOnMouseClicked(event ->{
             // TODO maybe if there is time
         });
+        */
 
         // exit tinyGame
         this.exitButton.setOnMouseClicked(event -> {

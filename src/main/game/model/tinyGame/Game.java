@@ -13,6 +13,7 @@ import game.utilities.observable.PhaseRenderInfoObservable;
 import game.utilities.observable.PlayerRenderInfoObservable;
 import game.utilities.observer.PhaseRenderInfoObserver;
 import game.utilities.observer.PlayerRenderInfoObserver;
+import game.utilities.observer.WallRenderInfoObserver;
 import game.view.render.PhaseRenderInfo;
 import game.view.render.PlayerRenderInfo;
 
@@ -33,6 +34,7 @@ public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservab
     private StructureManager structureManager;
     private List<PlayerRenderInfoObserver> playerRenderInfoObservers;
     private List<PhaseRenderInfoObserver> phaseRenderInfoObservers;
+    private List<WallRenderInfoObserver> wallRenderInfObservers;
     private int turnCount;
 
     public Game(RBMap map, Player player1, Player player2, GooseManager gooseManager, StructureManager structureManager) {
@@ -45,6 +47,7 @@ public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservab
         this.phase = new Phase();
         this.playerRenderInfoObservers = new ArrayList<>();
         this.phaseRenderInfoObservers = new ArrayList<>();
+        this.wallRenderInfObservers = new ArrayList<>();
         ArrayList<PlayerId> playerIds=new ArrayList<PlayerId>();
         playerIds.add(player1.getPlayerId());
         playerIds.add(player2.getPlayerId());
