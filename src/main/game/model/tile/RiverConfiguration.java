@@ -8,17 +8,17 @@ import java.util.*;
 
 public class RiverConfiguration implements Serializable {
 
-    private Map<TileEdgeDirection, Boolean> roadMap;
+    private Map<TileEdgeDirection, Boolean> riverMap;
     private int rotationAmount;
 
-    public RiverConfiguration(Map<TileEdgeDirection, Boolean> roadMap) {
-        this.roadMap = roadMap;
+    public RiverConfiguration(Map<TileEdgeDirection, Boolean> riverMap) {
+        this.riverMap = riverMap;
         this.rotationAmount = 0;
     }
 
     public RiverConfiguration(int side) {
         if (side < 1 || side > 6) throw new IllegalArgumentException("Side must be [1-6]");
-        this.roadMap = getSpringHeadMap();
+        this.riverMap = getSpringHeadMap();
         this.rotationAmount = side - 1;
     }
 
@@ -41,13 +41,13 @@ public class RiverConfiguration implements Serializable {
 
         switch (sideDifference) {
             case 1:
-                this.roadMap = getAdjacentFacesMap();
+                this.riverMap = getAdjacentFacesMap();
                 break;
             case 2:
-                this.roadMap = getSkipAFaceMap();
+                this.riverMap = getSkipAFaceMap();
                 break;
             case 3:
-                this.roadMap = getOppositeFacesMap();
+                this.riverMap = getOppositeFacesMap();
                 break;
         }
 
@@ -60,7 +60,7 @@ public class RiverConfiguration implements Serializable {
         if (side2 < side1 || side3 < side2) throw new IllegalArgumentException("Side1 < side2 < side2");
         if (side3 - side2 != 2 || side2 - side1 != 2) throw new IllegalArgumentException("Sides must be 2 apart.");
 
-        this.roadMap = getEveryOtherFaceMap();
+        this.riverMap = getEveryOtherFaceMap();
 
         if (side1 == 1) {
             this.rotationAmount = 0;
@@ -69,21 +69,21 @@ public class RiverConfiguration implements Serializable {
         }
     }
     public void rotateRiverConfigurationOnce(){
-        Boolean north = roadMap.get(TileEdgeDirection.getNorth());
-        Boolean northEast =  roadMap.get(TileEdgeDirection.getNorthEast());
-        Boolean southEast = roadMap.get(TileEdgeDirection.getSouthEast());
-        Boolean south = roadMap.get(TileEdgeDirection.getSouth());
-        Boolean southWest = roadMap.get(TileEdgeDirection.getSouthWest());
-        Boolean northWest = roadMap.get(TileEdgeDirection.getNorthWest());
+        Boolean north = riverMap.get(TileEdgeDirection.getNorth());
+        Boolean northEast =  riverMap.get(TileEdgeDirection.getNorthEast());
+        Boolean southEast = riverMap.get(TileEdgeDirection.getSouthEast());
+        Boolean south = riverMap.get(TileEdgeDirection.getSouth());
+        Boolean southWest = riverMap.get(TileEdgeDirection.getSouthWest());
+        Boolean northWest = riverMap.get(TileEdgeDirection.getNorthWest());
 
-        this.roadMap = null;
-        this.roadMap = new HashMap<>();
-        roadMap.put(TileEdgeDirection.getNorth(), northWest);
-        roadMap.put(TileEdgeDirection.getNorthEast(), north);
-        roadMap.put(TileEdgeDirection.getSouthEast(), northEast);
-        roadMap.put(TileEdgeDirection.getSouth(), southEast);
-        roadMap.put(TileEdgeDirection.getSouthWest(), south);
-        roadMap.put(TileEdgeDirection.getNorthWest(), southWest);
+        this.riverMap = null;
+        this.riverMap = new HashMap<>();
+        riverMap.put(TileEdgeDirection.getNorth(), northWest);
+        riverMap.put(TileEdgeDirection.getNorthEast(), north);
+        riverMap.put(TileEdgeDirection.getSouthEast(), northEast);
+        riverMap.put(TileEdgeDirection.getSouth(), southEast);
+        riverMap.put(TileEdgeDirection.getSouthWest(), south);
+        riverMap.put(TileEdgeDirection.getNorthWest(), southWest);
     }
 
 
@@ -104,27 +104,27 @@ public class RiverConfiguration implements Serializable {
     }
 
     public boolean canConnectNorth() {
-        return this.roadMap.get(TileEdgeDirection.getNorth());
+        return this.riverMap.get(TileEdgeDirection.getNorth());
     }
 
     public boolean canConnectNortheast() {
-        return this.roadMap.get(TileEdgeDirection.getNorthEast());
+        return this.riverMap.get(TileEdgeDirection.getNorthEast());
     }
 
     public boolean canConnectSoutheast() {
-        return this.roadMap.get(TileEdgeDirection.getSouthEast());
+        return this.riverMap.get(TileEdgeDirection.getSouthEast());
     }
 
     public boolean canConnectSouth() {
-        return this.roadMap.get(TileEdgeDirection.getSouth());
+        return this.riverMap.get(TileEdgeDirection.getSouth());
     }
 
     public boolean canConnectSouthwest() {
-        return this.roadMap.get(TileEdgeDirection.getSouthWest());
+        return this.riverMap.get(TileEdgeDirection.getSouthWest());
     }
 
     public boolean canConnectNorthwest() {
-        return this.roadMap.get(TileEdgeDirection.getNorthWest());
+        return this.riverMap.get(TileEdgeDirection.getNorthWest());
     }
 
     public static RiverConfiguration getNoRivers() {
@@ -189,7 +189,7 @@ public class RiverConfiguration implements Serializable {
     @Override
     public int hashCode()
     {
-        return Objects.hash(roadMap, rotationAmount);
+        return Objects.hash(riverMap, rotationAmount);
     }
 
     @Override
@@ -202,17 +202,17 @@ public class RiverConfiguration implements Serializable {
 
         RiverConfiguration rc = (RiverConfiguration)o;
 
-        return rc.roadMap.equals(roadMap) && rotationAmount == rc.rotationAmount;
+        return rc.riverMap.equals(riverMap) && rotationAmount == rc.rotationAmount;
     }
 
     public boolean canConnect(TileEdgeDirection dir)
     {
-        return roadMap.get(dir);
+        return riverMap.get(dir);
     }
 
     private int getNumRivers() {
         int numRivers = 0;
-        for (Boolean hasRiver : roadMap.values()) {
+        for (Boolean hasRiver : riverMap.values()) {
             if (hasRiver) numRivers++;
         }
         return numRivers;
@@ -242,7 +242,7 @@ public class RiverConfiguration implements Serializable {
         if (getNumRivers() == 6) return "";
         sb.append("( ");
 
-        Iterator it = roadMap.entrySet().iterator();
+        Iterator it = riverMap.entrySet().iterator();
         List<Integer> riverConnections = new ArrayList<>();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
