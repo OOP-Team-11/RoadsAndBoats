@@ -1,6 +1,7 @@
 package game.controller;
 
 
+import game.view.SaveLoadView;
 import game.view.ViewHandler;
 
 
@@ -23,6 +24,7 @@ public class ControllerManager {
         setupSaveLoadViewController();
         setupTrasportViewController();
         setupWonderViewController();
+        giveStageToSaveLoadControlle();
     }
 
     private void setUpViewHandler(ViewHandler viewHandler){
@@ -46,8 +48,13 @@ public class ControllerManager {
     private void setupOptionsViewController(){
         this.optionsViewController = new OptionsViewController(viewHandler.getOptionsViewReference());
     }
+    private void giveStageToSaveLoadControlle(){
+        this.saveLoadViewController.setPrimaryStage(viewHandler.getPrimaryStage());
+    }
 
     public MainViewController getMainViewController() {
         return mainViewController;
     }
+
+    public SaveLoadViewController getSaveLoadVieController() { return  saveLoadViewController; }
 }

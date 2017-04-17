@@ -113,6 +113,9 @@ public class ViewHandler {
         this.hbox.setSpacing(0.0);
         // at the start of the tinyGame mainView is active
     }
+    public Stage getPrimaryStage(){
+        return primaryStage;
+    }
 
     public MainView getMainViewReference(){
         return this.mainView;
