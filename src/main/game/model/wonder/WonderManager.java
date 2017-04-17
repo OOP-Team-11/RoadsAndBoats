@@ -1,16 +1,19 @@
 package game.model.wonder;
 
 import game.model.PlayerId;
+import game.utilities.observable.WonderRenderInfoObservable;
+import game.utilities.observer.WonderRenderInfoObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WonderManager implements TurnObserver {
+public class WonderManager implements TurnObserver, WonderRenderInfoObservable {
 
     private Wonder wonder;
     private Irrigatable irrigatable;
     private boolean irrigationHasOcurred = false;
     private List<TurnObserver> turnObservers;
+    private List<WonderRenderInfoObserver> wonderRenderInfoObservers;
 
     public int getBrickCost(PlayerId playerId){
         return wonder.getCurrentBrickCost(playerId);
@@ -22,6 +25,7 @@ public class WonderManager implements TurnObserver {
         this.turnObservers.add(wonder);
         this.irrigatable = irrigatable;
         this.wonder.setIrrigationPoint(new IrrigationPoint(10, 1));
+        this.wonderRenderInfoObservers = new ArrayList<>();
     }
 
     public void turnDesertToPasture(Irrigatable irrigatable) {
@@ -46,6 +50,10 @@ public class WonderManager implements TurnObserver {
         }
     }
 
+    public List<WonderBrick> getOrderedWonderBricks() {
+        return wonder.getOrderedWonderBricks();
+    }
+
     @Override
     public void onTurnEnded(){
         for (TurnObserver observer : this.turnObservers) {
@@ -66,4 +74,13 @@ public class WonderManager implements TurnObserver {
         irrigationHasOcurred = true;
     }
 
+    @Override
+    public void attach(WonderRenderInfoObserver observer) {
+        this.wonderRenderInfoObservers.add(observer);
+    }
+
+    @Override
+    public void detach(WonderRenderInfoObserver observer) {
+        this.wonderRenderInfoObservers.remove(observer);
+    }
 }
