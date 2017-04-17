@@ -244,7 +244,7 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
             if(this.playerRenderInfo.getPlayerID().getPlayerIdNumber() == 1){
                 drawPlayer1Images();
             } else {
-                drawPlayer1Images();
+                drawPlayer2Images();
             }
 
         }
