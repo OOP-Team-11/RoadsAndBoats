@@ -313,27 +313,27 @@ public class Assets {
             TRUCK_BLUE = new Image(this.getClass().getResourceAsStream("/player/truck_blue.png"));
             WAGON_BLUE = new Image(this.getClass().getResourceAsStream("/player/wagon_blue.png"));
 
-            //TODO other Walls
+
             WALL_NEUTRAL_NORTH = new Image(this.getClass().getResourceAsStream("/walls/neutralWall/neutralwall_N.png"));
-//            WALL_NEUTRAL_NORTHEAST = new Image(this.getClass().getResourceAsStream("/"));
-//            WALL_NEUTRAL_SOUTHEAST = new Image(this.getClass().getResourceAsStream("/"));
+            WALL_NEUTRAL_NORTHEAST = new Image(this.getClass().getResourceAsStream("/walls/neutralWall/neutralwall_NE.png"));
+            WALL_NEUTRAL_SOUTHEAST = new Image(this.getClass().getResourceAsStream("/walls/neutralWall/neutralwall_SE.png"));
             WALL_NEUTRAL_SOUTH = new Image(this.getClass().getResourceAsStream("/walls/neutralWall/neutralwall_S.png"));
-//            WALL_NEUTRAL_SOUTHWEST = new Image(this.getClass().getResourceAsStream("/"));
-//            WALL_NEUTRAL_NORTHWEST = new Image(this.getClass().getResourceAsStream("/"));
+            WALL_NEUTRAL_SOUTHWEST = new Image(this.getClass().getResourceAsStream("/walls/neutralWall/neutralwall_SW.png"));
+            WALL_NEUTRAL_NORTHWEST = new Image(this.getClass().getResourceAsStream("/walls/neutralWall/neutralwall_NW.png"));
 
             WALL_RED_NORTH = new Image(this.getClass().getResourceAsStream("/walls/redWall/redwall_N.png"));
-//            WALL_RED_NORTHEAST = new Image(this.getClass().getResourceAsStream("/"));
-//            WALL_RED_SOUTHEAST = new Image(this.getClass().getResourceAsStream("/"));
+            WALL_RED_NORTHEAST = new Image(this.getClass().getResourceAsStream("/walls/redWall/redwall_NE.png"));
+            WALL_RED_SOUTHEAST = new Image(this.getClass().getResourceAsStream("/walls/redWall/redwall_SE.png"));
             WALL_RED_SOUTH = new Image(this.getClass().getResourceAsStream("/walls/redWall/redwall_S.png"));
-//            WALL_RED_SOUTHWEST = new Image(this.getClass().getResourceAsStream("/"));
-//            WALL_RED_NORTHWEST = new Image(this.getClass().getResourceAsStream("/"));
+            WALL_RED_SOUTHWEST = new Image(this.getClass().getResourceAsStream("/walls/redWall/redwall_SW.png"));
+            WALL_RED_NORTHWEST = new Image(this.getClass().getResourceAsStream("/walls/redWall/redwall_NW.png"));
 
             WALL_BLUE_NORTH = new Image(this.getClass().getResourceAsStream("/walls/blueWall/bluewall_N.png"));
-//            WALL_BLUE_NORTHEAST = new Image(this.getClass().getResourceAsStream("/"));
-//            WALL_BLUE_SOUTHEAST = new Image(this.getClass().getResourceAsStream("/"));
+           WALL_BLUE_NORTHEAST = new Image(this.getClass().getResourceAsStream("/walls/blueWall/bluewall_NE.png"));
+            WALL_BLUE_SOUTHEAST = new Image(this.getClass().getResourceAsStream("/walls/blueWall/bluewall_SE.png"));
             WALL_BLUE_SOUTH = new Image(this.getClass().getResourceAsStream("/walls/blueWall/bluewall_S.png"));
-//            WALL_BLUE_SOUTHWEST = new Image(this.getClass().getResourceAsStream("/"));
-//            WALL_BLUE_NORTHWEST = new Image(this.getClass().getResourceAsStream("/"));
+            WALL_BLUE_SOUTHWEST = new Image(this.getClass().getResourceAsStream("/walls/blueWall/bluewall_SW.png"));
+            WALL_BLUE_NORTHWEST = new Image(this.getClass().getResourceAsStream("/walls/blueWall/bluewall_NW.png"));
 
             MINE_AMOUNT_0 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number0.png"));
             MINE_AMOUNT_1 = new Image(this.getClass().getResourceAsStream("/buildings/mine_number1.png"));
