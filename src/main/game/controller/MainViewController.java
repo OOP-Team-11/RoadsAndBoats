@@ -9,6 +9,7 @@ import game.model.tinyGame.Game;
 import game.model.transport.TransportId;
 import game.view.MainView;
 import game.view.render.CursorRenderInfo;
+import game.view.render.PhaseRenderInfo;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
@@ -125,6 +126,9 @@ public class MainViewController {
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent e) {
                 TransportId selectedTransport = mainView.getCurrentlySelectedTransportID();
+                PhaseRenderInfo info = mainView.getCurentPhaseInformation();
+                // TODO 
+
                 Location transportLocation = mainView.getRightClickedLocation();
                 for(TransportManager tm : transportManagers)
                     tm.onTransportSelected(selectedTransport, transportLocation);
