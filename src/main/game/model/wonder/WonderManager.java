@@ -65,7 +65,7 @@ public class WonderManager implements WonderPhaseEndedObserver, WonderRenderInfo
         irrigationHasOcurred = true;
     }
 
-    private void notifyWonderRenderInfoObservers() {
+    public void notifyWonderRenderInfoObservers() {
         WonderRenderInfo wonderRenderInfo = new WonderRenderInfo(this);
         for (WonderRenderInfoObserver observer : this.wonderRenderInfoObservers) {
             observer.updateWonderInfo(wonderRenderInfo);
