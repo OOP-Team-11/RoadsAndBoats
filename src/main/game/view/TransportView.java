@@ -172,31 +172,24 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
         this.raftList = new ArrayList<>();
         this.rowBoatList = new ArrayList<>();
         this.steamShipList = new ArrayList<>();
-        this.donkeyList.add("# | Move | Carry | Followers |                      Resources                 |");
-        this.wagonList.add("# | Move | Carry | Followers |                      Resources                 |");
-        this.truckList.add("# | Move | Carry | Followers |                      Resources                 |");
-        this.raftList.add("# | Move | Carry | Followers |                      Resources                 |");
-        this.rowBoatList.add("# | Move | Carry | Followers |                      Resources                 |");
-        this.steamShipList.add("# | Move | Carry | Followers |                      Resources                 |");
-
     }
     private void clearsLists(){
-        while(this.donkeyList.size() > 1){
+        while(this.donkeyList.size() > 0){
             this.donkeyList.remove(donkeyList.size()-1); // remove everything but first element
         }
-        while(this.truckList.size() > 1){
+        while(this.truckList.size() > 0){
             this.truckList.remove(truckList.size()-1); // remove everything but first element
         }
-        while(this.wagonList.size() > 1){
+        while(this.wagonList.size() > 0){
             this.wagonList.remove(wagonList.size()-1); // remove everything but first element
         }
-        while(this.raftList.size() > 1){
+        while(this.raftList.size() > 0){
             this.raftList.remove(raftList.size()-1); // remove everything but first element
         }
-        while(this.rowBoatList.size() > 1){
+        while(this.rowBoatList.size() > 0){
             this.rowBoatList.remove(rowBoatList.size()-1); // remove everything but first element
         }
-        while(this.donkeyList.size() > 1){
+        while(this.donkeyList.size() > 0){
             this.steamShipList.remove(steamShipList.size()-1); // remove everything but first element
         }
     }
@@ -213,12 +206,13 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
             //("# | Move | Carry | Followers |                      Resources                 |");
             for(TransportRenderInfo transportRenderInfo : entry.getValue()){
                 StringBuilder builder = new StringBuilder();
-                builder.append("    " + transportRenderInfo.getMoveCapacity() + "         ");
-                builder.append(transportRenderInfo.getCarryCapacity() + "         ");
-                builder.append(transportRenderInfo.getFollowers() + "         ");
+                builder.append("     move:" + transportRenderInfo.getMoveCapacity() + "              ");
+                builder.append("carry:" +transportRenderInfo.getCarryCapacity() + "            ");
+                builder.append("followers:" +transportRenderInfo.getFollowers() + "           \n");
+                builder.append(transportRenderInfo.getResourceString());
 
                 if(transportRenderInfo.getTransportType().equals(TransportType.DONKEY)){
-                    builder.insert(0,donkeyList.size());
+                    builder.insert(0,"#" +donkeyList.size());
                     donkeyList.add(builder.toString());
                 } else if(transportRenderInfo.getTransportType().equals(TransportType.ROWBOAT)){
                     builder.insert(0,rowBoatList.size());

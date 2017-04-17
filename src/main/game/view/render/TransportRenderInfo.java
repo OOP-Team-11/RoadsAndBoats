@@ -43,26 +43,18 @@ public class TransportRenderInfo
     }
 
     public TransportId getTransportID() { return transport.getTransportId(); }
-
-    /*
-    Boards: #   Clay: #   Gold: # \n
-    Coin: #     Fuel: #     Geese: #     Iron: # \n
-    Paper:#        Stock:#        Stone: #     Trunks: #
-     */
+    
     public String getResourceString() {
         ResourceManager resourceManager = transport.getResourceManager();
         StringBuilder sb = new StringBuilder();
         sb.append("Boards:").append(resourceManager.getResourceCount(ResourceType.BOARDS)).append("\t");
         sb.append("Clay:").append(resourceManager.getResourceCount(ResourceType.CLAY)).append("\t");
         sb.append("Gold:").append(resourceManager.getResourceCount(ResourceType.GOLD)).append("\t");
-        sb.append("\n");
-
         sb.append("Coin:").append(resourceManager.getResourceCount(ResourceType.COINS)).append("\t");
         sb.append("Fuel:").append(resourceManager.getResourceCount(ResourceType.FUEL)).append("\t");
         sb.append("Geese:").append(resourceManager.getResourceCount(ResourceType.GOOSE)).append("\t");
-        sb.append("Iron:").append(resourceManager.getResourceCount(ResourceType.IRON)).append("\t");
         sb.append("\n");
-
+        sb.append("Iron:").append(resourceManager.getResourceCount(ResourceType.IRON)).append("\t");
         sb.append("Paper:").append(resourceManager.getResourceCount(ResourceType.PAPER)).append("\t");
         sb.append("Stock:").append(resourceManager.getResourceCount(ResourceType.STOCKBOND)).append("\t");
         sb.append("Stone:").append(resourceManager.getResourceCount(ResourceType.STONE)).append("\t");
