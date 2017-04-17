@@ -1,29 +1,34 @@
 package game.view;
 
 import game.model.direction.TileCompartmentLocation;
+import game.model.transport.TransportType;
 import game.utilities.observer.MapTransportRenderInfoObserver;
+import game.utilities.observer.PlayerRenderInfoObserver;
 import game.utilities.observer.TransportRenderInfoObserver;
 import game.view.render.MapTransportRenderInfo;
+import game.view.render.PlayerRenderInfo;
 import game.view.render.TransportRenderInfo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
-public class TransportView extends View implements TransportRenderInfoObserver, MapTransportRenderInfoObserver {
+public class TransportView extends View implements TransportRenderInfoObserver, MapTransportRenderInfoObserver, PlayerRenderInfoObserver {
 
     private AnchorPane anchorPane;
     private TransportRenderInfo transportRenderInfo;
-    private MapTransportRenderInfo mapTransportRenderInfo;
+    private MapTransportRenderInfo mapTransportRenderInfoP1;
+    private MapTransportRenderInfo mapTransportRenderInfoP2;
+    private PlayerRenderInfo playerRenderInfo;
     private Canvas canvas;
     private GraphicsContext gc;
     private Boolean newData = false;
@@ -35,11 +40,10 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
     private ListView steamShipTable;
     private ArrayList<String> donkeyList;
     private ArrayList<String> wagonList;
-    private ArrayList<String> trunkList;
+    private ArrayList<String> truckList;
     private ArrayList<String> raftList;
     private ArrayList<String> rowBoatList;
     private ArrayList<String> steamShipList;
-    private int currentPlayer;
 
     public TransportView(AnchorPane anchorPane)
     {
@@ -164,60 +168,93 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
     private void initializeLists(){
         this.donkeyList = new ArrayList<>();
         this.wagonList = new ArrayList<>();
-        this.trunkList = new ArrayList<>();
+        this.truckList = new ArrayList<>();
         this.raftList = new ArrayList<>();
         this.rowBoatList = new ArrayList<>();
         this.steamShipList = new ArrayList<>();
-        this.donkeyList.add("# | Move | Carry | Followers |                      Resources                 |");
-        this.wagonList.add("# | Move | Carry | Followers |                      Resources                 |");
-        this.trunkList.add("# | Move | Carry | Followers |                      Resources                 |");
-        this.raftList.add("# | Move | Carry | Followers |                      Resources                 |");
-        this.rowBoatList.add("# | Move | Carry | Followers |                      Resources                 |");
-        this.steamShipList.add("# | Move | Carry | Followers |                      Resources                 |");
-
     }
     private void clearsLists(){
-        while(this.donkeyList.size() > 1){
+        while(this.donkeyList.size() > 0){
             this.donkeyList.remove(donkeyList.size()-1); // remove everything but first element
         }
-        while(this.trunkList.size() > 1){
-            this.trunkList.remove(trunkList.size()-1); // remove everything but first element
+        while(this.truckList.size() > 0){
+            this.truckList.remove(truckList.size()-1); // remove everything but first element
         }
-        while(this.wagonList.size() > 1){
+        while(this.wagonList.size() > 0){
             this.wagonList.remove(wagonList.size()-1); // remove everything but first element
         }
-        while(this.raftList.size() > 1){
+        while(this.raftList.size() > 0){
             this.raftList.remove(raftList.size()-1); // remove everything but first element
         }
-        while(this.rowBoatList.size() > 1){
+        while(this.rowBoatList.size() > 0){
             this.rowBoatList.remove(rowBoatList.size()-1); // remove everything but first element
         }
-        while(this.donkeyList.size() > 1){
+        while(this.donkeyList.size() > 0){
             this.steamShipList.remove(steamShipList.size()-1); // remove everything but first element
         }
     }
     private void updateLists(){
-        /*
-        for ( Map.Entry<TileCompartmentLocation, TransportRenderInfo> entry : mapTransportRenderInfo.getTransports().entrySet())
+
+        MapTransportRenderInfo mapTransportRenderInfo;
+        if(playerRenderInfo.getPlayerID().getPlayerIdNumber() == 1){
+            mapTransportRenderInfo = mapTransportRenderInfoP1;
+        } else {
+            mapTransportRenderInfo = mapTransportRenderInfoP2;
+        }
+        for(Map.Entry<TileCompartmentLocation, List<TransportRenderInfo>> entry : mapTransportRenderInfo.getTransports().entrySet())
         {
-            Image image;
-            if(entry.getValue().getOwner().getPlayerIdNumber() == 1){
+            //("# | Move | Carry | Followers |                      Resources                 |");
+            for(TransportRenderInfo transportRenderInfo : entry.getValue()){
+                StringBuilder builder = new StringBuilder();
+                builder.append("     move:" + transportRenderInfo.getMoveCapacity() + "              ");
+                builder.append("carry:" +transportRenderInfo.getCarryCapacity() + "            ");
+                builder.append("followers:" +transportRenderInfo.getFollowers() + "           \n");
+                builder.append(transportRenderInfo.getResourceString());
+
+                if(transportRenderInfo.getTransportType().equals(TransportType.DONKEY)){
+                    builder.insert(0,"#" +donkeyList.size());
+                    donkeyList.add(builder.toString());
+                } else if(transportRenderInfo.getTransportType().equals(TransportType.ROWBOAT)){
+                    builder.insert(0,rowBoatList.size());
+                    rowBoatList.add(builder.toString());
+                } else if(transportRenderInfo.getTransportType().equals(TransportType.RAFT)){
+                    builder.insert(0,raftList.size());
+                    raftList.add(builder.toString());
+                } else if(transportRenderInfo.getTransportType().equals(TransportType.TRUCK)){
+                    builder.insert(0,truckList);
+                    truckList.add(builder.toString());
+                } else if(transportRenderInfo.getTransportType().equals(TransportType.WAGON)){
+                    builder.insert(0,wagonList.size());
+                    wagonList.add(builder.toString());
+                } else if(transportRenderInfo.getTransportType().equals(TransportType.STEAMSHIP)){
+                    builder.insert(0,steamShipList.size());
+                    steamShipList.add(builder.toString());
+                } else {
+                    System.out.println("ERROR");
+                }
+
+            }
+        }
+    }
+
+    private void drawPlayerImages(){
+        if(this.playerRenderInfo == null){
+            // nothing
+        } else{
+            if(this.playerRenderInfo.getPlayerID().getPlayerIdNumber() == 1){
                 drawPlayer1Images();
             } else {
-                drawPlayer2Images();
+                drawPlayer1Images();
             }
-            int x = entry.getKey().getLocation().getX();
-            int y = entry.getKey().getLocation().getY();
-            int z = entry.getKey().getLocation().getZ();
+
         }
-        */
     }
 
 
     private void setLists(){
         setDonkeyList(FXCollections.observableArrayList(donkeyList));
         setWagonList(FXCollections.observableArrayList(wagonList));
-        setTruckList(FXCollections.observableArrayList(trunkList));
+        setTruckList(FXCollections.observableArrayList(truckList));
         setRaftList(FXCollections.observableArrayList(raftList));
         setRowBoatList(FXCollections.observableArrayList(rowBoatList));
         setSteamShipList(FXCollections.observableArrayList(steamShipList));
@@ -278,8 +315,18 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
         if(newData){
             clearCanvas();
             clearsLists();
+            setCanvasBackground();
+            setBoxRenderingSize();
+            drawDonkeyBox();
+            drawWagonBox();
+            drawTruckBox();
+            drawRaftBox();
+            drawRowboatBox();
+            drawSteamShipBox();
+            drawPlayerImages();
+            drawTitle();
             updateLists();
-
+            setLists();
             this.newData = false;
         }
     }
@@ -293,7 +340,17 @@ public class TransportView extends View implements TransportRenderInfoObserver, 
 
     @Override
     public void updateMapTransportInfo(MapTransportRenderInfo mapTransportRenderInfo) {
-        this.mapTransportRenderInfo = mapTransportRenderInfo;
+        if(mapTransportRenderInfo.getPlayerId().getPlayerIdNumber() == 1){
+            this.mapTransportRenderInfoP1 = mapTransportRenderInfo;
+        } else {
+            this.mapTransportRenderInfoP2 = mapTransportRenderInfo;
+        }
+        this.newData = true;
+    }
+
+    @Override
+    public void updatePlayerInfo(PlayerRenderInfo playerRenderInfo) {
+        this.playerRenderInfo = playerRenderInfo;
         this.newData = true;
     }
 }
