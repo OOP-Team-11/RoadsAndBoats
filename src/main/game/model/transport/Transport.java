@@ -105,7 +105,7 @@ public abstract class Transport implements Serializable {
         return resourceManager.getResourceCount(desiredType);
     }
 
-    private boolean canStoreResource(int number) {
+    public boolean canStoreResource(int number) {
         return (currentCarryCapacity != 0)
                 && (currentCarryCapacity >= number);
     }

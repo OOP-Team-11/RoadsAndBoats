@@ -60,7 +60,14 @@ public class TransportAbilityManager {
         this.addBuildStoneFactoryAbility(transport, tileCompartmentLocation);
         this.addBuildCoalBurnerAbility(transport, tileCompartmentLocation);
         this.addBuildMineAbility(transport, tileCompartmentLocation);
-
+        this.addBuildMintAbility(transport, tileCompartmentLocation);
+        this.addBuildRowboatFactoryAbility(transport, tileCompartmentLocation);
+        this.addBuildSteamshipFactoryAbility(transport, tileCompartmentLocation);
+        this.addBuildTruckFactoryAbility(transport, tileCompartmentLocation);
+        this.addBuildStockExchangeAbility(transport, tileCompartmentLocation);
+        this.addPickUpResourceAbility(transport, tileCompartmentLocation);
+        this.addDropResourceAbility(transport, tileCompartmentLocation);
+        this.addPickUpTransportAbility(transport, tileCompartmentLocation, tileTransports.get(tileCompartmentLocation.getTileCompartmentDirection()));
     }
 
     private Set<Move> getValidMoves(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports)
@@ -100,7 +107,7 @@ public class TransportAbilityManager {
             ability.detachFromController();
     }
 
-    private void addFollowAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    public void addFollowAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         List<Goose> availableGeese = gooseManager.getMapGeese().get(tileCompartmentLocation);
         Vector<Goose> abilityGeese = new Vector<Goose>();
         if(availableGeese == null)
@@ -113,7 +120,7 @@ public class TransportAbilityManager {
         }
     }
 
-    private void addTransportReproduceAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports) {
+    public void addTransportReproduceAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, Map<TileCompartmentDirection, List<Transport>> tileTransports) {
         if (!transport.canReproduce())
             return;
         else {
@@ -138,7 +145,7 @@ public class TransportAbilityManager {
             Map<TileCompartment, List<Transport>> tileCompartmentTransports = new HashMap<TileCompartment, List<Transport>>();
             for(TileCompartmentDirection d : tileTransports.keySet()) {
                 TileCompartment currentTileCompartment = tile.getTileCompartment(d);
-                tileCompartmentTransports.computeIfAbsent(currentTileCompartment, k -> tileTransports.get(d));
+                tileCompartmentTransports.put(currentTileCompartment, tileTransports.get(d));
             }
 //            Make sure only the tileCompartment our transport is located in has another transport and theres only 1 other
             if(tileCompartmentTransports.size() == 1
@@ -157,7 +164,7 @@ public class TransportAbilityManager {
         }
     }
 
-    private void addBuildWoodCutterAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    public void addBuildWoodCutterAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         Tile tile = map.getTile(tileCompartmentLocation.getLocation());
         if(tile.getStructure() != null)
             return;
@@ -171,7 +178,7 @@ public class TransportAbilityManager {
         }
     }
 
-    private void addBuildClayPitAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    public void addBuildClayPitAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         Tile tile = map.getTile(tileCompartmentLocation.getLocation());
         if(tile.getStructure() != null)
             return;
@@ -186,7 +193,7 @@ public class TransportAbilityManager {
         }
     }
 
-    private void addBuildStoneQuarryAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    public void addBuildStoneQuarryAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         Tile tile = map.getTile(tileCompartmentLocation.getLocation());
         if(tile.getStructure() != null)
             return;
@@ -200,7 +207,7 @@ public class TransportAbilityManager {
         }
     }
 
-    private void addBuildSawmillAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    public void addBuildSawmillAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         Tile tile = map.getTile(tileCompartmentLocation.getLocation());
         if(tile.getStructure() != null)
             return;
@@ -216,7 +223,7 @@ public class TransportAbilityManager {
         }
     }
 
-    private void addBuildPapermillAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    public void addBuildPapermillAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         Tile tile = map.getTile(tileCompartmentLocation.getLocation());
         if(tile.getStructure() != null)
             return;
@@ -232,7 +239,7 @@ public class TransportAbilityManager {
         }
     }
 
-    private void addBuildStoneFactoryAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    public void addBuildStoneFactoryAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         Tile tile = map.getTile(tileCompartmentLocation.getLocation());
         if(tile.getStructure() != null)
             return;
@@ -246,7 +253,7 @@ public class TransportAbilityManager {
         }
     }
 
-    private void addBuildCoalBurnerAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    public void addBuildCoalBurnerAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         Tile tile = map.getTile(tileCompartmentLocation.getLocation());
         if(tile.getStructure() != null)
             return;
@@ -260,7 +267,7 @@ public class TransportAbilityManager {
         }
     }
 
-    private void addBuildMineAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+    public void addBuildMineAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
         Tile tile = map.getTile(tileCompartmentLocation.getLocation());
         if(tile.getStructure() != null)
             return;
@@ -269,9 +276,141 @@ public class TransportAbilityManager {
                     && (transport.getResourceCount(ResourceType.STONE) >= 1)
                     && tile.getTerrain() != Terrain.SEA);
             if(canProduce) {
-                BuildMineAbility buildAbility = abilityFactory.getBuildMineAbility(this.structureManagerVisitor);
+                BuildMineAbility buildRegularMineAbility = abilityFactory.getBuildMineAbility(this.structureManagerVisitor);
+                buildRegularMineAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
+                addAbility(buildRegularMineAbility);
+
+                BuildGoldMineAbility buildGoldMineAbility = abilityFactory.getBuildGoldMineAbility(this.structureManagerVisitor);
+                buildGoldMineAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
+                addAbility(buildGoldMineAbility);
+
+                BuildIronMineAbility buildIronMineAbility = abilityFactory.getBuildIronMineAbility(this.structureManagerVisitor);
+                buildIronMineAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
+                addAbility(buildIronMineAbility);
+            }
+        }
+    }
+
+    public void addBuildMintAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        if(tile.getStructure() != null)
+            return;
+        else {
+            boolean canProduce = (transport.getResourceCount(ResourceType.BOARDS) >= 2
+                    && (transport.getResourceCount(ResourceType.STONE) >= 1)
+                    && tile.getTerrain() != Terrain.SEA);
+            if(canProduce) {
+                BuildMintAbility buildAbility = abilityFactory.getBuildMintAbility(this.structureManagerVisitor);
                 buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
                 addAbility(buildAbility);
+            }
+        }
+    }
+
+    public void addBuildRowboatFactoryAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        if(tile.getStructure() != null)
+            return;
+        else {
+            boolean canProduce = (transport.getResourceCount(ResourceType.BOARDS) >= 1
+                    && (transport.getResourceCount(ResourceType.STONE) >= 1));
+//                    && TODO: check that on river or sea shore as well
+            if(canProduce) {
+                BuildRowboatFactoryAbility buildAbility = abilityFactory.getBuildRowboatFactoryAbility(this.structureManagerVisitor);
+                buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
+                addAbility(buildAbility);
+            }
+        }
+    }
+
+    public void addBuildSteamshipFactoryAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        if(tile.getStructure() != null)
+            return;
+        else {
+            boolean canProduce = (transport.getResourceCount(ResourceType.BOARDS) >= 1
+                    && (transport.getResourceCount(ResourceType.STONE) >= 1));
+//                    && TODO: check that on river or sea shore as well
+            if(canProduce) {
+                BuildSteamshipFactoryAbility buildAbility = abilityFactory.getBuildSteamshipFactoryAbility(this.structureManagerVisitor);
+                buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
+                addAbility(buildAbility);
+            }
+        }
+    }
+
+    public void addBuildTruckFactoryAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        if(tile.getStructure() != null)
+            return;
+        else {
+            boolean canProduce = (transport.getResourceCount(ResourceType.STONE) >= 2
+                    && transport.getResourceCount(ResourceType.BOARDS) >= 2
+                    && tile.getTerrain() != Terrain.SEA);
+//                    && TODO: Enforce research check
+            if(canProduce) {
+                BuildTruckFactoryAbility buildAbility = abilityFactory.getBuildTruckFactoryAbility(this.structureManagerVisitor);
+                buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
+                addAbility(buildAbility);
+            }
+        }
+    }
+
+    public void addBuildStockExchangeAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        if(tile.getStructure() != null)
+            return;
+        else {
+            boolean canProduce = (transport.getResourceCount(ResourceType.STONE) >= 3 && tile.getTerrain() != Terrain.SEA);
+            if(canProduce) {
+                BuildStockExchangeAbility buildAbility = abilityFactory.getBuildStockExchangeAbility(this.structureManagerVisitor);
+                buildAbility.attachToController(transport.getResourceManager(), tileCompartmentLocation);
+                addAbility(buildAbility);
+            }
+        }
+    }
+
+    public void addPickUpResourceAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        ResourceManager tileCompartmentRm = tile.getTileCompartment(tileCompartmentLocation.getTileCompartmentDirection()).getResourceManager();
+        if(!transport.canStoreResource(1))
+            return;
+        int validResources = 0;
+        for(ResourceType resource : ResourceType.values()) {
+            if(tileCompartmentRm.getResourceTypeIntegerMap().get(resource) != null
+                    && tileCompartmentRm.getResourceTypeIntegerMap().get(resource) > 0) {
+                PickUpResourceAbility pickUpAbility = abilityFactory.getPickUpResourceAbility();
+                pickUpAbility.attachToController(tileCompartmentRm, transport.getResourceManager(), validResources, resource);
+                addAbility(pickUpAbility);
+                validResources++;
+            }
+        }
+    }
+
+    public void addDropResourceAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation) {
+        Tile tile = map.getTile(tileCompartmentLocation.getLocation());
+        ResourceManager tileCompartmentRm = tile.getTileCompartment(tileCompartmentLocation.getTileCompartmentDirection()).getResourceManager();
+        int validResources = 0;
+        for(ResourceType resource : ResourceType.values()) {
+            if(transport.getResourceManager().getResourceTypeIntegerMap().get(resource) != null
+                    && transport.getResourceManager().getResourceTypeIntegerMap().get(resource) > 0) {
+                DropResourceAbility dropResourceAbility = abilityFactory.getDropResourceAbility();
+                dropResourceAbility.attachToController(tileCompartmentRm, transport.getResourceManager(), resource);
+                addAbility(dropResourceAbility);
+                validResources++;
+            }
+        }
+    }
+
+
+
+    public void addPickUpTransportAbility(Transport transport, TileCompartmentLocation tileCompartmentLocation, List<Transport> tileTransports) {
+        Set<Transport> transportsListed = new HashSet<>();
+        for(Transport t : tileTransports) {
+            if(transport.canStoreTransport(t)) {
+                PickUpTransportAbility pickupTransportAbility = abilityFactory.getPickUpTransportAbility();
+                pickupTransportAbility.attachToController(t, transport);
+                addAbility(pickupTransportAbility);
             }
         }
     }
