@@ -116,6 +116,7 @@ public class Game implements PlayerRenderInfoObservable, PhaseRenderInfoObservab
 
     private void advancePhase() {
         this.phase.goToNextPhase();
+        notifyPhaseObservers();
     }
 
     private void notifyPlayerObservers() {
