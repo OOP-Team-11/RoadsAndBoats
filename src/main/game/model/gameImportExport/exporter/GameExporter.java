@@ -34,15 +34,25 @@ public class GameExporter {
 
         String mapSection = serializeMap();
         String resourceSection = serializeResources();
+        String structureSections = serializeStructures();
         try {
             fw = new FileWriter(outputFile);
             fw.write(mapSection);
             fw.write(resourceSection);
+            fw.write(structureSections);
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private String serializeStructures(){
+        String serializedStructures = "";
+
+
+
+        return serializedStructures;
     }
 
     private String serializeMap(){
@@ -62,7 +72,6 @@ public class GameExporter {
         serializedMap += "-----END MAP-----\n";
         return serializedMap;
     }
-
 
     public String serializeResources(){
         String serializedResources = "-----BEGIN RESOURCES-----\n";
