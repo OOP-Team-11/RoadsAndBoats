@@ -2,9 +2,11 @@ package game.view;
 
 import game.utilities.observer.PhaseRenderInfoObserver;
 import game.utilities.observer.PlayerRenderInfoObserver;
+import game.utilities.observer.ResearchRenderInfoObserver;
 import game.utilities.observer.TechRenderInfoObserver;
 import game.view.render.PhaseRenderInfo;
 import game.view.render.PlayerRenderInfo;
+import game.view.render.ResearchRenderInfo;
 import game.view.render.TechRenderInfo;
 import javafx.animation.*;
 import javafx.event.EventHandler;
@@ -22,7 +24,9 @@ import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
-public class ResearchView extends View implements TechRenderInfoObserver, PlayerRenderInfoObserver, PhaseRenderInfoObserver {
+public class ResearchView extends View implements TechRenderInfoObserver, PlayerRenderInfoObserver,
+        PhaseRenderInfoObserver, ResearchRenderInfoObserver
+{
 
     private AnchorPane anchorPane;
     private TechRenderInfo techRenderInfo;
@@ -385,5 +389,11 @@ public class ResearchView extends View implements TechRenderInfoObserver, Player
         this.currentPhaseRenderInfo = phaseRenderInfo;
         this.newData = true;
         drawPhase();
+    }
+
+    @Override
+    public void updateResearchInfo(ResearchRenderInfo info)
+    {
+        //TODO
     }
 }
