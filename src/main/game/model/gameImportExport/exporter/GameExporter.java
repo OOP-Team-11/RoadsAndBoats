@@ -38,8 +38,8 @@ public class GameExporter {
         File outputFile = new File(filePath);
         FileWriter fw;
 
-        String mapSection = serializeMap();
-        String resourceSection = serializeResources();
+        String mapSection = serializeMap() + "\n";
+        String resourceSection = serializeResources() + "\n";
         String structureSections = serializeStructures(game.getStructureSet());
         try {
             fw = new FileWriter(outputFile);
@@ -54,14 +54,15 @@ public class GameExporter {
 
     private String serializeStructures(Map<TileCompartmentLocation, Structure> structures){
         String serializedStructures = "";
-        serializedStructures += serializeMines(structures);
-        serializedStructures += serializeOilRigs(structures);
+        serializedStructures += serializeMines(structures) + "\n";
+        serializedStructures += serializeOilRigs(structures) + "\n";
+        serializedStructures += serializeTheRest(structures) + "\n";
 
         return serializedStructures;
     }
 
     private String serializeOilRigs(Map<TileCompartmentLocation,Structure> allStructures){
-        String oilRigString = "-----BEGIN OIL RIGS-----\n";
+        String oilRigString = "-----BEGIN " + StructureType.OIL_RIG.name() + "-----\n";
 
         TileCompartmentLocation[] tileCompartmentLocations = new TileCompartmentLocation[allStructures.size()];
         allStructures.keySet().toArray(tileCompartmentLocations);
@@ -83,7 +84,7 @@ public class GameExporter {
             }
         }
 
-        oilRigString += "-----END OIL RIGS-----\n";
+        oilRigString += "-----END " + StructureType.OIL_RIG.name() + "-----\n";
         return oilRigString;
     }
 
@@ -110,6 +111,28 @@ public class GameExporter {
 
         minesList += "-----END MINES-----\n";
         return minesList;
+    }
+
+    private String serializeTheRest(Map<TileCompartmentLocation,Structure> allStructures){
+        String wholeList = "";
+        StructureType[] simpleStructures = {
+                StructureType.CLAYPIT, StructureType.STONE_QUARRY, StructureType.WOODCUTTER,
+                StructureType.MINT, StructureType.PAPERMILL
+        };
+
+        /* Iterate through all the types */
+        for(StructureType type : simpleStructures){
+            String subsection = "-----BEGIN " + type.name() + "-----\n";
+
+
+
+            subsection += "-----END " + type.name() + "-----\n";
+            wholeList += subsection + "\n";
+        }
+
+
+
+        return wholeList;
     }
 
     private String serializeMap(){

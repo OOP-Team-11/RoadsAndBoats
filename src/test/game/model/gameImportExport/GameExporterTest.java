@@ -178,6 +178,11 @@ public class GameExporterTest {
         );
     }
 
+    @Test
+    public void oilRigSectionTest(){
+
+    }
+
 
     private String readFile(String filepath){
         File f = new File(filepath);

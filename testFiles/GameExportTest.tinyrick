@@ -5,6 +5,7 @@
 ( -2 1 1 ) WOODS ( 1 3 )
 ( 1 0 -1 ) MOUNTAIN 
 -----END MAP-----
+
 -----BEGIN RESOURCES-----
 ( 0 0 0 )  N BOARDS 1
 ( 0 0 0 )  N PAPER 10
@@ -14,11 +15,30 @@
 ( 1 0 -1 )  N TRUNKS 5
 ( 1 0 -1 )  N CLAY 6
 -----END RESOURCES-----
+
 -----BEGIN MINES-----
 ( 0 -1 1 ) S MAX=[GOLD=4 IRON=8] CURRENT=[GOLD=4 IRON=8]
 ( 1 0 -1 ) SSW MAX=[GOLD=10 IRON=10] CURRENT=[GOLD=10 IRON=10]
 -----END MINES-----
------BEGIN OIL RIGS-----
+
+-----BEGIN OIL_RIG-----
 ( 0 -1 1 ) N [BOARDS=5 COINS=2 ]
 ( 1 0 -1 ) NW [GOLD=29 TRUNKS=1 ]
------END OIL RIGS-----
+-----END OIL_RIG-----
+
+-----BEGIN CLAYPIT-----
+-----END CLAYPIT-----
+
+-----BEGIN STONE_QUARRY-----
+-----END STONE_QUARRY-----
+
+-----BEGIN WOODCUTTER-----
+-----END WOODCUTTER-----
+
+-----BEGIN MINT-----
+-----END MINT-----
+
+-----BEGIN PAPERMILL-----
+-----END PAPERMILL-----
+
+
